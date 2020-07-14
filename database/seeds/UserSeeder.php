@@ -24,16 +24,13 @@ class UserSeeder extends Seeder
         // insert User by roles
         $admin = App\Role::where('type', 'admin')->first();
         factory(App\User::class, 1)->create([
-            'role' => $admin->id,
+            'role_id' => $admin->id,
             'username' => 'admin'
         ]);
 
-        $roles = App\Role::where('type','!=', 'admin')->get();
-        foreach($roles as $role)
-        {
-            factory(App\User::class, 30)->create([
-                'role' => $role->id
-            ]);
-        }
+        // $roles = App\Role::where('type','!=', 'admin')->get();
+        factory(App\User::class, 30)->create([
+            // 'role' => $role->id
+        ]);
     }
 }

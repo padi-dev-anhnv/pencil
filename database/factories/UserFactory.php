@@ -22,6 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'username' => $faker->unique()->userName,
+        'role_id' => \App\Role::where('type', '!=', 'admin')->inRandomOrder()->first()->id,
         'sale_office' => $faker->address,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
