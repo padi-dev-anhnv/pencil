@@ -19,8 +19,8 @@
 		</header>
 
 		<div class="login_content">
-			<form>
-
+			<form action="{{ route('postLogin') }}" method="POST">
+                @csrf
 				<h3>ユーザーアカウント</h3>
 				<input name="username" value="" type="text" required>
 

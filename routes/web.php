@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'GuideController@index')->name('guide.index');
 
 Route::view('login', 'login');
+Route::post('login', 'UserController@postLogin')->name('postLogin');
