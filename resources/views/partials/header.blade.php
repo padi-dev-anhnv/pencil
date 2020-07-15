@@ -9,13 +9,13 @@
 <!-- フッター固定 -->
 </head>
 
-<body id="home">
+<body id="@yield('page','home')">
 	
 	<div id="wrapper">
 
 		<!-- ヘッダーここから -->
 		<header id="header">
-		<h1 class="logo"><a href="index.html"><img src="images/logo.png" alt="uni MITSUBISHI PENCIL"></a></h1>
+		<h1 class="logo"><a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="uni MITSUBISHI PENCIL"></a></h1>
 		  <div id="adminbar">マスター：鈴木一郎<a href="login.html">ログアウト</a></div>
 		<nav id="gnav">
 			<ul>

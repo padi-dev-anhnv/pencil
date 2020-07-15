@@ -16,6 +16,6 @@ Route::get('/', 'GuideController@index')->name('guide.index');
 Route::view('login', 'login');
 Route::post('login', 'UserController@postLogin')->name('postLogin');
 
-Route::group(['prefix' => 'user'], function(){
+Route::group(['prefix' => 'user', 'middleware' =>'can:list,\App\User'], function(){
     Route::get('/list', 'UserController@list');
-})->middleware('can:list');
+});
