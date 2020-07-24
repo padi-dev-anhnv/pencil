@@ -16,10 +16,13 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->string('link');
-            $table->text('description');
-            $table->text('tags');
+            $table->text('description')->nullable();
+            $table->text('tags')->nullable();
+            $table->enum('material', ['guide', 'office','other']);
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

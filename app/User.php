@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'password', 'role_id', 'office_id'
     ];
 
     /**
@@ -37,8 +38,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setPasswordAttribute($value)
+    {
+    $this->attributes['password'] = bcrypt($value);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }    
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
     }
+
+    public function scopeNotBanned($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    /*
+    protected static function booted()
+    {
+        parent::boot();
+        static::addGlobalScope('username', function (Builder $builder) {
+            $builder->where('username','admin');
+        });
+    }
+    */
 }

@@ -4,12 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateUser;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
+    protected $userService ; 
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function login()
+    {
+        if(auth()->user())
+            return redirect()->route('guide.index');
+        else
+            return view('login');
+    }
+
     public function postLogin(Request $request)
     {
         $credentials = $request->only('username', 'password');
+        $credentials['status'] = 1;
 
         if (Auth::attempt($credentials,true)) {
             return redirect()->intended('/');
@@ -17,19 +35,48 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function list()
+    public function list(Request $request)
     {
-    //    $this->authorize('list', \App\User::class);
-        /*
-        $user = auth()->user();
-        $users = \App\User::find(1);
-        if ($user->can('list', $user)) {
-            dd("Người dùng được quyền xem");
-          } else {
-            dd("Người dùng không được quyền xem.");
-          }
-          */
-        $users = \App\User::orderBy('id', 'desc')->with('role')->paginate(10);
-        return view('pages.user.index', compact('users'));
+    //    $this->authorize('list', \App\User::class);       
+        $users = $this->userService->list($request);
+        return response()->json($users);
     }
+
+    public function delete(Request $request)
+    {        
+        $this->userService->delete($request->id);
+        return response()->json([ 'status' => "ok"]);
+    }
+
+    public function getRoles()
+    {
+        $roles = \App\Role::all();
+        return response()->json($roles);
+    }
+
+    public function create(CreateUser $request)
+    {
+        $this->userService->create($request);
+        return response()->json([ 'status' => "ok"]);
+    }
+
+    public function show(Request $request)
+    {
+        $user = $this->userService->show($request->id);
+        return response()->json($user);
+    }
+
+    public function listOffice()
+    {
+        $offices = \App\Office::all('id', 'name');
+        return $offices;
+    }
+
+    public function listUserPerFile()
+    {
+        $users = $this->userService->listUserPerFile();
+        return response()->json($users);
+    }
+    
+
 }

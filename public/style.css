@@ -1914,6 +1914,7 @@ ul.ullist {
   #setting #account-list ul.listtable li:first-child ul {
     height: 60px; }
   #setting #account-list ul.listtable li ul li button,
+  #setting #account-list ul.listtable li ul li a,
   #setting #account-list ul.listtable li ul li label {
     margin-right: 2em; }
     #setting #account-list ul.listtable li ul li button:last-child,

@@ -29,8 +29,6 @@ class UserSeeder extends Seeder
         ]);
 
         // $roles = App\Role::where('type','!=', 'admin')->get();
-        factory(App\User::class, 30)->create([
-            // 'role' => $role->id
-        ]);
+        factory(App\User::class, 30)->create();
     }
 }

@@ -3,37 +3,17 @@
 @section('page','setting')
 @section('content')
 <div id="content">
+	
+
 	<h2 class="page_ttl">アカウント管理</h2>
-	<button onclick="location.href='account_add.html'" class="mainbtn mainbtn2" id="btn_new">新規作成</button>
+	<button onclick="location.href='{{ route('user.new') }}'" class="mainbtn mainbtn2" id="btn_new">新規作成</button>
 
 	<div id="account-list" class="sec">
-
+		<list-user></list-user>
 		<!-- リストここから -->
-		<ul class="listtable">
-			<li>
-				<ul>
-					<li>氏名</li>
-					<li>権限</li>
-					<li>ID</li>
-					<li>営業所</li>
-					<li>操作</li>
-				</ul>
-			</li>
-			@foreach($users as $user)
-			<li>
-				<ul>
-					<li>{{$user->name}}</li>
-					<li>{{ $user->role->name}}</li>
-					<li>{{$user->username}}</li>
-					<li>{{$user->sale_office}}</li>
-					<li><button onclick="location.href='account_edit.html'" class="editbtn"><span>編集</span></button><label for="popup_delete" class="deletebtn"><span>削除</span></label></li>
-				</ul>
-			</li>
-			@endforeach
-		</ul>
+		
 		<!-- リストここまで -->
 	</div>
-
 	<div id="code-upload" class="sec">
 		<h3 class="sec_ttl">送り先コード管理</h3>
 		<div class="txtbox">
@@ -48,28 +28,5 @@
 
 </div>
 
-<div id="pwrap_delete" class="popup_wrap">
-	<input id="popup_delete" type="checkbox">
-	<div class="overlay">
-		<label for="popup_delete" class="popup_closearea"></label>
-		<article class="popup_box">
-			<label for="popup_delete" class="popup_closebtn">×</label>
-			<header class="popup_header delete_hd">
-				<div class="ph_inner">
-					<h3 class="popup_ttl">アカウント削除</h3>
-					<p class="popup_dscrpt">鈴木一郎</p>
-				</div>
-			</header>
-			<div class="popup_ctt">
-				<div class="popup_cttinner">
-					<p class="popup_txt">削除しますか？</p>
-					<ul class="btn_box btn2box">
-						<li><label for="popup_delete" class="mainbtn">はい</label></li>
-						<li><label for="popup_delete" class="mainbtn subbtn">いいえ</label></li>
-					</ul>
-				</div>
-			</div>
-		</article>
-	</div>
-</div>
+
 @endsection

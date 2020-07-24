@@ -16,6 +16,12 @@
 
 <script>
     export default {
+        created(){
+            axios("/user/get-list").then(result => {
+            console.log(result);
+            }
+            )
+        },
         mounted() {
             console.log('Component mounted.')
         }

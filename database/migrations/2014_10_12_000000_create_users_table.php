@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             // $table->string('email')->unique();
             $table->string('name');
-            $table->string('sale_office');
-            $table->boolean('status');
+            // $table->string('sale_office');
+            $table->unsignedInteger('office_id');
+            $table->foreign('office_id')->references('id')->on('offices');
+            $table->boolean('status')->default(1);
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
