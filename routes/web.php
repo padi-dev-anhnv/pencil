@@ -38,4 +38,8 @@ Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_
     Route::get('/{id}/download', 'FileController@download');    
 });
 
+Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], function(){
+    Route::view('/create', 'pages.guide.create')->middleware('can:list,\App\Guide')->name('file'); 
+});
+
 Route::view('/a', 'welcome')->name('guide');
