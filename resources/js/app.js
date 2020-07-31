@@ -26,6 +26,16 @@ Vue.component('list-file', require('./components/file/ListFile.vue').default);
 Vue.component('add-file', require('./components/file/AddFile.vue').default);
 Vue.component('edit-file', require('./components/file/EditFile.vue').default);
 
+Vue.component('create-guide', require('./components/guide/CreateGuide.vue').default);
+Vue.component('edit-guide', require('./components/guide/EditGuide.vue').default);
+Vue.component('guide-block', require('./components/guide/partials/GuideBlock.vue').default);
+Vue.component('delivery-block', require('./components/guide/partials/DeliveryBlock.vue').default);
+Vue.component('packaging-block', require('./components/guide/partials/PackagingBlock.vue').default);
+Vue.component('procedure-block', require('./components/guide/partials/ProcedureBlock.vue').default);
+Vue.component('product-block', require('./components/guide/partials/ProductBlock.vue').default);
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

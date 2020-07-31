@@ -312,6 +312,14 @@ a {
     object-fit: contain;
     width: 100%;
     height: 100%; }
+  .uploadimg .deletebtn {
+    position: absolute;
+    top: 1em;
+    left: auto;
+    right: 1em;
+    bottom: auto;
+    width: 2em;
+    height: 2.5em; }
 
 .selectfile {
   background: #c9caca;
@@ -361,7 +369,6 @@ input {
 input[type="text"],
 input[type="date"],
 input[type="email"],
-input[type="password"],
 select, textarea {
   font-size: 13px;
   padding: 8px 15px;
@@ -412,6 +419,8 @@ label.after, span.after {
 input[type="text"] {
   width: 10em;
   padding: 5px 15px; }
+  input[type="text"].w100per {
+    width: 100%; }
   input[type="text"].w15 {
     width: 15em; }
   input[type="text"].month {
@@ -443,6 +452,41 @@ input[type="text"] {
 
 .texttxt + input[type="text"] {
   margin-left: 0.5em; }
+
+.box100 {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center; }
+  .box100 .labeltxt {
+    padding-right: 0.5em; }
+  .box100 .w100per {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: auto; }
 
 /* メール */
 input[type="email"] {
@@ -834,7 +878,8 @@ button, input[type="submit"] {
   text-align: center; }
   .btn2box li {
     display: inline-block;
-    padding: 0 10px; }
+    padding: 0 10px;
+    min-width: 180px; }
 
 /* ボタン3つ横並び */
 .btn3box {
@@ -984,6 +1029,26 @@ button, input[type="submit"] {
   .editbtn span {
     display: none; }
 
+/* 閲覧ボタン */
+.viewbtn {
+  width: 2em;
+  height: 1.6em;
+  display: inline-block;
+  background: url("images/eye.svg") no-repeat left bottom;
+  background-size: contain;
+  border: none;
+  backface-visibility: hidden;
+  line-height: 1em;
+  cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
+  vertical-align: middle; }
+  .viewbtn span {
+    display: none; }
+
 /* 複製ボタン */
 .copybtn {
   width: 1.4em;
@@ -1006,13 +1071,17 @@ button, input[type="submit"] {
 
 /* 削除ボタン */
 .deletebtn {
+  font-family: '游ゴシック', 'Yu Gothic', '游ゴシック体', 'YuGothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+  font-size: 13px;
   width: 1.4em;
   height: 1.8em;
   display: inline-block;
   background: url("images/delete.svg") no-repeat left bottom;
   background-size: 100% auto;
   border: none;
+  /*
   backface-visibility: hidden;
+  */
   line-height: 1em;
   cursor: pointer;
   vertical-align: middle;
@@ -1270,6 +1339,14 @@ ul.ullist {
 /* =======================================================================================================================
 　　　　　　　　　ポップアップ
 ======================================================================================================================= */
+.cancel {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: auto; }
+
 .popup_wrap {
   /* ================= ポップアップ動作 ============================================================ */ }
   .popup_wrap .overlay {
@@ -1547,7 +1624,7 @@ ul.ullist {
         transform: scaleX(1);
         opacity: 1;
         filter: alpha(opacity=100); }
-    .popup_wrap input[type="checkbox"]#popup_cancel:checked ~ .overlay, .popup_wrap input[type="radio"]#popup_cancel:checked ~ .overlay {
+    .popup_wrap input[type="checkbox"].cancel:checked ~ .overlay, .popup_wrap input[type="radio"].cancel:checked ~ .overlay {
       -webkit-transform: scale(0);
       -moz-transform: scale(0);
       -ms-transform: scale(0);
@@ -1555,7 +1632,7 @@ ul.ullist {
       transform: scale(0);
       opacity: 0;
       filter: alpha(opacity=0); }
-      .popup_wrap input[type="checkbox"]#popup_cancel:checked ~ .overlay .popup_box, .popup_wrap input[type="radio"]#popup_cancel:checked ~ .overlay .popup_box {
+      .popup_wrap input[type="checkbox"].cancel:checked ~ .overlay .popup_box, .popup_wrap input[type="radio"].cancel:checked ~ .overlay .popup_box {
         -webkit-transform: scale(0);
         -moz-transform: scale(0);
         -ms-transform: scale(0);
@@ -1695,34 +1772,63 @@ ul.ullist {
         font-weight: 900;
         -webkit-text-stroke-width: 0 !important;
         font-size: 1.3em; }
-  #order_edit #main #content .edit-form .product_edit .edit-list .flexb .imgbox {
-    width: 50%;
-    background: #b5b5b6; }
-    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .imgbox img {
-      width: 100%;
-      height: auto; }
-  #order_edit #main #content .edit-form .product_edit .edit-list .flexb .txtbox {
-    width: 49%; }
-    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .txtbox textarea {
-      width: 100%;
-      position: relative;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box; }
-  #order_edit #main #content .edit-form .product_edit .edit-list .flexb .fbox3 {
+  #order_edit #main #content .edit-form .product_edit .edit-list .flexb {
+    width: 100%;
     position: relative;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
-    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .fbox3::before {
-      content: "";
-      display: block;
-      padding: 30%;
-      width: 100%;
+    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .imgbox {
+      position: relative;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 50%;
+      background: #fff;
+      border-radius: 1em;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex-align: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -ms-flex-pack: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center; }
+      #order_edit #main #content .edit-form .product_edit .edit-list .flexb .imgbox img {
+        width: 100%;
+        height: auto; }
+    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .txtbox {
+      width: 49%;
       position: relative;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box; }
+      #order_edit #main #content .edit-form .product_edit .edit-list .flexb .txtbox textarea {
+        width: 100%;
+        position: relative;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; }
+      #order_edit #main #content .edit-form .product_edit .edit-list .flexb .txtbox .note {
+        padding-top: 2em; }
+    #order_edit #main #content .edit-form .product_edit .edit-list .flexb .fbox3 {
+      position: relative;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+      #order_edit #main #content .edit-form .product_edit .edit-list .flexb .fbox3::before {
+        content: "";
+        display: block;
+        padding: 30%;
+        width: 100%;
+        position: relative;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; }
 #order_edit #main #content .edit-form .price_list {
   padding: 20px; }
   #order_edit #main #content .edit-form .price_list .edit-list:nth-of-type(1) {
@@ -1885,14 +1991,6 @@ ul.ullist {
     box-sizing: border-box; }
     #file .popup_wrap .popup_ctt .flexb .fileimg .uploadimg {
       border: #efefef solid 0.4em; }
-      #file .popup_wrap .popup_ctt .flexb .fileimg .uploadimg .deletebtn {
-        position: absolute;
-        top: 1em;
-        left: auto;
-        right: 1em;
-        bottom: auto;
-        width: 2em;
-        height: 2.5em; }
   #file .popup_wrap .popup_ctt .flexb .filetxt {
     width: 49%;
     position: relative;
@@ -1914,7 +2012,6 @@ ul.ullist {
   #setting #account-list ul.listtable li:first-child ul {
     height: 60px; }
   #setting #account-list ul.listtable li ul li button,
-  #setting #account-list ul.listtable li ul li a,
   #setting #account-list ul.listtable li ul li label {
     margin-right: 2em; }
     #setting #account-list ul.listtable li ul li button:last-child,
@@ -1924,6 +2021,10 @@ ul.ullist {
     #setting #account-list ul.listtable li ul li label.editbtn {
       width: 2em;
       height: 2em; }
+    #setting #account-list ul.listtable li ul li button.deletebtn,
+    #setting #account-list ul.listtable li ul li label.deletebtn {
+      width: 1.6em;
+      height: 2.2em; }
 #setting #code-upload {
   padding: 20px; }
   #setting #code-upload .txtbox,
@@ -1986,7 +2087,7 @@ ul.ullist {
       padding-bottom: 0.7em;
       font-weight: normal;
       font-size: 1.2em; }
-    #page-login .login_wrap .login_content form input[type="text"],.login_content form input[type="password"] {
+    #page-login .login_wrap .login_content form input[type="text"] {
       width: 100%;
       position: relative;
       -webkit-box-sizing: border-box;

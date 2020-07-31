@@ -46,6 +46,35 @@ let setDefaultFile = () =>{
     }
 }
 
+let upload = async (file) => {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axios
+        .post("/file/upload", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then(function(result) {
+            state.file.link = result.data.file_name,
+            state.file.thumbnail = result.data.file_thumbnail
+            state.file.type = result.data.type
+            return {
+                link : result.data.file_name,
+                thumbnail : result.data.file_thumbnail,
+                type : result.data.type,
+            }
+        })
+        .catch(function() {
+            console.log("FAILURE!!");
+        });
+    
+};
+
+export const uploadFile = (file) => {
+    upload(file)
+}
+
 export const setFileUserOffice = user => {
     setDefaultFile();
     state.file.user = user.name;
@@ -56,10 +85,11 @@ export const setCurrentUser = user => {
     state.currentUser = user;
 };
 
+/*
 export const uploadFile = file => {
     let formData = new FormData();
     formData.append("file", file);
-    axios
+    return axios
         .post("/file/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -69,12 +99,18 @@ export const uploadFile = file => {
             state.file.link = result.data.file_name,
             state.file.thumbnail = result.data.file_thumbnail
             state.file.type = result.data.type
+            return {
+                link : result.data.file_name,
+                thumbnail : result.data.file_thumbnail,
+                type : result.data.type,
+            }
         })
         .catch(function() {
             console.log("FAILURE!!");
         });
+    
 };
-
+*/
 export const createFile = async () =>{
     return axios.post('/file', state.file).then(result => {
         if(state.actionNew == 1)
@@ -84,6 +120,19 @@ export const createFile = async () =>{
             Vue.set(state.listFiles, findex, result.data)
         }
            
+        return result;
+    })
+}
+
+export const createFileProduct = async (file) =>{
+    let fileUploaded = await upload(file);
+    let newFile = { 
+        link : fileUploaded.link,
+        material : 'guide',
+        type : fileUploaded.type,
+        id : 0
+    }
+    return axios.post('/file', newFile).then(result => {
         return result;
     })
 }

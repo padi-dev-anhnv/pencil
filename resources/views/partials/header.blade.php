@@ -22,7 +22,7 @@
 				@php
 					$current_group = request()->route()->getName();
 					$nav = [
-						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧' ] ,
+						'guide' => [ 'link' => route('guide.index') , 'name' => '指図書一覧' ] ,
 						'file' =>  [ 'link' => route('file') , 'name' => 'ファイルマネージャー' ] ,
 						'user' =>  [ 'link' => route('user') , 'name' => 'アカウント管理']	
 					];

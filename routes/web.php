@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'GuideController@index')->name('guide.index');
+Route::get('/', 'GuideController@homepage');
 
 Route::get('login', 'UserController@login')->name('login');
 Route::post('login', 'UserController@postLogin')->name('postLogin');
@@ -39,7 +39,10 @@ Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_
 });
 
 Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], function(){
-    Route::view('/create', 'pages.guide.create')->middleware('can:list,\App\Guide')->name('file'); 
+    Route::get('/', 'GuideController@index')->name('guide.index');
+    Route::post('/', 'GuideController@create');
+    Route::view('/{id}/edit', 'pages.guide.edit')->name('guide.edit');
+    Route::get('/{id}/get-guide', 'GuideController@getGuide');
+    Route::view('/create', 'pages.guide.new')->middleware('can:create,\App\Guide')->name('guide.create'); 
+    Route::get('/listSuppliers', 'GuideController@listSuppliers');
 });
-
-Route::view('/a', 'welcome')->name('guide');

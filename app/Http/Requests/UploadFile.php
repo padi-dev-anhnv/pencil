@@ -24,11 +24,11 @@ class UploadFile extends FormRequest
     public function rules()
     {
         return [
-            'office' => 'required',
-            'user' => 'required',
-            'number' => 'required_if:id,!=,""',
-            'name' => 'required',
-            'material' => 'required|in:other,office',
+            // 'office' => 'required',
+            // 'user' => 'required',
+            // 'number' => 'required_if:id,!=,""',
+            // 'name' => 'required',
+            'material' => 'required|in:other,office,guide',
             'link' => 'required',
         ];
     }

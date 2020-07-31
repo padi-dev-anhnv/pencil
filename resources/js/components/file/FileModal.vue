@@ -49,12 +49,12 @@
                     <li class="fli">
                       ファイル説明文
                       <br />
-                      <textarea v-model="currentFile.description" class="h3">春日東通学校の卒業記念について作成したボールペン。</textarea>
+                      <textarea v-model="currentFile.description" class="h3"></textarea>
                     </li>
                     <li class="fli">
                       タグ付け
                       <br />
-                      <textarea  v-model="currentFile.tags" class="h3">鉛筆　ボールペン　学校　卒業</textarea>
+                      <textarea  v-model="currentFile.tags" class="h3"></textarea>
                     </li>
                   </ul>
                 </div>

@@ -25,7 +25,7 @@ class File extends Model
         $ext = $info['extension'];
         $arrayExt = self::$extPic ;
         if(in_array($ext, $arrayExt))
-            return 'storage/thumbnail/'. $info['filename'] . '-thumbnail.' . $ext;
+            return asset('storage/thumbnail/'. $info['filename'] . '-thumbnail.' . $ext);
         else
             return 'https://via.placeholder.com/1740x1445?text=' . $ext;
     }
