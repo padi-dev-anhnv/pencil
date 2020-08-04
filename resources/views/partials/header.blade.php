@@ -16,13 +16,14 @@
 		<!-- ヘッダーここから -->
 		<header id="header">
 		<h1 class="logo"><a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="uni MITSUBISHI PENCIL"></a></h1>
-		  <div id="adminbar">マスター：鈴木一郎<a href="login.html">ログアウト</a></div>
+		  <div id="adminbar">マスター：{{ auth()->user()->name}}<a href="{{ route('logout') }}">ログアウト</a></div>
 		<nav id="gnav">
+			@can('create', App\Guide::class)
 			<ul>
 				@php
 					$current_group = request()->route()->getName();
 					$nav = [
-						'guide' => [ 'link' => route('guide.index') , 'name' => '指図書一覧' ] ,
+						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧' ] ,
 						'file' =>  [ 'link' => route('file') , 'name' => 'ファイルマネージャー' ] ,
 						'user' =>  [ 'link' => route('user') , 'name' => 'アカウント管理']	
 					];
@@ -38,6 +39,11 @@
 					}
 				@endphp
 			</ul>
+			@else
+				<ul>
+					<li><a href="{{route('guide') }}">指図書一覧</a></li>
+				</ul>	
+			@endcan
 		</nav>
 
 		</header>

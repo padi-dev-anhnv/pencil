@@ -102,6 +102,31 @@ class GuideRepository
 
         }
     }
+
+    
+    public function search($request)
+    {
+        
+        $query = $this->guide::query();
+
+        $arrayFilter = ['office', 'worker', 'creator','orderDateFrom', 'orderDateTo', 'shippingDateFrom', 'shippingDateTo', 'receivedDateFrom', 'receivedDateTo'];
+        foreach($arrayFilter as $filter)
+        {
+            if(isset($request[$filter]))
+                call_user_func_array(array($query, $filter), array($request[$filter]));
+        }
+        $sortArray = json_decode($request['sort'], true);
+        // $query->sortArray($sortArray);
+
+        $guides = $query->with('delivery', 'supplier')->orderBy('delivery.shipping_date')->paginate($request['ppp']);
+/*
+        $guides = $query->with(array('delivery' => function($query) {
+            $query->orderBy('shipping_date', 'ASC');
+        }))->orderBy('id', 'DESC')->paginate($request['ppp']);
+        */
+        // $guides = $this->guide->orderBy('delivery.id', 'DESC')->paginate(20);
+        return $guides;
+    }
 }
 
 

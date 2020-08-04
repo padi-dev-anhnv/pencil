@@ -16,12 +16,12 @@ class GuideController extends Controller
 
     public function homepage()
     {
-        return redirect()->route('guide.index');
+        return redirect()->route('guide');
     }
 
     public function index()
     {
-        return view('index');
+        return view('pages.guide.index');
     }
 
     public function edit(Request $request)
@@ -49,5 +49,12 @@ class GuideController extends Controller
     {
         $guide = $this->guideRepo->get($request->id);
         return response()->json(['success' => true, 'data' => $guide]);
+    }
+
+    public function search(Request $request)
+    {
+        
+        $guides = $this->guideRepo->search($request->all());
+        return response($guides);
     }
 }

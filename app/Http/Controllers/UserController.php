@@ -19,7 +19,7 @@ class UserController extends Controller
     public function login()
     {
         if(auth()->user())
-            return redirect()->route('guide.index');
+            return redirect()->route('guide');
         else
             return view('login');
     }
@@ -33,6 +33,12 @@ class UserController extends Controller
             return redirect()->intended('/');
         }
         return redirect()->back();
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
     public function list(Request $request)
@@ -66,10 +72,18 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function listOffice()
+    public function getOffices()
     {
         $offices = \App\Office::all('id', 'name');
         return $offices;
+    }
+
+    public function getWorkers()
+    {
+        $users = \App\User::whereHas('role', function($query){
+            $query->where('type', 'worker');
+        })->select('id', 'name')->get();
+        return $users;
     }
 
     public function listUserPerFile()

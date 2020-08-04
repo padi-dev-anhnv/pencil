@@ -20,14 +20,14 @@ const state = Vue.observable({
 });
 
 //export const listCity = () => city;
-
+/*
 export const listSupplier = () => {
     axios.get('/guide/listSuppliers').then(result => {
         state.suppliers = result.data;
         // console.log(result.data)
     })
 }
-
+*/
 export const getGuideInfo = (id) => {
     axios.get('/guide/' + id + '/get-guide').then(result => {
         state.guide = result.data.data.guide;
@@ -86,6 +86,12 @@ export const createGuide = id => {
     })
 
 };
+
+export const getWorkers = () => {
+    axios('/user/workers').then(result=>{
+        state.suppliers = result.data
+    })
+}
 
 export const addProduct = () =>{
     state.products.push( JSON.parse(JSON.stringify(product)));

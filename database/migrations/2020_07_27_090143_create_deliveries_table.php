@@ -19,6 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->date('received_date'); 
             $table->string('receiver');
             $table->string('office_chk');
+            $table->string('code')->nullable();
             $table->string('district');
             $table->string('city');
             $table->string('address');

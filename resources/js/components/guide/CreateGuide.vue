@@ -1,7 +1,7 @@
 <template>
     <div class="edit-form">
         <form>
-            <guide-block />
+            <guide-block :creator="creator" />
             <delivery-block />
             <packaging-block />
             <procedure-block />
@@ -17,8 +17,9 @@
 </template>
 
 <script>
-import {listSupplier, createGuide} from "../../stores/guideStore";
+import {createGuide} from "../../stores/guideStore";
 export default {
+    props : ['creator'],
     data(){
         return {
 
@@ -30,7 +31,7 @@ export default {
         }
     },
     created(){
-        listSupplier();
+    //    getWorkers();
     }
 }
 </script>

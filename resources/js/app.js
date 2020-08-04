@@ -18,6 +18,8 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+import Paginate from 'vuejs-paginate'
+Vue.component('paginate', Paginate)
 
 Vue.component('list-user', require('./components/user/list/ListUser.vue').default);
 Vue.component('form-user', require('./components/user/FormUser.vue').default);
@@ -33,6 +35,11 @@ Vue.component('delivery-block', require('./components/guide/partials/DeliveryBlo
 Vue.component('packaging-block', require('./components/guide/partials/PackagingBlock.vue').default);
 Vue.component('procedure-block', require('./components/guide/partials/ProcedureBlock.vue').default);
 Vue.component('product-block', require('./components/guide/partials/ProductBlock.vue').default);
+
+Vue.component('list-guide', require('./components/guide/ListGuide.vue').default);
+Vue.component('sort-form', require('./components/guide/components/SortForm.vue').default);
+Vue.component('search-form', require('./components/guide/components/SearchForm.vue').default);
+Vue.component('list-result', require('./components/guide/components/ListResult.vue').default);
 
 
 

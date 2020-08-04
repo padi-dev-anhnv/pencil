@@ -2141,3 +2141,18 @@ ul.ullist {
         color: #e5002c; }
 
 /*# sourceMappingURL=style.css.map */
+
+/* custom CSS */
+.pagenation li{
+  margin: 0px 2px;
+}
+.pagenation a:focus{
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.pagenation li.disabled a, .pagenation li.active a{
+  color : #b5b5b6;
+  cursor: default;
+}

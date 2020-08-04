@@ -25,7 +25,7 @@
 				<input name="username" value="" type="text" required>
 
 				<h3>パスワード</h3>
-				<input name="password" value="" type="password" required>
+				<input name="password" value="" type="text" required>
 
 				<input value="ログイン" class="loginbtn" type="submit">
 

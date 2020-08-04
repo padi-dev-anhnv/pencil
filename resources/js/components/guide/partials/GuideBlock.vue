@@ -52,7 +52,7 @@
         <li class="sec">
             <h3 class="formctttl">担当者</h3>
             <div class="formctbox">
-                <input type="text" name="" v-model="guide.assign" class="w15" />
+                <input type="text" name="" v-model="creator.name" disabled class="w15" />
             </div>
         </li>
         <li class="sec">
@@ -98,8 +98,9 @@
 </template>
 
 <script>
-import guideStore from "../../../stores/guideStore";
+import guideStore, {getWorkers} from "../../../stores/guideStore";
 export default {
+    props : ['creator'],
     data() {
         return {};
     },
@@ -110,6 +111,9 @@ export default {
         suppliers() {
             return guideStore.suppliers;
         }
+    },
+    created(){
+        getWorkers();
     }
 };
 </script>

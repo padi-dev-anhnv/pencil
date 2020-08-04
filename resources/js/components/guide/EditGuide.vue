@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {listSupplier, createGuide, getGuideInfo} from "../../stores/guideStore";
+import {createGuide, getGuideInfo} from "../../stores/guideStore";
 export default {
     props : ['id'],
     data(){
@@ -31,7 +31,7 @@ export default {
         }
     },
     created(){
-        listSupplier();
+    //    getWorkers();
         getGuideInfo(this.id);
     }
 }
