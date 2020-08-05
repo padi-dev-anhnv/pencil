@@ -31,7 +31,6 @@ export default {
         }
     },
     created(){
-    //    getWorkers();
         getGuideInfo(this.id);
     }
 }

@@ -94,13 +94,25 @@
                 <input type="text" name=""   v-model="guide.curator" class="w15" />
             </div>
         </li>
+        <li class="sec">
+            <h3 class="formctttl">出荷希望日</h3>
+            <div class="formctbox">
+                <label class="dateset"><input type="date" v-model="guide.shipping_date" /></label>
+            </div>
+        </li>
+        <li class="sec">
+            <h3 class="formctttl">納期日</h3>
+            <div class="formctbox">
+                <label class="dateset"><input type="date"  v-model="guide.received_date" /></label>
+            </div>
+        </li>
     </ul>
 </template>
 
 <script>
 import guideStore, {getWorkers} from "../../../stores/guideStore";
 export default {
-    props : ['creator'],
+    // props : ['creator'],
     data() {
         return {};
     },
@@ -110,6 +122,9 @@ export default {
         },
         suppliers() {
             return guideStore.suppliers;
+        },
+        creator(){
+            return guideStore.creator;
         }
     },
     created(){

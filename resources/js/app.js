@@ -40,6 +40,7 @@ Vue.component('list-guide', require('./components/guide/ListGuide.vue').default)
 Vue.component('sort-form', require('./components/guide/components/SortForm.vue').default);
 Vue.component('search-form', require('./components/guide/components/SearchForm.vue').default);
 Vue.component('list-result', require('./components/guide/components/ListResult.vue').default);
+Vue.component('guide-modal-delete', require('./components/guide/components/ModalDelete.vue').default);
 
 
 

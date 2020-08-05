@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('guide_id');
-            $table->foreign('guide_id')->references('id')->on('guides');
+            $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->string('name');
             $table->string('color');
             $table->integer('qty');
@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->string('method');
             $table->string('work');
             $table->string('typeface');
-            $table->string('font_size');
+            $table->string('font_size')->nullable();
             $table->string('printing_color');
             $table->string('pattern_type');
             $table->string('pattern_text');

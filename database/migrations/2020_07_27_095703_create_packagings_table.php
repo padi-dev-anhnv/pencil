@@ -27,7 +27,7 @@ class CreatePackagingsTable extends Migration
             $table->string('bottom_text');
             $table->string('description')->nullable();
             $table->unsignedInteger('guide_id');
-            $table->foreign('guide_id')->references('id')->on('guides');
+            $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CreateProceduresTable extends Migration
         Schema::create('procedures', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('guide_id');
-            $table->foreign('guide_id')->references('id')->on('guides');
+            $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->string('work');
             $table->string('bagging_content')->nullable();
             $table->string('bagging');

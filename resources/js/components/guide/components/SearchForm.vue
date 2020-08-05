@@ -2,7 +2,7 @@
   <div>
     <div id="top_search">
       <form>
-        <input type="text" placeholder="キーワード検索" name value required />
+        <input type="text" placeholder="キーワード検索" v-model="search.keyword1" required />
         <input @click.prevent="doSearch(false)" type="submit" value class="searchbtn" />
       </form>
       <label for="search_plus" class="btn_plus"></label>
@@ -178,7 +178,7 @@
 
 <script>
 
-import listGuideStore, { doSearch} from '../../../stores/listGuideStore'
+import listGuideStore, { doSearch } from '../../../stores/listGuideStore'
 
 export default {
     data(){

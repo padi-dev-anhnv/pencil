@@ -57,4 +57,16 @@ class GuideController extends Controller
         $guides = $this->guideRepo->search($request->all());
         return response($guides);
     }
+
+    public function delete(Request $request)
+    {
+        $this->guideRepo->delete($request->id);
+        return response()->json(['success' => true]);
+    }
+
+    public function clone(Request $request)
+    {
+        $this->guideRepo->clone($request->id);
+        return response()->json(['success' => true]);
+    }
 }

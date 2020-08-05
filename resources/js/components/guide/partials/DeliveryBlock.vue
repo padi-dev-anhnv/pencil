@@ -1,17 +1,6 @@
 <template>
     <ul class="edit-list">
-        <li class="sec">
-            <h3 class="formctttl">出荷希望日</h3>
-            <div class="formctbox">
-                <label class="dateset"><input type="date" v-model="delivery.shipping_date" /></label>
-            </div>
-        </li>
-        <li class="sec">
-            <h3 class="formctttl">納期日</h3>
-            <div class="formctbox">
-                <label class="dateset"><input type="date"  v-model="delivery.received_date" /></label>
-            </div>
-        </li>
+        
         <li class="sec">
             <h3 class="formctttl">送付先名</h3>
             <div class="formctbox">
@@ -37,7 +26,7 @@
                     <li>
                         <label class="before"
                             ><span class="labeltxt">送り先コード</span
-                            ><input type="text" name="" value=""/></label
+                            ><input  v-model="delivery.code" type="text" name="" value=""/></label
                         ><span class="before"
                             ><button class="mainbtn minibtn subbtn">
                                 送り先コードから自動入力

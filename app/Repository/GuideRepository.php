@@ -29,6 +29,7 @@ class GuideRepository
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();
+        $creator = $guide->creator()->select('name', 'id')->first();
         $products = $guide->products()->get();
         
         return [
@@ -36,7 +37,8 @@ class GuideRepository
             'delivery' => $delivery,
             'packaging' => $packaging,
             'procedure' => $procedure,
-            'products' => $products
+            'products' => $products,
+            'creator' => $creator
         ];
     }
 
@@ -49,21 +51,31 @@ class GuideRepository
         $productsRequest = $request['products'];
         $guideRequest['user_id'] = auth()->user()->id;
         
-        $guide = $this->guide::create($guideRequest);
         $delivery = new Delivery($deliveryRequest);
         $packaging = new Packaging($packagingRequest);
         $procedure = new Procedure($procedureRequest);
 
+
+        $product_array = [];
+        foreach($productsRequest as $product)
+        {
+            $new_product = new Product($product);
+            $product_array[] = $new_product;
+        }
+
+        
+        $guide = $this->guide::create($guideRequest);        
         $guide->delivery()->save($delivery);
         $guide->packaging()->save($packaging);
         $guide->procedure()->save($procedure);
 
-        foreach($productsRequest as $product)
+        foreach($product_array as $index => $product)
         {
-            $new_product = new Product($product);
+            $guide->products()->save($product);
+            
             $array_file = [];
-            $guide->products()->save($new_product);      
-            foreach($product['files'] as $file)
+                  
+            foreach($productsRequest[$index]['files'] as $file)
             {
                 if(count($file) > 0)
                     $array_file[] = $file['id'];
@@ -109,23 +121,73 @@ class GuideRepository
         
         $query = $this->guide::query();
 
-        $arrayFilter = ['office', 'worker', 'creator','orderDateFrom', 'orderDateTo', 'shippingDateFrom', 'shippingDateTo', 'receivedDateFrom', 'receivedDateTo'];
+        $query->hasPer();
+
+        $arrayFilter = ['office', 'worker', 'creator','orderDateFrom', 'orderDateTo', 'shippingDateFrom', 'shippingDateTo', 'receivedDateFrom', 'receivedDateTo', 'keyword'];
         foreach($arrayFilter as $filter)
         {
             if(isset($request[$filter]))
                 call_user_func_array(array($query, $filter), array($request[$filter]));
         }
         $sortArray = json_decode($request['sort'], true);
-        // $query->sortArray($sortArray);
+        $query->sortArray($sortArray);
 
-        $guides = $query->with('delivery', 'supplier')->orderBy('delivery.shipping_date')->paginate($request['ppp']);
-/*
-        $guides = $query->with(array('delivery' => function($query) {
-            $query->orderBy('shipping_date', 'ASC');
-        }))->orderBy('id', 'DESC')->paginate($request['ppp']);
-        */
-        // $guides = $this->guide->orderBy('delivery.id', 'DESC')->paginate(20);
+        $guides = $query->with('delivery', 'supplier')->paginate($request['ppp']);
+        // $guides = $query->with('delivery', 'supplier')->paginate(2);
         return $guides;
+    }
+
+    public function is_admin()
+    {
+        if(auth()->user()->role->type == 'admin')
+            return true;
+        else
+            return false;
+    }
+
+    public function is_author($id)
+    {
+        if(auth()->user()->id == $id)
+            return true;
+        else
+            return false;
+    }
+
+    public function delete($id)
+    {
+        $guide = $this->guide::findOrFail($id);
+        $has_per = false;
+        if($this->is_admin())
+            $has_per = true;
+        if($this->is_author($guide->user_id))
+            $has_per = true;
+        if($has_per){
+            $guide->delete();
+            return true;
+        }            
+        else
+            return false;
+    }
+
+    public function clone($id)
+    {
+        $guide = $this->guide::with('delivery', 'packaging', 'procedure', 'products')->findOrFail($id);
+        $new_guide = $guide->replicate();
+        $new_guide->clone_id = $id;
+        $new_guide->save();
+        $array_info = ['delivery', 'packaging', 'procedure'] ; 
+        foreach($array_info as $info){
+            $new_info = $guide->$info->replicate();
+            $new_info->guide_id = $new_guide->id;
+            $new_info->save();
+        }        
+
+        foreach($guide->products as $product)
+        {
+            $new_product = $product->replicate();
+            $new_product->guide_id = $new_guide->id;
+            $new_product->save();
+        }
     }
 }
 

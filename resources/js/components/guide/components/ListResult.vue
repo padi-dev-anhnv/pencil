@@ -73,8 +73,8 @@
             <li><template v-if="guide.delivery">{{ guide.delivery.code}}</template></li>
             <li>{{ guide.delivery.receiver }}</li>
             <li>高宮中学校</li>
-            <li>{{ guide.delivery.shipping_date }}</li>
-            <li>{{ guide.delivery.received_date }}</li>
+            <li>{{ guide.shipping_date }}</li>
+            <li>{{ guide.received_date }}</li>
             <li>
               <template v-if="guide.first_product">{{ guide.first_product.name}}</template>
             </li>
@@ -83,16 +83,19 @@
               <br />
               <a href="#">PDF(料金無）</a>
             </li>
-            <li>
-              <button onclick="location.href='order_edit.html'" class="editbtn">
+            <li v-if="editable == 1">
+              <button :onclick="'location.href=\'/guide/' + guide.id+ '/edit\''" class="editbtn">
                 <span>編集</span>
               </button>
-              <button onclick="location.href=''" class="copybtn">
+              <button @click="cloneGuide(guide.id)" class="copybtn">
                 <span>複製</span>
               </button>
-              <label for="popup_delete" class="deletebtn">
+              <label for="popup_delete" class="deletebtn" @click="setDelete(guide.id)">
                 <span>削除</span>
               </label>
+            </li>
+            <li v-else>
+              <button :onclick="'location.href=\'/guide/' + guide.id+ '/edit\''" class="viewbtn"><span>閲覧</span></button>
             </li>
           </ul>
         </li>
@@ -103,8 +106,9 @@
 </template>
 
 <script>
-import listGuideStore, { doSearch } from "../../../stores/listGuideStore";
+import listGuideStore, { doSearch, setDelete, cloneGuide } from "../../../stores/listGuideStore";
 export default {
+  props : ['editable'],
   computed: {
     guides() {
       return listGuideStore.guides;
@@ -138,6 +142,12 @@ export default {
     searchPage(page) {
       this.currentPage = page;
       doSearch();
+    },
+    setDelete(id){
+      setDelete(id)
+    },
+    cloneGuide(id){
+      cloneGuide(id)
     }
   },
 };

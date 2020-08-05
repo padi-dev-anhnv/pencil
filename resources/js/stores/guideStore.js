@@ -8,8 +8,8 @@ import product from './variables/productInit'
 import city from './city'
 const state = Vue.observable({
     suppliers : [],
+    creator : {},
     city,
-    // productInit : product,
     guide ,
     delivery ,
     packaging,
@@ -34,6 +34,7 @@ export const getGuideInfo = (id) => {
         state.delivery = result.data.data.delivery;
         state.packaging = result.data.data.packaging;
         state.procedure = result.data.data.procedure;
+        state.creator = result.data.data.creator;
         // procedure material
         let materialArray = procedure.materialArray;
         let materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
@@ -87,8 +88,12 @@ export const createGuide = id => {
 
 };
 
+export const setCreator = (creator) => {
+    state.creator = creator;
+}
+
 export const getWorkers = () => {
-    axios('/user/workers').then(result=>{
+    axios('/guide/workers').then(result=>{
         state.suppliers = result.data
     })
 }

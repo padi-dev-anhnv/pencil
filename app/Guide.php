@@ -9,7 +9,9 @@ class Guide extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'created_at'  => 'date:Y/m/d'
+        'created_at'  => 'date:Y/m/d',
+        'shipping_at'  => 'date:Y/m/d',
+        'received_at'  => 'date:Y/m/d',
     ];
 
     protected $appends = ['first_product','creator'];
@@ -106,22 +108,33 @@ class Guide extends Model
         });
     }
 
+    public function scopeHasPer($query)
+    {
+        if(auth()->user()->role->type == "admin")
+            return false ; 
+        $current_id = auth()->user()->id;
+        return $query->where('user_id', $current_id)
+                    ->orWhere('supplier_id', $current_id);
+    }
+
+    public function scopeIsWorker($query)
+    {
+        return $query->orWhere('supplier_id', auth()->user()->id);
+    }
+
     public function scopeSortArray($query , $array)
     {
-        $query->orderBy('id', $array['orderDate'])
-        ->orderBy(Delivery::select('name')
-            ->whereColumn('deliveries.shipping_date', 'guides.id')
-        )     ;
-        /*
-        ->whereHas('delivery', function($queryb)  use ($array){
-            return $queryb->orderBy('shipping_date', $array['shippingDate']);
-        });
-*/
+        $query->orderBy('created_at', $array['orderDate'])
+        ->orderBy('shipping_date', $array['shippingDate'])
+        ->orderBy('received_date', $array['receivedDate']);
+    }
 
-        /*
-        ->whereHas('delivery', function($queryb)  use ($array){
-            return $queryb->orderBy('received_date', $array['receivedDate']);
-        });
-        */
+    public function scopeKeyword($query, $keyword)
+    {
+        return $query->where(function($q) use ($keyword) {
+            foreach ($keyword as $key) {
+                $q->Where('title', 'LIKE', '%' . $key . '%');
+            }
+         });
     }
 }

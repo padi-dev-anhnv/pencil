@@ -18,6 +18,6 @@ class SupplierSeeder extends Seeder
             ['name'=> 'だオマ討窓イな'],
 
         ];
-        App\Supplier::insert($array_roles);
+    //    App\Supplier::insert($array_roles);
     }
 }

@@ -18,7 +18,7 @@ class CreateFileProductTable extends Migration
             $table->unsignedInteger('file_id');
             $table->foreign('file_id')->references('id')->on('files');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

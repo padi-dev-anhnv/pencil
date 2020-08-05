@@ -12,6 +12,9 @@
 //     last_numb : '',
 //     customer_name : '',
 //     curator : '',
+
+//      shipping_date : '',
+//      received_date : '',
 // }
 export default {
     id: 0,
@@ -20,11 +23,13 @@ export default {
     office: 'This is office',
     // assign: 'Mr Assign',
     number: '3AR-TB',
-    worker_id: '3',
+    worker_id: '',
     store_code: '21BB-09',
     last_exist : 0,
     last_date : '',
     last_numb : '',
     customer_name : 'Mr Tong Teng',
-    curator : 'Mrs Tester',
+    curator : 'Mrs Tester',    
+    shipping_date : '2020-07-13',
+    received_date : '2020-08-05',
 }

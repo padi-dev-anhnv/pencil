@@ -246,7 +246,7 @@ export default {
       doSearch(this.searchFilter);
     },
     loadListOffice() {
-      axios("/user/offices").then(result => {
+      axios("/guide/offices").then(result => {
         this.listOffice = result.data;
       });
     },

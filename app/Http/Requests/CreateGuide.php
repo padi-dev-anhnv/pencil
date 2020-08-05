@@ -25,7 +25,7 @@ class CreateGuide extends FormRequest
     {
         $guideValidate = [
             'guide.title' => 'required',
-            'guide.assign' => 'required',
+            // 'guide.assign' => 'required',
             'guide.created_at' => 'required',
             'guide.office' => 'required',
             'guide.number' => 'required',
@@ -33,11 +33,11 @@ class CreateGuide extends FormRequest
             'guide.store_code' => 'required',
             'guide.customer_name' => 'required',
             'guide.curator' => 'required',
+            'guide.shipping_date'=> 'required',
+            'guide.received_date'=> 'required',
         ];
 
         $deliveryValidate = [
-            'delivery.shipping_date'=> 'required',
-            'delivery.received_date'=> 'required',
             'delivery.receiver'=> 'required',
             'delivery.office_chk'=> 'required',
             'delivery.district'=> 'required',

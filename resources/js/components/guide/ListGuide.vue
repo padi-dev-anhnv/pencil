@@ -1,7 +1,8 @@
 <template>
   <div>
 			<search-form></search-form>
-			<list-result></list-result>
+			<list-result :editable="editable"></list-result>
+      <guide-modal-delete />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import {getOffices, getWorkers, doSearch, getPpp} from '../../stores/listGuideStore'
 
 export default {
+  props:['editable'],
   created(){
     getPpp();
     getOffices();

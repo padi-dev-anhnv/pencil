@@ -15,8 +15,6 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('shipping_date'); 
-            $table->date('received_date'); 
             $table->string('receiver');
             $table->string('office_chk');
             $table->string('code')->nullable();
@@ -27,7 +25,7 @@ class CreateDeliveriesTable extends Migration
             $table->string('phone');
             $table->string('fax')->nullable();
             $table->unsignedInteger('guide_id');
-            $table->foreign('guide_id')->references('id')->on('guides');
+            $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->timestamps();
         });
     }

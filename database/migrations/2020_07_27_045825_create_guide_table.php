@@ -29,7 +29,10 @@ class CreateGuideTable extends Migration
             $table->string('last_numb')->nullable();
             $table->string('customer_name');  
             $table->string('curator');  
-            
+            $table->date('shipping_date'); 
+            $table->date('received_date'); 
+            $table->unsignedInteger('clone_id')->nullable();
+            // $table->foreign('clone_id')->references('id')->on('users');
             $table->timestamps();
         });
         
