@@ -22,12 +22,27 @@
                     <span class="labeltxt">営業所</span>
                     <input  v-model="currentFile.office" type="text"  class="w20"  disabled />
                   </label>
+                  <span v-show="currentFile.material == 'guide'">指図書No.{{ currentFile.guideNumber }}</span>
                 </li>
                 <li class="fli">
                   <label class="before">
                     <span class="labeltxt">ファイル名（タイトル名）</span>
                     <input v-model="currentFile.name" type="text" class="w30" />
                   </label>
+                    <label v-show="currentFile.material != 'guide'" class="after radioset">
+                      <span class="radioarea">
+                        <input v-model="currentFile.material" type="radio" name="doctype" value="office" />
+                        <span></span>
+                      </span>
+                      <span class="labeltxt">本社資料</span>
+                    </label>
+                    <label v-show="currentFile.material != 'guide'" class="after radioset">
+                      <span class="radioarea">
+                        <input  v-model="currentFile.material" type="radio" name="doctype" value="other" />
+                        <span></span>
+                      </span>
+                      <span class="labeltxt">その他資料</span>
+                    </label>
                 </li>
               </ul>
               <div class="flexb">

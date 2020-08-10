@@ -20,6 +20,11 @@ class Product extends Model
 
     public function files()
     {
-        return $this->belongsToMany(File::class);
+        return $this->hasMany(File::class);
+    }
+
+    public function guide()
+    {
+        return $this->belongsTo(Guide::class);
     }
 }

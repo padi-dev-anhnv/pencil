@@ -22,6 +22,8 @@ class CreateFilesTable extends Migration
             $table->text('description')->nullable();
             $table->text('tags')->nullable();
             $table->enum('material', ['guide', 'office','other']);
+            $table->unsignedInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('type')->nullable();
             $table->timestamps();
         });

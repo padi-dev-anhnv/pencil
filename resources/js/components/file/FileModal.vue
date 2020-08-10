@@ -1,5 +1,5 @@
 <template>
-    <div id="pwrap_editfile" class="popup_wrap">
+    <!-- <div id="pwrap_editfile" class="popup_wrap">
       <input id="popup_editfile" type="checkbox" />
       <div class="overlay">
         <label for="popup_editfile" class="popup_closearea"></label>
@@ -27,6 +27,7 @@
                     <span class="labeltxt">営業所</span>
                     <input  v-model="currentFile.office" type="text" name  class="w20"  disabled />
                   </label>
+                  <span>指図書No.65432</span>
                 </li>
                 <li class="fli">
                   <label class="before">
@@ -74,7 +75,7 @@
           </div>
         </article>
       </div>
-    </div>
+    </div> -->
 </template>
 
 <script>

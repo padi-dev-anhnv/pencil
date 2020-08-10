@@ -1,4 +1,4 @@
-/*
+
 export default {
     printing: 0,
     proofreading : 0,
@@ -12,7 +12,8 @@ export default {
     bottom_text:'',
     description:''
 }
-*/
+
+/*
 export default {
     printing: 0,
     proofreading : 1,
@@ -26,3 +27,4 @@ export default {
     bottom_text:'Low frequency in that literary corpus',
     description:'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem veritatis et quasi architecto beatae vitae dicta sunt'
 }
+*/

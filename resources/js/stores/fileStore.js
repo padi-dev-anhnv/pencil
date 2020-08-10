@@ -18,8 +18,9 @@ const state = Vue.observable({
         type : "",
         description: "",
         tags: "",
-        material: "",
-        id: 0
+        material: "office",
+        id: 0 , 
+        guideNumber : ""
     },
     listFiles : [],
     actionNew: 0
@@ -31,6 +32,7 @@ export const setSelectedId = id => {
         for (var key in state.file) {
             state.file[key] = result.data[key];
         }
+        state.file.guideNumber = result.data.product.guide.number;
     });
 };
 
@@ -44,6 +46,7 @@ let setDefaultFile = () =>{
     for (var key in state.file) {
         state.file[key] = "";
     }
+    state.file.material = "office"
 }
 
 let upload = async (file) => {

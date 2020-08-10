@@ -28,18 +28,25 @@ Vue.component('list-file', require('./components/file/ListFile.vue').default);
 Vue.component('add-file', require('./components/file/AddFile.vue').default);
 Vue.component('edit-file', require('./components/file/EditFile.vue').default);
 
-Vue.component('create-guide', require('./components/guide/CreateGuide.vue').default);
-Vue.component('edit-guide', require('./components/guide/EditGuide.vue').default);
+// Vue.component('create-guide', require('./components/guide/CreateGuide.vue').default);
+// Vue.component('edit-guide', require('./components/guide/EditGuide.vue').default);
 Vue.component('guide-block', require('./components/guide/partials/GuideBlock.vue').default);
 Vue.component('delivery-block', require('./components/guide/partials/DeliveryBlock.vue').default);
 Vue.component('packaging-block', require('./components/guide/partials/PackagingBlock.vue').default);
 Vue.component('procedure-block', require('./components/guide/partials/ProcedureBlock.vue').default);
 Vue.component('product-block', require('./components/guide/partials/ProductBlock.vue').default);
+Vue.component('price-block', require('./components/guide/partials/PriceBlock.vue').default);
+Vue.component('price-price', require('./components/guide/partials/PricePrice.vue').default);
+Vue.component('price-wholesale', require('./components/guide/partials/PriceWholesale.vue').default);
+Vue.component('product-info', require('./components/guide/partials/ProductInfo.vue').default);
+Vue.component('product-inscription', require('./components/guide/partials/ProductInscription.vue').default);
 
+Vue.component('single-guide', require('./components/guide/SingleGuide.vue').default);
 Vue.component('list-guide', require('./components/guide/ListGuide.vue').default);
 Vue.component('sort-form', require('./components/guide/components/SortForm.vue').default);
 Vue.component('search-form', require('./components/guide/components/SearchForm.vue').default);
 Vue.component('list-result', require('./components/guide/components/ListResult.vue').default);
+Vue.component('single-result', require('./components/guide/components/SingleResult.vue').default);
 Vue.component('guide-modal-delete', require('./components/guide/components/ModalDelete.vue').default);
 
 

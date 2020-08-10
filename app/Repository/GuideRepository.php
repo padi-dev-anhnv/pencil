@@ -25,10 +25,11 @@ class GuideRepository
 
     public function get($id)
     {
-        $guide = Guide::find($id);
+        $guide = Guide::find($id)->makeHidden(['first_product','creator']);
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();
+        $dupplicate = $guide->dupplicate()->select('created_at', 'id', 'number')->first();
         $creator = $guide->creator()->select('name', 'id')->first();
         $products = $guide->products()->get();
         
@@ -38,18 +39,35 @@ class GuideRepository
             'packaging' => $packaging,
             'procedure' => $procedure,
             'products' => $products,
-            'creator' => $creator
+            'creator' => $creator,
+            'dupplicate' => $dupplicate
         ];
     }
 
     public function create($request)
     {
+        $request['guide']['user_id'] = auth()->user()->id;
+        // for dupplicate
+        if(isset($request['guide']['clone_id'])){
+            $array_request = ['guide', 'delivery', 'packaging', 'procedure'];
+            foreach($array_request as $req)
+            {
+                // dd($request[$req]['id']);
+                unset($request[$req]['id']);
+            }
+            $products = $request['products'];
+            foreach($products as $key => $product)
+            {
+                unset($request['products'][$key]['id']);
+            }
+            
+        }        
+
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];
         $packagingRequest = $request['packaging'];
         $procedureRequest = $request['procedure'];
         $productsRequest = $request['products'];
-        $guideRequest['user_id'] = auth()->user()->id;
         
         $delivery = new Delivery($deliveryRequest);
         $packaging = new Packaging($packagingRequest);
@@ -62,7 +80,6 @@ class GuideRepository
             $new_product = new Product($product);
             $product_array[] = $new_product;
         }
-
         
         $guide = $this->guide::create($guideRequest);        
         $guide->delivery()->save($delivery);
@@ -80,7 +97,7 @@ class GuideRepository
                 if(count($file) > 0)
                     $array_file[] = $file['id'];
             }            
-            $new_product->files()->sync($array_file);
+        //    $new_product->files()->sync($array_file);
         }
         return $guide;
     }
@@ -95,6 +112,7 @@ class GuideRepository
         $guideRequest['user_id'] = auth()->user()->id;
         $guide = $this->guide::find($request['id']);
         $guide->update($guideRequest);
+        // dd($guideRequest);
         $guide->delivery()->update($deliveryRequest);
         $guide->packaging()->update($packagingRequest);
         $procedure = Procedure::where('guide_id',$request['id'])->first();
@@ -103,7 +121,7 @@ class GuideRepository
 
         foreach($productsRequest as $product)
         {
-            
+            $array_file = [];
             $guide_product = $guide->products()->updateOrCreate(['id' =>$product['id']],$product);
             foreach($product['files'] as $file)
             {
@@ -129,11 +147,11 @@ class GuideRepository
             if(isset($request[$filter]))
                 call_user_func_array(array($query, $filter), array($request[$filter]));
         }
+        /*
         $sortArray = json_decode($request['sort'], true);
         $query->sortArray($sortArray);
-
+*/
         $guides = $query->with('delivery', 'supplier')->paginate($request['ppp']);
-        // $guides = $query->with('delivery', 'supplier')->paginate(2);
         return $guides;
     }
 
@@ -173,7 +191,7 @@ class GuideRepository
     {
         $guide = $this->guide::with('delivery', 'packaging', 'procedure', 'products')->findOrFail($id);
         $new_guide = $guide->replicate();
-        $new_guide->clone_id = $id;
+        // $new_guide->clone_id = $id;
         $new_guide->save();
         $array_info = ['delivery', 'packaging', 'procedure'] ; 
         foreach($array_info as $info){

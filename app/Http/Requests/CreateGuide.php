@@ -24,17 +24,20 @@ class CreateGuide extends FormRequest
     public function rules()
     {
         $guideValidate = [
+            /*
             'guide.title' => 'required',
-            // 'guide.assign' => 'required',
             'guide.created_at' => 'required',
             'guide.office' => 'required',
             'guide.number' => 'required',
-            'guide.supplier_id' => 'required|numeric',
+            */
+            'guide.supplier_id' => 'required|numeric|gt:0',
+            /*
             'guide.store_code' => 'required',
             'guide.customer_name' => 'required',
             'guide.curator' => 'required',
             'guide.shipping_date'=> 'required',
             'guide.received_date'=> 'required',
+            */
         ];
 
         $deliveryValidate = [
@@ -82,11 +85,11 @@ class CreateGuide extends FormRequest
         ];
 
         return array_merge(
-            $guideValidate,
-            $deliveryValidate,
-            $packagingValidate,
-            $procedureValidate,
-            $productValidate
+            $guideValidate
+        //    $deliveryValidate,
+        //    $packagingValidate,
+        //    $procedureValidate,
+        //    $productValidate
         );
     }
 }

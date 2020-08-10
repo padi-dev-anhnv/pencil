@@ -12,10 +12,8 @@
         <li class="sec">
             <h3 class="formctttl">帳合い先CHK</h3>
             <div class="formctbox">
-                <select v-model="delivery.office_chk">
-                    <option value="得意先直送">得意先直送</option>
-                    <option value="帳合店直送">帳合店直送</option>
-                    <option value="営業所入り">営業所入り</option>
+                <select v-model="delivery.office_chk" >
+                    <option v-for="ofchk in chk" :value="ofchk.eng" :key="ofchk.eng">{{ ofchk.jap }}</option>
                 </select>
             </div>
         </li>
@@ -89,9 +87,12 @@
 
 <script>
 import guideStore from "../../../stores/guideStore";
+import constVar from "../../../stores/constVar";
 export default {
     data() {
-        return {};
+        return {
+            chk : constVar.chk
+        };
 	},
 	computed:{
 		delivery(){

@@ -15,8 +15,11 @@ class UserRepository
 
     public function create($payload)
     {
-        $office = Office::create(['name' => $payload['office']]);
-        $payload['office_id'] = $office->id;
+        if(!empty($payload['office'])){
+            $office = Office::firstOrCreate(['name' => $payload['office']]);
+            $payload['office_id'] = $office->id;
+        }        
+       
         User::updateOrCreate(['id' => $payload['id']],$payload);
     }
 

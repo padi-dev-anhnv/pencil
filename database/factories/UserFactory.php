@@ -24,7 +24,7 @@ $factory->define(User::class, function (Faker $faker) {
         'username' => $faker->unique()->userName,
         'role_id' => \App\Role::where('type', '!=', 'admin')->inRandomOrder()->first()->id,
         'status' => true,
-        'office_id' => \App\Office::create(['name' => $faker->address])->id,
+        'office_id' => \App\Office::create(['name' => $faker->streetName ])->id,
         'password' => 'password', // password
         'remember_token' => Str::random(10),
     ];

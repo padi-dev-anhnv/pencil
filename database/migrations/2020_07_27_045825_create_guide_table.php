@@ -15,23 +15,24 @@ class CreateGuideTable extends Migration
     {
         Schema::create('guides', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('office');
+            $table->string('title')->nullable();
+            $table->string('office')->nullable();
             // $table->string('assign');
-            $table->string('number');
+            $table->string('number')->nullable();
             $table->unsignedInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('users');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('store_code');
-            $table->boolean('last_exist');
+            $table->string('store_code')->nullable();
+            $table->boolean('last_exist')->nullable();
             $table->date('last_date')->nullable();
             $table->string('last_numb')->nullable();
-            $table->string('customer_name');  
-            $table->string('curator');  
-            $table->date('shipping_date'); 
-            $table->date('received_date'); 
-            $table->unsignedInteger('clone_id')->nullable();
+            $table->string('customer_name')->nullable();  
+            $table->string('curator')->nullable();  
+            $table->text('price')->nullable();  
+            $table->date('shipping_date')->nullable(); 
+            $table->date('received_date')->nullable(); 
+            // $table->unsignedInteger('clone_id')->nullable();
             // $table->foreign('clone_id')->references('id')->on('users');
             $table->timestamps();
         });

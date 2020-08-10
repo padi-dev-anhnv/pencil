@@ -39,7 +39,7 @@ $factory->define(File::class, function (Faker $faker) {
         'description' => $faker->realText(20),
         'tags' => $faker->realText(10),
         'type' =>  $faker->randomElement(['doc', 'docx','xls', 'ai', 'pdf', 'psd']),
-        'material' => $faker->randomElement(['guide', 'office','other']),
+        'material' => $faker->randomElement(['office','other']),
         'created_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now')
     ];
 });

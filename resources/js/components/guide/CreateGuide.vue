@@ -19,7 +19,7 @@
 <script>
 import {createGuide, setCreator} from "../../stores/guideStore";
 export default {
-    props : ['creator'],
+    props : ['creator', 'id', 'action'],
     data(){
         return {
 
@@ -29,13 +29,15 @@ export default {
         createGuide(){
             createGuide(0)
         },
+        /*
         setCreator(creator){
             setCreator(creator)
         }
+        */
     },
     created(){
     //    getWorkers();
-        this.setCreator(this.creator)
+        setCreator(this.creator)
     }
 }
 </script>

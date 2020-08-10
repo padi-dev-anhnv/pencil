@@ -22,10 +22,7 @@
                     <span class="labeltxt">営業所</span>
                     <input v-model="newFile.office" type="text" name value class="w20" disabled />
                   </label>
-                  <label class="before">
-                    <span class="labeltxt">指図書No.</span>
-                    <input  v-model="newFile.number" type="text" name value />
-                  </label>
+                  
                 </li>
                 <li class="fli">
                   <label class="before">
@@ -34,14 +31,14 @@
                   </label>
                   <label class="after radioset">
                     <span class="radioarea">
-                      <input v-model="newFile.material" type="radio" name="doctype" value="office" />
+                      <input v-model="newFile.material" type="radio" name="doctypen" value="office" />
                       <span></span>
                     </span>
                     <span class="labeltxt">本社資料</span>
                   </label>
                   <label class="after radioset">
                     <span class="radioarea">
-                      <input  v-model="newFile.material" type="radio" name="doctype" value="other" />
+                      <input  v-model="newFile.material" type="radio" name="doctypen" value="other" />
                       <span></span>
                     </span>
                     <span class="labeltxt">その他資料</span>

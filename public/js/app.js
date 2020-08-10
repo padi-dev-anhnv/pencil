@@ -2011,9 +2011,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2077,6 +2074,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2404,6 +2416,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userInfo', 'userOffice'],
@@ -2504,102 +2518,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['creator'],
-  data: function data() {
-    return {};
-  },
-  methods: {
-    createGuide: function createGuide() {
-      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["createGuide"])(0);
-    },
-    setCreator: function setCreator(creator) {
-      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["setCreator"])(creator);
-    }
-  },
-  created: function created() {
-    //    getWorkers();
-    this.setCreator(this.creator);
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
-  data: function data() {
-    return {};
-  },
-  methods: {
-    createGuide: function createGuide() {
-      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["createGuide"])(this.id);
-    }
-  },
-  created: function created() {
-    Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["getGuideInfo"])(this.id);
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/ListGuide.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/ListGuide.vue?vue&type=script&lang=js& ***!
@@ -2620,12 +2538,95 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['editable'],
+  props: ['editable', 'user'],
   created: function created() {
+    Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setCurrentUser"])(this.user);
     Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["getPpp"])();
     Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["getOffices"])();
     Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["getWorkers"])();
     Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["doSearch"])();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'action', 'creator', 'clone_id'],
+  data: function data() {
+    return {};
+  },
+  methods: {
+    createGuide: function createGuide() {
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["createGuide"])(this.id);
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setAction"])(_this.action);
+
+              if (!['edit', 'dupplicate'].includes(_this.action)) {
+                _context.next = 4;
+                break;
+              }
+
+              _context.next = 4;
+              return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["getGuideInfo"])(_this.id);
+
+            case 4:
+              if (['new', 'dupplicate'].includes(_this.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCreator"])(_this.creator);
+              if (['dupplicate'].includes(_this.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCloneId"])(_this.clone_id);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -2719,38 +2720,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['editable'],
+  props: ["editable"],
   computed: {
     guides: function guides() {
       return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guides;
@@ -2767,6 +2739,9 @@ __webpack_require__.r(__webpack_exports__);
       set: function set(newValue) {
         _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage = newValue;
       }
+    },
+    user: function user() {
+      return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].user;
     },
     ppp: {
       get: function get() {
@@ -3038,12 +3013,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: [],
   data: function data() {
     return {};
   },
   computed: {
     search: function search() {
       return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].search;
+    },
+    disabledSearchWorker: function disabledSearchWorker() {
+      return this.search.disabledSearchWorker;
+    },
+    role: function role() {
+      return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].user.role;
     }
   },
   methods: {
@@ -3051,6 +3033,121 @@ __webpack_require__.r(__webpack_exports__);
       this.search.advancedSearch = advancedSearch;
 
       Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["doSearch"])();
+    }
+  },
+  created: function created() {
+    if (this.role.type == "worker") {
+      Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setSearchWorker"])(this.role.id);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/listGuideStore */ "./resources/js/stores/listGuideStore.js");
+/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['guide', 'editable'],
+  computed: {
+    user: function user() {
+      return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].user;
+    },
+    canEdit: function canEdit() {
+      if (this.guide.user_id == this.user.id || this.user.role.type == 'admin') {
+        return true;
+      }
+
+      return false;
+    },
+    chk: function chk() {
+      var _this = this;
+
+      //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
+      if (this.guide.delivery.office_chk == 1) return this.guide.delivery.receiver;
+      var officeChk = _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk.find(function (chk) {
+        return chk.eng == _this.guide.delivery.office_chk;
+      });
+      return officeChk.jap;
+    }
+  },
+  methods: {
+    setDelete: function setDelete(id) {
+      Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setDelete"])(id);
     }
   }
 });
@@ -3117,8 +3214,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-//
-//
+/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
 //
 //
 //
@@ -3207,9 +3303,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      chk: _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk
+    };
   },
   computed: {
     delivery: function delivery() {
@@ -3359,6 +3458,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     creator: function creator() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator;
+    },
+    dupplicate: function dupplicate() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].dupplicate;
     }
   },
   created: function created() {
@@ -3495,6 +3597,303 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     packaging: function packaging() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].packaging;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {// price : guideStore.price
+    };
+  },
+  computed: {
+    price: function price() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].price;
+    },
+    subTotalEle1: function subTotalEle1() {
+      return this.countByEle("element1", "price");
+    },
+    subWholesaleEle1: function subWholesaleEle1() {
+      return this.countByEle("element1", "wholesale");
+    },
+    subTotalEle2: function subTotalEle2() {
+      return this.countByEle("element2", "price");
+    },
+    subWholesaleEle2: function subWholesaleEle2() {
+      return this.countByEle("element2", "wholesale");
+    },
+    finalPrice: function finalPrice() {
+      return this.subTotalEle1.subTotal + this.subTotalEle2.subTotal;
+    },
+    finalWholesale: function finalWholesale() {
+      return this.subWholesaleEle1.subTotal + this.subWholesaleEle2.subTotal;
+    },
+    finalMargin: function finalMargin() {
+      return this.finalWholesale - this.finalPrice;
+    }
+  },
+  watch: {
+    subTotalEle1: function subTotalEle1(val) {
+      this.price.totalPrice.subTotalEle1 = val;
+    },
+    subWholesaleEle1: function subWholesaleEle1(val) {
+      this.price.totalPrice.subWholesaleEle1 = val;
+    },
+    subTotalEle2: function subTotalEle2(val) {
+      this.price.totalPrice.subTotalEle2 = val;
+    },
+    subWholesaleEle2: function subWholesaleEle2(val) {
+      this.price.totalPrice.subWholesaleEle2 = val;
+    },
+    finalPrice: function finalPrice(val) {
+      this.price.totalPrice.finalPrice = val;
+    },
+    finalWholesale: function finalWholesale(val) {
+      this.price.totalPrice.finalWholesale = val;
+    },
+    finalMargin: function finalMargin(val) {
+      this.price.totalPrice.finalMargin = val;
+    }
+  },
+  methods: {
+    countByEle: function countByEle(eleNumb, typePrice) {
+      var subPrice = 0,
+          subQty = 0,
+          subTotal = 0;
+
+      for (var ele in this.price[eleNumb]) {
+        subPrice += this.countSubTotal(eleNumb, ele, typePrice, "cost");
+        subQty += this.countSubTotal(eleNumb, ele, typePrice, "qty");
+        subTotal += this.countSubTotal(eleNumb, ele, typePrice, "total");
+      }
+
+      return {
+        subPrice: subPrice,
+        subQty: subQty,
+        subTotal: subTotal
+      };
+    },
+    countSubTotal: function countSubTotal(eleNumb, ele, typePrice, type) {
+      var tempPrice = parseInt(this.price[eleNumb][ele][typePrice][type]);
+      if (!isNaN(tempPrice)) return parseInt(tempPrice);
+      return 0;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['ind', 'element', 'typePrice', 'typeName'],
+  computed: {
+    price: function price() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].price[this.element][this.ind][this.typePrice];
+    },
+    total: function total() {
+      if (this.price.cost && this.price.qty && !isNaN(this.price.cost) && !isNaN(this.price.qty)) {
+        return this.price.cost * this.price.qty;
+      }
+
+      return "";
+    }
+  },
+  watch: {
+    total: function total(val) {
+      this.price.total = val;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['ind', 'element'],
+  computed: {
+    wholesale: function wholesale() {
+      return guideStore.price[this.element][this.ind].wholesale;
+    },
+    total: function total() {
+      if (!isNaN(this.price.cost) && !isNaN(this.price.qty)) {
+        return this.price.cost * this.price.qty;
+      }
+
+      return "";
     }
   }
 });
@@ -3858,6 +4257,150 @@ var procedureOption = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['action'],
+  data: function data() {
+    return {};
+  },
+  computed: {
+    /*
+    products() {
+      return guideStore.products;
+    },
+    */
+    productInit: function productInit() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].productInit;
+    },
+
+    /*
+    fontSizeExist(product){
+      return product.inscription.font_size;
+    },
+    */
+    totalProduct: function totalProduct() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].products.length;
+    }
+  },
+  methods: {
+    addProduct: function addProduct() {
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["addProduct"])();
+    }
+  },
+  created: function created() {
+    if (this.action == 'new') Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["addProduct"])();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['indexv', 'total'],
+  computed: {
+    info: function info() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].products[this.index].info;
+    },
+    index: function index() {
+      return this.indexv - 1;
+    }
+  },
+  methods: {
+    removeProduct: function removeProduct(index) {
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["removeProduct"])(index); // this.products.splice(index,1)
+
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
@@ -4076,63 +4619,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['action'],
+  props: ['indexv'],
   data: function data() {
     return {
       listPatternType: _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].pattern_type,
@@ -4143,6 +4634,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   filters: {
     nameProductFilter: function nameProductFilter(value) {
+      if (value == null) return _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].noProductName;
       if (value.trim() == "") return _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].noProductName;else return value;
     },
     circleFilter: function circleFilter(val) {
@@ -4168,31 +4660,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    products: function products() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products;
+    inscription: function inscription() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription;
     },
-    productInit: function productInit() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].productInit;
+    productName: function productName() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].info.name;
     },
-    fontSizeExist: function fontSizeExist(product) {
-      return product.inscription.font_size;
+    selectedFontSize: function selectedFontSize() {
+      if (this.inscription.font_size) return 1;else return 0;
     },
-    totalProduct: function totalProduct() {
-      return this.products.length;
+    index: function index() {
+      return this.indexv - 1;
     }
   },
   methods: {
-    addProduct: function addProduct() {
-      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["addProduct"])();
-    },
     disableFontSize: function disableFontSize(insc) {
       insc.font_size = '';
     },
-    removeProduct: function removeProduct(index) {
-      this.products.splice(index, 1);
-    },
     changePattern: function changePattern(event, index) {
-      this.products[index].inscription.pattern_text = [];
+      this.inscription.pattern_text = [];
       var indexPattern = 0;
       var thisPattern = _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].pattern_type.find(function (type, index) {
         if (type.eng == event.target.value) {
@@ -4202,9 +4688,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
 
       for (var i = 0; i < thisPattern.total; i++) {
-        this.products[index].inscription.pattern_text.push('');
-      } //  this.$refs['photo' + index][0].src="/images/pen_temp-0" + indexPattern   + ".svg"
-
+        this.inscription.pattern_text.push('');
+      }
     },
     uploadFile: function uploadFile(index, i) {
       var fileName = 'file' + index + i;
@@ -4227,7 +4712,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 fileUploaded = _context.sent;
-                Vue.set(_this.products[index].inscription.files, i, fileUploaded.data);
+                Vue.set(_this.inscription.files, i, fileUploaded.data);
 
               case 5:
               case "end":
@@ -4238,11 +4723,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     deleteFile: function deleteFile(index, i) {
-      Vue.set(this.products[index].inscription.files, i, {});
+      Vue.set(this.inscription.files, i, {});
     }
-  },
-  created: function created() {
-    if (this.action == 'new') Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["addProduct"])();
   }
 });
 
@@ -4406,6 +4888,29 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40934,33 +41439,6 @@ var render = function() {
                         }
                       }
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("指図書No.")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newFile.number,
-                          expression: "newFile.number"
-                        }
-                      ],
-                      attrs: { type: "text", name: "", value: "" },
-                      domProps: { value: _vm.newFile.number },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.newFile, "number", $event.target.value)
-                        }
-                      }
-                    })
                   ])
                 ]),
                 _vm._v(" "),
@@ -41006,7 +41484,7 @@ var render = function() {
                         ],
                         attrs: {
                           type: "radio",
-                          name: "doctype",
+                          name: "doctypen",
                           value: "office"
                         },
                         domProps: {
@@ -41040,7 +41518,7 @@ var render = function() {
                         ],
                         attrs: {
                           type: "radio",
-                          name: "doctype",
+                          name: "doctypen",
                           value: "other"
                         },
                         domProps: {
@@ -41292,7 +41770,22 @@ var render = function() {
                         }
                       }
                     })
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentFile.material == "guide",
+                          expression: "currentFile.material == 'guide'"
+                        }
+                      ]
+                    },
+                    [_vm._v("指図書No." + _vm._s(_vm.currentFile.guideNumber))]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("li", { staticClass: "fli" }, [
@@ -41322,7 +41815,111 @@ var render = function() {
                         }
                       }
                     })
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentFile.material != "guide",
+                          expression: "currentFile.material != 'guide'"
+                        }
+                      ],
+                      staticClass: "after radioset"
+                    },
+                    [
+                      _c("span", { staticClass: "radioarea" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentFile.material,
+                              expression: "currentFile.material"
+                            }
+                          ],
+                          attrs: {
+                            type: "radio",
+                            name: "doctype",
+                            value: "office"
+                          },
+                          domProps: {
+                            checked: _vm._q(_vm.currentFile.material, "office")
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(
+                                _vm.currentFile,
+                                "material",
+                                "office"
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "labeltxt" }, [
+                        _vm._v("本社資料")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentFile.material != "guide",
+                          expression: "currentFile.material != 'guide'"
+                        }
+                      ],
+                      staticClass: "after radioset"
+                    },
+                    [
+                      _c("span", { staticClass: "radioarea" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentFile.material,
+                              expression: "currentFile.material"
+                            }
+                          ],
+                          attrs: {
+                            type: "radio",
+                            name: "doctype",
+                            value: "other"
+                          },
+                          domProps: {
+                            checked: _vm._q(_vm.currentFile.material, "other")
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(
+                                _vm.currentFile,
+                                "material",
+                                "other"
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "labeltxt" }, [
+                        _vm._v("その他資料")
+                      ])
+                    ]
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -41651,14 +42248,20 @@ var render = function() {
                         }
                       }
                     },
-                    _vm._l(_vm.listOffice, function(office) {
-                      return _c(
-                        "option",
-                        { key: office.id, domProps: { value: office.id } },
-                        [_vm._v(_vm._s(office.name))]
-                      )
-                    }),
-                    0
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("選択してください")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listOffice, function(office) {
+                        return _c(
+                          "option",
+                          { key: office.id, domProps: { value: office.id } },
+                          [_vm._v(_vm._s(office.name))]
+                        )
+                      })
+                    ],
+                    2
                   )
                 ]),
                 _vm._v(" "),
@@ -41762,14 +42365,20 @@ var render = function() {
                         }
                       }
                     },
-                    _vm._l(_vm.listAuthor, function(author) {
-                      return _c(
-                        "option",
-                        { key: author.id, domProps: { value: author.id } },
-                        [_vm._v(_vm._s(author.name))]
-                      )
-                    }),
-                    0
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("選択してください")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listAuthor, function(author) {
+                        return _c(
+                          "option",
+                          { key: author.id, domProps: { value: author.id } },
+                          [_vm._v(_vm._s(author.name))]
+                        )
+                      })
+                    ],
+                    2
                   )
                 ])
               ])
@@ -42304,122 +42913,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "edit-form" }, [
-    _c(
-      "form",
-      [
-        _c("guide-block"),
-        _vm._v(" "),
-        _c("delivery-block"),
-        _vm._v(" "),
-        _c("packaging-block"),
-        _vm._v(" "),
-        _c("procedure-block"),
-        _vm._v(" "),
-        _c("product-block", { attrs: { action: "new" } }),
-        _vm._v(" "),
-        _c("footer", { staticClass: "list-footer" }, [
-          _c("footer", { staticClass: "list-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "mainbtn",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.createGuide($event)
-                  }
-                }
-              },
-              [_vm._v("保存")]
-            )
-          ])
-        ])
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4& ***!
-  \******************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "edit-form" }, [
-    _c(
-      "form",
-      [
-        _c("guide-block"),
-        _vm._v(" "),
-        _c("delivery-block"),
-        _vm._v(" "),
-        _c("packaging-block"),
-        _vm._v(" "),
-        _c("procedure-block"),
-        _vm._v(" "),
-        _c("product-block", { attrs: { action: "edit" } }),
-        _vm._v(" "),
-        _c("footer", { staticClass: "list-footer" }, [
-          _c("footer", { staticClass: "list-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "mainbtn",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.createGuide($event)
-                  }
-                }
-              },
-              [_vm._v("保存")]
-            )
-          ])
-        ])
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/ListGuide.vue?vue&type=template&id=c1432ee0&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/ListGuide.vue?vue&type=template&id=c1432ee0& ***!
@@ -42446,6 +42939,66 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "edit-form" }, [
+    _c(
+      "form",
+      [
+        _c("guide-block"),
+        _vm._v(" "),
+        _c("delivery-block"),
+        _vm._v(" "),
+        _c("packaging-block"),
+        _vm._v(" "),
+        _c("procedure-block"),
+        _vm._v(" "),
+        _c("product-block", { attrs: { action: _vm.action } }),
+        _vm._v(" "),
+        _c("price-block"),
+        _vm._v(" "),
+        _c("footer", { staticClass: "list-footer" }, [
+          _c("footer", { staticClass: "list-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "mainbtn",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.createGuide($event)
+                  }
+                }
+              },
+              [_vm._v("保存")]
+            )
+          ])
+        ])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -42571,116 +43124,25 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("ul", { staticClass: "listtable" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "li",
+      _c(
+        "ul",
+        { staticClass: "listtable" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
           _vm._l(_vm.guides, function(guide) {
-            return _c("ul", { key: guide.id, attrs: { "data-id": guide.id } }, [
-              _c("li", [_vm._v(_vm._s(guide.created_at))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.supplier.name))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.number))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.customer_name))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.title))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.office))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.creator.name))]),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  guide.delivery
-                    ? [_vm._v(_vm._s(guide.delivery.code))]
-                    : _vm._e()
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.delivery.receiver))]),
-              _vm._v(" "),
-              _c("li", [_vm._v("高宮中学校")]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.shipping_date))]),
-              _vm._v(" "),
-              _c("li", [_vm._v(_vm._s(guide.received_date))]),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  guide.first_product
-                    ? [_vm._v(_vm._s(guide.first_product.name))]
-                    : _vm._e()
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _vm._m(1, true),
-              _vm._v(" "),
-              _vm.editable == 1
-                ? _c("li", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "editbtn",
-                        attrs: {
-                          onclick:
-                            "location.href='/guide/" + guide.id + "/edit'"
-                        }
-                      },
-                      [_c("span", [_vm._v("編集")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "copybtn",
-                        on: {
-                          click: function($event) {
-                            return _vm.cloneGuide(guide.id)
-                          }
-                        }
-                      },
-                      [_c("span", [_vm._v("複製")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "deletebtn",
-                        attrs: { for: "popup_delete" },
-                        on: {
-                          click: function($event) {
-                            return _vm.setDelete(guide.id)
-                          }
-                        }
-                      },
-                      [_c("span", [_vm._v("削除")])]
-                    )
-                  ])
-                : _c("li", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "viewbtn",
-                        attrs: {
-                          onclick:
-                            "location.href='/guide/" + guide.id + "/edit'"
-                        }
-                      },
-                      [_c("span", [_vm._v("閲覧")])]
-                    )
-                  ])
-            ])
-          }),
-          0
-        )
-      ])
+            return _c("single-result", {
+              key: guide.id,
+              attrs: {
+                "data-id": guide.id,
+                guide: guide,
+                editable: _vm.editable
+              }
+            })
+          })
+        ],
+        2
+      )
     ])
   ])
 }
@@ -42721,18 +43183,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("li", [_vm._v("操作")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金有）")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金無）")])
     ])
   }
 ]
@@ -43100,6 +43550,7 @@ var render = function() {
                           expression: "search.worker.value"
                         }
                       ],
+                      attrs: { disabled: _vm.disabledSearchWorker },
                       on: {
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -43772,6 +44223,161 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", [
+    _c("ul", [
+      _c("li", [_vm._v(_vm._s(_vm.guide.created_at))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.supplier.name))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.number))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.customer_name))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.title))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.office))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.creator.name))]),
+      _vm._v(" "),
+      _c(
+        "li",
+        [
+          _vm.guide.delivery
+            ? [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.guide.delivery.code) +
+                    "\n            "
+                )
+              ]
+            : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.delivery.receiver))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.chk))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.shipping_date))]),
+      _vm._v(" "),
+      _c("li", [_vm._v(_vm._s(_vm.guide.received_date))]),
+      _vm._v(" "),
+      _c(
+        "li",
+        [
+          _vm.guide.first_product
+            ? [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.guide.first_product.name) +
+                    "\n            "
+                )
+              ]
+            : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.editable == 1
+        ? _c("li", [
+            _c(
+              "button",
+              {
+                class: _vm.canEdit ? "editbtn" : "viewbtn",
+                attrs: {
+                  onclick: "location.href='/guide/" + _vm.guide.id + "/edit'"
+                }
+              },
+              [_c("span", [_vm._v("編集")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "copybtn",
+                attrs: {
+                  onclick:
+                    "location.href='/guide/" + _vm.guide.id + "/dupplicate'"
+                }
+              },
+              [_c("span", [_vm._v("複製")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.canEdit,
+                    expression: "canEdit"
+                  }
+                ],
+                staticClass: "deletebtn",
+                attrs: { for: "popup_delete" },
+                on: {
+                  click: function($event) {
+                    return _vm.setDelete(_vm.guide.id)
+                  }
+                }
+              },
+              [_c("span", [_vm._v("削除")])]
+            )
+          ])
+        : _c("li", [
+            _c(
+              "button",
+              {
+                staticClass: "viewbtn",
+                attrs: {
+                  onclick: "location.href='/guide/" + _vm.guide.id + "/edit'"
+                }
+              },
+              [_c("span", [_vm._v("閲覧")])]
+            )
+          ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金有）")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金無）")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/SortForm.vue?vue&type=template&id=43a6df2d&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/SortForm.vue?vue&type=template&id=43a6df2d& ***!
@@ -44004,19 +44610,14 @@ var render = function() {
               }
             }
           },
-          [
-            _c("option", { attrs: { value: "得意先直送" } }, [
-              _vm._v("得意先直送")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "帳合店直送" } }, [
-              _vm._v("帳合店直送")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "営業所入り" } }, [
-              _vm._v("営業所入り")
-            ])
-          ]
+          _vm._l(_vm.chk, function(ofchk) {
+            return _c(
+              "option",
+              { key: ofchk.eng, domProps: { value: ofchk.eng } },
+              [_vm._v(_vm._s(ofchk.jap))]
+            )
+          }),
+          0
         )
       ])
     ]),
@@ -44567,7 +45168,7 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { value: "" } }, [
+            _c("option", { attrs: { value: "0" } }, [
               _vm._v("選択してください")
             ]),
             _vm._v(" "),
@@ -45139,6 +45740,417 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "price_list sec" }, [
+    _c("h3", { staticClass: "sec_ttl" }, [_vm._v("銘入料金 (単位：円)")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "edit-list" },
+      [
+        _vm._l(_vm.price.element1, function(ele1, index) {
+          return _c("li", { key: index, staticClass: "sec" }, [
+            _c("h4", { staticClass: "formctttl" }, [_vm._v(_vm._s(ele1.name))]),
+            _vm._v(" "),
+            _c("div", { staticClass: "formctbox" }, [
+              _c(
+                "ul",
+                [
+                  _c("price-price", {
+                    attrs: {
+                      ind: index,
+                      element: "element1",
+                      typePrice: "price",
+                      typeName: "原価"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("price-price", {
+                    attrs: {
+                      ind: index,
+                      element: "element1",
+                      typePrice: "wholesale",
+                      typeName: "仕切価格"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", { staticClass: "sec" }, [
+          _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "formctbox" }, [
+            _c("ul", [
+              _c("li", [
+                _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
+                _vm._v(
+                  "\n            単価\n            " +
+                    _vm._s(_vm.subTotalEle1.subPrice) +
+                    "円 / 数\n            " +
+                    _vm._s(_vm.subTotalEle1.subQty) +
+                    " / 計\n            " +
+                    _vm._s(_vm.subTotalEle1.subTotal) +
+                    "円\n          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("span", { staticClass: "sub_ttl" }, [_vm._v("仕切価格：")]),
+                _vm._v(
+                  "\n            単価\n            " +
+                    _vm._s(_vm.subWholesaleEle1.subPrice) +
+                    "円 / 数\n            " +
+                    _vm._s(_vm.subWholesaleEle1.subQty) +
+                    " / 計\n            " +
+                    _vm._s(_vm.subWholesaleEle1.subTotal) +
+                    "円\n          "
+                )
+              ])
+            ])
+          ])
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("h3", { staticClass: "sec_ttl" }, [_vm._v("手作業")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "edit-list" },
+      [
+        _vm._l(_vm.price.element2, function(ele2, index) {
+          return _c("li", { key: index, staticClass: "sec" }, [
+            _c("h4", { staticClass: "formctttl" }, [_vm._v(_vm._s(ele2.name))]),
+            _vm._v(" "),
+            _c("div", { staticClass: "formctbox" }, [
+              _c(
+                "ul",
+                [
+                  _c("price-price", {
+                    attrs: {
+                      ind: index,
+                      element: "element2",
+                      typePrice: "price",
+                      typeName: "原価"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("price-price", {
+                    attrs: {
+                      ind: index,
+                      element: "element2",
+                      typePrice: "wholesale",
+                      typeName: "仕切価格"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", { staticClass: "sec" }, [
+          _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "formctbox" }, [
+            _c("ul", [
+              _c("li", [
+                _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
+                _vm._v(
+                  "単価 " +
+                    _vm._s(_vm.subTotalEle2.subPrice) +
+                    "円 / 数\n            " +
+                    _vm._s(_vm.subTotalEle2.subQty) +
+                    " / 計 " +
+                    _vm._s(_vm.subTotalEle2.subTotal) +
+                    "円\n          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("span", { staticClass: "sub_ttl" }, [_vm._v("仕切価格：")]),
+                _vm._v(
+                  "単価\n            " +
+                    _vm._s(_vm.subWholesaleEle2.subPrice) +
+                    "円 / 数 " +
+                    _vm._s(_vm.subWholesaleEle2.subQty) +
+                    " / 計 " +
+                    _vm._s(_vm.subWholesaleEle2.subTotal) +
+                    "円\n          "
+                )
+              ])
+            ])
+          ])
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("p", { staticClass: "sec total" }, [
+      _vm._v("\n    〈総合計〉 原価：\n    "),
+      _c("strong", [_vm._v(_vm._s(_vm.finalPrice) + "円")]),
+      _vm._v(" / 仕切価格：\n    "),
+      _c("strong", [_vm._v(_vm._s(_vm.finalWholesale) + "円")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v("〈差益〉\n    "),
+      _c("strong", [_vm._v(_vm._s(_vm.finalMargin) + "円")])
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "edit-list" }, [
+      _c("li", { staticClass: "sec" }, [
+        _c("h4", { staticClass: "formctttl" }, [_vm._v("特値適用")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "formctbox" }, [
+          _c("ul", [
+            _c("li", [
+              _c("label", { staticClass: "before" }, [
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("No.")]),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "text", name: "", value: "" } })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "before after" }, [
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("掛け率")]),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "text", name: "", value: "" } }),
+                _vm._v(" "),
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("％")])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", [
+    _c("span", { staticClass: "sub_ttl" }, [
+      _vm._v(_vm._s(_vm.typeName) + "：")
+    ]),
+    _vm._v(" "),
+    _c("label", { staticClass: "before after" }, [
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("単価")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.price.cost,
+            expression: "price.cost"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.price.cost },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.price, "cost", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("円")])
+    ]),
+    _vm._v(" "),
+    _c("label", { staticClass: "before" }, [
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("数")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.price.qty,
+            expression: "price.qty"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.price.qty },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.price, "qty", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("label", { staticClass: "before" }, [
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("単位")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.price.unit,
+            expression: "price.unit"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.price.unit },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.price, "unit", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("label", { staticClass: "before after" }, [
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("計")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.total,
+            expression: "total"
+          }
+        ],
+        attrs: { type: "text", disabled: "" },
+        domProps: { value: _vm.total },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.total = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "labeltxt" }, [_vm._v("円")])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("span", { staticClass: "sub_ttl" }, [_vm._v("仕切価格：")]),
+      _vm._v(" "),
+      _c("label", { staticClass: "before after" }, [
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("単価")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text", name: "", value: "" } }),
+        _vm._v(" "),
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("円")])
+      ]),
+      _vm._v(" "),
+      _c("label", { staticClass: "before" }, [
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("数")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text", name: "", value: "" } })
+      ]),
+      _vm._v(" "),
+      _c("label", { staticClass: "before" }, [
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("単位")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text", name: "", value: "" } })
+      ]),
+      _vm._v(" "),
+      _c("label", { staticClass: "before after" }, [
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("計")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text", name: "", value: "" } }),
+        _vm._v(" "),
+        _c("span", { staticClass: "labeltxt" }, [_vm._v("円")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -46104,1077 +47116,1009 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._l(_vm.products, function(product, index) {
-          return _c("li", { key: index + "-info", staticClass: "sec" }, [
-            _c("h3", { staticClass: "formctttl" }, [
-              _vm._v("本体銘入要領〈枝番" + _vm._s(index + 1) + "〉")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "formctbox" }, [
-              _c("ul", [
-                _c("li", [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("品名")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.name,
-                          expression: "product.info.name"
-                        }
-                      ],
-                      staticClass: "w30",
-                      attrs: { type: "text" },
-                      domProps: { value: product.info.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(product.info, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("色")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.color,
-                          expression: "product.info.color"
-                        }
-                      ],
-                      staticClass: "w20",
-                      attrs: { type: "text" },
-                      domProps: { value: product.info.color },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(product.info, "color", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("銘入数量")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.qty,
-                          expression: "product.info.qty"
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: product.info.qty },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(product.info, "qty", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("単位")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.unit,
-                          expression: "product.info.unit"
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: product.info.unit },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(product.info, "unit", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before dateset" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("出荷日")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.shipping_date,
-                          expression: "product.info.shipping_date"
-                        }
-                      ],
-                      attrs: { type: "date" },
-                      domProps: { value: product.info.shipping_date },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            product.info,
-                            "shipping_date",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before dateset" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("商品入荷予定")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.info.received_date,
-                          expression: "product.info.received_date"
-                        }
-                      ],
-                      attrs: { type: "date" },
-                      domProps: { value: product.info.received_date },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            product.info,
-                            "received_date",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "btnbox_righttop" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "deletebtn",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.removeProduct(index)
-                    }
-                  }
-                },
-                [_c("span", [_vm._v("削除")])]
-              )
-            ])
-          ])
+        _vm._l(_vm.totalProduct, function(index) {
+          return _c("product-info", {
+            key: index + "-info",
+            attrs: { indexv: index, total: _vm.totalProduct }
+          })
         }),
         _vm._v(" "),
-        _vm._l(_vm.products, function(product, index) {
-          return _c("li", { key: index, staticClass: "sec" }, [
-            _c("h3", { staticClass: "formctttl" }, [
-              _vm._v("〈枝番" + _vm._s(index + 1) + "〉")
+        _vm._l(_vm.totalProduct, function(index) {
+          return _c("product-inscription", {
+            key: index + "-inscription",
+            attrs: { indexv: index }
+          })
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "sec" }, [
+    _c("h3", { staticClass: "formctttl" }, [
+      _vm._v("本体銘入要領〈枝番" + _vm._s(_vm.index + 1) + "〉")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "formctbox" }, [
+      _c("ul", [
+        _c("li", [
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("品名")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.name,
+                  expression: "info.name"
+                }
+              ],
+              staticClass: "w30",
+              attrs: { type: "text" },
+              domProps: { value: _vm.info.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("色")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.color,
+                  expression: "info.color"
+                }
+              ],
+              staticClass: "w20",
+              attrs: { type: "text" },
+              domProps: { value: _vm.info.color },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "color", $event.target.value)
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入数量")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.qty,
+                  expression: "info.qty"
+                }
+              ],
+              attrs: { type: "text" },
+              domProps: { value: _vm.info.qty },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "qty", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("単位")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.unit,
+                  expression: "info.unit"
+                }
+              ],
+              attrs: { type: "text" },
+              domProps: { value: _vm.info.unit },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "unit", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before dateset" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("出荷日")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.shipping_date,
+                  expression: "info.shipping_date"
+                }
+              ],
+              attrs: { type: "date" },
+              domProps: { value: _vm.info.shipping_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "shipping_date", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before dateset" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("商品入荷予定")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.info.received_date,
+                  expression: "info.received_date"
+                }
+              ],
+              attrs: { type: "date" },
+              domProps: { value: _vm.info.received_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.info, "received_date", $event.target.value)
+                }
+              }
+            })
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.total > 1,
+            expression: "total > 1"
+          }
+        ],
+        staticClass: "btnbox_righttop"
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "deletebtn",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.removeProduct(_vm.index)
+              }
+            }
+          },
+          [_c("span", [_vm._v("削除")])]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "sec" }, [
+    _c("h3", { staticClass: "formctttl" }, [
+      _vm._v("〈枝番" + _vm._s(_vm.index + 1) + "〉")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "formctbox" }, [
+      _c("ul", [
+        _c("li", { staticClass: "sub_ttl" }, [
+          _vm._v(_vm._s(_vm._f("nameProductFilter")(_vm.productName)))
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("span", { staticClass: "before" }, [_vm._v("本体銘入")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "0" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "0") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "0")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "formctbox" }, [
-              _c("ul", [
-                _c("li", { staticClass: "sub_ttl" }, [
-                  _vm._v(_vm._s(_vm._f("nameProductFilter")(product.info.name)))
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("span", { staticClass: "before" }, [_vm._v("本体銘入")]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "0" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "0")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "0")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("無")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "1" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "1")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "1")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("1面")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "1b" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "1b")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "1b")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("2行1版")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "2" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "2")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "2")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("2面")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "3" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "3")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "3")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("3面")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "4" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "4")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "4")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("4面")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "5" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "5")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "5")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("5面")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.body,
-                            expression: "product.inscription.body"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "6" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.body, "6")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(product.inscription, "body", "6")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("6面")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("span", { staticClass: "before" }, [_vm._v("銘入方向")]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.direction,
-                            expression: "product.inscription.direction"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "side" },
-                        domProps: {
-                          checked: _vm._q(product.inscription.direction, "side")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(
-                              product.inscription,
-                              "direction",
-                              "side"
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("横")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.direction,
-                            expression: "product.inscription.direction"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "vertical" },
-                        domProps: {
-                          checked: _vm._q(
-                            product.inscription.direction,
-                            "vertical"
-                          )
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(
-                              product.inscription,
-                              "direction",
-                              "vertical"
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("縦")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("span", { staticClass: "before" }, [_vm._v("校正")]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.proofreading,
-                            expression: "product.inscription.proofreading"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "unnecessary" },
-                        domProps: {
-                          checked: _vm._q(
-                            product.inscription.proofreading,
-                            "unnecessary"
-                          )
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(
-                              product.inscription,
-                              "proofreading",
-                              "unnecessary"
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("不要")])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.proofreading,
-                            expression: "product.inscription.proofreading"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "body" },
-                        domProps: {
-                          checked: _vm._q(
-                            product.inscription.proofreading,
-                            "body"
-                          )
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(
-                              product.inscription,
-                              "proofreading",
-                              "body"
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("本体校正")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after radioset" }, [
-                    _c("span", { staticClass: "radioarea" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.proofreading,
-                            expression: "product.inscription.proofreading"
-                          }
-                        ],
-                        attrs: { type: "radio", value: "data" },
-                        domProps: {
-                          checked: _vm._q(
-                            product.inscription.proofreading,
-                            "data"
-                          )
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(
-                              product.inscription,
-                              "proofreading",
-                              "data"
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("データ")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("銘入方式")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.method,
-                            expression: "product.inscription.method"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              product.inscription,
-                              "method",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.listInscrMethod, function(method, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: method.eng } },
-                          [_vm._v(_vm._s(method.jap))]
-                        )
-                      }),
-                      0
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("無")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "1" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "1") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "1")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("1面")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "1b" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "1b") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "1b")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("2行1版")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "2" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "2") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "2")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("2面")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "3" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "3") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "3")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("3面")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "4" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "4") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "4")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("4面")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "5" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "5") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "5")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("5面")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.body,
+                    expression: "inscription.body"
+                  }
+                ],
+                attrs: { type: "radio", value: "6" },
+                domProps: { checked: _vm._q(_vm.inscription.body, "6") },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "body", "6")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("6面")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("span", { staticClass: "before" }, [_vm._v("銘入方向")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.direction,
+                    expression: "inscription.direction"
+                  }
+                ],
+                attrs: { type: "radio", value: "side" },
+                domProps: {
+                  checked: _vm._q(_vm.inscription.direction, "side")
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "direction", "side")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("横")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.direction,
+                    expression: "inscription.direction"
+                  }
+                ],
+                attrs: { type: "radio", value: "vertical" },
+                domProps: {
+                  checked: _vm._q(_vm.inscription.direction, "vertical")
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "direction", "vertical")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("縦")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("span", { staticClass: "before" }, [_vm._v("校正")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.proofreading,
+                    expression: "inscription.proofreading"
+                  }
+                ],
+                attrs: { type: "radio", value: "unnecessary" },
+                domProps: {
+                  checked: _vm._q(_vm.inscription.proofreading, "unnecessary")
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(
+                      _vm.inscription,
+                      "proofreading",
+                      "unnecessary"
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("銘入作業")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.work,
-                            expression: "product.inscription.work"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              product.inscription,
-                              "work",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.listInscrWork, function(method, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: method.eng } },
-                          [_vm._v(_vm._s(method.jap))]
-                        )
-                      }),
-                      0
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("不要")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.proofreading,
+                    expression: "inscription.proofreading"
+                  }
+                ],
+                attrs: { type: "radio", value: "body" },
+                domProps: {
+                  checked: _vm._q(_vm.inscription.proofreading, "body")
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "proofreading", "body")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("本体校正")])
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "after radioset" }, [
+            _c("span", { staticClass: "radioarea" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.proofreading,
+                    expression: "inscription.proofreading"
+                  }
+                ],
+                attrs: { type: "radio", value: "data" },
+                domProps: {
+                  checked: _vm._q(_vm.inscription.proofreading, "data")
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.inscription, "proofreading", "data")
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("データ")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入方式")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.method,
+                    expression: "inscription.method"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.inscription,
+                      "method",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("銘入書体")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.typeface,
-                            expression: "product.inscription.typeface"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              product.inscription,
-                              "typeface",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.listInscrTypeFace, function(method, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: method.eng } },
-                          [_vm._v(_vm._s(method.jap))]
-                        )
-                      }),
-                      0
+                  }
+                }
+              },
+              _vm._l(_vm.listInscrMethod, function(method, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: method.eng } },
+                  [_vm._v(_vm._s(method.jap))]
+                )
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入作業")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.work,
+                    expression: "inscription.work"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.inscription,
+                      "work",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
-                  ])
-                ]),
+                  }
+                }
+              },
+              _vm._l(_vm.listInscrWork, function(method, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: method.eng } },
+                  [_vm._v(_vm._s(method.jap))]
+                )
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入書体")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.typeface,
+                    expression: "inscription.typeface"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.inscription,
+                      "typeface",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.listInscrTypeFace, function(method, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: method.eng } },
+                  [_vm._v(_vm._s(method.jap))]
+                )
+              }),
+              0
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.inscription.font_size_enable,
+                expression: "inscription.font_size_enable"
+              }
+            ],
+            staticClass: "disabled_on",
+            attrs: {
+              type: "radio",
+              name: "fontsize" + _vm.index,
+              value: "0",
+              id: "fontsize01" + _vm.index
+            },
+            domProps: {
+              checked: _vm._q(_vm.inscription.font_size_enable, "0")
+            },
+            on: {
+              click: function($event) {
+                return _vm.disableFontSize(_vm.inscription)
+              },
+              change: function($event) {
+                return _vm.$set(_vm.inscription, "font_size_enable", "0")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.inscription.font_size_enable,
+                expression: "inscription.font_size_enable"
+              }
+            ],
+            staticClass: "disabled_off",
+            attrs: {
+              type: "radio",
+              checked: "",
+              name: "fontsize" + _vm.index,
+              value: "1",
+              id: "fontsize02" + _vm.index
+            },
+            domProps: {
+              checked: _vm._q(_vm.inscription.font_size_enable, "1")
+            },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.inscription, "font_size_enable", "1")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "before" }, [_vm._v("文字サイズ")]),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "after radioset disabled_trgr_on",
+              attrs: { for: "fontsize01" + _vm.index }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("一任")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "after radioset disabled_trgr_off",
+              attrs: { for: "fontsize02" + _vm.index }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("指定有")])
+            ]
+          ),
+          _vm._v(" "),
+          _c("label", { staticClass: "after disabled_tgt" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.inscription.font_size,
+                  expression: "inscription.font_size"
+                }
+              ],
+              attrs: { type: "text" },
+              domProps: { value: _vm.inscription.font_size },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.inscription, "font_size", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("PT")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          [
+            _c("span", { staticClass: "before" }, [_vm._v("印刷色")]),
+            _vm._v(" "),
+            _vm._l(3, function(n) {
+              return _c("label", { key: n, staticClass: "before after" }, [
+                _c("span", { staticClass: "labeltxt" }, [_vm._v(_vm._s(n))]),
                 _vm._v(" "),
-                _c("li", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: product.inscription.font_size_enable,
-                        expression: "product.inscription.font_size_enable"
-                      }
-                    ],
-                    staticClass: "disabled_on",
-                    attrs: {
-                      type: "radio",
-                      name: "fontsize" + index,
-                      value: "0",
-                      id: "fontsize01" + index
-                    },
-                    domProps: {
-                      checked: _vm._q(product.inscription.font_size_enable, "0")
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.disableFontSize(product.inscription)
-                      },
-                      change: function($event) {
-                        return _vm.$set(
-                          product.inscription,
-                          "font_size_enable",
-                          "0"
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: product.inscription.font_size_enable,
-                        expression: "product.inscription.font_size_enable"
-                      }
-                    ],
-                    staticClass: "disabled_off",
-                    attrs: {
-                      type: "radio",
-                      checked: "",
-                      name: "fontsize" + index,
-                      value: "1",
-                      id: "fontsize02" + index
-                    },
-                    domProps: {
-                      checked: _vm._q(product.inscription.font_size_enable, "1")
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(
-                          product.inscription,
-                          "font_size_enable",
-                          "1"
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "before" }, [_vm._v("文字サイズ")]),
-                  _vm._v(" "),
-                  _c(
-                    "label",
+                _c("input", {
+                  directives: [
                     {
-                      staticClass: "after radioset disabled_trgr_on",
-                      attrs: { for: "fontsize01" + index }
-                    },
-                    [
-                      _vm._m(0, true),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "labeltxt" }, [_vm._v("一任")])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "after radioset disabled_trgr_off",
-                      attrs: { for: "fontsize02" + index }
-                    },
-                    [
-                      _vm._m(1, true),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "labeltxt" }, [
-                        _vm._v("指定有")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "after disabled_tgt" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: product.inscription.font_size,
-                          expression: "product.inscription.font_size"
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: product.inscription.font_size },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            product.inscription,
-                            "font_size",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("PT")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c("span", { staticClass: "before" }, [_vm._v("印刷色")]),
-                    _vm._v(" "),
-                    _vm._l(3, function(n) {
-                      return _c(
-                        "label",
-                        { key: n, staticClass: "before after" },
-                        [
-                          _c("span", { staticClass: "labeltxt" }, [
-                            _vm._v(_vm._s(n))
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value:
-                                  product.inscription.printing_color[n - 1],
-                                expression:
-                                  "product.inscription.printing_color[n-1]"
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: {
-                              value: product.inscription.printing_color[n - 1]
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  product.inscription.printing_color,
-                                  n - 1,
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "labeltxt" }, [
-                            _vm._v("DIC")
-                          ])
-                        ]
-                      )
-                    })
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.printing_color[n - 1],
+                      expression: "inscription.printing_color[n-1]"
+                    }
                   ],
-                  2
-                ),
-                _vm._v(" "),
-                _c("li", [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("パターン切替")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: product.inscription.pattern_type,
-                            expression: "product.inscription.pattern_type"
-                          }
-                        ],
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                product.inscription,
-                                "pattern_type",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                            function($event) {
-                              return _vm.changePattern($event, index)
-                            }
-                          ]
-                        }
-                      },
-                      _vm._l(_vm.listPatternType, function(pattern, n) {
-                        return _c(
-                          "option",
-                          { key: n, domProps: { value: pattern.eng } },
-                          [_vm._v(_vm._s(pattern.jap))]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "flexb" }, [
-                  _c("div", { staticClass: "imgbox" }, [
-                    _c("img", {
-                      ref: "photo" + index,
-                      refInFor: true,
-                      attrs: {
-                        src:
-                          "/images/pen_temp-0" +
-                          product.inscription.pattern_type +
-                          ".svg"
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.inscription.printing_color[n - 1] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "txtbox" }, [
-                    product.inscription.pattern_text.length > 1
-                      ? _c(
-                          "ul",
-                          _vm._l(product.inscription.pattern_text, function(
-                            textPt,
-                            index
-                          ) {
-                            return _c("li", { key: index }, [
-                              _c("label", { staticClass: "box100" }, [
-                                _c("span", { staticClass: "labeltxt" }, [
-                                  _vm._v(
-                                    _vm._s(_vm._f("circleFilter")(index + 1))
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value:
-                                        product.inscription.pattern_text[index],
-                                      expression:
-                                        "product.inscription.pattern_text[index]"
-                                    }
-                                  ],
-                                  staticClass: "w100per",
-                                  attrs: { type: "text" },
-                                  domProps: {
-                                    value:
-                                      product.inscription.pattern_text[index]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        product.inscription.pattern_text,
-                                        index,
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                })
-                              ])
-                            ])
-                          }),
-                          0
-                        )
-                      : _c("textarea", {
+                      _vm.$set(
+                        _vm.inscription.printing_color,
+                        n - 1,
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("DIC")])
+              ])
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("li", [
+          _c("label", { staticClass: "before" }, [
+            _c("span", { staticClass: "labeltxt" }, [_vm._v("パターン切替")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.pattern_type,
+                    expression: "inscription.pattern_type"
+                  }
+                ],
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.inscription,
+                        "pattern_type",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    function($event) {
+                      return _vm.changePattern($event, _vm.index)
+                    }
+                  ]
+                }
+              },
+              _vm._l(_vm.listPatternType, function(pattern, n) {
+                return _c(
+                  "option",
+                  { key: n, domProps: { value: pattern.eng } },
+                  [_vm._v(_vm._s(pattern.jap))]
+                )
+              }),
+              0
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "flexb" }, [
+          _c("div", { staticClass: "imgbox" }, [
+            _c("img", {
+              ref: "photo" + _vm.index,
+              attrs: {
+                src:
+                  "/images/pen_temp-0" + _vm.inscription.pattern_type + ".svg"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "txtbox" }, [
+            _vm.inscription.pattern_text.length > 1
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.inscription.pattern_text, function(textPt, index) {
+                    return _c("li", { key: index }, [
+                      _c("label", { staticClass: "box100" }, [
+                        _c("span", { staticClass: "labeltxt" }, [
+                          _vm._v(_vm._s(_vm._f("circleFilter")(index + 1)))
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: product.inscription.pattern_text[0],
-                              expression: "product.inscription.pattern_text[0]"
+                              value: _vm.inscription.pattern_text[index],
+                              expression: "inscription.pattern_text[index]"
                             }
                           ],
-                          staticClass: "h5",
-                          attrs: { name: "" },
+                          staticClass: "w100per",
+                          attrs: { type: "text" },
                           domProps: {
-                            value: product.inscription.pattern_text[0]
+                            value: _vm.inscription.pattern_text[index]
                           },
                           on: {
                             input: function($event) {
@@ -47182,98 +48126,121 @@ var render = function() {
                                 return
                               }
                               _vm.$set(
-                                product.inscription.pattern_text,
-                                0,
+                                _vm.inscription.pattern_text,
+                                index,
                                 $event.target.value
                               )
                             }
                           }
-                        }),
-                    _vm._v(" "),
-                    _vm._m(2, true)
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _vm._v(
-                    "完成図や、ロゴマーク、素材等をアップロードしてください"
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "flexb" },
-                  [
-                    _vm._l(product.inscription.files, function(file, i) {
-                      return [
-                        _c("input", {
-                          ref: "file" + index + i,
-                          refInFor: true,
-                          staticStyle: { display: "none" },
-                          attrs: { type: "file", name: "fileUpload" },
-                          on: {
-                            change: function($event) {
-                              return _vm.onFileChange($event, index, i)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        file.id
-                          ? _c("div", { staticClass: "fbox3" }, [
-                              _c("div", { staticClass: "uploadimg" }, [
-                                file.thumbnail
-                                  ? _c("img", {
-                                      attrs: {
-                                        src: file.thumbnail,
-                                        width: "566",
-                                        height: "573"
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "deletebtn",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.deleteFile(index, i)
-                                      }
-                                    }
-                                  },
-                                  [_c("span", [_vm._v("削除")])]
-                                )
-                              ])
-                            ])
-                          : _c("div", { staticClass: "fbox3" }, [
-                              _c("div", { staticClass: "selectfile" }, [
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "mainbtn ulbtn",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.uploadFile(index, i)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("ファイルを選択してください")]
-                                )
-                              ])
-                            ])
-                      ]
-                    })
-                  ],
-                  2
+                        })
+                      ])
+                    ])
+                  }),
+                  0
                 )
-              ])
-            ])
+              : _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.pattern_text[0],
+                      expression: "inscription.pattern_text[0]"
+                    }
+                  ],
+                  staticClass: "h5",
+                  attrs: { name: "" },
+                  domProps: { value: _vm.inscription.pattern_text[0] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.inscription.pattern_text,
+                        0,
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+            _vm._v(" "),
+            _vm._m(2)
           ])
-        })
-      ],
-      2
-    )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v("完成図や、ロゴマーク、素材等をアップロードしてください")
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "flexb" },
+          [
+            _vm._l(_vm.inscription.files, function(file, i) {
+              return [
+                _c("input", {
+                  ref: "file" + _vm.index + i,
+                  refInFor: true,
+                  staticStyle: { display: "none" },
+                  attrs: { type: "file", name: "fileUpload" },
+                  on: {
+                    change: function($event) {
+                      return _vm.onFileChange($event, _vm.index, i)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                file.id
+                  ? _c("div", { staticClass: "fbox3" }, [
+                      _c("div", { staticClass: "uploadimg" }, [
+                        file.thumbnail
+                          ? _c("img", {
+                              attrs: {
+                                src: file.thumbnail,
+                                width: "566",
+                                height: "573"
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "deletebtn",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.deleteFile(_vm.index, i)
+                              }
+                            }
+                          },
+                          [_c("span", [_vm._v("削除")])]
+                        )
+                      ])
+                    ])
+                  : _c("div", { staticClass: "fbox3" }, [
+                      _c("div", { staticClass: "selectfile" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mainbtn ulbtn",
+                            on: {
+                              click: function($event) {
+                                return _vm.uploadFile(_vm.index, i)
+                              }
+                            }
+                          },
+                          [_vm._v("ファイルを選択してください")]
+                        )
+                      ])
+                    ])
+              ]
+            })
+          ],
+          2
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -47571,21 +48538,37 @@ var render = function() {
       _c(
         "li",
         _vm._l(_vm.users, function(user) {
-          return _c("ul", [
+          return _c("ul", { key: user.username }, [
             _c("li", [_vm._v(_vm._s(user.name))]),
             _vm._v(" "),
             _c("li", [_vm._v(_vm._s(user.role.name))]),
             _vm._v(" "),
             _c("li", [_vm._v(_vm._s(user.username))]),
             _vm._v(" "),
-            _c("li", [_vm._v(_vm._s(user.office.name))]),
+            _c(
+              "li",
+              [
+                user.office
+                  ? [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(user.office.name) +
+                          "\n                    "
+                      )
+                    ]
+                  : _vm._e()
+              ],
+              2
+            ),
             _vm._v(" "),
             _c("li", [
               _c(
-                "a",
+                "button",
                 {
                   staticClass: "editbtn",
-                  attrs: { href: "/user/" + user.id + "/edit" }
+                  attrs: {
+                    onclick: "location.href='/user/" + user.id + "/edit'"
+                  }
                 },
                 [_c("span", [_vm._v("編集")])]
               ),
@@ -59911,18 +60894,25 @@ Vue.component('form-user', __webpack_require__(/*! ./components/user/FormUser.vu
 Vue.component('list-file', __webpack_require__(/*! ./components/file/ListFile.vue */ "./resources/js/components/file/ListFile.vue")["default"]);
 Vue.component('list-file', __webpack_require__(/*! ./components/file/ListFile.vue */ "./resources/js/components/file/ListFile.vue")["default"]);
 Vue.component('add-file', __webpack_require__(/*! ./components/file/AddFile.vue */ "./resources/js/components/file/AddFile.vue")["default"]);
-Vue.component('edit-file', __webpack_require__(/*! ./components/file/EditFile.vue */ "./resources/js/components/file/EditFile.vue")["default"]);
-Vue.component('create-guide', __webpack_require__(/*! ./components/guide/CreateGuide.vue */ "./resources/js/components/guide/CreateGuide.vue")["default"]);
-Vue.component('edit-guide', __webpack_require__(/*! ./components/guide/EditGuide.vue */ "./resources/js/components/guide/EditGuide.vue")["default"]);
+Vue.component('edit-file', __webpack_require__(/*! ./components/file/EditFile.vue */ "./resources/js/components/file/EditFile.vue")["default"]); // Vue.component('create-guide', require('./components/guide/CreateGuide.vue').default);
+// Vue.component('edit-guide', require('./components/guide/EditGuide.vue').default);
+
 Vue.component('guide-block', __webpack_require__(/*! ./components/guide/partials/GuideBlock.vue */ "./resources/js/components/guide/partials/GuideBlock.vue")["default"]);
 Vue.component('delivery-block', __webpack_require__(/*! ./components/guide/partials/DeliveryBlock.vue */ "./resources/js/components/guide/partials/DeliveryBlock.vue")["default"]);
 Vue.component('packaging-block', __webpack_require__(/*! ./components/guide/partials/PackagingBlock.vue */ "./resources/js/components/guide/partials/PackagingBlock.vue")["default"]);
 Vue.component('procedure-block', __webpack_require__(/*! ./components/guide/partials/ProcedureBlock.vue */ "./resources/js/components/guide/partials/ProcedureBlock.vue")["default"]);
 Vue.component('product-block', __webpack_require__(/*! ./components/guide/partials/ProductBlock.vue */ "./resources/js/components/guide/partials/ProductBlock.vue")["default"]);
+Vue.component('price-block', __webpack_require__(/*! ./components/guide/partials/PriceBlock.vue */ "./resources/js/components/guide/partials/PriceBlock.vue")["default"]);
+Vue.component('price-price', __webpack_require__(/*! ./components/guide/partials/PricePrice.vue */ "./resources/js/components/guide/partials/PricePrice.vue")["default"]);
+Vue.component('price-wholesale', __webpack_require__(/*! ./components/guide/partials/PriceWholesale.vue */ "./resources/js/components/guide/partials/PriceWholesale.vue")["default"]);
+Vue.component('product-info', __webpack_require__(/*! ./components/guide/partials/ProductInfo.vue */ "./resources/js/components/guide/partials/ProductInfo.vue")["default"]);
+Vue.component('product-inscription', __webpack_require__(/*! ./components/guide/partials/ProductInscription.vue */ "./resources/js/components/guide/partials/ProductInscription.vue")["default"]);
+Vue.component('single-guide', __webpack_require__(/*! ./components/guide/SingleGuide.vue */ "./resources/js/components/guide/SingleGuide.vue")["default"]);
 Vue.component('list-guide', __webpack_require__(/*! ./components/guide/ListGuide.vue */ "./resources/js/components/guide/ListGuide.vue")["default"]);
 Vue.component('sort-form', __webpack_require__(/*! ./components/guide/components/SortForm.vue */ "./resources/js/components/guide/components/SortForm.vue")["default"]);
 Vue.component('search-form', __webpack_require__(/*! ./components/guide/components/SearchForm.vue */ "./resources/js/components/guide/components/SearchForm.vue")["default"]);
 Vue.component('list-result', __webpack_require__(/*! ./components/guide/components/ListResult.vue */ "./resources/js/components/guide/components/ListResult.vue")["default"]);
+Vue.component('single-result', __webpack_require__(/*! ./components/guide/components/SingleResult.vue */ "./resources/js/components/guide/components/SingleResult.vue")["default"]);
 Vue.component('guide-modal-delete', __webpack_require__(/*! ./components/guide/components/ModalDelete.vue */ "./resources/js/components/guide/components/ModalDelete.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -60188,144 +61178,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/guide/CreateGuide.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/guide/CreateGuide.vue ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateGuide.vue?vue&type=template&id=916a291c& */ "./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c&");
-/* harmony import */ var _CreateGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateGuide.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CreateGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/guide/CreateGuide.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateGuide.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/CreateGuide.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateGuide.vue?vue&type=template&id=916a291c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/CreateGuide.vue?vue&type=template&id=916a291c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGuide_vue_vue_type_template_id_916a291c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/guide/EditGuide.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/guide/EditGuide.vue ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditGuide.vue?vue&type=template&id=226204a4& */ "./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4&");
-/* harmony import */ var _EditGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditGuide.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EditGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/guide/EditGuide.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditGuide.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/EditGuide.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4& ***!
-  \************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditGuide.vue?vue&type=template&id=226204a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/EditGuide.vue?vue&type=template&id=226204a4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditGuide_vue_vue_type_template_id_226204a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/guide/ListGuide.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/guide/ListGuide.vue ***!
@@ -60390,6 +61242,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListGuide_vue_vue_type_template_id_c1432ee0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListGuide_vue_vue_type_template_id_c1432ee0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/SingleGuide.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/guide/SingleGuide.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SingleGuide.vue?vue&type=template&id=4dd4fda6& */ "./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6&");
+/* harmony import */ var _SingleGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SingleGuide.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SingleGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/SingleGuide.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleGuide.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/SingleGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleGuide.vue?vue&type=template&id=4dd4fda6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/SingleGuide.vue?vue&type=template&id=4dd4fda6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleGuide_vue_vue_type_template_id_4dd4fda6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -60597,6 +61518,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_template_id_cea32712___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchForm_vue_vue_type_template_id_cea32712___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/SingleResult.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/guide/components/SingleResult.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SingleResult.vue?vue&type=template&id=6ecdcf30& */ "./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30&");
+/* harmony import */ var _SingleResult_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SingleResult.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SingleResult_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/components/SingleResult.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleResult_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleResult.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/SingleResult.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleResult_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleResult.vue?vue&type=template&id=6ecdcf30& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/SingleResult.vue?vue&type=template&id=6ecdcf30&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleResult_vue_vue_type_template_id_6ecdcf30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -60878,6 +61868,213 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/guide/partials/PriceBlock.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceBlock.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PriceBlock.vue?vue&type=template&id=4f76e9b3& */ "./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3&");
+/* harmony import */ var _PriceBlock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PriceBlock.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PriceBlock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/partials/PriceBlock.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceBlock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PriceBlock.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceBlock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PriceBlock.vue?vue&type=template&id=4f76e9b3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceBlock.vue?vue&type=template&id=4f76e9b3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceBlock_vue_vue_type_template_id_4f76e9b3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PricePrice.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PricePrice.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PricePrice.vue?vue&type=template&id=c67bcf22& */ "./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22&");
+/* harmony import */ var _PricePrice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PricePrice.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PricePrice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/partials/PricePrice.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PricePrice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PricePrice.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PricePrice.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PricePrice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PricePrice.vue?vue&type=template&id=c67bcf22& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PricePrice.vue?vue&type=template&id=c67bcf22&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PricePrice_vue_vue_type_template_id_c67bcf22___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PriceWholesale.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceWholesale.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PriceWholesale.vue?vue&type=template&id=ab9d07b8& */ "./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8&");
+/* harmony import */ var _PriceWholesale_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PriceWholesale.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PriceWholesale_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/partials/PriceWholesale.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceWholesale_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PriceWholesale.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceWholesale_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PriceWholesale.vue?vue&type=template&id=ab9d07b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/PriceWholesale.vue?vue&type=template&id=ab9d07b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceWholesale_vue_vue_type_template_id_ab9d07b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/guide/partials/ProcedureBlock.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/guide/partials/ProcedureBlock.vue ***!
@@ -61011,6 +62208,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductBlock_vue_vue_type_template_id_cba861e6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductBlock_vue_vue_type_template_id_cba861e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInfo.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInfo.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductInfo.vue?vue&type=template&id=fd198644& */ "./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644&");
+/* harmony import */ var _ProductInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductInfo.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProductInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/partials/ProductInfo.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProductInfo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInfo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProductInfo.vue?vue&type=template&id=fd198644& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInfo.vue?vue&type=template&id=fd198644&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInfo_vue_vue_type_template_id_fd198644___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInscription.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInscription.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductInscription.vue?vue&type=template&id=21b20a50& */ "./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50&");
+/* harmony import */ var _ProductInscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductInscription.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProductInscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/partials/ProductInscription.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProductInscription.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProductInscription.vue?vue&type=template&id=21b20a50& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/partials/ProductInscription.vue?vue&type=template&id=21b20a50&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductInscription_vue_vue_type_template_id_21b20a50___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -61383,18 +62718,16 @@ var constVar = {
     'body': '本体校正',
     'data': 'データ'
   },
-
-  /*
-  pattern_type : [
-      {'eng' : 'right' , 'jap' :  '右利きボールペン', 'total' : 3},
-      {'eng' : 'left' , 'jap' :  '左利きボールペン', 'total' : 3},
-      {'eng' : 'right-grip' , 'jap' :  '右利きボールペングリップ付', 'total' : 5},
-      {'eng' : 'left-grip' , 'jap' :  '左利きボールペングリップ付', 'total' : 5},
-      {'eng' : 'hexagon' , 'jap' :  '六角鉛筆', 'total' : 6},
-      {'eng' : 'pentagon' , 'jap' :  '五角鉛筆', 'total' : 5},
-      {'eng' : 'free' , 'jap' :  'フリー', 'total' : 1},
-  ],
-  */
+  chk: [{
+    'eng': '1',
+    'jap': '得意先直送'
+  }, {
+    'eng': '2',
+    'jap': '帳合店直送'
+  }, {
+    'eng': '3',
+    'jap': '営業所入り'
+  }],
   pattern_type: [{
     'eng': 1,
     'jap': '右利きボールペン',
@@ -61510,8 +62843,9 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
     type: "",
     description: "",
     tags: "",
-    material: "",
-    id: 0
+    material: "office",
+    id: 0,
+    guideNumber: ""
   },
   listFiles: [],
   actionNew: 0
@@ -61523,6 +62857,8 @@ var setSelectedId = function setSelectedId(id) {
     for (var key in state.file) {
       state.file[key] = result.data[key];
     }
+
+    state.file.guideNumber = result.data.product.guide.number;
   });
 };
 var doSearch = function doSearch(searchFilter) {
@@ -61537,6 +62873,8 @@ var setDefaultFile = function setDefaultFile() {
   for (var key in state.file) {
     state.file[key] = "";
   }
+
+  state.file.material = "office";
 };
 
 var upload = /*#__PURE__*/function () {
@@ -61685,7 +63023,7 @@ var createFileProduct = /*#__PURE__*/function () {
 /*!*******************************************!*\
   !*** ./resources/js/stores/guideStore.js ***!
   \*******************************************/
-/*! exports provided: getGuideInfo, createGuide, setCreator, getWorkers, addProduct, default */
+/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61693,24 +63031,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGuideInfo", function() { return getGuideInfo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGuide", function() { return createGuide; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCreator", function() { return setCreator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAction", function() { return setAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCloneId", function() { return setCloneId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWorkers", function() { return getWorkers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProduct", function() { return addProduct; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _variables_guide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./variables/guide */ "./resources/js/stores/variables/guide.js");
-/* harmony import */ var _variables_delivery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./variables/delivery */ "./resources/js/stores/variables/delivery.js");
-/* harmony import */ var _variables_packaging__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./variables/packaging */ "./resources/js/stores/variables/packaging.js");
-/* harmony import */ var _variables_procedure__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./variables/procedure */ "./resources/js/stores/variables/procedure.js");
-/* harmony import */ var _variables_productInit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./variables/productInit */ "./resources/js/stores/variables/productInit.js");
-/* harmony import */ var _city__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./city */ "./resources/js/stores/city.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeProduct", function() { return removeProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "countByEle", function() { return countByEle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "countSubTotal", function() { return countSubTotal; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _variables_guide__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./variables/guide */ "./resources/js/stores/variables/guide.js");
+/* harmony import */ var _variables_delivery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./variables/delivery */ "./resources/js/stores/variables/delivery.js");
+/* harmony import */ var _variables_packaging__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./variables/packaging */ "./resources/js/stores/variables/packaging.js");
+/* harmony import */ var _variables_procedure__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./variables/procedure */ "./resources/js/stores/variables/procedure.js");
+/* harmony import */ var _variables_productInit__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./variables/productInit */ "./resources/js/stores/variables/productInit.js");
+/* harmony import */ var _variables_price__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./variables/price */ "./resources/js/stores/variables/price.js");
+/* harmony import */ var _city__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./city */ "./resources/js/stores/city.js");
+
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -61719,64 +63070,91 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var state = vue__WEBPACK_IMPORTED_MODULE_0___default.a.observable({
+
+
+var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
+  action: 'new',
   suppliers: [],
   creator: {},
-  city: _city__WEBPACK_IMPORTED_MODULE_7__["default"],
-  guide: _variables_guide__WEBPACK_IMPORTED_MODULE_2__["default"],
-  delivery: _variables_delivery__WEBPACK_IMPORTED_MODULE_3__["default"],
-  packaging: _variables_packaging__WEBPACK_IMPORTED_MODULE_4__["default"],
-  procedure: _variables_procedure__WEBPACK_IMPORTED_MODULE_5__["default"],
-  products: []
-}); //export const listCity = () => city;
+  dupplicate: {
+    exist: 0,
+    created_at: '',
+    number: ''
+  },
+  city: _city__WEBPACK_IMPORTED_MODULE_9__["default"],
+  guide: _variables_guide__WEBPACK_IMPORTED_MODULE_3__["default"],
+  delivery: _variables_delivery__WEBPACK_IMPORTED_MODULE_4__["default"],
+  packaging: _variables_packaging__WEBPACK_IMPORTED_MODULE_5__["default"],
+  procedure: _variables_procedure__WEBPACK_IMPORTED_MODULE_6__["default"],
+  products: [],
+  price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"]
+});
+var getGuideInfo = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return axios.get('/guide/' + id + '/get-guide').then(function (result) {
+              console.log(result);
+              state.guide = result.data.data.guide;
+              state.delivery = result.data.data.delivery;
+              state.packaging = result.data.data.packaging;
+              state.procedure = result.data.data.procedure;
+              state.creator = result.data.data.creator;
+              state.price = result.data.data.guide.price; // procedure material
 
-/*
-export const listSupplier = () => {
-    axios.get('/guide/listSuppliers').then(result => {
-        state.suppliers = result.data;
-        // console.log(result.data)
-    })
-}
-*/
+              var materialArray = _variables_procedure__WEBPACK_IMPORTED_MODULE_6__["default"].materialArray;
+              var materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
+              materialGuide.forEach(function (mat, index) {
+                materialArray[index] = mat;
+              });
+              state.procedure.materialArray = materialArray; // array products
 
-var getGuideInfo = function getGuideInfo(id) {
-  axios.get('/guide/' + id + '/get-guide').then(function (result) {
-    state.guide = result.data.data.guide;
-    state.delivery = result.data.data.delivery;
-    state.packaging = result.data.data.packaging;
-    state.procedure = result.data.data.procedure;
-    state.creator = result.data.data.creator; // procedure material
+              result.data.data.products.forEach(function (prod) {
+                var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"]));
+                var initFileArray = initProduct.inscription.files;
 
-    var materialArray = _variables_procedure__WEBPACK_IMPORTED_MODULE_5__["default"].materialArray;
-    var materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
-    materialGuide.forEach(function (mat, index) {
-      materialArray[index] = mat;
-    });
-    state.procedure.materialArray = materialArray; // array products
+                for (var key in initProduct.info) {
+                  initProduct.info[key] = prod[key];
+                }
 
-    result.data.data.products.forEach(function (prod) {
-      var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_6__["default"]));
-      var initFileArray = initProduct.inscription.files;
+                for (var _key in initProduct.inscription) {
+                  initProduct.inscription[_key] = prod[_key];
+                }
 
-      for (var key in initProduct.info) {
-        initProduct.info[key] = prod[key];
+                prod.file_array.forEach(function (file, index) {
+                  initFileArray[index] = file;
+                });
+                initProduct.id = prod.id;
+                initProduct.inscription.files = initFileArray;
+                initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0;
+                state.products.push(initProduct);
+              }); // dupplicate
+
+              var dupplicate = result.data.data.dupplicate;
+
+              if (dupplicate) {
+                state.dupplicate = dupplicate;
+                state.dupplicate.exist = 1;
+              }
+            });
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
       }
+    }, _callee);
+  }));
 
-      for (var _key in initProduct.inscription) {
-        initProduct.inscription[_key] = prod[_key];
-      }
-
-      prod.file_array.forEach(function (file, index) {
-        initFileArray[index] = file;
-      });
-      initProduct.id = prod.id;
-      initProduct.inscription.files = initFileArray;
-      initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0;
-      state.products.push(initProduct);
-    });
-  });
-};
+  return function getGuideInfo(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
 var createGuide = function createGuide(id) {
+  console.log(state.price);
   var products = [];
   state.products.forEach(function (product) {
     delete product.inscription.font_size_enable;
@@ -61784,12 +63162,17 @@ var createGuide = function createGuide(id) {
       id: product.id
     }, product.info), product.inscription));
   });
+
+  var guideInfo = _objectSpread({}, state.guide);
+
+  guideInfo.price = _objectSpread({}, state.price);
   var newGuide = {
-    guide: _objectSpread({}, state.guide),
+    guide: guideInfo,
     delivery: _objectSpread({}, state.delivery),
     packaging: _objectSpread({}, state.packaging),
     procedure: _objectSpread({}, state.procedure),
-    products: products
+    products: products // price : {...state.price},
+
   };
   newGuide.id = id; //    let newGuide = JSON.parse(JSON.stringify(state));
 
@@ -61800,14 +63183,55 @@ var createGuide = function createGuide(id) {
 var setCreator = function setCreator(creator) {
   state.creator = creator;
 };
+var setAction = function setAction(action) {
+  state.action = action;
+};
+var setCloneId = function setCloneId(id) {
+  state.guide.clone_id = id;
+  state.dupplicate = {
+    exist: 1,
+    created_at: state.guide.created_at,
+    number: state.guide.number
+  };
+};
 var getWorkers = function getWorkers() {
   axios('/guide/workers').then(function (result) {
     state.suppliers = result.data;
   });
 };
 var addProduct = function addProduct() {
-  state.products.push(JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_6__["default"])));
+  state.products.push(JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])));
 };
+var removeProduct = function removeProduct(index) {
+  state.products.splice(index, 1);
+}; // handle price 
+
+var countByEleState = function countByEleState(eleNumb, typePrice) {
+  var subPrice = 0,
+      subQty = 0,
+      subTotal = 0;
+
+  for (var ele in state.price[eleNumb]) {
+    subPrice += countSubTotalState(eleNumb, ele, typePrice, "cost");
+    subQty += countSubTotalState(eleNumb, ele, typePrice, "qty");
+    subTotal += countSubTotalState(eleNumb, ele, typePrice, "total");
+  }
+
+  return {
+    subPrice: subPrice,
+    subQty: subQty,
+    subTotal: subTotal
+  };
+};
+
+var countSubTotalState = function countSubTotalState(eleNumb, ele, typePrice, type) {
+  var tempPrice = parseInt(state.price[eleNumb][ele][typePrice][type]);
+  if (!isNaN(tempPrice)) return parseInt(tempPrice);
+  return 0;
+};
+
+var countByEle = countByEleState;
+var countSubTotal = countSubTotalState;
 /* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
@@ -61816,7 +63240,7 @@ var addProduct = function addProduct() {
 /*!***********************************************!*\
   !*** ./resources/js/stores/listGuideStore.js ***!
   \***********************************************/
-/*! exports provided: getOffices, getWorkers, getPpp, doSearch, setDelete, doDelete, cloneGuide, default */
+/*! exports provided: getOffices, getWorkers, getPpp, doSearch, setDelete, doDelete, cloneGuide, setSearchWorker, setCurrentUser, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61828,6 +63252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDelete", function() { return setDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doDelete", function() { return doDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cloneGuide", function() { return cloneGuide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSearchWorker", function() { return setSearchWorker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return setCurrentUser; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -61885,7 +63311,9 @@ var state = vue__WEBPACK_IMPORTED_MODULE_0___default.a.observable({
   deleteGuide: {
     id: 0,
     number: 0
-  }
+  },
+  user: {},
+  disabledSearchWorker: false
 });
 var getOffices = function getOffices() {
   axios('/guide/offices').then(function (result) {
@@ -61909,7 +63337,6 @@ var doSearch = function doSearch() {
   var searchs = {};
 
   if (state.search.advancedSearch) {
-    console.log("fsd");
     var group1 = ['office', 'worker', 'creator'];
     var group2 = ['orderDate', 'shippingDate', 'receivedDate'];
     group1.forEach(function (val) {
@@ -61969,6 +63396,14 @@ var cloneGuide = function cloneGuide(id) {
     }
   });
 };
+var setSearchWorker = function setSearchWorker(id) {
+  state.search.worker.enabled = true;
+  state.search.worker.value = id;
+  state.search.disabledSearchWorker = true;
+};
+var setCurrentUser = function setCurrentUser(user) {
+  state.user = user;
+};
 /* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
@@ -61982,31 +63417,29 @@ var cloneGuide = function cloneGuide(id) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  receiver: '',
+  office_chk: 1,
+  district: '',
+  city: '',
+  address: '',
+  building: '',
+  phone: '',
+  fax: ''
+});
 /*
 export default {    
-    receiver : '',
-    office_chk : '',
-    district : '',
-    city : '',
-    address : '',
-    building : '',
-    phone: '',
-    fax: ''        
+    receiver : 'Mr Receiver',
+    office_chk : '1',
+    code : '',
+    district : 'Itabashi',
+    city : 'Tokyo',
+    address : '2-5-9 Shingashi',
+    building : '183-0011',
+    phone: '03-3930-5351',
+    fax: '042-367-2607'        
 }
 */
-/* harmony default export */ __webpack_exports__["default"] = ({
-  //    shipping_date : '2020-07-29',
-  //    received_date : '2020-07-30',
-  receiver: 'Mr Receiver',
-  office_chk: 'CHK Office',
-  code: '',
-  district: 'Itabashi',
-  city: 'Tokyo',
-  address: '2-5-9 Shingashi',
-  building: '183-0011',
-  phone: '03-3930-5351',
-  fax: '042-367-2607'
-});
 
 /***/ }),
 
@@ -62019,40 +63452,43 @@ export default {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// export default {
-//     id: 0,
-//     created_at: '',
-//     title: '',
-//     office: '',
-//     assign: '',
-//     number: '',
-//     supplier_id: '',
-//     store_code: '',
-//     last_exist : 0,
-//     last_date : '',
-//     last_numb : '',
-//     customer_name : '',
-//     curator : '',
-//      shipping_date : '',
-//      received_date : '',
-// }
 /* harmony default export */ __webpack_exports__["default"] = ({
   id: 0,
-  created_at: '2020-07-12',
-  title: 'This is title',
-  office: 'This is office',
-  // assign: 'Mr Assign',
-  number: '3AR-TB',
-  worker_id: '',
-  store_code: '21BB-09',
+  created_at: '',
+  title: '',
+  office: '',
+  number: '',
+  supplier_id: 0,
+  store_code: '',
   last_exist: 0,
   last_date: '',
   last_numb: '',
-  customer_name: 'Mr Tong Teng',
-  curator: 'Mrs Tester',
-  shipping_date: '2020-07-13',
-  received_date: '2020-08-05'
+  customer_name: '',
+  curator: '',
+  shipping_date: '',
+  received_date: ''
 });
+/*
+export default {
+    id: 0,
+    created_at: '2020-07-12',
+    title: 'This is title',
+    office: 'This is office',
+    supplier_id: 0,
+    // assign: 'Mr Assign',
+    number: '3AR-TB',
+    // worker_id: '',
+    store_code: '21BB-09',
+    last_exist : 0,
+    last_date : '',
+    last_numb : '',
+    // clone_id : null,
+    customer_name : 'Mr Tong Teng',
+    curator : 'Mrs Tester',    
+    shipping_date : '2020-07-13',
+    received_date : '2020-08-05',
+}
+*/
 
 /***/ }),
 
@@ -62065,33 +63501,124 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  printing: 0,
+  proofreading: 0,
+  material: '',
+  number_of_page: '',
+  top_font: '',
+  top_color: '',
+  top_text: '',
+  bottom_font: '',
+  bottom_color: '',
+  bottom_text: '',
+  description: ''
+});
 /*
 export default {
     printing: 0,
-    proofreading : 0,
-    material: '',
-    number_of_page : '',
-    top_font:'',
-    top_color:'',
-    top_text:'',
-    bottom_font:'',
-    bottom_color:'',
-    bottom_text:'',
-    description:''
+    proofreading : 1,
+    material: 'Silk',
+    number_of_page : '2',
+    top_font:'Arial',
+    top_color:'Cyan',
+    top_text:'Bof its text is made up from sectio',
+    bottom_font:'Ra',
+    bottom_color:'Cyan',
+    bottom_text:'Low frequency in that literary corpus',
+    description:'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem veritatis et quasi architecto beatae vitae dicta sunt'
 }
 */
+
+/***/ }),
+
+/***/ "./resources/js/stores/variables/price.js":
+/*!************************************************!*\
+  !*** ./resources/js/stores/variables/price.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var info = {
+  'cost': '',
+  'qty': '',
+  'unit': '',
+  'total': ''
+};
+var element1 = {
+  'base_price': '本体価格',
+  'version_charge1': '版代',
+  'version_charge2': '版代',
+  'version_charge3': '版代',
+  'invoice1': '銘入代',
+  'invoice2': '銘入代',
+  'invoice3': '銘入代',
+  'box_paper1': 'のし箱・紙',
+  'box_paper2': 'のし箱・紙',
+  'box_paper3': 'のし箱・紙',
+  'printing1': '印刷代',
+  'printing2': '印刷代',
+  'printing3': '印刷代'
+};
+var element2 = {
+  'release': 'ばらし・戻',
+  'sticker': 'シール剥貼',
+  'box': '箱詰め',
+  'bagging': '袋詰め',
+  'seal': 'シール詰',
+  'gimmick': 'のし掛け',
+  'packaging': '包装'
+};
+
+for (var ele in element1) {
+  var eleName = element1[ele];
+  element1[ele] = {
+    price: JSON.parse(JSON.stringify(info)),
+    wholesale: JSON.parse(JSON.stringify(info)),
+    name: eleName
+  };
+}
+
+for (var _ele in element2) {
+  var _eleName = element2[_ele];
+  element2[_ele] = {
+    price: JSON.parse(JSON.stringify(info)),
+    wholesale: JSON.parse(JSON.stringify(info)),
+    name: _eleName
+  };
+}
+
+var totalPrice = {
+  subTotalEle1: {
+    "subPrice": 0,
+    "subQty": 0,
+    "subTotal": 0
+  },
+  subTotalEle2: {
+    "subPrice": 0,
+    "subQty": 0,
+    "subTotal": 0
+  },
+  subWholesaleEle1: {
+    "subPrice": 0,
+    "subQty": 0,
+    "subTotal": 0
+  },
+  subWholesaleEle2: {
+    "subPrice": 0,
+    "subQty": 0,
+    "subTotal": 0
+  },
+  finalMargin: 0,
+  finalPrice: 0,
+  finalWholesale: 0
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
-  printing: 0,
-  proofreading: 1,
-  material: 'Silk',
-  number_of_page: '2',
-  top_font: 'Arial',
-  top_color: 'Cyan',
-  top_text: 'Bof its text is made up from sectio',
-  bottom_font: 'Ra',
-  bottom_color: 'Cyan',
-  bottom_text: 'Low frequency in that literary corpus',
-  description: 'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem veritatis et quasi architecto beatae vitae dicta sunt'
+  element1: element1,
+  element2: element2,
+  totalPrice: totalPrice
 });
 
 /***/ }),
@@ -62105,28 +63632,6 @@ export default {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/*
-export default {
-    work : 0,
-    bagging: 0,
-    bagging_content : '',
-    box:    0,
-    box_content : '',
-    packaging:0,
-    gimmick:0,
-    advance_shipment: 0,
-    material : [],
-    materialArray : [
-        {name : '', numb : ''},
-        {name : '', numb : ''},
-        {name : '', numb : ''},
-        {name : '', numb : ''},
-        {name : '', numb : ''},
-        {name : '', numb : ''},
-    ],
-    note:''
-}
-*/
 /* harmony default export */ __webpack_exports__["default"] = ({
   work: 0,
   bagging: 0,
@@ -62138,8 +63643,8 @@ export default {
   advance_shipment: 0,
   material: [],
   materialArray: [{
-    name: 'hr',
-    numb: '55'
+    name: '',
+    numb: ''
   }, {
     name: '',
     numb: ''
@@ -62156,8 +63661,31 @@ export default {
     name: '',
     numb: ''
   }],
-  note: 'this is note'
+  note: ''
 });
+/*
+
+export default {
+    work : 0,
+    bagging: 0,
+    bagging_content : '',
+    box:    0,
+    box_content : '',
+    packaging:0,
+    gimmick:0,
+    advance_shipment: 0,
+    material : [],
+    materialArray : [
+        {name : 'hr', numb : '55'},
+        {name : '', numb : ''},
+        {name : '', numb : ''},
+        {name : '', numb : ''},
+        {name : '', numb : ''},
+        {name : '', numb : ''},
+    ],
+    note:'this is note'
+}
+*/
 
 /***/ }),
 
@@ -62175,7 +63703,7 @@ __webpack_require__.r(__webpack_exports__);
   info: {
     name: '',
     color: '',
-    qty: '0',
+    qty: '',
     unit: '',
     shipping_date: '',
     received_date: ''
@@ -62187,8 +63715,8 @@ __webpack_require__.r(__webpack_exports__);
     method: 'one',
     work: 'two',
     typeface: 'three',
-    font_size_enable: 1,
-    font_size: 0,
+    font_size_enable: 0,
+    font_size: '',
     printing_color: [],
     pattern_type: 1,
     pattern_text: ["", "", ""],

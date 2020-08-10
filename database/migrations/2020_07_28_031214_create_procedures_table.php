@@ -17,16 +17,16 @@ class CreateProceduresTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('guide_id');
             $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
-            $table->string('work');
+            $table->string('work')->nullable();
             $table->string('bagging_content')->nullable();
-            $table->string('bagging');
-            $table->string('box');
+            $table->string('bagging')->nullable();
+            $table->string('box')->nullable();
             $table->string('box_content')->nullable();
-            $table->string('packaging');
-            $table->string('gimmick');
-            $table->string('advance_shipment');
-            $table->string('material');
-            $table->string('note');
+            $table->string('packaging')->nullable();
+            $table->string('gimmick')->nullable();
+            $table->string('advance_shipment')->nullable();
+            $table->string('material')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

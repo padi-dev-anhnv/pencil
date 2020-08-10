@@ -4,6 +4,6 @@
 @section('content')
 <div id="content">
 	<h2 class="page_ttl">銘入・印刷・包装指図書</h2>
-		<create-guide :creator="{{ auth()->user() }} "></create-guide>
+		<single-guide :creator="{{ auth()->user() }}" action="new"></single-guide>
     </div> 
 @endsection

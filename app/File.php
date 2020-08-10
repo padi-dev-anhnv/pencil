@@ -40,6 +40,11 @@ class File extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function product()
+    {
+       return $this->belongsTo(Product::class)->select('id', 'guide_id');
+    }
+
     public function scopeAuthor($query, $author_id)
     {
         return $query->where('user_id', $author_id);

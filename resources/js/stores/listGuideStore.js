@@ -28,7 +28,9 @@ const state = Vue.observable({
     deleteGuide : {
         id : 0,
         number : 0
-    }
+    },
+    user : {},
+    disabledSearchWorker : false
    
 });
 
@@ -56,8 +58,7 @@ export const getPpp = () => {
 
 export const doSearch = () => {
     let searchs = {}
-    if(state.search.advancedSearch){    
-        console.log("fsd")
+    if(state.search.advancedSearch){  
         let group1 =['office', 'worker', 'creator'];
         let group2 =['orderDate', 'shippingDate', 'receivedDate'];
         group1.forEach(val => { if(state.search[val].enabled) searchs[val] = state.search[val].value })
@@ -115,6 +116,16 @@ export const cloneGuide = (id) =>{
         }
         
     })
+}
+
+export const setSearchWorker = (id) => {
+    state.search.worker.enabled = true;
+    state.search.worker.value = id;
+    state.search.disabledSearchWorker = true;
+}
+
+export const setCurrentUser = (user) => {
+    state.user = user;
 }
 
 export default state;

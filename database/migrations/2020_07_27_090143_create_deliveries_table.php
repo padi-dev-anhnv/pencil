@@ -15,14 +15,14 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('receiver');
+            $table->string('receiver')->nullable();
             $table->string('office_chk');
             $table->string('code')->nullable();
-            $table->string('district');
-            $table->string('city');
-            $table->string('address');
+            $table->string('district')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
             $table->string('building')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('fax')->nullable();
             $table->unsignedInteger('guide_id');
             $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');

@@ -3,7 +3,7 @@ export default {
     info : {
         name : '',
         color : '',
-        qty : '0',
+        qty : '',
         unit : '',
         shipping_date : '',
         received_date : '',
@@ -15,8 +15,8 @@ export default {
         method : 'one',
         work : 'two',
         typeface : 'three',
-        font_size_enable : 1,
-        font_size : 0,
+        font_size_enable : 0,
+        font_size : '',
         printing_color : [
            
         ],

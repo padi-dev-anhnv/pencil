@@ -38,7 +38,7 @@ class GuideController extends Controller
     public function create(CreateGuide $request)
     {
         $id = intval($request->id);
-        if($id == 0 )
+        if($id == 0 || isset($request->guide['clone_id']))
             $newGuide =  $this->guideRepo->create($request->all());
         else
             $newGuide =  $this->guideRepo->edit($request->all());

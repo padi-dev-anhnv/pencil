@@ -18,32 +18,32 @@
 		<h1 class="logo"><a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="uni MITSUBISHI PENCIL"></a></h1>
 		  <div id="adminbar">マスター：{{ auth()->user()->name}}<a href="{{ route('logout') }}">ログアウト</a></div>
 		<nav id="gnav">
-			@can('create', App\Guide::class)
-			<ul>
-				@php
+
+		<ul>
+			@php
 					$current_group = request()->route()->getName();
 					$nav = [
-						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧' ] ,
-						'file' =>  [ 'link' => route('file') , 'name' => 'ファイルマネージャー' ] ,
-						'user' =>  [ 'link' => route('user') , 'name' => 'アカウント管理']	
+						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧'] ,
+						'file' =>  [ 'link' => route('file') , 'name' => 'ファイルマネージャー', 'perm' => App\File::class ] ,
+						'user' =>  [ 'link' => route('user') , 'name' => 'アカウント管理', 'perm' => App\User::class ]	
 					];
 					foreach($nav as $key => $value)
 					{
-						echo '<li>';
-						if($current_group != $key)
-							echo '<a href="'. $value['link'] .'">';
-						echo $value['name'] ;
-						if($current_group != $key)
-							echo '</a>';
-						echo '</li>';
+						if(!isset($value['perm']) || Auth::user()->can('list',$value['perm']) ){	
+							echo '<li>';
+							if($current_group != $key)
+								echo '<a href="'. $value['link'] .'">';
+							echo $value['name'] ;
+							if($current_group != $key)
+								echo '</a>';
+							echo '</li>';
+						}
 					}
-				@endphp
-			</ul>
-			@else
-				<ul>
-					<li><a href="{{route('guide') }}">指図書一覧</a></li>
-				</ul>	
-			@endcan
+
+			@endphp
+		</ul>
+
+			
 		</nav>
 
 		</header>

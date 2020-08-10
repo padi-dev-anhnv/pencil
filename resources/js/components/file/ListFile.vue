@@ -26,6 +26,7 @@
                   <span>営業所</span>
                 </label>
                 <select v-model="search.office.value">
+                  <option value="">選択してください</option>
                   <option
                     :value="office.id"
                     v-for="office in listOffice"
@@ -48,6 +49,7 @@
                   <span>担当者</span>
                 </label>
                 <select v-model="search.author.value">
+                  <option value="">選択してください</option>
                   <option
                     :value="author.id"
                     v-for="author in listAuthor"

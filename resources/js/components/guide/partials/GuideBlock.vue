@@ -11,7 +11,7 @@
         <li class="sec">
             <h3 class="formctttl">前回</h3>
             <div class="formctbox">
-                <select v-model="guide.last_exist">
+                <select v-model="guide.last_exist" >
                     <option value="0" selected>無</option>
                     <option value="1">有</option>
                 </select>
@@ -65,7 +65,7 @@
             <h3 class="formctttl">業者選択</h3>
             <div class="formctbox">
                 <select v-model="guide.supplier_id">
-                    <option value="">選択してください</option>
+                    <option value="0">選択してください</option>
                     <option
                         v-for="sup in suppliers"
                         :value="sup.id"
@@ -125,6 +125,9 @@ export default {
         },
         creator(){
             return guideStore.creator;
+        },
+        dupplicate(){
+            return guideStore.dupplicate
         }
     },
     created(){

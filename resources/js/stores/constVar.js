@@ -17,17 +17,11 @@ const constVar = {
         'body': '本体校正',
         'data' : 'データ'
     },
-    /*
-    pattern_type : [
-        {'eng' : 'right' , 'jap' :  '右利きボールペン', 'total' : 3},
-        {'eng' : 'left' , 'jap' :  '左利きボールペン', 'total' : 3},
-        {'eng' : 'right-grip' , 'jap' :  '右利きボールペングリップ付', 'total' : 5},
-        {'eng' : 'left-grip' , 'jap' :  '左利きボールペングリップ付', 'total' : 5},
-        {'eng' : 'hexagon' , 'jap' :  '六角鉛筆', 'total' : 6},
-        {'eng' : 'pentagon' , 'jap' :  '五角鉛筆', 'total' : 5},
-        {'eng' : 'free' , 'jap' :  'フリー', 'total' : 1},
+    chk : [
+        {'eng' : '1' , 'jap' :  '得意先直送'},
+        {'eng' : '2' , 'jap' :  '帳合店直送'},
+        {'eng' : '3' , 'jap' :  '営業所入り'}
     ],
-    */
    pattern_type : [
     {'eng' : 1 , 'jap' :  '右利きボールペン', 'total' : 3},
     {'eng' : 2 , 'jap' :  '左利きボールペン', 'total' : 3},

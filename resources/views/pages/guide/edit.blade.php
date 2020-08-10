@@ -4,6 +4,6 @@
 @section('content')
 <div id="content">
 	<h2 class="page_ttl">銘入・印刷・包装指図書 </h2>    
-		<edit-guide id="{{ request()->id }}"></edit-guide>
+		<single-guide id="{{ request()->id }}" action="edit"></single-guide>
     </div> 
 @endsection

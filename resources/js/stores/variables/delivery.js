@@ -1,7 +1,7 @@
-/*
+
 export default {    
     receiver : '',
-    office_chk : '',
+    office_chk : 1,
     district : '',
     city : '',
     address : '',
@@ -9,12 +9,11 @@ export default {
     phone: '',
     fax: ''        
 }
-*/
+
+/*
 export default {    
-//    shipping_date : '2020-07-29',
-//    received_date : '2020-07-30',
     receiver : 'Mr Receiver',
-    office_chk : 'CHK Office',
+    office_chk : '1',
     code : '',
     district : 'Itabashi',
     city : 'Tokyo',
@@ -23,3 +22,4 @@ export default {
     phone: '03-3930-5351',
     fax: '042-367-2607'        
 }
+*/

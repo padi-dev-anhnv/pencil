@@ -13,6 +13,7 @@ class CreateFileProductTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('file_product', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('file_id');
@@ -21,6 +22,7 @@ class CreateFileProductTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
+        */
     }
 
     /**

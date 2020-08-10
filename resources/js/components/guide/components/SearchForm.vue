@@ -50,7 +50,7 @@
                   </svg>
                   <span>業者</span>
                 </label>
-                <select  v-model="search.worker.value">
+                <select  v-model="search.worker.value" :disabled="disabledSearchWorker">
                   <option value>選択してください</option>
                   <option v-for="worker in search.workers"  :value="worker.id" :key="worker.id">{{ worker.name}}</option>
                 </select>
@@ -69,7 +69,7 @@
                   </svg>
                   <span>担当者</span>
                 </label>
-                <input   v-model="search.creator.value" type="text" class="w15" />
+                <input v-model="search.creator.value" type="text" class="w15" />
               </li>
             </ul>
           </li>
@@ -178,9 +178,10 @@
 
 <script>
 
-import listGuideStore, { doSearch } from '../../../stores/listGuideStore'
+import listGuideStore, { doSearch, setSearchWorker } from '../../../stores/listGuideStore'
 
 export default {
+    props : [],
     data(){
         return {
 
@@ -189,12 +190,23 @@ export default {
     computed : {
         search(){
             return listGuideStore.search;
+        },
+        disabledSearchWorker(){
+          return this.search.disabledSearchWorker;
+        },
+        role(){
+          return listGuideStore.user.role
         }
     },
     methods : {
       doSearch(advancedSearch){
         this.search.advancedSearch = advancedSearch;
         doSearch()
+      }
+    },
+    created(){
+      if(this.role.type == "worker"){
+        setSearchWorker(this.role.id)
       }
     }
 }

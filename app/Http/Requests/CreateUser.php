@@ -32,7 +32,7 @@ class CreateUser extends FormRequest
             'username' => 'required|unique:users,username,'. $this->id,
             'name' => 'required',
             'role_id' => 'required',
-            'office' => 'required',
+            // 'office' => 'required',
             'password' => 'required|min:6|confirmed|sometimes'
         ];
     }

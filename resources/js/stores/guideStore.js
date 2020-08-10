@@ -5,10 +5,20 @@ import delivery from './variables/delivery'
 import packaging from './variables/packaging'
 import procedure from './variables/procedure'
 import product from './variables/productInit'
+import price from './variables/price'
 import city from './city'
+
+
+
 const state = Vue.observable({
+    action : 'new',
     suppliers : [],
     creator : {},
+    dupplicate : {
+        exist : 0,
+        created_at : '',
+        number : ''
+    },
     city,
     guide ,
     delivery ,
@@ -16,25 +26,19 @@ const state = Vue.observable({
     procedure,
     products : [
         
-    ]
+    ],
+    price,
 });
 
-//export const listCity = () => city;
-/*
-export const listSupplier = () => {
-    axios.get('/guide/listSuppliers').then(result => {
-        state.suppliers = result.data;
-        // console.log(result.data)
-    })
-}
-*/
-export const getGuideInfo = (id) => {
-    axios.get('/guide/' + id + '/get-guide').then(result => {
+export const getGuideInfo = async (id) => {
+    await axios.get('/guide/' + id + '/get-guide').then(result => {
+        console.log(result)
         state.guide = result.data.data.guide;
         state.delivery = result.data.data.delivery;
         state.packaging = result.data.data.packaging;
         state.procedure = result.data.data.procedure;
         state.creator = result.data.data.creator;
+        state.price = result.data.data.guide.price;
         // procedure material
         let materialArray = procedure.materialArray;
         let materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
@@ -63,22 +67,32 @@ export const getGuideInfo = (id) => {
             initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
             state.products.push(initProduct)
         })
-        
+        // dupplicate
+        let dupplicate = result.data.data.dupplicate
+        if(dupplicate){
+            state.dupplicate = dupplicate
+            state.dupplicate.exist = 1
+        }
+            
     })
 }
 
 export const createGuide = id => {
+    console.log(state.price);
     let products = [];
     state.products.forEach(product => {
         delete product.inscription.font_size_enable;
         products.push({ id : product.id,...product.info, ...product.inscription})
     }) ;
+    let guideInfo = {...state.guide};
+    guideInfo.price =  {...state.price};
     let newGuide = {
-        guide : {...state.guide},
+        guide : guideInfo,
         delivery : {...state.delivery},
         packaging : {...state.packaging},
         procedure : {...state.procedure},
         products : products,
+        // price : {...state.price},
     } ;
     newGuide.id = id;
 //    let newGuide = JSON.parse(JSON.stringify(state));
@@ -92,6 +106,19 @@ export const setCreator = (creator) => {
     state.creator = creator;
 }
 
+export const setAction = (action) => {
+    state.action = action;
+}
+
+export const setCloneId = (id) => {
+    state.guide.clone_id = id;
+    state.dupplicate = {
+        exist : 1,
+        created_at : state.guide.created_at,
+        number : state.guide.number
+    }
+}
+
 export const getWorkers = () => {
     axios('/guide/workers').then(result=>{
         state.suppliers = result.data
@@ -101,5 +128,38 @@ export const getWorkers = () => {
 export const addProduct = () =>{
     state.products.push( JSON.parse(JSON.stringify(product)));
 }
+
+export const removeProduct = (index) =>{
+    state.products.splice(index,1)
+}
+
+
+// handle price 
+
+const countByEleState = (eleNumb, typePrice) =>  {
+    let subPrice = 0,
+      subQty = 0,
+      subTotal = 0;
+
+    for (let ele in state.price[eleNumb]) {
+      subPrice += countSubTotalState(eleNumb, ele, typePrice, "cost");
+      subQty += countSubTotalState(eleNumb, ele, typePrice, "qty");
+      subTotal += countSubTotalState(eleNumb, ele, typePrice, "total");
+    }
+    return {
+      subPrice,
+      subQty,
+      subTotal,
+    };
+  }
+
+const countSubTotalState = (eleNumb, ele, typePrice, type) => {
+    let tempPrice = parseInt(state.price[eleNumb][ele][typePrice][type]);
+    if (!isNaN(tempPrice)) return parseInt(tempPrice);
+    return 0;
+  }
+
+export const countByEle = countByEleState;
+export const countSubTotal = countSubTotalState;
 
 export default state;

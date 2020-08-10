@@ -1,4 +1,4 @@
-/*
+
 export default {
     work : 0,
     bagging: 0,
@@ -19,7 +19,8 @@ export default {
     ],
     note:''
 }
-*/
+/*
+
 export default {
     work : 0,
     bagging: 0,
@@ -40,3 +41,4 @@ export default {
     ],
     note:'this is note'
 }
+*/

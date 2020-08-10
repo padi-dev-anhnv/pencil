@@ -42,6 +42,7 @@ Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], fun
     Route::get('/', 'GuideController@index')->name('guide');
     Route::post('/', 'GuideController@create');
     Route::view('/{id}/edit', 'pages.guide.edit')->name('guide.edit');
+    Route::view('/{id}/dupplicate', 'pages.guide.dupplicate')->middleware('can:create,\App\Guide')->name('guide.dupplicate');
     Route::get('/{id}/get-guide', 'GuideController@getGuide');
     Route::view('/create', 'pages.guide.new')->middleware('can:create,\App\Guide')->name('guide.create'); 
     Route::get('/listSuppliers', 'GuideController@listSuppliers');

@@ -3,18 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon; 
 
 class Guide extends Model
 {
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'clone_id'];
 
     protected $casts = [
         'created_at'  => 'date:Y/m/d',
         'shipping_at'  => 'date:Y/m/d',
         'received_at'  => 'date:Y/m/d',
+        'price'         => 'array'
     ];
 
-    protected $appends = ['first_product','creator'];
+    // protected $appends = ['first_product','creator'];
+
+    // Accessor
+
+    public function getCreatedAtAttribute($val)
+    {
+        return Carbon::parse($val)->format('Y-m-d');
+    }
 
     public function getFirstProductAttribute($val)
     {
@@ -25,6 +34,8 @@ class Guide extends Model
     {
         return $this->creator()->select('name')->first();
     }
+
+    // Relationship
 
     public function delivery()
     {
@@ -50,6 +61,13 @@ class Guide extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function dupplicate()
+    {
+        return $this->belongsTo(Guide::class, 'clone_id');
+    }
+
+    // Scope
 
     public function scopeOffice($query, $office_id)
     {
@@ -110,7 +128,9 @@ class Guide extends Model
 
     public function scopeHasPer($query)
     {
-        if(auth()->user()->role->type == "admin")
+        $type = auth()->user()->role->type;
+        $arrayAllow = ['admin', 'instruction_manager'];
+        if(in_array($type, $arrayAllow))
             return false ; 
         $current_id = auth()->user()->id;
         return $query->where('user_id', $current_id)
@@ -131,6 +151,8 @@ class Guide extends Model
 
     public function scopeKeyword($query, $keyword)
     {
+        $keyword = array_filter($keyword);
+        if(empty($keyword)) return false ; 
         return $query->where(function($q) use ($keyword) {
             foreach ($keyword as $key) {
                 $q->Where('title', 'LIKE', '%' . $key . '%');
