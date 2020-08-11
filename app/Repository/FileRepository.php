@@ -24,21 +24,21 @@ class FileRepository
                 call_user_func_array(array($query, $filter), array($request[$filter]));
         }        
 
-        $files = $query->select('id', 'type', 'created_at', 'link', 'name')->orderBy('created_at', 'desc')->paginate(12);
+        $files = $query->select('id', 'type', 'created_at', 'link', 'name')->orderBy('created_at', 'desc')->paginate($request['ppp']);
         return $files;
     }
 
     public function show($id)
     {
         $file = $this->file::with('user.office', 'product.guide:number,id')->findOrFail($id);
-/*
-        $file = $this->file::with(array('user.office', 'product.guide' => function($q){
-            $q->select('title','id');
-        }))->findOrFail($id);
-        */
         $file->office = $file->user->office->name;
         $file_user = $file->user->name;
         unset($file->user);
+        if($file->product){
+            $file->number_guide = $file->product->guide->number;
+            unset($file->product);
+        }
+            
         $file->user = $file_user;
         return response()->json($file);
     }

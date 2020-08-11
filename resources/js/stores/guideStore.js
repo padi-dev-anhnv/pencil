@@ -9,11 +9,12 @@ import price from './variables/price'
 import city from './city'
 
 
-
 const state = Vue.observable({
     action : 'new',
     suppliers : [],
-    creator : {},
+    creator : {
+        office : {}
+    },
     dupplicate : {
         exist : 0,
         created_at : '',
@@ -103,7 +104,9 @@ export const createGuide = id => {
 };
 
 export const setCreator = (creator) => {
+    console.log(creator)
     state.creator = creator;
+    // state.guide.office = creator.
 }
 
 export const setAction = (action) => {

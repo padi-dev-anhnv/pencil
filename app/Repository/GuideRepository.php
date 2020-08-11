@@ -25,14 +25,16 @@ class GuideRepository
 
     public function get($id)
     {
-        $guide = Guide::find($id)->makeHidden(['first_product','creator']);
+        $guide = Guide::findOrFail($id)->makeHidden(['first_product']);
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();
         $dupplicate = $guide->dupplicate()->select('created_at', 'id', 'number')->first();
         $creator = $guide->creator()->select('name', 'id')->first();
+        $office = $guide->office()->select('name', 'id')->first();
         $products = $guide->products()->get();
-        
+        $creator['office'] = $office;
+
         return [
             'guide' => $guide,
             'delivery' => $delivery,
@@ -47,12 +49,12 @@ class GuideRepository
     public function create($request)
     {
         $request['guide']['user_id'] = auth()->user()->id;
+        $request['guide']['office_id'] = auth()->user()->office->id;
         // for dupplicate
         if(isset($request['guide']['clone_id'])){
             $array_request = ['guide', 'delivery', 'packaging', 'procedure'];
             foreach($array_request as $req)
             {
-                // dd($request[$req]['id']);
                 unset($request[$req]['id']);
             }
             $products = $request['products'];
@@ -103,14 +105,16 @@ class GuideRepository
     }
 
     public function edit($request)
-    {
+    {        
+        $guide = $this->guide::find($request['id']);
+        if(auth()->user()->id != $guide['user_id'] && auth()->user()->role->type != 'admin')
+            return false;
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];
         $packagingRequest = $request['packaging'];
         $procedureRequest = $request['procedure'];
         $productsRequest = $request['products'];
         $guideRequest['user_id'] = auth()->user()->id;
-        $guide = $this->guide::find($request['id']);
         $guide->update($guideRequest);
         // dd($guideRequest);
         $guide->delivery()->update($deliveryRequest);
@@ -128,7 +132,7 @@ class GuideRepository
                 if(count($file) > 0)
                     $array_file[] = $file['id'];
             }  
-            $guide_product->files()->sync($array_file);
+        //    $guide_product->files()->sync($array_file);
 
         }
     }
@@ -138,7 +142,6 @@ class GuideRepository
     {
         
         $query = $this->guide::query();
-
         $query->hasPer();
 
         $arrayFilter = ['office', 'worker', 'creator','orderDateFrom', 'orderDateTo', 'shippingDateFrom', 'shippingDateTo', 'receivedDateFrom', 'receivedDateTo', 'keyword'];
@@ -147,11 +150,9 @@ class GuideRepository
             if(isset($request[$filter]))
                 call_user_func_array(array($query, $filter), array($request[$filter]));
         }
-        /*
         $sortArray = json_decode($request['sort'], true);
         $query->sortArray($sortArray);
-*/
-        $guides = $query->with('delivery', 'supplier')->paginate($request['ppp']);
+        $guides = $query->with('delivery', 'supplier', 'office')->paginate($request['ppp']);
         return $guides;
     }
 

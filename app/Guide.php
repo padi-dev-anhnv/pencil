@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Guide extends Model
 {
-    protected $guarded = ['id', 'clone_id'];
+    protected $guarded = ['id', 'clone_id', 'creator'];
 
     protected $casts = [
         'created_at'  => 'date:Y/m/d',
@@ -16,9 +16,20 @@ class Guide extends Model
         'price'         => 'array'
     ];
 
-    // protected $appends = ['first_product','creator'];
+    protected $appends = ['first_product','creator'];
+
+    protected $keywordSearch = [
+        'title', 'number', 'store_code', 'last_numb', 'customer_name', 'curator',
+        // ''
+    ];
 
     // Accessor
+
+    public function setCreatedAtAttribute($val)
+    {
+        $this->attributes['created_at'] = empty($val) ? now() :  $val ;  
+            
+    }
 
     public function getCreatedAtAttribute($val)
     {
@@ -61,6 +72,10 @@ class Guide extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 
     public function dupplicate()
     {
@@ -71,9 +86,7 @@ class Guide extends Model
 
     public function scopeOffice($query, $office_id)
     {
-        return $query->whereHas('creator.office', function($queryb)  use ($office_id){
-            $queryb->where('id', $office_id);
-        });
+        return $query->where('office_id', $office_id);
     }
 
     public function scopeWorker($query, $worker_id)
@@ -152,11 +165,7 @@ class Guide extends Model
     public function scopeKeyword($query, $keyword)
     {
         $keyword = array_filter($keyword);
-        if(empty($keyword)) return false ; 
-        return $query->where(function($q) use ($keyword) {
-            foreach ($keyword as $key) {
-                $q->Where('title', 'LIKE', '%' . $key . '%');
-            }
-         });
+        if(empty($keyword)) return false ;
+        $query->whereLike($this->keywordSearch, $keyword);
     }
 }

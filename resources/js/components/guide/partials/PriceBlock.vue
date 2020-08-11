@@ -78,11 +78,11 @@
             <li>
               <label class="before">
                 <span class="labeltxt">No.</span>
-                <input type="text" name value />
+                <input type="text" v-model="price.specialValue.number" />
               </label>
               <label class="before after">
                 <span class="labeltxt">掛け率</span>
-                <input type="text" name value />
+                <input type="text"  v-model="price.specialValue.rate" />
                 <span class="labeltxt">％</span>
               </label>
             </li>
@@ -98,7 +98,7 @@ import guideStore, { countByEle, countSubTotal} from "../../../stores/guideStore
 export default {
   data() {
     return {
-      // price : guideStore.price
+      
     };
   },
   computed: {

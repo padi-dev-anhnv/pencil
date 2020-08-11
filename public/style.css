@@ -292,6 +292,14 @@ a {
 .fbox3 {
   width: 32%; }
 
+/* 右寄せ */
+.flexend {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
 /* 画像アップロード */
 .uploadimg,
 .selectfile {
@@ -1079,9 +1087,7 @@ button, input[type="submit"] {
   background: url("images/delete.svg") no-repeat left bottom;
   background-size: 100% auto;
   border: none;
-  /*
   backface-visibility: hidden;
-  */
   line-height: 1em;
   cursor: pointer;
   vertical-align: middle;
@@ -2156,3 +2162,10 @@ ul.ullist {
   color : #b5b5b6;
   cursor: default;
 }
+
+.flexend {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }

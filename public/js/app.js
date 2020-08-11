@@ -2418,9 +2418,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['userInfo', 'userOffice'],
+  props: ["userInfo", "userOffice"],
   data: function data() {
     return {
       search: {
@@ -2443,7 +2547,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       material: [],
-      // files: [],
       newFile: {},
       listOffice: [],
       listAuthor: []
@@ -2469,10 +2572,35 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectedId: function selectedId() {
       return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].selectedId;
+    },
+    totalPage: function totalPage() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].totalPage;
+    },
+    currentPage: {
+      get: function get() {
+        return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage;
+      },
+      // setter
+      set: function set(newValue) {
+        _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage = newValue;
+      }
+    },
+    ppp: {
+      get: function get() {
+        return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].ppp;
+      },
+      set: function set(newValue) {
+        localStorage.setItem("ppp-file", newValue);
+        _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].ppp = newValue;
+        _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage = 1;
+        this.doSearchFile();
+      }
     }
   },
   methods: {
-    doSearch: function doSearch() {
+    doSearchFile: function doSearchFile() {
+      var resetPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      if (resetPage == true) _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage = 1;
       Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["doSearch"])(this.searchFilter);
     },
     loadListOffice: function loadListOffice() {
@@ -2509,7 +2637,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.doSearch();
+    Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["getPpp"])();
+    this.doSearchFile();
     this.loadListOffice();
     this.loadListAuthor();
     this.setUser();
@@ -2589,9 +2718,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'action', 'creator', 'clone_id'],
+  props: ['id', 'action', 'creator', 'clone_id', 'user'],
   data: function data() {
     return {};
+  },
+  computed: {
+    creatorGuide: function creatorGuide() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].creator;
+    },
+    editBtn: function editBtn() {
+      if (this.action == 'edit' && this.user.id != this.creatorGuide.id && this.user.role.type != 'admin') return false;
+      return true;
+    }
   },
   methods: {
     createGuide: function createGuide() {
@@ -2642,19 +2780,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/listGuideStore */ "./resources/js/stores/listGuideStore.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3037,7 +3162,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     if (this.role.type == "worker") {
-      Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setSearchWorker"])(this.role.id);
+      Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setSearchWorker"])();
     }
   }
 });
@@ -3443,6 +3568,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   // props : ['creator'],
@@ -3711,8 +3837,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {// price : guideStore.price
-    };
+    return {};
   },
   computed: {
     price: function price() {
@@ -42831,7 +42956,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                return _vm.doSearch($event)
+                return _vm.doSearchFile(true)
               }
             }
           })
@@ -42839,6 +42964,99 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { attrs: { id: "content" } }, [
+        _c("header", { staticClass: "sec-header edit-header" }, [
+          _c("nav", { staticClass: "pagenav flexend" }, [
+            _c(
+              "ul",
+              { staticClass: "pagenation" },
+              [
+                _c(
+                  "paginate",
+                  {
+                    attrs: {
+                      "page-count": _vm.totalPage,
+                      "prev-text": "",
+                      "next-text": "",
+                      "click-handler": _vm.doSearchFile,
+                      "container-class": "className"
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      { attrs: { slot: "prevContent" }, slot: "prevContent" },
+                      [_vm._v("Changed previous button")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { attrs: { slot: "nextContent" }, slot: "nextContent" },
+                      [_vm._v("Changed next button")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        attrs: { slot: "breakViewContent" },
+                        slot: "breakViewContent"
+                      },
+                      [_vm._v("･･･")]
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.ppp,
+                    expression: "ppp"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.ppp = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "100" } }, [
+                  _vm._v("100件表示")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "50" } }, [_vm._v("50件表示")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "30" } }, [_vm._v("30件表示")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "10" } }, [_vm._v("10件表示")])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "sec", attrs: { id: "file-list" } }, [
           _c(
             "ul",
@@ -42978,23 +43196,37 @@ var render = function() {
         _vm._v(" "),
         _c("price-block"),
         _vm._v(" "),
-        _c("footer", { staticClass: "list-footer" }, [
-          _c("footer", { staticClass: "list-footer" }, [
-            _c(
-              "button",
+        _c(
+          "footer",
+          {
+            directives: [
               {
-                staticClass: "mainbtn",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.createGuide($event)
+                name: "show",
+                rawName: "v-show",
+                value: _vm.editBtn,
+                expression: "editBtn"
+              }
+            ],
+            staticClass: "list-footer"
+          },
+          [
+            _c("footer", { staticClass: "list-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "mainbtn",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.createGuide($event)
+                    }
                   }
-                }
-              },
-              [_vm._v("保存")]
-            )
-          ])
-        ])
+                },
+                [_vm._v("保存")]
+              )
+            ])
+          ]
+        )
       ],
       1
     )
@@ -44250,7 +44482,7 @@ var render = function() {
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.title))]),
       _vm._v(" "),
-      _c("li", [_vm._v(_vm._s(_vm.guide.office))]),
+      _c("li", [_vm._v(_vm._s(_vm.guide.office.name))]),
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.creator.name))]),
       _vm._v(" "),
@@ -45060,19 +45292,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.guide.office,
-              expression: "guide.office"
+              value: _vm.creator.office.name,
+              expression: "creator.office.name"
             }
           ],
           staticClass: "w15",
-          attrs: { type: "text", name: "" },
-          domProps: { value: _vm.guide.office },
+          attrs: { type: "text", name: "", disabled: "" },
+          domProps: { value: _vm.creator.office.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.guide, "office", $event.target.value)
+              _vm.$set(_vm.creator.office, "name", $event.target.value)
             }
           }
         })
@@ -45923,15 +46155,7 @@ var render = function() {
       _c("strong", [_vm._v(_vm._s(_vm.finalMargin) + "円")])
     ]),
     _vm._v(" "),
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "edit-list" }, [
+    _c("ul", { staticClass: "edit-list" }, [
       _c("li", { staticClass: "sec" }, [
         _c("h4", { staticClass: "formctttl" }, [_vm._v("特値適用")]),
         _vm._v(" "),
@@ -45941,13 +46165,59 @@ var staticRenderFns = [
               _c("label", { staticClass: "before" }, [
                 _c("span", { staticClass: "labeltxt" }, [_vm._v("No.")]),
                 _vm._v(" "),
-                _c("input", { attrs: { type: "text", name: "", value: "" } })
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.price.specialValue.number,
+                      expression: "price.specialValue.number"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.price.specialValue.number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.price.specialValue,
+                        "number",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "before after" }, [
                 _c("span", { staticClass: "labeltxt" }, [_vm._v("掛け率")]),
                 _vm._v(" "),
-                _c("input", { attrs: { type: "text", name: "", value: "" } }),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.price.specialValue.rate,
+                      expression: "price.specialValue.rate"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.price.specialValue.rate },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.price.specialValue,
+                        "rate",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _c("span", { staticClass: "labeltxt" }, [_vm._v("％")])
               ])
@@ -45956,8 +46226,9 @@ var staticRenderFns = [
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -62797,7 +63068,7 @@ var constVar = {
 /*!******************************************!*\
   !*** ./resources/js/stores/fileStore.js ***!
   \******************************************/
-/*! exports provided: setSelectedId, doSearch, uploadFile, setFileUserOffice, setCurrentUser, createFile, createFileProduct, default */
+/*! exports provided: setSelectedId, doSearch, uploadFile, setFileUserOffice, setCurrentUser, getPpp, createFile, createFileProduct, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62807,6 +63078,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uploadFile", function() { return uploadFile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setFileUserOffice", function() { return setFileUserOffice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return setCurrentUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPpp", function() { return getPpp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFile", function() { return createFile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFileProduct", function() { return createFileProduct; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -62848,7 +63120,10 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
     guideNumber: ""
   },
   listFiles: [],
-  actionNew: 0
+  actionNew: 0,
+  totalPage: 0,
+  currentPage: 1,
+  ppp: 10
 });
 var setSelectedId = function setSelectedId(id) {
   state.selectedId = id;
@@ -62858,14 +63133,18 @@ var setSelectedId = function setSelectedId(id) {
       state.file[key] = result.data[key];
     }
 
-    state.file.guideNumber = result.data.product.guide.number;
+    state.file.guideNumber = result.data.number_guide;
   });
 };
 var doSearch = function doSearch(searchFilter) {
+  searchFilter.page = state.currentPage;
+  searchFilter.sort = state.sort;
+  searchFilter.ppp = state.ppp;
   axios("/file/search", {
     params: searchFilter
   }).then(function (result) {
     state.listFiles = result.data.data;
+    state.totalPage = result.data.total ? result.data.last_page : 0;
   });
 };
 
@@ -62926,33 +63205,14 @@ var setFileUserOffice = function setFileUserOffice(user) {
 var setCurrentUser = function setCurrentUser(user) {
   state.currentUser = user;
 };
-/*
-export const uploadFile = file => {
-    let formData = new FormData();
-    formData.append("file", file);
-    return axios
-        .post("/file/upload", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(function(result) {
-            state.file.link = result.data.file_name,
-            state.file.thumbnail = result.data.file_thumbnail
-            state.file.type = result.data.type
-            return {
-                link : result.data.file_name,
-                thumbnail : result.data.file_thumbnail,
-                type : result.data.type,
-            }
-        })
-        .catch(function() {
-            console.log("FAILURE!!");
-        });
-    
+var getPpp = function getPpp() {
+  if (localStorage.getItem("ppp-file")) {
+    state.ppp = localStorage.getItem("ppp-file");
+  } else {
+    localStorage.setItem("ppp-file", 10);
+    state.ppp = 10;
+  }
 };
-*/
-
 var createFile = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -63075,7 +63335,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   action: 'new',
   suppliers: [],
-  creator: {},
+  creator: {
+    office: {}
+  },
   dupplicate: {
     exist: 0,
     created_at: '',
@@ -63181,7 +63443,8 @@ var createGuide = function createGuide(id) {
   });
 };
 var setCreator = function setCreator(creator) {
-  state.creator = creator;
+  console.log(creator);
+  state.creator = creator; // state.guide.office = creator.
 };
 var setAction = function setAction(action) {
   state.action = action;
@@ -63396,9 +63659,9 @@ var cloneGuide = function cloneGuide(id) {
     }
   });
 };
-var setSearchWorker = function setSearchWorker(id) {
+var setSearchWorker = function setSearchWorker() {
   state.search.worker.enabled = true;
-  state.search.worker.value = id;
+  state.search.worker.value = state.user.id;
   state.search.disabledSearchWorker = true;
 };
 var setCurrentUser = function setCurrentUser(user) {
@@ -63456,7 +63719,7 @@ __webpack_require__.r(__webpack_exports__);
   id: 0,
   created_at: '',
   title: '',
-  office: '',
+  // office: '',
   number: '',
   supplier_id: 0,
   store_code: '',
@@ -63473,7 +63736,7 @@ export default {
     id: 0,
     created_at: '2020-07-12',
     title: 'This is title',
-    office: 'This is office',
+//    office: 'This is office',
     supplier_id: 0,
     // assign: 'Mr Assign',
     number: '3AR-TB',
@@ -63615,10 +63878,15 @@ var totalPrice = {
   finalPrice: 0,
   finalWholesale: 0
 };
+var specialValue = {
+  number: '',
+  rate: ''
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   element1: element1,
   element2: element2,
-  totalPrice: totalPrice
+  totalPrice: totalPrice,
+  specialValue: specialValue
 });
 
 /***/ }),

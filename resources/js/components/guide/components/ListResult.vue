@@ -19,19 +19,6 @@
                             <span slot="nextContent">Changed next button</span>
                             <span slot="breakViewContent">･･･</span>
                         </paginate>
-                        <!-- 
-							<li v-for="page in totalPage" :key="page">
-								<a v-if="page != currentPage" href="#" @click.prevent="searchPage(page)">{{page}}</a>
-								<template v-else>{{page}}</template>
-							</li>
-
-							<li>1</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li>･･･</li>
-            <li><a href="#">10</a></li>-->
                     </ul>
                     <select v-model="ppp">
                         <option value="100">100件表示</option>

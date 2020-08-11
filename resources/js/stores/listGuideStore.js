@@ -118,9 +118,9 @@ export const cloneGuide = (id) =>{
     })
 }
 
-export const setSearchWorker = (id) => {
+export const setSearchWorker = () => {
     state.search.worker.enabled = true;
-    state.search.worker.value = id;
+    state.search.worker.value = state.user.id;
     state.search.disabledSearchWorker = true;
 }
 

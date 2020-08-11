@@ -6,7 +6,7 @@
             <li>{{ guide.number }}</li>
             <li>{{ guide.customer_name }}</li>
             <li>{{ guide.title }}</li>
-            <li>{{ guide.office }}</li>
+            <li>{{ guide.office.name }}</li>
             <li>{{ guide.creator.name }}</li>
             <li>
                 <template v-if="guide.delivery">

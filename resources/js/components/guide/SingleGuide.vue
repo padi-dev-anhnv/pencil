@@ -7,7 +7,7 @@
             <procedure-block />
             <product-block :action="action" />
             <price-block />
-            <footer class="list-footer">
+            <footer class="list-footer" v-show="editBtn">
 				<footer class="list-footer">
 					<button class="mainbtn" @click.prevent="createGuide">保存</button>
 				</footer>
@@ -18,12 +18,23 @@
 </template>
 
 <script>
-import {createGuide, getGuideInfo, setCreator, setAction, setCloneId} from "../../stores/guideStore";
+import guideStore, {createGuide, getGuideInfo, setCreator, setAction, setCloneId} from "../../stores/guideStore";
 export default {
-    props : ['id', 'action', 'creator', 'clone_id'],
+    props : ['id', 'action', 'creator', 'clone_id', 'user'],
     data(){
         return {
 
+        }
+    },
+    computed: {
+        creatorGuide(){
+            return guideStore.creator;
+        }, 
+        editBtn(){
+            if(this.action == 'edit' && this.user.id != this.creatorGuide.id && this.user.role.type != 'admin')
+                return false;
+            return true;
+                
         }
     },
     methods:{

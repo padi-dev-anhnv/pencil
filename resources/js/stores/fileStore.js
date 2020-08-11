@@ -23,7 +23,10 @@ const state = Vue.observable({
         guideNumber : ""
     },
     listFiles : [],
-    actionNew: 0
+    actionNew: 0,
+    totalPage : 0,
+    currentPage : 1,
+    ppp : 10,
 });
 export const setSelectedId = id => {
     state.selectedId = id;
@@ -32,13 +35,17 @@ export const setSelectedId = id => {
         for (var key in state.file) {
             state.file[key] = result.data[key];
         }
-        state.file.guideNumber = result.data.product.guide.number;
+        state.file.guideNumber = result.data.number_guide;
     });
 };
 
 export const doSearch = (searchFilter) =>{
+    searchFilter.page = state.currentPage ; 
+    searchFilter.sort = state.sort ; 
+    searchFilter.ppp = state.ppp  
     axios("/file/search", { params: searchFilter }).then(result => {
         state.listFiles = result.data.data;
+        state.totalPage = result.data.total ? result.data.last_page : 0
     });
 }
 
@@ -88,32 +95,16 @@ export const setCurrentUser = user => {
     state.currentUser = user;
 };
 
-/*
-export const uploadFile = file => {
-    let formData = new FormData();
-    formData.append("file", file);
-    return axios
-        .post("/file/upload", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(function(result) {
-            state.file.link = result.data.file_name,
-            state.file.thumbnail = result.data.file_thumbnail
-            state.file.type = result.data.type
-            return {
-                link : result.data.file_name,
-                thumbnail : result.data.file_thumbnail,
-                type : result.data.type,
-            }
-        })
-        .catch(function() {
-            console.log("FAILURE!!");
-        });
-    
-};
-*/
+export const getPpp = () => {
+    if(localStorage.getItem("ppp-file")){
+        state.ppp = localStorage.getItem("ppp-file");
+    }        
+    else{
+        localStorage.setItem("ppp-file", 10)
+        state.ppp = 10
+    }
+}
+
 export const createFile = async () =>{
     return axios.post('/file', state.file).then(result => {
         if(state.actionNew == 1)

@@ -46,7 +46,8 @@
         <li class="sec">
             <h3 class="formctttl">営業所名</h3>
             <div class="formctbox">
-                <input type="text" name="" v-model="guide.office" class="w15" />
+                <input type="text" name="" v-model="creator.office.name" disabled class="w15" />
+                <!-- <input type="text" name="" v-model="guide.office" class="w15" /> -->
             </div>
         </li>
         <li class="sec">

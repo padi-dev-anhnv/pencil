@@ -16,8 +16,8 @@ class CreateGuideTable extends Migration
         Schema::create('guides', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
-            $table->string('office')->nullable();
-            // $table->string('assign');
+            $table->unsignedInteger('office_id')->nullable();
+            $table->foreign('office_id')->references('id')->on('offices');
             $table->string('number')->nullable();
             $table->unsignedInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('users');

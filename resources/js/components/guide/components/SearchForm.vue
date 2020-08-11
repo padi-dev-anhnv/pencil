@@ -206,7 +206,7 @@ export default {
     },
     created(){
       if(this.role.type == "worker"){
-        setSearchWorker(this.role.id)
+        setSearchWorker()
       }
     }
 }

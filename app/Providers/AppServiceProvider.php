@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Database\Eloquent\Builder;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,34 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Builder::macro('whereLike', function ($attributes, array $searchTerm) {
+            $this->where(function (Builder $query) use ($attributes, $searchTerm) {
+                foreach (array_wrap($attributes) as $attribute) {
+                    $query->when(
+                        str_contains($attribute, '.'),
+                        function (Builder $query) use ($attribute, $searchTerm) {
+                            [$relationName, $relationAttribute] = explode('.', $attribute);
+        
+                            $query->orWhereHas($relationName, function (Builder $query) use ($relationAttribute, $searchTerm) {
+                                $query->where(function($q)  use ($relationAttribute, $searchTerm){
+                                    foreach($searchTerm as $keyword)
+                                        $q->where($relationAttribute, 'LIKE', "%{$keyword}%");
+                                });
+                                
+                            });
+                        },
+                        function (Builder $query) use ($attribute, $searchTerm) {
+                            $query->orWhere(function($q)  use ($attribute, $searchTerm){
+                                foreach($searchTerm as $keyword)
+                                    $q->where($attribute, 'LIKE', "%{$keyword}%");
+                            });
+
+                        }
+                    );
+                }
+            });
+        
+            return $this;
+        });
     }
 }

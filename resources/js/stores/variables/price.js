@@ -53,9 +53,14 @@ let totalPrice = {
     
 }
 
+let specialValue = {
+    number : '',
+    rate : ''
+}
 
 export default {
     element1,
     element2,
-    totalPrice
+    totalPrice,
+    specialValue
 }
