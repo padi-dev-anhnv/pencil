@@ -20,14 +20,14 @@ class UserSeeder extends Seeder
 
         ];
         App\Role::insert($array_roles);
-/*
+
         // insert User by roles
         $admin = App\Role::where('type', 'admin')->first();
         factory(App\User::class, 1)->create([
             'role_id' => $admin->id,
             'username' => 'admin'
         ]);
-
+/*
         // $roles = App\Role::where('type','!=', 'admin')->get();
         factory(App\User::class, 10)->create();
         */
