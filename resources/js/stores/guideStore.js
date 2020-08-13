@@ -211,7 +211,7 @@ export const countSubTotal = countSubTotalState;
 
 export const findCustomer = (type = 'destination_code', code ) => {
     axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
-        let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture']
+        let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code']
         arrAddress.forEach( key => {
             state.delivery[key] = result.data[key]
         })

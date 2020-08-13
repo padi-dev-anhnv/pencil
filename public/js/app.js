@@ -44710,18 +44710,22 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.delivery.code,
-                    expression: "delivery.code"
+                    value: _vm.delivery.destination_code,
+                    expression: "delivery.destination_code"
                   }
                 ],
                 attrs: { type: "text", name: "", value: "" },
-                domProps: { value: _vm.delivery.code },
+                domProps: { value: _vm.delivery.destination_code },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.delivery, "code", $event.target.value)
+                    _vm.$set(
+                      _vm.delivery,
+                      "destination_code",
+                      $event.target.value
+                    )
                   }
                 }
               })
@@ -44736,7 +44740,7 @@ var render = function() {
                       $event.preventDefault()
                       return _vm.findCustomer(
                         "destination_code",
-                        _vm.delivery.code
+                        _vm.delivery.destination_code
                       )
                     }
                   }
@@ -63770,7 +63774,7 @@ var findCustomer = function findCustomer() {
       code: code
     }
   }).then(function (result) {
-    var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture'];
+    var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
     arrAddress.forEach(function (key) {
       state.delivery[key] = result.data[key];
     });
@@ -63966,6 +63970,8 @@ __webpack_require__.r(__webpack_exports__);
   office_chk: 1,
   prefecture: '',
   city: '',
+  destination_code: '',
+  postal_code: '',
   address: '',
   building: '',
   phone: '',

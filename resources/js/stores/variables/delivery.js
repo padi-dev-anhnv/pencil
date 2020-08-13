@@ -4,6 +4,8 @@ export default {
     office_chk : 1,
     prefecture : '',
     city : '',
+    destination_code : '',
+    postal_code : '',
     address : '',
     building : '',
     phone: '',

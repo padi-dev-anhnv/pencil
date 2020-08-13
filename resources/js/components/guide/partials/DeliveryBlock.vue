@@ -24,9 +24,9 @@
                     <li>
                         <label class="before"
                             ><span class="labeltxt">送り先コード</span
-                            ><input  v-model="delivery.code" type="text" name="" value=""/></label
+                            ><input  v-model="delivery.destination_code" type="text" name="" value=""/></label
                         ><span class="before"
-                            ><button class="mainbtn minibtn subbtn" @click.prevent="findCustomer('destination_code', delivery.code)">
+                            ><button class="mainbtn minibtn subbtn" @click.prevent="findCustomer('destination_code', delivery.destination_code)">
                                 送り先コードから自動入力
                             </button></span
                         >
