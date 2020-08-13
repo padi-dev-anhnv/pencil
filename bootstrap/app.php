@@ -51,5 +51,18 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+if(isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])){
+    $domain = $_SERVER['HTTP_HOST'];
+}
+
+if ($domain) {
+    $dotenv = \Dotenv\Dotenv::create(base_path(), '.env.'.$domain);
+    try {
+        $dotenv->overload();
+    } catch (\Dotenv\Exception\InvalidPathException $e) {
+        // No custom .env file found for this domain
+    }
+}
+
 
 return $app;

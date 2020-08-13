@@ -29,14 +29,8 @@ export default {
         createGuide(){
             createGuide(0)
         },
-        /*
-        setCreator(creator){
-            setCreator(creator)
-        }
-        */
     },
     created(){
-    //    getWorkers();
         setCreator(this.creator)
     }
 }
