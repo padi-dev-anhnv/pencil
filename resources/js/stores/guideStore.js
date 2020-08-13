@@ -209,12 +209,25 @@ const countSubTotalState = (eleNumb, ele, typePrice, type) => {
 export const countByEle = countByEleState;
 export const countSubTotal = countSubTotalState;
 
+
+// const function 
+
 export const findCustomer = (type = 'destination_code', code ) => {
     axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
-        let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code']
-        arrAddress.forEach( key => {
-            state.delivery[key] = result.data[key]
-        })
+        if(result.data.success == false){
+            if(type == 'postal_code'){
+                axios('https://api.zipaddress.net/?zipcode=' + code).then(res => {
+                    console.log(res)
+                })
+            }
+        }
+        else{
+            let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code']
+            arrAddress.forEach( key => {
+                state.delivery[key] = result.data[key]
+            })
+        }
+        
     })
 }
 

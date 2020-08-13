@@ -47,8 +47,11 @@ class CustomerController extends Controller
         if($request->type == 'destination_code')
             $result = Customer::where('destination_code', $request->code)->first();
         elseif($request->type ==  'postal_code')
-            $result =Customer::where('postal_code', $request->code)->first();
-        return response()->json($result);
+            $result = Customer::where('postal_code', $request->code)->first();
+        if($result)
+            return response()->json($result);
+        else
+            return response()->json(['success' => false]);
         
     }
 }

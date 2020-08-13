@@ -43037,8 +43037,6 @@ var render = function() {
         _vm._v(" "),
         _c("price-block"),
         _vm._v(" "),
-        _c("file-modal"),
-        _vm._v(" "),
         _c(
           "footer",
           {
@@ -44336,7 +44334,7 @@ var render = function() {
             ? [
                 _vm._v(
                   "\n                " +
-                    _vm._s(_vm.guide.delivery.code) +
+                    _vm._s(_vm.guide.delivery.destination_code) +
                     "\n            "
                 )
               ]
@@ -63764,7 +63762,8 @@ var countSubTotalState = function countSubTotalState(eleNumb, ele, typePrice, ty
 };
 
 var countByEle = countByEleState;
-var countSubTotal = countSubTotalState;
+var countSubTotal = countSubTotalState; // const function 
+
 var findCustomer = function findCustomer() {
   var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'destination_code';
   var code = arguments.length > 1 ? arguments[1] : undefined;
@@ -63774,10 +63773,18 @@ var findCustomer = function findCustomer() {
       code: code
     }
   }).then(function (result) {
-    var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
-    arrAddress.forEach(function (key) {
-      state.delivery[key] = result.data[key];
-    });
+    if (result.data.success == false) {
+      if (type == 'postal_code') {
+        axios('https://api.zipaddress.net/?zipcode=' + code).then(function (res) {
+          console.log(res);
+        });
+      }
+    } else {
+      var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
+      arrAddress.forEach(function (key) {
+        state.delivery[key] = result.data[key];
+      });
+    }
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);

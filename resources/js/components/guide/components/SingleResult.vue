@@ -10,7 +10,7 @@
             <li>{{ guide.creator.name }}</li>
             <li>
                 <template v-if="guide.delivery">
-                    {{ guide.delivery.code }}
+                    {{ guide.delivery.destination_code }}
                 </template>
             </li>
             <li>{{ guide.delivery.receiver }}</li>
