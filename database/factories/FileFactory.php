@@ -6,9 +6,9 @@ use App\File;
 use Faker\Generator as Faker;
 
 $factory->define(File::class, function (Faker $faker) {
-    $faker->addProvider(new \Faker\Provider\ja_JP\Person($faker));
-    $faker->addProvider(new \Faker\Provider\ja_JP\Address($faker));
-    $faker->addProvider(new \Faker\Provider\ja_JP\Text($faker));
+    // $faker->addProvider(new \Faker\Provider\ja_JP\Person($faker));
+    // $faker->addProvider(new \Faker\Provider\ja_JP\Address($faker));
+    // $faker->addProvider(new \Faker\Provider\ja_JP\Text($faker));
     $randomUser = App\User::whereHas('role', function($query){
         $query->whereIn('type', ['admin', 'file_manager', 'instruction_manager']);
     })->inRandomOrder()->first();

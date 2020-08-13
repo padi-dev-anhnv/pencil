@@ -17,8 +17,8 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    $faker->addProvider(new \Faker\Provider\ja_JP\Person($faker));
-    $faker->addProvider(new \Faker\Provider\ja_JP\Address($faker));
+    // $faker->addProvider(new \Faker\Provider\ja_JP\Person($faker));
+    // $faker->addProvider(new \Faker\Provider\ja_JP\Address($faker));
     return [
         'name' => $faker->name,
         'username' => $faker->unique()->userName,
