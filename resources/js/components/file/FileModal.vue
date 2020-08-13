@@ -148,7 +148,6 @@ export default {
       return fileStore.actionNew;
     },
     showUpload() {
-      return false;
       if (this.file.link.length != 0) return false;
       return true;
     },

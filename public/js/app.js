@@ -2147,7 +2147,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].actionNew;
     },
     showUpload: function showUpload() {
-      return false;
       if (this.file.link.length != 0) return false;
       return true;
     }
@@ -44751,7 +44750,56 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("li", [
+            _c("label", { staticClass: "before" }, [
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("郵便番号")]),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.delivery.postal_code,
+                    expression: "delivery.postal_code"
+                  }
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.delivery.postal_code },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.delivery, "postal_code", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _c("span", { staticClass: "before after" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "mainbtn minibtn subbtn",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.findCustomer(
+                        "postal_code",
+                        _vm.delivery.postal_code
+                      )
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                                郵便番号から自動入力\n                            "
+                  )
+                ]
+              )
+            ]),
+            _c("span", { staticClass: "note" }, [
+              _vm._v("ハイフン（－）なしで入力してください")
+            ])
+          ]),
           _vm._v(" "),
           _c("li", [
             _c("label", { staticClass: "before" }, [
@@ -44934,29 +44982,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("label", { staticClass: "before" }, [
-        _c("span", { staticClass: "labeltxt" }, [_vm._v("郵便番号")]),
-        _c("input", { attrs: { type: "text", name: "", value: "" } })
-      ]),
-      _c("span", { staticClass: "before after" }, [
-        _c("button", { staticClass: "mainbtn minibtn subbtn" }, [
-          _vm._v(
-            "\n                                郵便番号から自動入力\n                            "
-          )
-        ])
-      ]),
-      _c("span", { staticClass: "note" }, [
-        _vm._v("ハイフン（－）なしで入力してください")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

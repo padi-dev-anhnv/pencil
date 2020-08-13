@@ -34,9 +34,9 @@
                     <li>
                         <label class="before"
                             ><span class="labeltxt">郵便番号</span
-                            ><input type="text" name="" value=""/></label
+                            ><input type="text"  v-model="delivery.postal_code"/></label
                         ><span class="before after"
-                            ><button class="mainbtn minibtn subbtn">
+                            ><button class="mainbtn minibtn subbtn"  @click.prevent="findCustomer('postal_code', delivery.postal_code)">
                                 郵便番号から自動入力
                             </button></span
                         ><span class="note"
