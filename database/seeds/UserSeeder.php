@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         ];
         App\Role::insert($array_roles);
-
+/*
         // insert User by roles
         $admin = App\Role::where('type', 'admin')->first();
         factory(App\User::class, 1)->create([
@@ -30,5 +30,6 @@ class UserSeeder extends Seeder
 
         // $roles = App\Role::where('type','!=', 'admin')->get();
         factory(App\User::class, 10)->create();
+        */
     }
 }
