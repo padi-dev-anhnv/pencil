@@ -12,7 +12,7 @@ class FileService
 
     public function uploadFile(Request $request)
     {
-        $file_upload = $request->file('file');
+        $file_upload = $request->file('fileUpload');
         $suffix = Str::random(7);
         $full_name = $file_upload->getClientOriginalName();
         $file_name = pathinfo($full_name, PATHINFO_FILENAME);
@@ -32,7 +32,7 @@ class FileService
             Storage::put($dir_thumbnail . $thumbnail_name, $thumbnail);
         }     
 
-        return ['file_name' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail];
+        return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail];
     }
 
     public function download($file_id)

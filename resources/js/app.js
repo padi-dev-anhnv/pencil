@@ -22,11 +22,13 @@ import Paginate from 'vuejs-paginate'
 Vue.component('paginate', Paginate)
 
 Vue.component('list-user', require('./components/user/list/ListUser.vue').default);
+Vue.component('upload-customer', require('./components/user/UploadCustomer.vue').default);
 Vue.component('form-user', require('./components/user/FormUser.vue').default);
 Vue.component('list-file', require('./components/file/ListFile.vue').default);
-Vue.component('list-file', require('./components/file/ListFile.vue').default);
-Vue.component('add-file', require('./components/file/AddFile.vue').default);
-Vue.component('edit-file', require('./components/file/EditFile.vue').default);
+Vue.component('file-modal', require('./components/file/FileModal.vue').default);
+Vue.component('file-delete', require('./components/file/FileDelete.vue').default);
+// Vue.component('add-file', require('./components/file/AddFile.vue').default);
+// Vue.component('edit-file', require('./components/file/EditFile.vue').default);
 
 // Vue.component('create-guide', require('./components/guide/CreateGuide.vue').default);
 // Vue.component('edit-guide', require('./components/guide/EditGuide.vue').default);

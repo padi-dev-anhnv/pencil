@@ -35,7 +35,7 @@ class GuideController extends Controller
         return $this->guideRepo->listSuppliers();
     }
     
-    public function create(CreateGuide $request)
+    public function create(Request $request)
     {
         $id = intval($request->id);
         if($id == 0 || isset($request->guide['clone_id']))

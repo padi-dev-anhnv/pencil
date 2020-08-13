@@ -45,9 +45,32 @@ class FileRepository
 
     public function create($request)
     {
-        $request['user_id'] = auth()->user()->id;
+        /*
+        if($request['id']){
+            $file = $this->file::find($request->id);
+            if($request->user()->cannot('delete', $file))
+                return ['success' => false];
+        }      
+        */
+        if(empty($request['id']))
+            $request['user_id'] = auth()->user()->id;            
         $file = $this->file::updateOrCreate(['id' =>$request['id']],$request);
         return $file;
+    }
+
+    public function delete($request)
+    {
+        /*
+        $file = $this->file::find($request->id);
+        if($request->user()->can('delete', $file)){
+            $file->delete();
+            return ['success' => true];
+        }
+            
+        return ['success' => false];
+        */
+        $this->file->destroy($request->id);
+        return ['success' => true];
     }
 }
 

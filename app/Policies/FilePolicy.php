@@ -16,4 +16,11 @@ class FilePolicy
         $user_role = $user->role->type;
         return in_array($user_role, $array_allow);
     }
+
+    public function delete(User $user, File $file)
+    {
+        if($user->id === $file->user_id || $user->role->type == 'admin')
+            return true;
+        return false;
+    }
 }

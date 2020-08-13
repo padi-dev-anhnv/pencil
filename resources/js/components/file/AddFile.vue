@@ -72,7 +72,7 @@
               </div>
               <div class="btn_box">
                 <label class="mainbtn" @click="createFile">保存</label>
-                <label for="popup_addfile" class="mainbtn" style="display:none" ref="closeModal">保存</label>
+                <label for="popup_cancel" class="mainbtn" style="display:none" ref="closeModal">保存</label>
               </div>
             </div>
           </div>

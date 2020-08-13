@@ -12,9 +12,9 @@ export default {
         body : '0',
         direction : 'side',
         proofreading : 'unnecessary',
-        method : 'one',
-        work : 'two',
-        typeface : 'three',
+        method : '',
+        work : '',
+        typeface : '',
         font_size_enable : 0,
         font_size : '',
         printing_color : [

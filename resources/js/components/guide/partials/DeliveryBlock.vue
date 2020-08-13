@@ -26,7 +26,7 @@
                             ><span class="labeltxt">送り先コード</span
                             ><input  v-model="delivery.code" type="text" name="" value=""/></label
                         ><span class="before"
-                            ><button class="mainbtn minibtn subbtn">
+                            ><button class="mainbtn minibtn subbtn" @click.prevent="findCustomer('destination_code', delivery.code)">
                                 送り先コードから自動入力
                             </button></span
                         >
@@ -46,8 +46,8 @@
                     <li>
                         <label class="before"
                             ><span class="labeltxt">都道府県</span
-                            ><select v-model="delivery.district">
-                                <option v-for="(city,index) in listCity" :key="index" :value="city.name_en">{{city.name}}</option>
+                            ><select v-model="delivery.prefecture">
+                                <option v-for="(city,index) in listCity" :key="index" :value="city.name">{{city.name}}</option>
                             </select></label
                         >
                     </li>
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import guideStore from "../../../stores/guideStore";
+import guideStore, { findCustomer} from "../../../stores/guideStore";
 import constVar from "../../../stores/constVar";
 export default {
     data() {
@@ -101,6 +101,11 @@ export default {
         listCity(){
             return guideStore.city;
         }
-	}
+    }, 
+    methods : {
+        findCustomer(type, code){
+            findCustomer(type, code)
+        }
+    }
 };
 </script>

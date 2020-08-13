@@ -18,7 +18,7 @@ class CreateDeliveriesTable extends Migration
             $table->string('receiver')->nullable();
             $table->string('office_chk');
             $table->string('code')->nullable();
-            $table->string('district')->nullable();
+            $table->string('prefecture')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('building')->nullable();

@@ -2,7 +2,7 @@
 export default {    
     receiver : '',
     office_chk : 1,
-    district : '',
+    prefecture : '',
     city : '',
     address : '',
     building : '',

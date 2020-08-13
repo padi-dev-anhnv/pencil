@@ -7,6 +7,7 @@ use App\Delivery;
 use App\Packaging;
 use App\Procedure;
 use App\Product;
+use App\File;
 use Illuminate\Database\Eloquent\Builder;
 
 class GuideRepository
@@ -90,16 +91,16 @@ class GuideRepository
 
         foreach($product_array as $index => $product)
         {
-            $guide->products()->save($product);
-            
-            $array_file = [];
-                  
+            $new_product = $guide->products()->save($product);            
+            $array_file = [];                  
             foreach($productsRequest[$index]['files'] as $file)
             {
-                if(count($file) > 0)
-                    $array_file[] = $file['id'];
+                if(count($file) > 0){
+                    $file = File::find($file['id']);
+                    $new_product->files()->save($file);
+                }
+                    
             }            
-        //    $new_product->files()->sync($array_file);
         }
         return $guide;
     }
@@ -129,8 +130,10 @@ class GuideRepository
             $guide_product = $guide->products()->updateOrCreate(['id' =>$product['id']],$product);
             foreach($product['files'] as $file)
             {
-                if(count($file) > 0)
-                    $array_file[] = $file['id'];
+                if(count($file) > 0){
+                    $file = File::find($file['id']);
+                    $guide_product->files()->save($file);
+                }
             }  
         //    $guide_product->files()->sync($array_file);
 

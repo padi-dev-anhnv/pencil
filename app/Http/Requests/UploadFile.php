@@ -26,10 +26,10 @@ class UploadFile extends FormRequest
         return [
             // 'office' => 'required',
             // 'user' => 'required',
-            // 'number' => 'required_if:id,!=,""',
-            // 'name' => 'required',
+            'name' => 'required',
             'material' => 'required|in:other,office,guide',
-            'link' => 'required',
+            'fileUpload' => 'required_if:link,""',
+            'link' => 'required_if:fileUpload,""',
         ];
     }
 }

@@ -2,10 +2,10 @@
     <div>
         <div class="top_btn">
             <label
-                for="popup_addfile"
+                for="popup_editfile"
                 class="mainbtn mainbtn2"
                 id="btn_new"
-                @click="setFileUserOffice"
+                @click="openAddModal"
                 >新規作成</label
             >
         </div>
@@ -273,7 +273,7 @@
                         <div class="upld_date">{{ file.created_at }}</div>
                         <div for="popup_imgdtl" class="thumb">
                             <label
-                                @click="selectFile(file.id)"
+                                @click="openEditModal(file.id)"
                                 for="popup_editfile"
                                 class="imgbox"
                             >
@@ -295,19 +295,24 @@
             </div>
         </div>
 
-        <!-- 新規作成ポップアップ -->
-        <add-file />
+        <file-modal @reset-search="resetFilter" />
+        <file-delete />
+	
+		<!-- 削除確認 -->
+		
+		<!-- 削除確認 -->
+	
+		<input id="popup_cancel" name="editfile" type="radio" class="cancel">
+	<!-- 画像詳細閲覧・ダウンロードポップアップ -->
 
-        <edit-file />
-        <!-- 画像詳細閲覧・ダウンロードポップアップ -->
     </div>
 </template>
 
 <script>
 import fileStore, {
-    setSelectedId,
+    openAddModal,
     setCurrentUser,
-    setFileUserOffice,
+    openEditModal,
     doSearch,
     getPpp
 } from "../../stores/fileStore";
@@ -388,7 +393,7 @@ export default {
             });
         },
         loadListAuthor() {
-            axios("/user/user-per-file").then(result => {
+            axios("/file/user-per-file").then(result => {
                 this.listAuthor = result.data;
             });
         },
@@ -402,6 +407,7 @@ export default {
             };
             setCurrentUser(user);
         },
+        /*
         setFileUserOffice() {
             let user = {
                 name: this.userInfo.name,
@@ -409,6 +415,28 @@ export default {
             };
             setFileUserOffice(user);
         }
+        */
+       openAddModal(){
+           let user = {
+                name: this.userInfo.name,
+                office: this.userOffice.name
+            };
+           openAddModal(user);
+       },
+       openEditModal(id){
+           openEditModal(id);
+       },
+       resetFilter(){
+           this.search = {
+                author: { enable: false, value: "" },
+                office: { enable: false, value: "" },
+                date: { enable: false, dateFrom: "", dateTo: "" },
+                keyword: { enable: false, value: "" }
+            }
+            this.material = [];
+            fileStore.currentPage = 1;
+            this.doSearchFile();
+       }
     },
     created() {
         getPpp();

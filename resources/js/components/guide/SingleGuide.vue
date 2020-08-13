@@ -7,6 +7,7 @@
             <procedure-block />
             <product-block :action="action" />
             <price-block />
+            <file-modal />
             <footer class="list-footer" v-show="editBtn">
 				<footer class="list-footer">
 					<button class="mainbtn" @click.prevent="createGuide">保存</button>

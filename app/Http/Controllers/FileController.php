@@ -31,22 +31,47 @@ class FileController extends Controller
 
     public function create(UploadFile $request)
     {
+        // upload file
+        if(empty($request->link)){
+            $file_upload = $this->upload($request);
+            foreach($file_upload as $key => $file)
+            {
+                $request->request->set($key,$file);
+            }
+        }        
         $file = $this->fileRepo->create($request->all());
         return response()->json($file);
     }
 
+    
     public function upload(Request $request)
     {
         $extAllow = File::$extAllow;
         $validatedData = $request->validate([
-            'file' => 'required|file|mimes:'. join(",", $extAllow)
+            'fileUpload' => 'required|file|mimes:'. join(",", $extAllow)
         ]);
         $file_uploaded = $this->fileService->uploadFile($request);
         return $file_uploaded;
     }
+/*
+    public function upload_multi(Request $request)
+    {
+        foreach($request->files as $file)
+        {
+            $file
+        }
+        
+    }
+*/
 
     public function download(Request $request)
     {
         return $this->fileService->download($request->id);
+    }
+
+    public function delete(Request $request)
+    {
+        $result = $this->fileRepo->delete($request);
+        return response()->json($result);
     }
 }

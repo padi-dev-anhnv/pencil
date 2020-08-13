@@ -26,16 +26,19 @@ Route::group(['prefix' => 'user', 'middleware' =>['can:list,\App\User', 'active_
     Route::get('/get-list', 'UserController@list');
     Route::post('/delete', 'UserController@delete');
     Route::get('/roles', 'UserController@getRoles');
-    Route::get('/user-per-file', 'UserController@listUserPerFile');
+    Route::post('/upload-customer-csv', 'CustomerController@uploadCustomer');
 
 });
 Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_user'] ], function(){
     Route::view('/', 'pages.file.index')->name('file');    
     Route::post('/', 'FileController@create');
     Route::post('/upload', 'FileController@upload');
+    Route::post('/upload-multi', 'FileController@upload_multi');
     Route::get('/search', 'FileController@search');
     Route::get('/{id}/show', 'FileController@show');    
-    Route::get('/{id}/download', 'FileController@download');    
+    Route::get('/{id}/download', 'FileController@download');
+    Route::post('/delete', 'FileController@delete');
+    Route::get('/user-per-file', 'UserController@listUserPerFile');
 });
 
 Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], function(){
@@ -51,4 +54,5 @@ Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], fun
     Route::get('/offices', 'UserController@getOffices');
     Route::post('/delete', 'GuideController@delete');
     Route::post('/clone', 'GuideController@clone');
+    Route::get('/find-customer', 'CustomerController@findCustomer');
 });

@@ -78,8 +78,9 @@ export const getGuideInfo = async (id) => {
     })
 }
 
-export const createGuide = id => {
-    console.log(state.price);
+export const createGuide = async (id) => {
+    
+    await uploadMulti();
     let products = [];
     state.products.forEach(product => {
         delete product.inscription.font_size_enable;
@@ -102,6 +103,49 @@ export const createGuide = id => {
     })
 
 };
+
+let uploadMulti = async() => {
+
+    for(let i = 0; i < state.products.length; i ++ )
+    {
+        for(let j = 0; j < state.products[i].inscription.files.length  ; j ++ )
+        {
+            let file = state.products[i].inscription.files[j];
+            if(file.fileUpload){            
+                let formData = new FormData();
+                let fileName = file.fileUpload.name.split('.').slice(0, -1).join('.');
+                formData.append('fileUpload', file.fileUpload)
+                formData.append('name', fileName )
+                formData.append('material', 'guide' )
+                formData.append('id', 0 )
+                await axios.post("/file", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(result => {
+                    state.products[i].inscription.files[j] = { id : result.data.id }
+                });
+            }      
+        }
+    }
+    
+
+
+    /*
+    if(count > 0){
+        return axios
+        .post("/file", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then(result => {
+            console.log(result)
+        });
+    }
+    */
+}
 
 export const setCreator = (creator) => {
     console.log(creator)
@@ -164,5 +208,14 @@ const countSubTotalState = (eleNumb, ele, typePrice, type) => {
 
 export const countByEle = countByEleState;
 export const countSubTotal = countSubTotalState;
+
+export const findCustomer = (type = 'destination_code', code ) => {
+    axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
+        let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture']
+        arrAddress.forEach( key => {
+            state.delivery[key] = result.data[key]
+        })
+    })
+}
 
 export default state;

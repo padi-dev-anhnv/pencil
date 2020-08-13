@@ -107,19 +107,22 @@
             <li>
               <label class="before">
                 <span class="labeltxt">銘入方式</span>
-                <select  v-model='inscription.method'>
+                <select  v-model='inscription.method'>                  
+                  <option value="">選択してください</option>
                   <option v-for="(method,index) in listInscrMethod" :key='index' :value="method.eng">{{method.jap}}</option>
                 </select>
               </label>
               <label class="before">
                 <span class="labeltxt">銘入作業</span>
-                <select v-model='inscription.work'>
+                <select v-model='inscription.work'>                  
+                  <option value="">選択してください</option>
                   <option v-for="(method,index) in listInscrWork" :key='index' :value="method.eng">{{method.jap}}</option>
                 </select>
               </label>
               <label class="before">
                 <span class="labeltxt">銘入書体</span>
-                <select v-model='inscription.typeface'>
+                <select v-model='inscription.typeface'>                  
+                  <option value="">選択してください</option>
                   <option v-for="(method,index) in listInscrTypeFace" :key='index' :value="method.eng">{{method.jap}}</option>
                 </select>
               </label>
@@ -187,7 +190,10 @@
                 <input style="display:none" type="file" name="fileUpload" :ref="'file' + index + i" @change="onFileChange($event,index, i)" />
                 <div class="fbox3" v-if="file.id">
                   <div class="uploadimg">
+                    <label for="popup_editfile" class="imgbox">
+                      
                     <img v-if="file.thumbnail" :src="file.thumbnail" width="566" height="573" />
+                    </label>
                     <button class="deletebtn" @click.prevent="deleteFile(index, i)">
                       <span>削除</span>
                     </button>
@@ -281,8 +287,11 @@ export default {
       // index : order of product
       // i : order of file in product
       let file = e.target.files[0];
-      let fileUploaded = await createFileProduct(file);
-      Vue.set(this.inscription.files, i, fileUploaded.data)
+      this.inscription.files[i].fileUpload = file;
+      // console.log(file)
+
+      // let fileUploaded = await createFileProduct(file);
+      // Vue.set(this.inscription.files, i, fileUploaded.data)
     },
     deleteFile(index, i){
       Vue.set(this.inscription.files, i, {})
