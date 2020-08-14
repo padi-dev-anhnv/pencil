@@ -9,7 +9,8 @@ export default {
     address : '',
     building : '',
     phone: '',
-    fax: ''        
+    fax: '', 
+    id : 0        
 }
 
 /*

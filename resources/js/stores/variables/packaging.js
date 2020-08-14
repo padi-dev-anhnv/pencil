@@ -10,7 +10,8 @@ export default {
     bottom_font:'',
     bottom_color:'',
     bottom_text:'',
-    description:''
+    description:'',
+    id : 0
 }
 
 /*

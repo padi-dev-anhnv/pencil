@@ -28,7 +28,9 @@ const state = Vue.observable({
     products : [
         
     ],
+    originalFiles : [],
     price,
+    doDupplicate : false
 });
 
 export const getGuideInfo = async (id) => {
@@ -40,6 +42,10 @@ export const getGuideInfo = async (id) => {
         state.procedure = result.data.data.procedure;
         state.creator = result.data.data.creator;
         state.price = result.data.data.guide.price;
+        // state.originalFiles = {...result.data.data.files }
+        state.originalFiles = result.data.data.files.map(file => {
+            return { id : file.id }
+        })
         // procedure material
         let materialArray = procedure.materialArray;
         let materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
@@ -47,33 +53,33 @@ export const getGuideInfo = async (id) => {
             materialArray[index] = mat;
         })
         state.procedure.materialArray =  materialArray;
+
         // array products
-        
         result.data.data.products.forEach(prod => {
-            
             let initProduct = JSON.parse(JSON.stringify(product));
-            const initFileArray = initProduct.inscription.files;
+            
+            // put info part
             for(let key in initProduct.info){
                initProduct.info[key] = prod[key];
             }
+            // put inscription part
             for(let key in initProduct.inscription){
-                initProduct.inscription[key] = prod[key];
+                initProduct.inscription[key] = prod[key] ? prod[key] : '';
             }
-
-            prod.file_array.forEach((file, index) => {
-                initFileArray[index] = file;
+            
+            // put product part
+            initProduct.inscription.files.forEach((file, index) => {
+                if(file.id){
+                    let fileGuide = result.data.data.files.find(fi => fi.id == file.id);
+                    initProduct.inscription.files[index] = {...fileGuide}
+                    
+                }
             })
-            initProduct.id = prod.id; 
-            initProduct.inscription.files = initFileArray;            
+            
             initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
             state.products.push(initProduct)
         })
-        // dupplicate
-        let dupplicate = result.data.data.dupplicate
-        if(dupplicate){
-            state.dupplicate = dupplicate
-            state.dupplicate.exist = 1
-        }
+
             
     })
 }
@@ -84,7 +90,7 @@ export const createGuide = async (id) => {
     let products = [];
     state.products.forEach(product => {
         delete product.inscription.font_size_enable;
-        products.push({ id : product.id,...product.info, ...product.inscription})
+        products.push({...product.info, ...product.inscription})
     }) ;
     let guideInfo = {...state.guide};
     guideInfo.price =  {...state.price};
@@ -94,15 +100,30 @@ export const createGuide = async (id) => {
         packaging : {...state.packaging},
         procedure : {...state.procedure},
         products : products,
+        originalFiles : state.originalFiles,
+        doDupplicate : state.doDupplicate
         // price : {...state.price},
     } ;
     newGuide.id = id;
-//    let newGuide = JSON.parse(JSON.stringify(state));
+    if(state.doDupplicate == true)
+        newGuide = removeIdDupplicate(newGuide);
     axios.post('/guide', newGuide).then(result => {
         console.log(result)
     })
 
 };
+
+let removeIdDupplicate = (newGuide) => {
+    // delete newGuide.guide.guide_id;
+    delete newGuide.delivery.guide_id;
+    delete newGuide.packaging.guide_id;
+    delete newGuide.procedure.guide_id;
+    newGuide.guide.id = 0 ;
+    newGuide.delivery.id = 0;
+    newGuide.packaging.id = 0;
+    newGuide.procedure.id = 0;
+    return newGuide;
+}
 
 let uploadMulti = async() => {
 
@@ -148,9 +169,8 @@ let uploadMulti = async() => {
 }
 
 export const setCreator = (creator) => {
-    console.log(creator)
+
     state.creator = creator;
-    // state.guide.office = creator.
 }
 
 export const setAction = (action) => {
@@ -158,12 +178,18 @@ export const setAction = (action) => {
 }
 
 export const setCloneId = (id) => {
+    state.guide.last_exist = 1;
+    state.guide.last_date = state.guide.created_at;
+    state.guide.last_numb = state.guide.number;
+    state.doDupplicate = true;
+    /*
     state.guide.clone_id = id;
     state.dupplicate = {
         exist : 1,
         created_at : state.guide.created_at,
         number : state.guide.number
     }
+    */
 }
 
 export const getWorkers = () => {

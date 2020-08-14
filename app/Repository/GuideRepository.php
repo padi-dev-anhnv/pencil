@@ -30,10 +30,11 @@ class GuideRepository
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();
+        $files = $guide->files()->get();
         $dupplicate = $guide->dupplicate()->select('created_at', 'id', 'number')->first();
         $creator = $guide->creator()->select('name', 'id')->first();
         $office = $guide->office()->select('name', 'id')->first();
-        $products = $guide->products()->get();
+        // $products = $guide->products()->get();
         $creator['office'] = $office;
 
         return [
@@ -41,16 +42,68 @@ class GuideRepository
             'delivery' => $delivery,
             'packaging' => $packaging,
             'procedure' => $procedure,
-            'products' => $products,
+            'products' => $guide->products,
             'creator' => $creator,
-            'dupplicate' => $dupplicate
+            'dupplicate' => $dupplicate,
+            'files'     => $files
         ];
     }
 
+    public function setGuideFile($products, $guide_id)
+    {
+        $array_file = [];
+        foreach($products as $product)
+        {
+            foreach($product['files'] as $file)
+            {
+                if(isset($file['id']))
+                {
+                    $array_file[] = $file['id'];
+                    $file_guide = File::find($file['id']);
+                    $file_guide->guide_id = $guide_id;
+                    $file_guide->save();
+                }
+            }
+        }
+
+        return $array_file;
+    } 
+
     public function create($request)
     {
+        
         $request['guide']['user_id'] = auth()->user()->id;
         $request['guide']['office_id'] = auth()->user()->office->id;
+        $request['guide']['products'] = $request['products'];
+
+        $guideRequest = $request['guide'];
+        $deliveryRequest = $request['delivery'];
+        $packagingRequest = $request['packaging'];
+        $procedureRequest = $request['procedure'];
+        $originalFiles = $request['originalFiles'];
+
+        $guide = $this->guide::updateOrCreate(['id' => $guideRequest['id']], $guideRequest);
+        $guide->delivery()->updateOrCreate(['id' => $deliveryRequest['id']], $deliveryRequest);
+        $guide->packaging()->updateOrCreate(['id' => $packagingRequest['id']], $packagingRequest);
+        $guide->procedure()->updateOrCreate(['id' => $procedureRequest['id']], $procedureRequest);
+
+        // handle file attach product guide
+
+        $used_file = $this->setGuideFile($request['products'], $guide->id);
+        
+
+        foreach($originalFiles as $file)
+        {
+            if(!in_array($file['id'], $used_file))
+            {
+                File::destroy($file['id']);
+            }
+        }
+
+        
+
+        // Delivery::updateOrCreate(['id' => $request['delivery']['id']], $request['delivery']);
+        dd($request);
         // for dupplicate
         if(isset($request['guide']['clone_id'])){
             $array_request = ['guide', 'delivery', 'packaging', 'procedure'];
@@ -62,9 +115,8 @@ class GuideRepository
             foreach($products as $key => $product)
             {
                 unset($request['products'][$key]['id']);
-            }
-            
-        }        
+            }            
+        }
 
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];

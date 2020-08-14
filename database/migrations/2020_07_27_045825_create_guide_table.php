@@ -29,7 +29,8 @@ class CreateGuideTable extends Migration
             $table->string('last_numb')->nullable();
             $table->string('customer_name')->nullable();  
             $table->string('curator')->nullable();  
-            $table->text('price')->nullable();  
+            $table->text('price')->nullable();
+            $table->text('products')->nullable();
             $table->date('shipping_date')->nullable(); 
             $table->date('received_date')->nullable(); 
             // $table->unsignedInteger('clone_id')->nullable();

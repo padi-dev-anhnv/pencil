@@ -30,12 +30,12 @@ class FileRepository
 
     public function show($id)
     {
-        $file = $this->file::with('user.office', 'product.guide:number,id')->findOrFail($id);
+        $file = $this->file::with('user.office', 'guide')->findOrFail($id);
         $file->office = $file->user->office->name;
         $file_user = $file->user->name;
         unset($file->user);
         if($file->product){
-            $file->number_guide = $file->product->guide->number;
+            $file->number_guide = $file->guide->number;
             unset($file->product);
         }
             

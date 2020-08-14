@@ -13,7 +13,8 @@ class Guide extends Model
         'created_at'  => 'date:Y/m/d',
         'shipping_at'  => 'date:Y/m/d',
         'received_at'  => 'date:Y/m/d',
-        'price'         => 'array'
+        'price'         => 'array',
+        'products'         => 'array',
     ];
 
     protected $appends = ['first_product','creator'];
@@ -81,6 +82,12 @@ class Guide extends Model
     {
         return $this->belongsTo(Guide::class, 'clone_id');
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
+
 
     // Scope
 

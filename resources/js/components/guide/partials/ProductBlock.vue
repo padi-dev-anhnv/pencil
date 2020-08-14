@@ -28,11 +28,9 @@ export default {
     };
   },
   computed: {
-    /*
     products() {
       return guideStore.products;
     },
-    */
     productInit() {
       return guideStore.productInit;
     },

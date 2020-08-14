@@ -3250,10 +3250,15 @@ __webpack_require__.r(__webpack_exports__);
 
       return false;
     },
+    receiver: function receiver() {
+      if (!this.guide.delivery) return 'tt';
+      return this.guide.delivery.receiver;
+    },
     chk: function chk() {
       var _this = this;
 
       //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
+      if (!this.guide.delivery) return 'tt';
       if (this.guide.delivery.office_chk == 1) return this.guide.delivery.receiver;
       var officeChk = _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk.find(function (chk) {
         return chk.eng == _this.guide.delivery.office_chk;
@@ -4409,11 +4414,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {
-    /*
-    products() {
-      return guideStore.products;
+    products: function products() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].products;
     },
-    */
     productInit: function productInit() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].productInit;
     },
@@ -44343,7 +44346,7 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("li", [_vm._v(_vm._s(_vm.guide.delivery.receiver))]),
+      _c("li", [_vm._v(_vm._s(_vm.receiver))]),
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.chk))]),
       _vm._v(" "),
@@ -48363,24 +48366,15 @@ var render = function() {
                 file.id
                   ? _c("div", { staticClass: "fbox3" }, [
                       _c("div", { staticClass: "uploadimg" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "imgbox",
-                            attrs: { for: "popup_editfile" }
-                          },
-                          [
-                            file.thumbnail
-                              ? _c("img", {
-                                  attrs: {
-                                    src: file.thumbnail,
-                                    width: "566",
-                                    height: "573"
-                                  }
-                                })
-                              : _vm._e()
-                          ]
-                        ),
+                        file.thumbnail
+                          ? _c("img", {
+                              attrs: {
+                                src: file.thumbnail,
+                                width: "566",
+                                height: "573"
+                              }
+                            })
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "button",
@@ -63223,7 +63217,7 @@ var openEditModal = function openEditModal(id) {
       state.file[key] = result.data[key];
     }
 
-    state.file.guideNumber = result.data.number_guide;
+    state.file.guideNumber = result.data.guide.number;
   });
 };
 var openAddModal = function openAddModal(user) {
@@ -63495,7 +63489,9 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   packaging: _variables_packaging__WEBPACK_IMPORTED_MODULE_5__["default"],
   procedure: _variables_procedure__WEBPACK_IMPORTED_MODULE_6__["default"],
   products: [],
-  price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"]
+  originalFiles: [],
+  price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"],
+  doDupplicate: false
 });
 var getGuideInfo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
@@ -63511,7 +63507,13 @@ var getGuideInfo = /*#__PURE__*/function () {
               state.packaging = result.data.data.packaging;
               state.procedure = result.data.data.procedure;
               state.creator = result.data.data.creator;
-              state.price = result.data.data.guide.price; // procedure material
+              state.price = result.data.data.guide.price; // state.originalFiles = {...result.data.data.files }
+
+              state.originalFiles = result.data.data.files.map(function (file) {
+                return {
+                  id: file.id
+                };
+              }); // procedure material
 
               var materialArray = _variables_procedure__WEBPACK_IMPORTED_MODULE_6__["default"].materialArray;
               var materialGuide = JSON.parse(JSON.stringify(state.procedure.material));
@@ -63521,32 +63523,29 @@ var getGuideInfo = /*#__PURE__*/function () {
               state.procedure.materialArray = materialArray; // array products
 
               result.data.data.products.forEach(function (prod) {
-                var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"]));
-                var initFileArray = initProduct.inscription.files;
+                var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])); // put info part
 
                 for (var key in initProduct.info) {
                   initProduct.info[key] = prod[key];
-                }
+                } // put inscription part
+
 
                 for (var _key in initProduct.inscription) {
-                  initProduct.inscription[_key] = prod[_key];
-                }
+                  initProduct.inscription[_key] = prod[_key] ? prod[_key] : '';
+                } // put product part
 
-                prod.file_array.forEach(function (file, index) {
-                  initFileArray[index] = file;
+
+                initProduct.inscription.files.forEach(function (file, index) {
+                  if (file.id) {
+                    var fileGuide = result.data.data.files.find(function (fi) {
+                      return fi.id == file.id;
+                    });
+                    initProduct.inscription.files[index] = _objectSpread({}, fileGuide);
+                  }
                 });
-                initProduct.id = prod.id;
-                initProduct.inscription.files = initFileArray;
                 initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0;
                 state.products.push(initProduct);
-              }); // dupplicate
-
-              var dupplicate = result.data.data.dupplicate;
-
-              if (dupplicate) {
-                state.dupplicate = dupplicate;
-                state.dupplicate.exist = 1;
-              }
+              });
             });
 
           case 2:
@@ -63575,9 +63574,7 @@ var createGuide = /*#__PURE__*/function () {
             products = [];
             state.products.forEach(function (product) {
               delete product.inscription.font_size_enable;
-              products.push(_objectSpread(_objectSpread({
-                id: product.id
-              }, product.info), product.inscription));
+              products.push(_objectSpread(_objectSpread({}, product.info), product.inscription));
             });
             guideInfo = _objectSpread({}, state.guide);
             guideInfo.price = _objectSpread({}, state.price);
@@ -63586,16 +63583,18 @@ var createGuide = /*#__PURE__*/function () {
               delivery: _objectSpread({}, state.delivery),
               packaging: _objectSpread({}, state.packaging),
               procedure: _objectSpread({}, state.procedure),
-              products: products // price : {...state.price},
+              products: products,
+              originalFiles: state.originalFiles,
+              doDupplicate: state.doDupplicate // price : {...state.price},
 
             };
-            newGuide.id = id; //    let newGuide = JSON.parse(JSON.stringify(state));
-
+            newGuide.id = id;
+            if (state.doDupplicate == true) newGuide = removeIdDupplicate(newGuide);
             axios.post('/guide', newGuide).then(function (result) {
               console.log(result);
             });
 
-          case 9:
+          case 10:
           case "end":
             return _context2.stop();
         }
@@ -63607,6 +63606,18 @@ var createGuide = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
+
+var removeIdDupplicate = function removeIdDupplicate(newGuide) {
+  // delete newGuide.guide.guide_id;
+  delete newGuide.delivery.guide_id;
+  delete newGuide.packaging.guide_id;
+  delete newGuide.procedure.guide_id;
+  newGuide.guide.id = 0;
+  newGuide.delivery.id = 0;
+  newGuide.packaging.id = 0;
+  newGuide.procedure.id = 0;
+  return newGuide;
+};
 
 var uploadMulti = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -63711,19 +63722,24 @@ var uploadMulti = /*#__PURE__*/function () {
 }();
 
 var setCreator = function setCreator(creator) {
-  console.log(creator);
-  state.creator = creator; // state.guide.office = creator.
+  state.creator = creator;
 };
 var setAction = function setAction(action) {
   state.action = action;
 };
 var setCloneId = function setCloneId(id) {
+  state.guide.last_exist = 1;
+  state.guide.last_date = state.guide.created_at;
+  state.guide.last_numb = state.guide.number;
+  state.doDupplicate = true;
+  /*
   state.guide.clone_id = id;
   state.dupplicate = {
-    exist: 1,
-    created_at: state.guide.created_at,
-    number: state.guide.number
-  };
+      exist : 1,
+      created_at : state.guide.created_at,
+      number : state.guide.number
+  }
+  */
 };
 var getWorkers = function getWorkers() {
   axios('/guide/workers').then(function (result) {
@@ -63982,7 +63998,8 @@ __webpack_require__.r(__webpack_exports__);
   address: '',
   building: '',
   phone: '',
-  fax: ''
+  fax: '',
+  id: 0
 });
 /*
 export default {    
@@ -64069,7 +64086,8 @@ __webpack_require__.r(__webpack_exports__);
   bottom_font: '',
   bottom_color: '',
   bottom_text: '',
-  description: ''
+  description: '',
+  id: 0
 });
 /*
 export default {
@@ -64223,7 +64241,8 @@ __webpack_require__.r(__webpack_exports__);
     name: '',
     numb: ''
   }],
-  note: ''
+  note: '',
+  id: 0
 });
 /*
 

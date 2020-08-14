@@ -40,7 +40,7 @@ export const openEditModal = id => {
         for (var key in state.file) {
             state.file[key] = result.data[key];
         }
-        state.file.guideNumber = result.data.number_guide;
+        state.file.guideNumber = result.data.guide.number;
     });
 };
 

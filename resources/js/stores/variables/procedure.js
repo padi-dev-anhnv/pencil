@@ -17,7 +17,8 @@ export default {
         {name : '', numb : ''},
         {name : '', numb : ''},
     ],
-    note:''
+    note:'',
+    id : 0
 }
 /*
 

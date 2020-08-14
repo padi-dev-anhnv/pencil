@@ -3,13 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
     public static $extAllow = ['jpg',  'png', 'jpeg','gif','ai', 'psd',  'pdf', 'xlsx','docx','pptx'] ;
     public static $extPic = ['jpg', 'gif', 'png', 'jpeg'];
 
-    protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type'];    
+    protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type', 'guide_id'];    
 
     protected $appends = ['thumbnail'];
     
@@ -17,8 +18,26 @@ class File extends Model
         'created_at' => 'datetime:Y-m-d',
     ];
 
+
+    public static function hasThumbnail($link)
+    {
+        if(!$link)
+            return false;
+        $info = pathinfo($link);
+        $ext = $info['extension'];
+        $arrayExt = self::$extPic ;
+        $thumbnail = []; 
+        if(in_array($ext, $arrayExt))
+            $thumbnail['thumbnail']  = $info['filename'] . '-thumbnail.' . $ext;
+        else
+            $thumbnail['ext'] = $ext;
+        return $thumbnail;
+    }
+
+
     public static function findThumbnail($link)
     {
+        /*
         if(!$link)
             return '';
         $info = pathinfo($link);
@@ -28,6 +47,14 @@ class File extends Model
             return asset('storage/thumbnail/'. $info['filename'] . '-thumbnail.' . $ext);
         else
             return 'https://via.placeholder.com/1740x1445?text=' . $ext;
+        */
+        $file = self::hasThumbnail($link) ;
+        if($file == false)
+            return '';
+        if(isset($file['thumbnail']))
+            return  asset('storage/thumbnail/'. $file['thumbnail']);
+        else
+            return 'https://via.placeholder.com/1740x1445?text=' . $file['ext'];
     }
 
     public function getThumbnailAttribute($key)
@@ -43,6 +70,11 @@ class File extends Model
     public function product()
     {
        return $this->belongsTo(Product::class)->select('id', 'guide_id');
+    }
+
+    public function guide()
+    {
+       return $this->belongsTo(Guide::class)->select('id', 'number');
     }
 
     public function scopeAuthor($query, $author_id)
@@ -111,5 +143,16 @@ class File extends Model
             return 'https://via.placeholder.com/1740x1445?text=' . $ext;
         }
             
+    }
+
+    public static function boot ()
+    {
+        parent::boot();
+        self::deleting(function ($file) {
+            Storage::disk('public')->delete('files/'.$file->link); 
+            $thumbnail = self::hasThumbnail($file->link);
+            if(isset($thumbnail['thumbnail']))
+                Storage::disk('public')->delete('thumbnail/'.$thumbnail['thumbnail']); 
+        });
     }
 }

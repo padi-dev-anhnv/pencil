@@ -13,7 +13,7 @@
                     {{ guide.delivery.destination_code }}
                 </template>
             </li>
-            <li>{{ guide.delivery.receiver }}</li>
+            <li>{{ receiver }}</li>
             <li>{{ chk }}</li>
             <li>{{ guide.shipping_date }}</li>
             <li>{{ guide.received_date }}</li>
@@ -79,9 +79,15 @@ export default {
             }
             return false;
         },
+        receiver(){
+            if(!this.guide.delivery)
+                return 'tt';
+            return this.guide.delivery.receiver;
+        },
         chk(){
             //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
-            
+            if(!this.guide.delivery)
+                return 'tt';
             if(this.guide.delivery.office_chk == 1)
                 return this.guide.delivery.receiver;
             let officeChk = constVar.chk.find(chk => chk.eng == this.guide.delivery.office_chk)

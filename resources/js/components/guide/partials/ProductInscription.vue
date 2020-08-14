@@ -190,10 +190,10 @@
                 <input style="display:none" type="file" name="fileUpload" :ref="'file' + index + i" @change="onFileChange($event,index, i)" />
                 <div class="fbox3" v-if="file.id">
                   <div class="uploadimg">
-                    <label for="popup_editfile" class="imgbox">
+                    <!-- <label for="popup_editfile" class="imgbox"> -->
                       
                     <img v-if="file.thumbnail" :src="file.thumbnail" width="566" height="573" />
-                    </label>
+                    <!-- </label> -->
                     <button class="deletebtn" @click.prevent="deleteFile(index, i)">
                       <span>削除</span>
                     </button>
