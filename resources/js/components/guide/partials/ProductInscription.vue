@@ -164,47 +164,10 @@
                 </select>
               </label>
             </li>
-            <li class="flexb">
-              <div class="imgbox">
-                <img :src="'/images/pen_temp-0' + inscription.pattern_type +'.svg'" :ref="'photo' + index" />
-              </div>
-              <div class="txtbox">
-                <ul v-if="inscription.pattern_text.length > 1">
-                  <li v-for="(textPt,index) in inscription.pattern_text" :key="index">
-                    <label class="box100">
-                      <span class="labeltxt">{{ index + 1 | circleFilter}}</span>
-                      <input type="text" class="w100per"  v-model="inscription.pattern_text[index]" />
-                    </label>
-                  </li>
-                </ul>
-                <textarea v-else name="" class="h5" v-model="inscription.pattern_text[0]"></textarea>
-                <ul class="note">
-                  <li>再注文の場合も、前回通りはやめて全て記入して下さい。</li>
-                  <li>マーク・指定文字などの場合、完全な清刷り（黒又は赤）を添付してください。</li>
-                </ul>
-              </div>
-            </li>
+            <pattern-guide :inscription="inscription" :index="index" />
             <li>完成図や、ロゴマーク、素材等をアップロードしてください</li>
-            <li class="flexb">
-              <template v-for="(file, i ) in inscription.files"  >
-                <input style="display:none" type="file" name="fileUpload" :ref="'file' + index + i" @change="onFileChange($event,index, i)" />
-                <div class="fbox3" v-if="file.id">
-                  <div class="uploadimg">
-                    <!-- <label for="popup_editfile" class="imgbox"> -->
-                      
-                    <img v-if="file.thumbnail" :src="file.thumbnail" width="566" height="573" />
-                    <!-- </label> -->
-                    <button class="deletebtn" @click.prevent="deleteFile(index, i)">
-                      <span>削除</span>
-                    </button>
-                  </div>
-                </div>
-                <div class="fbox3" v-else>
-                  <div class="selectfile">
-                    <label class="mainbtn ulbtn" @click="uploadFile(index,i)">ファイルを選択してください</label>
-                  </div>
-                </div>
-              </template>
+              <li class="flexb">
+            <file-guide class="fbox3" v-for="(file, i ) in inscription.files" :key="i" :index="index" :i="i" />
             </li>
           </ul>
         </div>
@@ -233,23 +196,7 @@ export default {
       else
         return value;
     },
-    circleFilter(val){
-      switch(val){
-         case 1 : 
-          return '①';
-        case 2 : 
-          return '②';
-        case 3 : 
-          return '③';
-        case 4 : 
-          return '④';
-        case 5 : 
-          return '⑤';
-        case 6 : 
-          return '⑥';
-      }
-       
-    }
+    
   },
   computed : {
     inscription(){
@@ -279,23 +226,7 @@ export default {
       for(let i = 0; i < thisPattern.total; i++)
         this.inscription.pattern_text.push('');
     },
-    uploadFile(index,i){
-      let fileName = 'file' + index + i
-      this.$refs[fileName][0].click();
-    },
-    async onFileChange(e,index,i){
-      // index : order of product
-      // i : order of file in product
-      let file = e.target.files[0];
-      this.inscription.files[i].fileUpload = file;
-      // console.log(file)
-
-      // let fileUploaded = await createFileProduct(file);
-      // Vue.set(this.inscription.files, i, fileUploaded.data)
-    },
-    deleteFile(index, i){
-      Vue.set(this.inscription.files, i, {})
-    }
+    
   },
 };
 </script>

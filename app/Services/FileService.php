@@ -19,8 +19,8 @@ class FileService
         $extension = pathinfo($full_name, PATHINFO_EXTENSION);
         $new_name = $file_name . '-' . $suffix . '.' . $extension;
         $thumbnail_name = $file_name . '-' . $suffix.'-thumbnail.'.$extension;
-        $dir = '/public/files';
-        $dir_thumbnail = '/public/thumbnail/';
+        $dir = File::$fileDir;
+        $dir_thumbnail = File::$fileThumbnail;
         $path = Storage::putFileAs($dir,$file_upload, $new_name);
 
         $file_thumbnail = File::findThumbnail($new_name);
@@ -33,6 +33,16 @@ class FileService
         }     
 
         return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail];
+    }
+
+    public function dupplicateFile($dir,  $link)
+    {
+        $suffix = Str::random(4);
+        $full_name = $link;
+        $file_name = pathinfo($full_name, PATHINFO_FILENAME);
+        $extension = pathinfo($full_name, PATHINFO_EXTENSION);
+        $new_name = $file_name . '-' . $suffix . '.' . $extension;
+        Storage::copy($dir.$link, $dir.$new_name);
     }
 
     public function download($file_id)

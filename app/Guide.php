@@ -164,9 +164,14 @@ class Guide extends Model
 
     public function scopeSortArray($query , $array)
     {
-        $query->orderBy('created_at', $array['orderDate'])
-        ->orderBy('shipping_date', $array['shippingDate'])
-        ->orderBy('received_date', $array['receivedDate']);
+        if(!$array['orderDate'] && !$array['shippingDate'] && !$array['receivedDate'])
+            $query->orderBy('id', 'desc');
+        if(!empty($array['orderDate']))
+            $query->orderBy('created_at', $array['orderDate']);
+        if(!empty($array['shippingDate']))
+            $query->orderBy('created_at', $array['shippingDate']);
+        if(!empty($array['receivedDate']))
+            $query->orderBy('created_at', $array['receivedDate']);
     }
 
     public function scopeKeyword($query, $keyword)

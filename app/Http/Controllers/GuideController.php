@@ -37,7 +37,7 @@ class GuideController extends Controller
     
     public function create(Request $request)
     {
-        $newGuide =  $this->guideRepo->create($request->all());
+        $guideResult =  $this->guideRepo->create($request->all());
         /*
         $id = intval($request->id);
         if($id == 0 || isset($request->guide['clone_id']))
@@ -45,6 +45,12 @@ class GuideController extends Controller
         else
             $newGuide =  $this->guideRepo->edit($request->all());
             */
+        return response()->json($guideResult);
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $this->guideRepo->updateProduct($request->id, $request->products);
         return response()->json(['success' => true]);
     }
 

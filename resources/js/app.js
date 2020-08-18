@@ -42,6 +42,8 @@ Vue.component('price-price', require('./components/guide/partials/PricePrice.vue
 Vue.component('price-wholesale', require('./components/guide/partials/PriceWholesale.vue').default);
 Vue.component('product-info', require('./components/guide/partials/ProductInfo.vue').default);
 Vue.component('product-inscription', require('./components/guide/partials/ProductInscription.vue').default);
+Vue.component('file-guide', require('./components/guide/components/FileGuide.vue').default);
+Vue.component('pattern-guide', require('./components/guide/components/PatternGuide.vue').default);
 
 Vue.component('single-guide', require('./components/guide/SingleGuide.vue').default);
 Vue.component('list-guide', require('./components/guide/ListGuide.vue').default);

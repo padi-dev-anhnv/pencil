@@ -8,6 +8,7 @@ use App\Packaging;
 use App\Procedure;
 use App\Product;
 use App\File;
+use App\Services\FileService;
 use Illuminate\Database\Eloquent\Builder;
 
 class GuideRepository
@@ -59,9 +60,11 @@ class GuideRepository
                 if(isset($file['id']))
                 {
                     $array_file[] = $file['id'];
+                    /*
                     $file_guide = File::find($file['id']);
                     $file_guide->guide_id = $guide_id;
                     $file_guide->save();
+                    */
                 }
             }
         }
@@ -69,11 +72,62 @@ class GuideRepository
         return $array_file;
     } 
 
+    public function dupplicateGuideFile($products, $guide_id)
+    {
+        $mapFileId = [];
+        foreach($products as $pindex => $product)
+        {
+            foreach($product['files'] as $findex => $file)
+            {
+                if(isset($file['id']))
+                {
+                    $array_file[] = $file['id'];
+                    $file_guide = File::find($file['id']);
+                    $newFile = $file_guide->replicate();
+                    $newFile->guide_id = $guide_id;
+                    $newFile->user_id = auth()->user()->id;
+                    $newFile->save();
+                    $mapFileId[$file_guide->id] = $newFile->id;
+                    // change product structure with new file id
+                    $products[$pindex]['files'][$findex]['id'] = $newFile->id;
+
+                    $fileService = new FileService;
+                    $fileService->dupplicateFile(File::$fileDir, $newFile->link);
+                    $fileThumbnail = File::hasThumbnail($newFile->link) ;
+                    if(isset($fileThumbnail['thumbnail']))
+                        $fileService->dupplicateFile(File::$fileThumbnail, $fileThumbnail['thumbnail']);
+                    
+                }
+            }
+        }
+        return [ 'map' => $mapFileId, 'products' =>  $products] ; 
+    } 
+
+    public function updateProduct($id, $products)
+    {
+        
+        $guide = $this->guide::find($id);
+        $guide->products = $products;
+        $guide->save();
+    }
+
+    public function deleteDetachedFile($originalFiles, $used_file)
+    {
+        foreach($originalFiles as $file)
+        {
+            if(!in_array($file['id'], $used_file))
+            {
+                File::destroy($file['id']);
+            }
+        }
+    }
+
     public function create($request)
     {
         
         $request['guide']['user_id'] = auth()->user()->id;
-        $request['guide']['office_id'] = auth()->user()->office->id;
+        if(auth()->user()->office)
+            $request['guide']['office_id'] = auth()->user()->office->id;
         $request['guide']['products'] = $request['products'];
 
         $guideRequest = $request['guide'];
@@ -87,24 +141,26 @@ class GuideRepository
         $guide->packaging()->updateOrCreate(['id' => $packagingRequest['id']], $packagingRequest);
         $guide->procedure()->updateOrCreate(['id' => $procedureRequest['id']], $procedureRequest);
 
+        $map_file_id = [];
         // handle file attach product guide
-
-        $used_file = $this->setGuideFile($request['products'], $guide->id);
-        
-
-        foreach($originalFiles as $file)
-        {
-            if(!in_array($file['id'], $used_file))
-            {
-                File::destroy($file['id']);
-            }
+        if($request['doDupplicate'] == false){
+            $used_file = $this->setGuideFile($request['products'], $guide->id);
+            $this->deleteDetachedFile($originalFiles, $used_file);
         }
-
+        else{
+            $dupplicate_product = $this->dupplicateGuideFile($request['products'], $guide->id);
+            $products = $dupplicate_product['products'];
+            $map_file_id = $dupplicate_product['map'];
+            $this->updateProduct($guide->id, $products);
+        }
         
-
+        
+        
+        return ['success' => true, 'id' => $guide->id , 'map' => $map_file_id];
         // Delivery::updateOrCreate(['id' => $request['delivery']['id']], $request['delivery']);
         dd($request);
         // for dupplicate
+        /*
         if(isset($request['guide']['clone_id'])){
             $array_request = ['guide', 'delivery', 'packaging', 'procedure'];
             foreach($array_request as $req)
@@ -155,6 +211,7 @@ class GuideRepository
             }            
         }
         return $guide;
+        */
     }
 
     public function edit($request)

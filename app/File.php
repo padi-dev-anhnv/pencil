@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
-    public static $extAllow = ['jpg',  'png', 'jpeg','gif','ai', 'psd',  'pdf', 'xlsx','docx','pptx'] ;
+    public static $extAllow = ['jpg',  'png', 'jpeg','gif','ai', 'psd',  'pdf', 'xlsx','docx','pptx', 'xls', 'doc', 'ppt'] ;
     public static $extPic = ['jpg', 'gif', 'png', 'jpeg'];
+    public static $fileDir = '/public/files/';
+    public static $fileThumbnail = '/public/thumbnail/';
 
     protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type', 'guide_id'];    
 
@@ -37,17 +39,6 @@ class File extends Model
 
     public static function findThumbnail($link)
     {
-        /*
-        if(!$link)
-            return '';
-        $info = pathinfo($link);
-        $ext = $info['extension'];
-        $arrayExt = self::$extPic ;
-        if(in_array($ext, $arrayExt))
-            return asset('storage/thumbnail/'. $info['filename'] . '-thumbnail.' . $ext);
-        else
-            return 'https://via.placeholder.com/1740x1445?text=' . $ext;
-        */
         $file = self::hasThumbnail($link) ;
         if($file == false)
             return '';

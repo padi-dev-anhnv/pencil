@@ -1,12 +1,13 @@
 <template>
-    <li>
+    <li :class="{ done : done}">
         <ul>
             <li>{{ guide.created_at }}</li>
             <li>{{ guide.supplier.name }}</li>
             <li>{{ guide.number }}</li>
             <li>{{ guide.customer_name }}</li>
             <li>{{ guide.title }}</li>
-            <li>{{ guide.office.name }}</li>
+            <li v-if="guide.office">{{ guide.office.name }}</li>
+            <li v-else></li>
             <li>{{ guide.creator.name }}</li>
             <li>
                 <template v-if="guide.delivery">
@@ -28,13 +29,13 @@
                 <a href="#">PDF(料金無）</a>
             </li>
             <li v-if="editable == 1">
-                <button
+                <button title="編集"
                     :onclick="'location.href=\'/guide/' + guide.id + '/edit\''"
                     :class="canEdit ? 'editbtn' :  'viewbtn'"
                 >
                     <span>編集</span>
                 </button>
-                <button
+                <button title="書コピー"
                     :onclick="
                         'location.href=\'/guide/' + guide.id + '/dupplicate\''
                     "
@@ -42,7 +43,7 @@
                 >
                     <span>複製</span>
                 </button>
-                <label v-show="canEdit"
+                <label title="削除" v-show="canEdit"
                     for="popup_delete"
                     class="deletebtn"
                     @click="setDelete(guide.id)"
@@ -93,6 +94,13 @@ export default {
             let officeChk = constVar.chk.find(chk => chk.eng == this.guide.delivery.office_chk)
             return officeChk.jap;
            
+        },
+        done(){
+            let received_date = new Date(this.guide.received_date);
+            console.log(received_date)
+            if(received_date > new Date())
+                return true;
+            return false;
         }
     },
     methods : {        

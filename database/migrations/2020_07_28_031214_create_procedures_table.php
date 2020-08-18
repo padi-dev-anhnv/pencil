@@ -26,7 +26,7 @@ class CreateProceduresTable extends Migration
             $table->string('gimmick')->nullable();
             $table->string('advance_shipment')->nullable();
             $table->string('material')->nullable();
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

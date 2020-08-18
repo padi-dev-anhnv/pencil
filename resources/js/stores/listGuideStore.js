@@ -15,9 +15,9 @@ const state = Vue.observable({
         workers : []
     },
     sort : {
-        orderDate : 'desc',
-        shippingDate : 'desc',
-        receivedDate : 'desc',
+        orderDate : '',
+        shippingDate : '',
+        receivedDate : '',
     },
     guides : [
 

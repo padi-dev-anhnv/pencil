@@ -44,10 +44,27 @@ class CustomerController extends Controller
     public function findCustomer(Request $request)
     {
         $result = null;
+        $code = $request->code;
         if($request->type == 'destination_code')
-            $result = Customer::where('destination_code', $request->code)->first();
-        elseif($request->type ==  'postal_code')
-            $result = Customer::where('postal_code', $request->code)->first();
+            $result = Customer::where('destination_code', $code)->first();
+        elseif($request->type ==  'postal_code'){
+            $resultPostal = Customer::where('postal_code', $code)->first();
+            if(!$resultPostal){
+                $json = json_decode(file_get_contents('https://api.zipaddress.net/?zipcode=' . $code), true);
+                if($json['code'] == 200){
+                    $add = $json['data'];
+                    $result = [
+                        'prefecture' => $add['pref'],
+                        'city' => $add['city'],
+                        'address' => $add['address'],
+                        'postal_code' => $code
+                    ];
+                }
+            }
+            else
+                $result = $resultPostal;
+        }
+            
         if($result)
             return response()->json($result);
         else

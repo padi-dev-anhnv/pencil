@@ -403,7 +403,7 @@ export default {
         setUser() {
             let user = {
                 name: this.userInfo.name,
-                office: this.userOffice.name
+                office: this.userOffice ? this.userOffice.name : ""
             };
             setCurrentUser(user);
         },
@@ -419,7 +419,7 @@ export default {
        openAddModal(){
            let user = {
                 name: this.userInfo.name,
-                office: this.userOffice.name
+                office: this.userOffice ? this.userOffice.name : ""
             };
            openAddModal(user);
        },

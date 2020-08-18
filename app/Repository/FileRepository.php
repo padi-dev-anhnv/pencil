@@ -31,7 +31,7 @@ class FileRepository
     public function show($id)
     {
         $file = $this->file::with('user.office', 'guide')->findOrFail($id);
-        $file->office = $file->user->office->name;
+        $file->office = !empty($file->user->office) ? $file->user->office->name : '';
         $file_user = $file->user->name;
         unset($file->user);
         if($file->product){

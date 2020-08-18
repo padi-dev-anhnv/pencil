@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Axios from "axios";
+// import https from 'https';
 import guide from './variables/guide'
 import delivery from './variables/delivery'
 import packaging from './variables/packaging'
@@ -10,6 +11,7 @@ import city from './city'
 
 
 const state = Vue.observable({
+    loading : false,
     action : 'new',
     suppliers : [],
     creator : {
@@ -30,7 +32,8 @@ const state = Vue.observable({
     ],
     originalFiles : [],
     price,
-    doDupplicate : false
+    doDupplicate : false,
+    fileNotClone : []
 });
 
 export const getGuideInfo = async (id) => {
@@ -54,10 +57,11 @@ export const getGuideInfo = async (id) => {
         })
         state.procedure.materialArray =  materialArray;
 
+        productToGuide(result.data.data.products, result.data.data.files);
         // array products
+        /*
         result.data.data.products.forEach(prod => {
             let initProduct = JSON.parse(JSON.stringify(product));
-            
             // put info part
             for(let key in initProduct.info){
                initProduct.info[key] = prod[key];
@@ -79,19 +83,51 @@ export const getGuideInfo = async (id) => {
             initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
             state.products.push(initProduct)
         })
+        */
 
             
     })
 }
 
+let productToGuide = (products, files) => {
+    products.forEach(prod => {
+        let initProduct = JSON.parse(JSON.stringify(product));
+        // put info part
+        for(let key in initProduct.info){
+           initProduct.info[key] = prod[key];
+        }
+        // put inscription part
+        for(let key in initProduct.inscription){
+            initProduct.inscription[key] = prod[key] ? prod[key] : '';
+        }
+        
+        // put product part
+        initProduct.inscription.files.forEach((file, index) => {
+            if(file.id){
+                let fileGuide = files.find(fi => fi.id == file.id);
+                initProduct.inscription.files[index] = {...fileGuide}                
+            }
+            else{
+                initProduct.inscription.files[index] = {}
+            }
+        })
+        
+        initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
+        state.products.push(initProduct)
+    })
+}
+
 export const createGuide = async (id) => {
     
-    await uploadMulti();
+//    await uploadMulti();
+/*
     let products = [];
     state.products.forEach(product => {
         delete product.inscription.font_size_enable;
         products.push({...product.info, ...product.inscription})
     }) ;
+    */
+    let products = mergeProduct();  
     let guideInfo = {...state.guide};
     guideInfo.price =  {...state.price};
     let newGuide = {
@@ -105,13 +141,34 @@ export const createGuide = async (id) => {
         // price : {...state.price},
     } ;
     newGuide.id = id;
-    if(state.doDupplicate == true)
+    if(state.doDupplicate == true){
         newGuide = removeIdDupplicate(newGuide);
-    axios.post('/guide', newGuide).then(result => {
-        console.log(result)
-    })
+    //    newGuide.fileNotClone = state.fileNotClone;
+    }
+    
+    state.loading = true;
+
+    await axios.post('/guide', newGuide).then(async result => {
+        if(result.data.success == true){
+            if(result.data.map.length > 0 && state.doDupplicate == true)
+                mapFileId(result.data.map);
+            await uploadMulti(result.data.id);
+        }
+            
+    });
+    
+    state.loading = false;
 
 };
+
+
+let mapFileId = (mapId) => {
+    state.products.forEach(product => {
+        product.inscription.files.forEach(file => {
+            file.id = mapId[file.id];
+        })
+    })
+}
 
 let removeIdDupplicate = (newGuide) => {
     // delete newGuide.guide.guide_id;
@@ -125,8 +182,8 @@ let removeIdDupplicate = (newGuide) => {
     return newGuide;
 }
 
-let uploadMulti = async() => {
-
+let uploadMulti = async(id) => {
+    let hasUpload = false;
     for(let i = 0; i < state.products.length; i ++ )
     {
         for(let j = 0; j < state.products[i].inscription.files.length  ; j ++ )
@@ -139,18 +196,26 @@ let uploadMulti = async() => {
                 formData.append('name', fileName )
                 formData.append('material', 'guide' )
                 formData.append('id', 0 )
+                formData.append('guide_id', id )
                 await axios.post("/file", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
                 .then(result => {
-                    state.products[i].inscription.files[j] = { id : result.data.id }
+                    if(result.data.id){
+                        hasUpload = true;
+                        //    state.fileNotClone.push(result.data.id);
+                        state.products[i].inscription.files[j] = { id : result.data.id }
+                    }
+                        
+                
                 });
             }      
         }
     }
-    
+    if(hasUpload == true)
+        await updateGuideProduct(id);
 
 
     /*
@@ -166,6 +231,22 @@ let uploadMulti = async() => {
         });
     }
     */
+}
+
+let updateGuideProduct = async (guideId) => {
+    let products = mergeProduct();    
+    await axios.post('/guide/update-product', { id : guideId, products : products }).then(result => {
+        
+    });
+}
+
+let mergeProduct = () => {
+    let products = [];
+    state.products.forEach(product => {
+        delete product.inscription.font_size_enable;
+        products.push({...product.info, ...product.inscription})
+    }) ;
+    return products;
 }
 
 export const setCreator = (creator) => {
@@ -199,7 +280,8 @@ export const getWorkers = () => {
 }
 
 export const addProduct = () =>{
-    state.products.push( JSON.parse(JSON.stringify(product)));
+    if(state.products.length < 12)
+        state.products.push( JSON.parse(JSON.stringify(product)));
 }
 
 export const removeProduct = (index) =>{
@@ -241,11 +323,7 @@ export const countSubTotal = countSubTotalState;
 export const findCustomer = (type = 'destination_code', code ) => {
     axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
         if(result.data.success == false){
-            if(type == 'postal_code'){
-                axios('https://api.zipaddress.net/?zipcode=' + code).then(res => {
-                    console.log(res)
-                })
-            }
+            
         }
         else{
             let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code']

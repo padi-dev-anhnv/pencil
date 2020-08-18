@@ -15,7 +15,7 @@
 		
 		<!-- ヘッダーここから -->
 		<header id="header">
-		<h1 class="logo"><a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="uni MITSUBISHI PENCIL"></a></h1>
+		<h1 class="logo"><a href="{{ route('guide') }}"><img src="{{ asset('images/logo.png') }}" alt="uni MITSUBISHI PENCIL"></a></h1>
 		  <div id="adminbar">マスター：{{ auth()->user()->name}}<a href="{{ route('logout') }}">ログアウト</a></div>
 		<nav id="gnav">
 

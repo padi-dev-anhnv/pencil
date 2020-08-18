@@ -44,6 +44,7 @@ Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_
 Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], function(){
     Route::get('/', 'GuideController@index')->name('guide');
     Route::post('/', 'GuideController@create');
+    Route::post('/update-product', 'GuideController@updateProduct');
     Route::view('/{id}/edit', 'pages.guide.edit')->name('guide.edit');
     Route::view('/{id}/dupplicate', 'pages.guide.dupplicate')->middleware('can:create,\App\Guide')->name('guide.dupplicate');
     Route::get('/{id}/get-guide', 'GuideController@getGuide');

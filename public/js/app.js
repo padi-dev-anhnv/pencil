@@ -2576,7 +2576,7 @@ __webpack_require__.r(__webpack_exports__);
     setUser: function setUser() {
       var user = {
         name: this.userInfo.name,
-        office: this.userOffice.name
+        office: this.userOffice ? this.userOffice.name : ""
       };
       Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["setCurrentUser"])(user);
     },
@@ -2593,7 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
     openAddModal: function openAddModal() {
       var user = {
         name: this.userInfo.name,
-        office: this.userOffice.name
+        office: this.userOffice ? this.userOffice.name : ""
       };
 
       Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["openAddModal"])(user);
@@ -2756,6 +2756,125 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee);
     }))();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+/* harmony import */ var _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constFileExt */ "./resources/js/stores/constFileExt.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['index', 'i'],
+  computed: {
+    inscription: function inscription() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription;
+    },
+    file: function file() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription.files[this.i];
+    },
+    fileExt: function fileExt() {
+      var ext = _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].map(function (fileExt) {
+        return "." + fileExt;
+      });
+      return ext.join(",");
+    }
+  },
+  methods: {
+    uploadFile: function uploadFile(index, i) {
+      var fileName = 'file' + index + i;
+      this.$refs[fileName].click(); // this.$refs[fileName].click();
+    },
+    onFileChange: function onFileChange(e, index, i) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var fileTemp, fileExt, thumbnail, holderFile;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // index : order of product
+                // i : order of file in product
+
+                /*
+                let fileTemp = e.target.files[0];
+                this.file.fileUpload = fileTemp; 
+                this.file.link = 'fileSelected'
+                this.file.thumbnail =  URL.createObjectURL(fileTemp);
+                */
+                fileTemp = e.target.files[0];
+                fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
+                thumbnail = '';
+                if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
+                holderFile = {
+                  fileUpload: fileTemp,
+                  link: 'file',
+                  thumbnail: thumbnail
+                };
+                Vue.set(_this.inscription.files, i, holderFile);
+                /*
+                this.inscription.files[i].fileUpload = fileTemp;
+                this.inscription.files[i].link = 'fileSelected'
+                this.inscription.files[i].thumbnail =  URL.createObjectURL(fileTemp);
+                */
+                // console.log(file)
+                // let fileUploaded = await createFileProduct(file);
+                // Vue.set(this.inscription.files, i, fileUploaded.data)
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    deleteFile: function deleteFile(index, i) {
+      Vue.set(this.inscription.files, i, {});
+    }
   }
 });
 
@@ -2934,6 +3053,217 @@ __webpack_require__.r(__webpack_exports__);
     doDelete: function doDelete() {
       Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["doDelete"])();
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+/* harmony import */ var _stores_constPatternPos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constPatternPos */ "./resources/js/stores/constPatternPos.js");
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["index"],
+  data: function data() {
+    return {
+      vueCanvas: null,
+      imageObj: null
+    };
+  },
+  computed: {
+    pattern: function pattern() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription.pattern_text;
+    },
+    patternType: function patternType() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription.pattern_type;
+    }
+  },
+  filters: {
+    circleFilter: function circleFilter(val) {
+      switch (val) {
+        case 1:
+          return "①";
+
+        case 2:
+          return "②";
+
+        case 3:
+          return "③";
+
+        case 4:
+          return "④";
+
+        case 5:
+          return "⑤";
+
+        case 6:
+          return "⑥";
+      }
+    }
+  },
+  methods: {
+    drawPattern: function drawPattern(patType, patText) {
+      var _this = this;
+
+      var patternUsed = _stores_constPatternPos__WEBPACK_IMPORTED_MODULE_2__["default"].find(function (pat) {
+        return pat.id == patType;
+      }).pattern;
+      this.vueCanvas.clearRect(0, 0, 1000, 1000);
+      this.vueCanvas.drawImage(this.imageObj, 0, 0, 1000, 394);
+      patText.forEach(function (pat, indexPat) {
+        _this.vueCanvas.font = patternUsed[indexPat].font + "pt Calibri";
+        _this.vueCanvas.fillStyle = "white";
+
+        if (patternUsed[indexPat].vertical == false) {
+          _this.vueCanvas.textAlign = "center";
+          pat = pat ? pat : '';
+
+          _this.vueCanvas.fillText(pat, patternUsed[indexPat].x, patternUsed[indexPat].y);
+        } else {
+          var str = pat;
+          var lines = str ? str.split('') : '';
+          var lineheight = 15;
+          var a = patternUsed[indexPat].x;
+          var b = patternUsed[indexPat].y;
+          b = b - Math.round(lines.length * lineheight) / 2;
+
+          for (var j = 0; j < lines.length; j++) {
+            _this.vueCanvas.fillText(lines[j], a, b + j * lineheight);
+          }
+        }
+      });
+    },
+    loadPhoto: function loadPhoto() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                return _context.abrupt("return", new Promise(function (resolve, reject) {
+                  var imageObj = new Image();
+                  imageObj.src = "/images/pen_temp-0" + _this2.patternType + ".svg";
+                  imageObj.width = 1000;
+                  imageObj.height = 394;
+
+                  imageObj.onload = function () {
+                    return resolve(imageObj);
+                  };
+                }));
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  watch: _defineProperty({
+    pattern: function pattern(newVal) {//  this.drawPattern(this.patternType, newVal);
+    }
+  }, "pattern", function pattern(newVal) {
+    var _this3 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this3.loadPhoto();
+
+            case 2:
+              _this3.imageObj = _context2.sent;
+
+              _this3.drawPattern(_this3.patternType, _this3.pattern);
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }),
+  mounted: function mounted() {
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var canvas, context;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              canvas = _this4.$refs["canvasPattern"];
+              context = canvas.getContext("2d");
+              _this4.vueCanvas = context;
+              _context3.next = 5;
+              return _this4.loadPhoto();
+
+            case 5:
+              _this4.imageObj = _context3.sent;
+
+              _this4.drawPattern(_this4.patternType, _this4.pattern);
+
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
   }
 });
 
@@ -3235,6 +3565,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3264,6 +3595,12 @@ __webpack_require__.r(__webpack_exports__);
         return chk.eng == _this.guide.delivery.office_chk;
       });
       return officeChk.jap;
+    },
+    done: function done() {
+      var received_date = new Date(this.guide.received_date);
+      console.log(received_date);
+      if (received_date > new Date()) return true;
+      return false;
     }
   },
   methods: {
@@ -3285,6 +3622,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/listGuideStore */ "./resources/js/stores/listGuideStore.js");
+//
+//
+//
 //
 //
 //
@@ -3458,6 +3798,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+//
 //
 //
 //
@@ -4525,54 +4866,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/fileStore */ "./resources/js/stores/fileStore.js");
-/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
 //
 //
 //
@@ -4756,45 +5052,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['indexv'],
   data: function data() {
     return {
-      listPatternType: _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].pattern_type,
-      listInscrMethod: _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].insc_method,
-      listInscrWork: _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].insc_work,
-      listInscrTypeFace: _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].insc_typeface
+      listPatternType: _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].pattern_type,
+      listInscrMethod: _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].insc_method,
+      listInscrWork: _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].insc_work,
+      listInscrTypeFace: _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].insc_typeface
     };
   },
   filters: {
     nameProductFilter: function nameProductFilter(value) {
-      if (value == null) return _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].noProductName;
-      if (value.trim() == "") return _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].noProductName;else return value;
-    },
-    circleFilter: function circleFilter(val) {
-      switch (val) {
-        case 1:
-          return '①';
-
-        case 2:
-          return '②';
-
-        case 3:
-          return '③';
-
-        case 4:
-          return '④';
-
-        case 5:
-          return '⑤';
-
-        case 6:
-          return '⑥';
-      }
+      if (value == null) return _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].noProductName;
+      if (value.trim() == "") return _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].noProductName;else return value;
     }
   },
   computed: {
     inscription: function inscription() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription;
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].products[this.index].inscription;
     },
     productName: function productName() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].info.name;
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].products[this.index].info.name;
     },
     selectedFontSize: function selectedFontSize() {
       if (this.inscription.font_size) return 1;else return 0;
@@ -4810,7 +5085,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     changePattern: function changePattern(event, index) {
       this.inscription.pattern_text = [];
       var indexPattern = 0;
-      var thisPattern = _stores_constVar__WEBPACK_IMPORTED_MODULE_3__["default"].pattern_type.find(function (type, index) {
+      var thisPattern = _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].pattern_type.find(function (type, index) {
         if (type.eng == event.target.value) {
           indexPattern = index + 1;
           return true;
@@ -4820,37 +5095,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       for (var i = 0; i < thisPattern.total; i++) {
         this.inscription.pattern_text.push('');
       }
-    },
-    uploadFile: function uploadFile(index, i) {
-      var fileName = 'file' + index + i;
-      this.$refs[fileName][0].click();
-    },
-    onFileChange: function onFileChange(e, index, i) {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var file;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // index : order of product
-                // i : order of file in product
-                file = e.target.files[0];
-                _this.inscription.files[i].fileUpload = file; // console.log(file)
-                // let fileUploaded = await createFileProduct(file);
-                // Vue.set(this.inscription.files, i, fileUploaded.data)
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    deleteFile: function deleteFile(index, i) {
-      Vue.set(this.inscription.files, i, {});
     }
   }
 });
@@ -43083,6 +43327,78 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("input", {
+      ref: "file" + _vm.index + _vm.i,
+      staticStyle: { display: "none" },
+      attrs: { type: "file", name: "fileUpload", accept: _vm.fileExt },
+      on: {
+        change: function($event) {
+          return _vm.onFileChange($event, _vm.index, _vm.i)
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.file.link
+      ? _c("div", { staticClass: "uploadimg" }, [
+          _vm.file.thumbnail
+            ? _c("img", {
+                attrs: { src: _vm.file.thumbnail, width: "566", height: "573" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "deletebtn",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.deleteFile(_vm.index, _vm.i)
+                }
+              }
+            },
+            [_c("span", [_vm._v("削除")])]
+          )
+        ])
+      : _c("div", { staticClass: "selectfile" }, [
+          _c(
+            "label",
+            {
+              staticClass: "mainbtn ulbtn",
+              on: {
+                click: function($event) {
+                  return _vm.uploadFile(_vm.index, _vm.i)
+                }
+              }
+            },
+            [_vm._v("ファイルを選択してください")]
+          )
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/ListResult.vue?vue&type=template&id=5a6310c6&":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/ListResult.vue?vue&type=template&id=5a6310c6& ***!
@@ -43354,6 +43670,121 @@ var staticRenderFns = [
         },
         [_vm._v("いいえ")]
       )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "flexb" }, [
+    _c("div", { staticClass: "imgbox" }, [
+      _c(
+        "canvas",
+        {
+          ref: "canvasPattern",
+          staticStyle: { width: "100%", height: "233" },
+          attrs: { width: "1000", height: "394" }
+        },
+        [_vm._v("Your browser does not support the HTML5 canvas tag.")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "txtbox" }, [
+      _vm.pattern.length > 1
+        ? _c(
+            "ul",
+            _vm._l(_vm.pattern, function(textPt, i) {
+              return _c("li", { key: i }, [
+                _c("label", { staticClass: "box100" }, [
+                  _c("span", { staticClass: "labeltxt" }, [
+                    _vm._v(_vm._s(_vm._f("circleFilter")(i + 1)))
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.pattern[i],
+                        expression: "pattern[i]"
+                      }
+                    ],
+                    staticClass: "w100per",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.pattern[i] },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.pattern, i, $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            }),
+            0
+          )
+        : _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.pattern[0],
+                expression: "pattern[0]"
+              }
+            ],
+            staticClass: "h5",
+            attrs: { name: "" },
+            domProps: { value: _vm.pattern[0] },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.pattern, 0, $event.target.value)
+              }
+            }
+          }),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "note" }, [
+      _c("li", [
+        _vm._v("再注文の場合も、前回通りはやめて全て記入して下さい。")
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _vm._v(
+          "マーク・指定文字などの場合、完全な清刷り（黒又は赤）を添付してください。"
+        )
+      ])
     ])
   }
 ]
@@ -44314,7 +44745,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", [
+  return _c("li", { class: { done: _vm.done } }, [
     _c("ul", [
       _c("li", [_vm._v(_vm._s(_vm.guide.created_at))]),
       _vm._v(" "),
@@ -44326,7 +44757,9 @@ var render = function() {
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.title))]),
       _vm._v(" "),
-      _c("li", [_vm._v(_vm._s(_vm.guide.office.name))]),
+      _vm.guide.office
+        ? _c("li", [_vm._v(_vm._s(_vm.guide.office.name))])
+        : _c("li"),
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.creator.name))]),
       _vm._v(" "),
@@ -44379,6 +44812,7 @@ var render = function() {
               {
                 class: _vm.canEdit ? "editbtn" : "viewbtn",
                 attrs: {
+                  title: "編集",
                   onclick: "location.href='/guide/" + _vm.guide.id + "/edit'"
                 }
               },
@@ -44390,6 +44824,7 @@ var render = function() {
               {
                 staticClass: "copybtn",
                 attrs: {
+                  title: "書コピー",
                   onclick:
                     "location.href='/guide/" + _vm.guide.id + "/dupplicate'"
                 }
@@ -44409,7 +44844,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "deletebtn",
-                attrs: { for: "popup_delete" },
+                attrs: { title: "削除", for: "popup_delete" },
                 on: {
                   click: function($event) {
                     return _vm.setDelete(_vm.guide.id)
@@ -44502,6 +44937,8 @@ var render = function() {
         }
       },
       [
+        _c("option", { attrs: { value: "" } }, [_vm._v("選択してください")]),
+        _vm._v(" "),
         _c("option", { attrs: { value: "desc" } }, [_vm._v("新しい順")]),
         _vm._v(" "),
         _c("option", { attrs: { value: "asc" } }, [_vm._v("古い順")])
@@ -44540,6 +44977,8 @@ var render = function() {
         }
       },
       [
+        _c("option", { attrs: { value: "" } }, [_vm._v("選択してください")]),
+        _vm._v(" "),
         _c("option", { attrs: { value: "desc" } }, [_vm._v("新しい順")]),
         _vm._v(" "),
         _c("option", { attrs: { value: "asc" } }, [_vm._v("古い順")])
@@ -44578,6 +45017,8 @@ var render = function() {
         }
       },
       [
+        _c("option", { attrs: { value: "" } }, [_vm._v("選択してください")]),
+        _vm._v(" "),
         _c("option", { attrs: { value: "desc" } }, [_vm._v("新しい順")]),
         _vm._v(" "),
         _c("option", { attrs: { value: "asc" } }, [_vm._v("古い順")])
@@ -45171,27 +45612,32 @@ var render = function() {
       _c("h3", { staticClass: "formctttl" }, [_vm._v("営業所名")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.creator.office.name,
-              expression: "creator.office.name"
-            }
-          ],
-          staticClass: "w15",
-          attrs: { type: "text", name: "", disabled: "" },
-          domProps: { value: _vm.creator.office.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _vm.creator.office
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.creator.office.name,
+                  expression: "creator.office.name"
+                }
+              ],
+              staticClass: "w15",
+              attrs: { type: "text", name: "", disabled: "" },
+              domProps: { value: _vm.creator.office.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.creator.office, "name", $event.target.value)
+                }
               }
-              _vm.$set(_vm.creator.office, "name", $event.target.value)
-            }
-          }
-        })
+            })
+          : _c("input", {
+              staticClass: "w15",
+              attrs: { type: "text", name: "", disabled: "" }
+            })
       ])
     ]),
     _vm._v(" "),
@@ -47535,694 +47981,394 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "formctbox" }, [
-      _c("ul", [
-        _c("li", { staticClass: "sub_ttl" }, [
-          _vm._v(_vm._s(_vm._f("nameProductFilter")(_vm.productName)))
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", { staticClass: "before" }, [_vm._v("本体銘入")]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "0" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "0") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "0")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("無")])
+      _c(
+        "ul",
+        [
+          _c("li", { staticClass: "sub_ttl" }, [
+            _vm._v(_vm._s(_vm._f("nameProductFilter")(_vm.productName)))
           ]),
           _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "1" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "1") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "1")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
+          _c("li", [
+            _c("span", { staticClass: "before" }, [_vm._v("本体銘入")]),
             _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("1面")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "1b" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "1b") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "1b")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("2行1版")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "2" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "2") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "2")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("2面")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "3" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "3") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "3")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("3面")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "4" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "4") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "4")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("4面")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "5" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "5") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "5")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("5面")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.body,
-                    expression: "inscription.body"
-                  }
-                ],
-                attrs: { type: "radio", value: "6" },
-                domProps: { checked: _vm._q(_vm.inscription.body, "6") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "body", "6")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("6面")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", { staticClass: "before" }, [_vm._v("銘入方向")]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.direction,
-                    expression: "inscription.direction"
-                  }
-                ],
-                attrs: { type: "radio", value: "side" },
-                domProps: {
-                  checked: _vm._q(_vm.inscription.direction, "side")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "direction", "side")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("横")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.direction,
-                    expression: "inscription.direction"
-                  }
-                ],
-                attrs: { type: "radio", value: "vertical" },
-                domProps: {
-                  checked: _vm._q(_vm.inscription.direction, "vertical")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "direction", "vertical")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("縦")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", { staticClass: "before" }, [_vm._v("校正")]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.proofreading,
-                    expression: "inscription.proofreading"
-                  }
-                ],
-                attrs: { type: "radio", value: "unnecessary" },
-                domProps: {
-                  checked: _vm._q(_vm.inscription.proofreading, "unnecessary")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(
-                      _vm.inscription,
-                      "proofreading",
-                      "unnecessary"
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("不要")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.proofreading,
-                    expression: "inscription.proofreading"
-                  }
-                ],
-                attrs: { type: "radio", value: "body" },
-                domProps: {
-                  checked: _vm._q(_vm.inscription.proofreading, "body")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "proofreading", "body")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("本体校正")])
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "after radioset" }, [
-            _c("span", { staticClass: "radioarea" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.proofreading,
-                    expression: "inscription.proofreading"
-                  }
-                ],
-                attrs: { type: "radio", value: "data" },
-                domProps: {
-                  checked: _vm._q(_vm.inscription.proofreading, "data")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.inscription, "proofreading", "data")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("データ")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("label", { staticClass: "before" }, [
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入方式")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.method,
-                    expression: "inscription.method"
-                  }
-                ],
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.inscription,
-                      "method",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択してください")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.listInscrMethod, function(method, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: method.eng } },
-                    [_vm._v(_vm._s(method.jap))]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "before" }, [
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入作業")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.work,
-                    expression: "inscription.work"
-                  }
-                ],
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.inscription,
-                      "work",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択してください")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.listInscrWork, function(method, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: method.eng } },
-                    [_vm._v(_vm._s(method.jap))]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "before" }, [
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入書体")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.typeface,
-                    expression: "inscription.typeface"
-                  }
-                ],
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.inscription,
-                      "typeface",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択してください")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.listInscrTypeFace, function(method, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: method.eng } },
-                    [_vm._v(_vm._s(method.jap))]
-                  )
-                })
-              ],
-              2
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.inscription.font_size_enable,
-                expression: "inscription.font_size_enable"
-              }
-            ],
-            staticClass: "disabled_on",
-            attrs: {
-              type: "radio",
-              name: "fontsize" + _vm.index,
-              value: "0",
-              id: "fontsize01" + _vm.index
-            },
-            domProps: {
-              checked: _vm._q(_vm.inscription.font_size_enable, "0")
-            },
-            on: {
-              click: function($event) {
-                return _vm.disableFontSize(_vm.inscription)
-              },
-              change: function($event) {
-                return _vm.$set(_vm.inscription, "font_size_enable", "0")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.inscription.font_size_enable,
-                expression: "inscription.font_size_enable"
-              }
-            ],
-            staticClass: "disabled_off",
-            attrs: {
-              type: "radio",
-              checked: "",
-              name: "fontsize" + _vm.index,
-              value: "1",
-              id: "fontsize02" + _vm.index
-            },
-            domProps: {
-              checked: _vm._q(_vm.inscription.font_size_enable, "1")
-            },
-            on: {
-              change: function($event) {
-                return _vm.$set(_vm.inscription, "font_size_enable", "1")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "before" }, [_vm._v("文字サイズ")]),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "after radioset disabled_trgr_on",
-              attrs: { for: "fontsize01" + _vm.index }
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("span", { staticClass: "labeltxt" }, [_vm._v("一任")])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "after radioset disabled_trgr_off",
-              attrs: { for: "fontsize02" + _vm.index }
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("span", { staticClass: "labeltxt" }, [_vm._v("指定有")])
-            ]
-          ),
-          _vm._v(" "),
-          _c("label", { staticClass: "after disabled_tgt" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.inscription.font_size,
-                  expression: "inscription.font_size"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.inscription.font_size },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.inscription, "font_size", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("PT")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c("span", { staticClass: "before" }, [_vm._v("印刷色")]),
-            _vm._v(" "),
-            _vm._l(3, function(n) {
-              return _c("label", { key: n, staticClass: "before after" }, [
-                _c("span", { staticClass: "labeltxt" }, [_vm._v(_vm._s(n))]),
-                _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.inscription.printing_color[n - 1],
-                      expression: "inscription.printing_color[n-1]"
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
                     }
                   ],
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.inscription.printing_color[n - 1] },
+                  attrs: { type: "radio", value: "0" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "0") },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.inscription.printing_color,
-                        n - 1,
-                        $event.target.value
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "0")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("無")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "1" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "1") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "1")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("1面")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "1b" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "1b") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "1b")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("2行1版")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "2" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "2") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "2")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("2面")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "3" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "3") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "3")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("3面")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "4" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "4") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "4")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("4面")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "5" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "5") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "5")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("5面")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.body,
+                      expression: "inscription.body"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "6" },
+                  domProps: { checked: _vm._q(_vm.inscription.body, "6") },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "body", "6")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("6面")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("span", { staticClass: "before" }, [_vm._v("銘入方向")]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.direction,
+                      expression: "inscription.direction"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "side" },
+                  domProps: {
+                    checked: _vm._q(_vm.inscription.direction, "side")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "direction", "side")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("横")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.direction,
+                      expression: "inscription.direction"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "vertical" },
+                  domProps: {
+                    checked: _vm._q(_vm.inscription.direction, "vertical")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "direction", "vertical")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("縦")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("span", { staticClass: "before" }, [_vm._v("校正")]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.proofreading,
+                      expression: "inscription.proofreading"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "unnecessary" },
+                  domProps: {
+                    checked: _vm._q(_vm.inscription.proofreading, "unnecessary")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(
+                        _vm.inscription,
+                        "proofreading",
+                        "unnecessary"
                       )
                     }
                   }
                 }),
                 _vm._v(" "),
-                _c("span", { staticClass: "labeltxt" }, [_vm._v("DIC")])
-              ])
-            })
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c("li", [
-          _c("label", { staticClass: "before" }, [
-            _c("span", { staticClass: "labeltxt" }, [_vm._v("パターン切替")]),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("不要")])
+            ]),
             _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscription.pattern_type,
-                    expression: "inscription.pattern_type"
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.proofreading,
+                      expression: "inscription.proofreading"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "body" },
+                  domProps: {
+                    checked: _vm._q(_vm.inscription.proofreading, "body")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "proofreading", "body")
+                    }
                   }
-                ],
-                on: {
-                  change: [
-                    function($event) {
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("本体校正")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "after radioset" }, [
+              _c("span", { staticClass: "radioarea" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.proofreading,
+                      expression: "inscription.proofreading"
+                    }
+                  ],
+                  attrs: { type: "radio", value: "data" },
+                  domProps: {
+                    checked: _vm._q(_vm.inscription.proofreading, "data")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.inscription, "proofreading", "data")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("データ")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("label", { staticClass: "before" }, [
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入方式")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.method,
+                      expression: "inscription.method"
+                    }
+                  ],
+                  on: {
+                    change: function($event) {
                       var $$selectedVal = Array.prototype.filter
                         .call($event.target.options, function(o) {
                           return o.selected
@@ -48233,186 +48379,361 @@ var render = function() {
                         })
                       _vm.$set(
                         _vm.inscription,
-                        "pattern_type",
+                        "method",
                         $event.target.multiple
                           ? $$selectedVal
                           : $$selectedVal[0]
                       )
-                    },
-                    function($event) {
-                      return _vm.changePattern($event, _vm.index)
                     }
-                  ]
-                }
-              },
-              _vm._l(_vm.listPatternType, function(pattern, n) {
-                return _c(
-                  "option",
-                  { key: n, domProps: { value: pattern.eng } },
-                  [_vm._v(_vm._s(pattern.jap))]
-                )
-              }),
-              0
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "flexb" }, [
-          _c("div", { staticClass: "imgbox" }, [
-            _c("img", {
-              ref: "photo" + _vm.index,
-              attrs: {
-                src:
-                  "/images/pen_temp-0" + _vm.inscription.pattern_type + ".svg"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "txtbox" }, [
-            _vm.inscription.pattern_text.length > 1
-              ? _c(
-                  "ul",
-                  _vm._l(_vm.inscription.pattern_text, function(textPt, index) {
-                    return _c("li", { key: index }, [
-                      _c("label", { staticClass: "box100" }, [
-                        _c("span", { staticClass: "labeltxt" }, [
-                          _vm._v(_vm._s(_vm._f("circleFilter")(index + 1)))
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.inscription.pattern_text[index],
-                              expression: "inscription.pattern_text[index]"
-                            }
-                          ],
-                          staticClass: "w100per",
-                          attrs: { type: "text" },
-                          domProps: {
-                            value: _vm.inscription.pattern_text[index]
-                          },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.inscription.pattern_text,
-                                index,
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              : _c("textarea", {
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("選択してください")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.listInscrMethod, function(method, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: method.eng } },
+                      [_vm._v(_vm._s(method.jap))]
+                    )
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "before" }, [
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入作業")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.inscription.pattern_text[0],
-                      expression: "inscription.pattern_text[0]"
+                      value: _vm.inscription.work,
+                      expression: "inscription.work"
                     }
                   ],
-                  staticClass: "h5",
-                  attrs: { name: "" },
-                  domProps: { value: _vm.inscription.pattern_text[0] },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
                       _vm.$set(
-                        _vm.inscription.pattern_text,
-                        0,
-                        $event.target.value
+                        _vm.inscription,
+                        "work",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       )
                     }
                   }
-                }),
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("選択してください")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.listInscrWork, function(method, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: method.eng } },
+                      [_vm._v(_vm._s(method.jap))]
+                    )
+                  })
+                ],
+                2
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(2)
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v("完成図や、ロゴマーク、素材等をアップロードしてください")
-        ]),
-        _vm._v(" "),
-        _c(
-          "li",
-          { staticClass: "flexb" },
-          [
-            _vm._l(_vm.inscription.files, function(file, i) {
-              return [
-                _c("input", {
-                  ref: "file" + _vm.index + i,
-                  refInFor: true,
-                  staticStyle: { display: "none" },
-                  attrs: { type: "file", name: "fileUpload" },
+            _c("label", { staticClass: "before" }, [
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入書体")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.typeface,
+                      expression: "inscription.typeface"
+                    }
+                  ],
                   on: {
                     change: function($event) {
-                      return _vm.onFileChange($event, _vm.index, i)
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.inscription,
+                        "typeface",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     }
                   }
-                }),
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("選択してください")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.listInscrTypeFace, function(method, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: method.eng } },
+                      [_vm._v(_vm._s(method.jap))]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.inscription.font_size_enable,
+                  expression: "inscription.font_size_enable"
+                }
+              ],
+              staticClass: "disabled_on",
+              attrs: {
+                type: "radio",
+                name: "fontsize" + _vm.index,
+                value: "0",
+                id: "fontsize01" + _vm.index
+              },
+              domProps: {
+                checked: _vm._q(_vm.inscription.font_size_enable, "0")
+              },
+              on: {
+                click: function($event) {
+                  return _vm.disableFontSize(_vm.inscription)
+                },
+                change: function($event) {
+                  return _vm.$set(_vm.inscription, "font_size_enable", "0")
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.inscription.font_size_enable,
+                  expression: "inscription.font_size_enable"
+                }
+              ],
+              staticClass: "disabled_off",
+              attrs: {
+                type: "radio",
+                checked: "",
+                name: "fontsize" + _vm.index,
+                value: "1",
+                id: "fontsize02" + _vm.index
+              },
+              domProps: {
+                checked: _vm._q(_vm.inscription.font_size_enable, "1")
+              },
+              on: {
+                change: function($event) {
+                  return _vm.$set(_vm.inscription, "font_size_enable", "1")
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "before" }, [_vm._v("文字サイズ")]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "after radioset disabled_trgr_on",
+                attrs: { for: "fontsize01" + _vm.index }
+              },
+              [
+                _vm._m(0),
                 _vm._v(" "),
-                file.id
-                  ? _c("div", { staticClass: "fbox3" }, [
-                      _c("div", { staticClass: "uploadimg" }, [
-                        file.thumbnail
-                          ? _c("img", {
-                              attrs: {
-                                src: file.thumbnail,
-                                width: "566",
-                                height: "573"
-                              }
-                            })
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "deletebtn",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.deleteFile(_vm.index, i)
-                              }
-                            }
-                          },
-                          [_c("span", [_vm._v("削除")])]
-                        )
-                      ])
-                    ])
-                  : _c("div", { staticClass: "fbox3" }, [
-                      _c("div", { staticClass: "selectfile" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "mainbtn ulbtn",
-                            on: {
-                              click: function($event) {
-                                return _vm.uploadFile(_vm.index, i)
-                              }
-                            }
-                          },
-                          [_vm._v("ファイルを選択してください")]
-                        )
-                      ])
-                    ])
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("一任")])
               ]
-            })
-          ],
-          2
-        )
-      ])
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "after radioset disabled_trgr_off",
+                attrs: { for: "fontsize02" + _vm.index }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("span", { staticClass: "labeltxt" }, [_vm._v("指定有")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("label", { staticClass: "after disabled_tgt" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.inscription.font_size,
+                    expression: "inscription.font_size"
+                  }
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.inscription.font_size },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.inscription, "font_size", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("PT")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c("span", { staticClass: "before" }, [_vm._v("印刷色")]),
+              _vm._v(" "),
+              _vm._l(3, function(n) {
+                return _c("label", { key: n, staticClass: "before after" }, [
+                  _c("span", { staticClass: "labeltxt" }, [_vm._v(_vm._s(n))]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.inscription.printing_color[n - 1],
+                        expression: "inscription.printing_color[n-1]"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.inscription.printing_color[n - 1] },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.inscription.printing_color,
+                          n - 1,
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "labeltxt" }, [_vm._v("DIC")])
+                ])
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("li", [
+            _c("label", { staticClass: "before" }, [
+              _c("span", { staticClass: "labeltxt" }, [_vm._v("パターン切替")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inscription.pattern_type,
+                      expression: "inscription.pattern_type"
+                    }
+                  ],
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.inscription,
+                          "pattern_type",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.changePattern($event, _vm.index)
+                      }
+                    ]
+                  }
+                },
+                _vm._l(_vm.listPatternType, function(pattern, n) {
+                  return _c(
+                    "option",
+                    { key: n, domProps: { value: pattern.eng } },
+                    [_vm._v(_vm._s(pattern.jap))]
+                  )
+                }),
+                0
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("pattern-guide", {
+            attrs: { inscription: _vm.inscription, index: _vm.index }
+          }),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v("完成図や、ロゴマーク、素材等をアップロードしてください")
+          ]),
+          _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "flexb" },
+            _vm._l(_vm.inscription.files, function(file, i) {
+              return _c("file-guide", {
+                key: i,
+                staticClass: "fbox3",
+                attrs: { index: _vm.index, i: i }
+              })
+            }),
+            1
+          )
+        ],
+        1
+      )
     ])
   ])
 }
@@ -48431,22 +48752,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "radioarea disabled_trgr_off" }, [
       _c("span")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "note" }, [
-      _c("li", [
-        _vm._v("再注文の場合も、前回通りはやめて全て記入して下さい。")
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _vm._v(
-          "マーク・指定文字などの場合、完全な清刷り（黒又は赤）を添付してください。"
-        )
-      ])
     ])
   }
 ]
@@ -61154,6 +61459,8 @@ Vue.component('price-price', __webpack_require__(/*! ./components/guide/partials
 Vue.component('price-wholesale', __webpack_require__(/*! ./components/guide/partials/PriceWholesale.vue */ "./resources/js/components/guide/partials/PriceWholesale.vue")["default"]);
 Vue.component('product-info', __webpack_require__(/*! ./components/guide/partials/ProductInfo.vue */ "./resources/js/components/guide/partials/ProductInfo.vue")["default"]);
 Vue.component('product-inscription', __webpack_require__(/*! ./components/guide/partials/ProductInscription.vue */ "./resources/js/components/guide/partials/ProductInscription.vue")["default"]);
+Vue.component('file-guide', __webpack_require__(/*! ./components/guide/components/FileGuide.vue */ "./resources/js/components/guide/components/FileGuide.vue")["default"]);
+Vue.component('pattern-guide', __webpack_require__(/*! ./components/guide/components/PatternGuide.vue */ "./resources/js/components/guide/components/PatternGuide.vue")["default"]);
 Vue.component('single-guide', __webpack_require__(/*! ./components/guide/SingleGuide.vue */ "./resources/js/components/guide/SingleGuide.vue")["default"]);
 Vue.component('list-guide', __webpack_require__(/*! ./components/guide/ListGuide.vue */ "./resources/js/components/guide/ListGuide.vue")["default"]);
 Vue.component('sort-form', __webpack_require__(/*! ./components/guide/components/SortForm.vue */ "./resources/js/components/guide/components/SortForm.vue")["default"]);
@@ -61563,6 +61870,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/guide/components/FileGuide.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/guide/components/FileGuide.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileGuide.vue?vue&type=template&id=33b821c5& */ "./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5&");
+/* harmony import */ var _FileGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileGuide.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FileGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/components/FileGuide.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FileGuide.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/FileGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FileGuide.vue?vue&type=template&id=33b821c5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/FileGuide.vue?vue&type=template&id=33b821c5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileGuide_vue_vue_type_template_id_33b821c5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/guide/components/ListResult.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/guide/components/ListResult.vue ***!
@@ -61696,6 +62072,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_template_id_7ae52a5d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalDelete_vue_vue_type_template_id_7ae52a5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/PatternGuide.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/guide/components/PatternGuide.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PatternGuide.vue?vue&type=template&id=5b594a77& */ "./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77&");
+/* harmony import */ var _PatternGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PatternGuide.vue?vue&type=script&lang=js& */ "./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PatternGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guide/components/PatternGuide.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PatternGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PatternGuide.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/PatternGuide.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PatternGuide_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PatternGuide.vue?vue&type=template&id=5b594a77& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guide/components/PatternGuide.vue?vue&type=template&id=5b594a77&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatternGuide_vue_vue_type_template_id_5b594a77___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -63006,6 +63451,195 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/stores/constFileExt.js":
+/*!*********************************************!*\
+  !*** ./resources/js/stores/constFileExt.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var constFileExt = ['jpg', 'png', 'jpeg', 'gif', 'ai', 'psd', 'pdf', 'xlsx', 'docx', 'pptx', 'xls', 'doc', 'ppt'];
+/* harmony default export */ __webpack_exports__["default"] = (constFileExt);
+
+/***/ }),
+
+/***/ "./resources/js/stores/constPatternPos.js":
+/*!************************************************!*\
+  !*** ./resources/js/stores/constPatternPos.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var constPatternPos = [{
+  id: 1,
+  pattern: [{
+    x: 490,
+    y: 169,
+    vertical: false,
+    font: 20
+  }, {
+    x: 490,
+    y: 322,
+    vertical: false,
+    font: 20
+  }, {
+    x: 899,
+    y: 275,
+    vertical: true,
+    font: 9
+  }]
+}, {
+  id: 2,
+  pattern: [{
+    x: 366,
+    y: 169,
+    vertical: false,
+    font: 20
+  }, {
+    x: 366,
+    y: 322,
+    vertical: false,
+    font: 20
+  }, {
+    x: 889,
+    y: 275,
+    vertical: true,
+    font: 9
+  }]
+}, {
+  id: 3,
+  pattern: [{
+    x: 233,
+    y: 165,
+    vertical: false,
+    font: 20
+  }, {
+    x: 515,
+    y: 165,
+    vertical: false,
+    font: 20
+  }, {
+    x: 233,
+    y: 327,
+    vertical: false,
+    font: 20
+  }, {
+    x: 515,
+    y: 327,
+    vertical: false,
+    font: 20
+  }, {
+    x: 899,
+    y: 275,
+    vertical: true,
+    font: 9
+  }]
+}, {
+  id: 4,
+  pattern: [{
+    x: 353,
+    y: 165,
+    vertical: false,
+    font: 20
+  }, {
+    x: 635,
+    y: 165,
+    vertical: false,
+    font: 20
+  }, {
+    x: 353,
+    y: 327,
+    vertical: false,
+    font: 20
+  }, {
+    x: 635,
+    y: 327,
+    vertical: false,
+    font: 20
+  }, {
+    x: 889,
+    y: 275,
+    vertical: true,
+    font: 9
+  }]
+}, {
+  id: 5,
+  pattern: [{
+    x: 605,
+    y: 137,
+    vertical: false,
+    font: 20
+  }, {
+    x: 605,
+    y: 175,
+    vertical: false,
+    font: 20
+  }, {
+    x: 605,
+    y: 215,
+    vertical: false,
+    font: 20
+  }, {
+    x: 605,
+    y: 255,
+    vertical: false,
+    font: 20
+  }, {
+    x: 605,
+    y: 295,
+    vertical: false,
+    font: 20
+  }, {
+    x: 605,
+    y: 335,
+    vertical: false,
+    font: 20
+  }]
+}, {
+  id: 6,
+  pattern: [{
+    x: 608,
+    y: 155,
+    vertical: false,
+    font: 20
+  }, {
+    x: 608,
+    y: 195,
+    vertical: false,
+    font: 20
+  }, {
+    x: 608,
+    y: 235,
+    vertical: false,
+    font: 20
+  }, {
+    x: 608,
+    y: 275,
+    vertical: false,
+    font: 20
+  }, {
+    x: 608,
+    y: 315,
+    vertical: false,
+    font: 20
+  }]
+}, {
+  id: 7,
+  pattern: [{
+    x: 608,
+    y: 155,
+    vertical: false,
+    font: 20
+  }]
+}];
+/* harmony default export */ __webpack_exports__["default"] = (constPatternPos);
+
+/***/ }),
+
 /***/ "./resources/js/stores/constVar.js":
 /*!*****************************************!*\
   !*** ./resources/js/stores/constVar.js ***!
@@ -63464,6 +64098,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+ // import https from 'https';
 
 
 
@@ -63473,6 +64108,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
+  loading: false,
   action: 'new',
   suppliers: [],
   creator: {
@@ -63491,7 +64127,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   products: [],
   originalFiles: [],
   price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"],
-  doDupplicate: false
+  doDupplicate: false,
+  fileNotClone: []
 });
 var getGuideInfo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
@@ -63520,32 +64157,34 @@ var getGuideInfo = /*#__PURE__*/function () {
               materialGuide.forEach(function (mat, index) {
                 materialArray[index] = mat;
               });
-              state.procedure.materialArray = materialArray; // array products
+              state.procedure.materialArray = materialArray;
+              productToGuide(result.data.data.products, result.data.data.files); // array products
 
-              result.data.data.products.forEach(function (prod) {
-                var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])); // put info part
-
-                for (var key in initProduct.info) {
-                  initProduct.info[key] = prod[key];
-                } // put inscription part
-
-
-                for (var _key in initProduct.inscription) {
-                  initProduct.inscription[_key] = prod[_key] ? prod[_key] : '';
-                } // put product part
-
-
-                initProduct.inscription.files.forEach(function (file, index) {
-                  if (file.id) {
-                    var fileGuide = result.data.data.files.find(function (fi) {
-                      return fi.id == file.id;
-                    });
-                    initProduct.inscription.files[index] = _objectSpread({}, fileGuide);
+              /*
+              result.data.data.products.forEach(prod => {
+                  let initProduct = JSON.parse(JSON.stringify(product));
+                  // put info part
+                  for(let key in initProduct.info){
+                     initProduct.info[key] = prod[key];
                   }
-                });
-                initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0;
-                state.products.push(initProduct);
-              });
+                  // put inscription part
+                  for(let key in initProduct.inscription){
+                      initProduct.inscription[key] = prod[key] ? prod[key] : '';
+                  }
+                  
+                  // put product part
+                  initProduct.inscription.files.forEach((file, index) => {
+                      if(file.id){
+                          let fileGuide = result.data.data.files.find(fi => fi.id == file.id);
+                          initProduct.inscription.files[index] = {...fileGuide}
+                          
+                      }
+                  })
+                  
+                  initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
+                  state.products.push(initProduct)
+              })
+              */
             });
 
           case 2:
@@ -63560,22 +64199,53 @@ var getGuideInfo = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var createGuide = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id) {
-    var products, guideInfo, newGuide;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return uploadMulti();
 
-          case 2:
-            products = [];
-            state.products.forEach(function (product) {
-              delete product.inscription.font_size_enable;
-              products.push(_objectSpread(_objectSpread({}, product.info), product.inscription));
-            });
+var productToGuide = function productToGuide(products, files) {
+  products.forEach(function (prod) {
+    var initProduct = JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])); // put info part
+
+    for (var key in initProduct.info) {
+      initProduct.info[key] = prod[key];
+    } // put inscription part
+
+
+    for (var _key in initProduct.inscription) {
+      initProduct.inscription[_key] = prod[_key] ? prod[_key] : '';
+    } // put product part
+
+
+    initProduct.inscription.files.forEach(function (file, index) {
+      if (file.id) {
+        var fileGuide = files.find(function (fi) {
+          return fi.id == file.id;
+        });
+        initProduct.inscription.files[index] = _objectSpread({}, fileGuide);
+      } else {
+        initProduct.inscription.files[index] = {};
+      }
+    });
+    initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0;
+    state.products.push(initProduct);
+  });
+};
+
+var createGuide = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+    var products, guideInfo, newGuide;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            //    await uploadMulti();
+
+            /*
+                let products = [];
+                state.products.forEach(product => {
+                    delete product.inscription.font_size_enable;
+                    products.push({...product.info, ...product.inscription})
+                }) ;
+                */
+            products = mergeProduct();
             guideInfo = _objectSpread({}, state.guide);
             guideInfo.price = _objectSpread({}, state.price);
             newGuide = {
@@ -63589,23 +64259,64 @@ var createGuide = /*#__PURE__*/function () {
 
             };
             newGuide.id = id;
-            if (state.doDupplicate == true) newGuide = removeIdDupplicate(newGuide);
-            axios.post('/guide', newGuide).then(function (result) {
-              console.log(result);
-            });
+
+            if (state.doDupplicate == true) {
+              newGuide = removeIdDupplicate(newGuide); //    newGuide.fileNotClone = state.fileNotClone;
+            }
+
+            state.loading = true;
+            _context3.next = 9;
+            return axios.post('/guide', newGuide).then( /*#__PURE__*/function () {
+              var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        if (!(result.data.success == true)) {
+                          _context2.next = 4;
+                          break;
+                        }
+
+                        if (result.data.map.length > 0 && state.doDupplicate == true) mapFileId(result.data.map);
+                        _context2.next = 4;
+                        return uploadMulti(result.data.id);
+
+                      case 4:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+
+              return function (_x3) {
+                return _ref3.apply(this, arguments);
+              };
+            }());
+
+          case 9:
+            state.loading = false;
 
           case 10:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
 
   return function createGuide(_x2) {
     return _ref2.apply(this, arguments);
   };
 }();
+
+var mapFileId = function mapFileId(mapId) {
+  state.products.forEach(function (product) {
+    product.inscription.files.forEach(function (file) {
+      file.id = mapId[file.id];
+    });
+  });
+};
 
 var removeIdDupplicate = function removeIdDupplicate(newGuide) {
   // delete newGuide.guide.guide_id;
@@ -63620,30 +64331,31 @@ var removeIdDupplicate = function removeIdDupplicate(newGuide) {
 };
 
 var uploadMulti = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-    var _loop, i;
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id) {
+    var hasUpload, _loop, i;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context5) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context6) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
+            hasUpload = false;
             _loop = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop(i) {
               var _loop2, j;
 
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context4) {
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context5) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       _loop2 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop2(j) {
                         var file, formData, fileName;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop2$(_context3) {
+                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop2$(_context4) {
                           while (1) {
-                            switch (_context3.prev = _context3.next) {
+                            switch (_context4.prev = _context4.next) {
                               case 0:
                                 file = state.products[i].inscription.files[j];
 
                                 if (!file.fileUpload) {
-                                  _context3.next = 10;
+                                  _context4.next = 11;
                                   break;
                                 }
 
@@ -63653,20 +64365,25 @@ var uploadMulti = /*#__PURE__*/function () {
                                 formData.append('name', fileName);
                                 formData.append('material', 'guide');
                                 formData.append('id', 0);
-                                _context3.next = 10;
+                                formData.append('guide_id', id);
+                                _context4.next = 11;
                                 return axios.post("/file", formData, {
                                   headers: {
                                     "Content-Type": "multipart/form-data"
                                   }
                                 }).then(function (result) {
-                                  state.products[i].inscription.files[j] = {
-                                    id: result.data.id
-                                  };
+                                  if (result.data.id) {
+                                    hasUpload = true; //    state.fileNotClone.push(result.data.id);
+
+                                    state.products[i].inscription.files[j] = {
+                                      id: result.data.id
+                                    };
+                                  }
                                 });
 
-                              case 10:
+                              case 11:
                               case "end":
-                                return _context3.stop();
+                                return _context4.stop();
                             }
                           }
                         }, _loop2);
@@ -63675,51 +64392,96 @@ var uploadMulti = /*#__PURE__*/function () {
 
                     case 2:
                       if (!(j < state.products[i].inscription.files.length)) {
-                        _context4.next = 7;
+                        _context5.next = 7;
                         break;
                       }
 
-                      return _context4.delegateYield(_loop2(j), "t0", 4);
+                      return _context5.delegateYield(_loop2(j), "t0", 4);
 
                     case 4:
                       j++;
-                      _context4.next = 2;
+                      _context5.next = 2;
                       break;
 
                     case 7:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
               }, _loop);
             });
             i = 0;
 
-          case 2:
+          case 3:
             if (!(i < state.products.length)) {
-              _context5.next = 7;
+              _context6.next = 8;
               break;
             }
 
-            return _context5.delegateYield(_loop(i), "t0", 4);
+            return _context6.delegateYield(_loop(i), "t0", 5);
 
-          case 4:
+          case 5:
             i++;
-            _context5.next = 2;
+            _context6.next = 3;
             break;
 
-          case 7:
+          case 8:
+            if (!(hasUpload == true)) {
+              _context6.next = 11;
+              break;
+            }
+
+            _context6.next = 11;
+            return updateGuideProduct(id);
+
+          case 11:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee3);
+    }, _callee4);
   }));
 
-  return function uploadMulti() {
-    return _ref3.apply(this, arguments);
+  return function uploadMulti(_x4) {
+    return _ref4.apply(this, arguments);
   };
 }();
+
+var updateGuideProduct = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(guideId) {
+    var products;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            products = mergeProduct();
+            _context7.next = 3;
+            return axios.post('/guide/update-product', {
+              id: guideId,
+              products: products
+            }).then(function (result) {});
+
+          case 3:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function updateGuideProduct(_x5) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+var mergeProduct = function mergeProduct() {
+  var products = [];
+  state.products.forEach(function (product) {
+    delete product.inscription.font_size_enable;
+    products.push(_objectSpread(_objectSpread({}, product.info), product.inscription));
+  });
+  return products;
+};
 
 var setCreator = function setCreator(creator) {
   state.creator = creator;
@@ -63747,7 +64509,7 @@ var getWorkers = function getWorkers() {
   });
 };
 var addProduct = function addProduct() {
-  state.products.push(JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])));
+  if (state.products.length < 12) state.products.push(JSON.parse(JSON.stringify(_variables_productInit__WEBPACK_IMPORTED_MODULE_7__["default"])));
 };
 var removeProduct = function removeProduct(index) {
   state.products.splice(index, 1);
@@ -63789,13 +64551,7 @@ var findCustomer = function findCustomer() {
       code: code
     }
   }).then(function (result) {
-    if (result.data.success == false) {
-      if (type == 'postal_code') {
-        axios('https://api.zipaddress.net/?zipcode=' + code).then(function (res) {
-          console.log(res);
-        });
-      }
-    } else {
+    if (result.data.success == false) {} else {
       var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
       arrAddress.forEach(function (key) {
         state.delivery[key] = result.data[key];
@@ -63871,9 +64627,9 @@ var state = vue__WEBPACK_IMPORTED_MODULE_0___default.a.observable({
     workers: []
   },
   sort: {
-    orderDate: 'desc',
-    shippingDate: 'desc',
-    receivedDate: 'desc'
+    orderDate: '',
+    shippingDate: '',
+    receivedDate: ''
   },
   guides: [],
   totalPage: 0,

@@ -21,11 +21,11 @@ class CreatePackagingsTable extends Migration
             $table->unsignedInteger('number_of_page')->nullable();
             $table->string('top_font')->nullable();
             $table->string('top_color')->nullable();
-            $table->string('top_text')->nullable();
+            $table->text('top_text')->nullable();
             $table->string('bottom_font')->nullable();
             $table->string('bottom_color')->nullable();
-            $table->string('bottom_text')->nullable();
-            $table->string('description')->nullable();
+            $table->text('bottom_text')->nullable();
+            $table->text('description')->nullable();
             $table->unsignedInteger('guide_id');
             $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->timestamps();
