@@ -3608,8 +3608,8 @@ __webpack_require__.r(__webpack_exports__);
       return officeChk.jap;
     },
     done: function done() {
+      if (this.guide.received_date == null) return false;
       var received_date = new Date(this.guide.received_date);
-      console.log(received_date);
       if (received_date < new Date()) return true;
       return false;
     }

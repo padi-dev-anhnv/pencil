@@ -96,8 +96,9 @@ export default {
            
         },
         done(){
+            if(this.guide.received_date == null)
+                return false;
             let received_date = new Date(this.guide.received_date);
-            console.log(received_date)
             if(received_date < new Date())
                 return true;
             return false;
