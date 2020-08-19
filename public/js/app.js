@@ -2827,44 +2827,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var fileName = 'file' + index + i;
       this.$refs[fileName].click(); // this.$refs[fileName].click();
     },
+    setFileUpload: function setFileUpload(file, index, i) {
+      var fileTemp = file;
+      var fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
+      var thumbnail = '';
+      if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
+      var holderFile = {
+        fileUpload: fileTemp,
+        link: 'file',
+        thumbnail: thumbnail
+      };
+      Vue.set(this.inscription.files, i, holderFile);
+    },
     onFileChange: function onFileChange(e, index, i) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var fileTemp, fileExt, thumbnail, holderFile;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 // index : order of product
                 // i : order of file in product
+                _this.setFileUpload(e.target.files[0], index, i);
 
-                /*
-                let fileTemp = e.target.files[0];
-                this.file.fileUpload = fileTemp; 
-                this.file.link = 'fileSelected'
-                this.file.thumbnail =  URL.createObjectURL(fileTemp);
-                */
-                fileTemp = e.target.files[0];
-                fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
-                thumbnail = '';
-                if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
-                holderFile = {
-                  fileUpload: fileTemp,
-                  link: 'file',
-                  thumbnail: thumbnail
-                };
-                Vue.set(_this.inscription.files, i, holderFile);
-                /*
-                this.inscription.files[i].fileUpload = fileTemp;
-                this.inscription.files[i].link = 'fileSelected'
-                this.inscription.files[i].thumbnail =  URL.createObjectURL(fileTemp);
-                */
-                // console.log(file)
-                // let fileUploaded = await createFileProduct(file);
-                // Vue.set(this.inscription.files, i, fileUploaded.data)
-
-              case 6:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -2875,6 +2862,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteFile: function deleteFile(index, i) {
       Vue.set(this.inscription.files, i, {});
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    var dropArea = document.getElementById('drop-area' + this.index + '' + this.i);
+
+    dropArea.ondragover = dropArea.ondragenter = function (evt) {
+      evt.preventDefault();
+    };
+
+    dropArea.ondrop = function (evt) {
+      _this2.setFileUpload(evt.dataTransfer.files[0], _this2.index, _this2.i);
+      /*
+      fileInput.files = evt.dataTransfer.files;
+        // If you want to use some of the dropped files
+      const dT = new DataTransfer();
+      dT.items.add(evt.dataTransfer.files[0]);
+      dT.items.add(evt.dataTransfer.files[3]);
+      fileInput.files = dT.files;
+      */
+
+
+      evt.preventDefault();
+    };
   }
 });
 
@@ -3599,7 +3610,7 @@ __webpack_require__.r(__webpack_exports__);
     done: function done() {
       var received_date = new Date(this.guide.received_date);
       console.log(received_date);
-      if (received_date > new Date()) return true;
+      if (received_date < new Date()) return true;
       return false;
     }
   },
@@ -43376,20 +43387,27 @@ var render = function() {
             [_c("span", [_vm._v("削除")])]
           )
         ])
-      : _c("div", { staticClass: "selectfile" }, [
-          _c(
-            "label",
-            {
-              staticClass: "mainbtn ulbtn",
-              on: {
-                click: function($event) {
-                  return _vm.uploadFile(_vm.index, _vm.i)
+      : _c(
+          "div",
+          {
+            staticClass: "selectfile",
+            attrs: { id: "drop-area" + _vm.index + "" + _vm.i }
+          },
+          [
+            _c(
+              "label",
+              {
+                staticClass: "mainbtn ulbtn",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadFile(_vm.index, _vm.i)
+                  }
                 }
-              }
-            },
-            [_vm._v("ファイルを選択してください")]
-          )
-        ])
+              },
+              [_vm._v("ファイルを選択してください")]
+            )
+          ]
+        )
   ])
 }
 var staticRenderFns = []
@@ -44794,7 +44812,7 @@ var render = function() {
             ? [
                 _vm._v(
                   "\n                " +
-                    _vm._s(_vm.guide.first_product.name) +
+                    _vm._s(_vm.guide.first_product[0].name) +
                     "\n            "
                 )
               ]

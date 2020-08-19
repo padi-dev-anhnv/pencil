@@ -20,7 +20,7 @@
             <li>{{ guide.received_date }}</li>
             <li>
                 <template v-if="guide.first_product">
-                    {{ guide.first_product.name }}
+                    {{ guide.first_product[0].name }}
                 </template>
             </li>
             <li>
@@ -98,7 +98,7 @@ export default {
         done(){
             let received_date = new Date(this.guide.received_date);
             console.log(received_date)
-            if(received_date > new Date())
+            if(received_date < new Date())
                 return true;
             return false;
         }

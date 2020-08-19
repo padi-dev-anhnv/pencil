@@ -15,7 +15,7 @@
           <span>削除</span>
         </button>
       </div>
-      <div class="selectfile" v-else>
+      <div class="selectfile" :id="'drop-area' + index + ''+ i" v-else>
         <label class="mainbtn ulbtn" @click="uploadFile(index,i)">ファイルを選択してください</label>
       </div>
     </div>
@@ -45,16 +45,8 @@ export default {
       this.$refs[fileName].click();
       // this.$refs[fileName].click();
     },
-    async onFileChange(e,index,i){
-      // index : order of product
-      // i : order of file in product
-      /*
-      let fileTemp = e.target.files[0];
-      this.file.fileUpload = fileTemp; 
-      this.file.link = 'fileSelected'
-      this.file.thumbnail =  URL.createObjectURL(fileTemp);
-      */
-      let fileTemp = e.target.files[0];
+    setFileUpload(file,index,i){
+      let fileTemp = file;
       let fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
       let thumbnail = '';
       if(['jpg', 'jpeg', 'gif', 'png'].includes(fileExt))
@@ -62,25 +54,38 @@ export default {
       else
         thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt
       let holderFile = {fileUpload : fileTemp, link : 'file', thumbnail }
-      
       Vue.set(this.inscription.files, i, holderFile)
-
-      /*
-      this.inscription.files[i].fileUpload = fileTemp;
-      this.inscription.files[i].link = 'fileSelected'
-      this.inscription.files[i].thumbnail =  URL.createObjectURL(fileTemp);
-      */
-
-
-
-      // console.log(file)
-
-      // let fileUploaded = await createFileProduct(file);
-      // Vue.set(this.inscription.files, i, fileUploaded.data)
+    },
+    async onFileChange(e,index,i){
+      // index : order of product
+      // i : order of file in product
+      this.setFileUpload(e.target.files[0], index,i )
+      
+      
     },
     deleteFile(index, i){
       Vue.set(this.inscription.files, i, {})
     }
+  },
+  mounted(){
+    let dropArea = document.getElementById('drop-area' + this.index + '' + this.i)
+    dropArea.ondragover = dropArea.ondragenter = function(evt) {
+      evt.preventDefault();
+    };
+    dropArea.ondrop = (evt) => {
+      this.setFileUpload(evt.dataTransfer.files[0], this.index, this.i)
+      /*
+      fileInput.files = evt.dataTransfer.files;
+
+      // If you want to use some of the dropped files
+      const dT = new DataTransfer();
+      dT.items.add(evt.dataTransfer.files[0]);
+      dT.items.add(evt.dataTransfer.files[3]);
+      fileInput.files = dT.files;
+*/
+      evt.preventDefault();
+    };
+
   }
 };
 </script>

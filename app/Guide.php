@@ -39,6 +39,7 @@ class Guide extends Model
 
     public function getFirstProductAttribute($val)
     {
+        return $this->products;
         return $this->products()->select('name')->first();
     }
 
