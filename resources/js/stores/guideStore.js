@@ -120,13 +120,6 @@ let productToGuide = (products, files) => {
 export const createGuide = async (id) => {
     
 //    await uploadMulti();
-/*
-    let products = [];
-    state.products.forEach(product => {
-        delete product.inscription.font_size_enable;
-        products.push({...product.info, ...product.inscription})
-    }) ;
-    */
     let products = mergeProduct();  
     let guideInfo = {...state.guide};
     guideInfo.price =  {...state.price};
@@ -143,11 +136,19 @@ export const createGuide = async (id) => {
     newGuide.id = id;
     if(state.doDupplicate == true){
         newGuide = removeIdDupplicate(newGuide);
-    //    newGuide.fileNotClone = state.fileNotClone;
     }
     
     state.loading = true;
-
+    let formData = prepareFormData(newGuide);
+    await axios.post('/guide', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+      }).then(async result => {
+        if(result.data.map_upload.length > 0)
+            updateUploadFileId(result.data.map_upload)
+    })
+    /*
     await axios.post('/guide', newGuide).then(async result => {
         if(result.data.success == true){
             if(result.data.map.length > 0 && state.doDupplicate == true)
@@ -156,11 +157,45 @@ export const createGuide = async (id) => {
         }
             
     });
-    
+    */
     state.loading = false;
-
 };
 
+let updateUploadFileId = (mapId) => {
+    state.products.forEach(product => {
+        product.inscription.files.forEach(file => {
+            if( typeof file.uploading !== 'undefined'){
+                file.id = mapId[file.uploading];
+                delete file.uploading;
+                delete file.fileUpload;
+            }
+                
+        })
+    })
+}
+
+let prepareFormData = (newGuide) =>{
+    const formData = new FormData()
+
+    // append fileUpload
+    let filesUpload = [];
+    let pos = 0 ; 
+    for(let i = 0; i < state.products.length; i ++ )
+    {
+        for(let j = 0; j < state.products[i].inscription.files.length  ; j ++ )
+        {
+            let file = state.products[i].inscription.files[j];
+            if(file.fileUpload){ 
+                filesUpload.push(file.fileUpload); 
+                formData.append('filesUpload[' + pos + ']', file.fileUpload)
+                file.uploading = pos;
+                pos++;
+            }
+        }
+    }
+    formData.append('data', JSON.stringify(newGuide));
+    return formData;
+}
 
 let mapFileId = (mapId) => {
     state.products.forEach(product => {
@@ -182,6 +217,7 @@ let removeIdDupplicate = (newGuide) => {
     return newGuide;
 }
 
+//not use
 let uploadMulti = async(id) => {
     let hasUpload = false;
     for(let i = 0; i < state.products.length; i ++ )
@@ -217,20 +253,6 @@ let uploadMulti = async(id) => {
     if(hasUpload == true)
         await updateGuideProduct(id);
 
-
-    /*
-    if(count > 0){
-        return axios
-        .post("/file", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(result => {
-            console.log(result)
-        });
-    }
-    */
 }
 
 let updateGuideProduct = async (guideId) => {

@@ -18,7 +18,7 @@ class CreatePackagingsTable extends Migration
             $table->boolean('printing')->nullable();
             $table->boolean('proofreading')->nullable();
             $table->string('material')->nullable();
-            $table->unsignedInteger('number_of_page')->nullable();
+            $table->string('number_of_page')->nullable();
             $table->string('top_font')->nullable();
             $table->string('top_color')->nullable();
             $table->text('top_text')->nullable();

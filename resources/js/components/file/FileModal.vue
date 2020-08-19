@@ -52,7 +52,7 @@
               </li>
             </ul>
             <div class="flexb">
-              <div class="fileimg">
+              <div class="fileimg" id='drop-area'>
                 <div class="selectfile" v-if="showUpload">
                   <div class="dropfile">
                     <button class="mainbtn ulbtn" @click="uploadFile">ファイルを選択してください</button>
@@ -119,11 +119,22 @@ export default {
     uploadFile() {
       this.$refs.file.click();
     },
-    onFileChange(e) {
-      let file = e.target.files[0];
-      this.file.fileUpload = file;
+    setFileUpload(file){
+      let fileTemp = file;
+      let fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
+      let thumbnail = '';
+      if(['jpg', 'jpeg', 'gif', 'png'].includes(fileExt))
+        thumbnail = URL.createObjectURL(fileTemp);
+      else
+        thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt
       let fileName = file.name.split('.').slice(0, -1).join('.')
       this.file.name = fileName;
+      this.file.fileUpload = fileTemp;
+      this.file.link = 'file';
+      this.file.thumbnail = thumbnail;
+    },
+    onFileChange(e) {
+      this.setFileUpload(e.target.files[0] )
     },
     async updateFile(newFile = false) {
       if (newFile == false) fileStore.actionNew = 0;
@@ -152,5 +163,20 @@ export default {
       return true;
     },
   },
+  mounted(){
+    let dropArea = document.getElementById('drop-area')
+    dropArea.ondragover = dropArea.ondragenter = (evt) => {
+      this.dragging = true;
+      evt.preventDefault();
+    };
+    dropArea.ondragleave = () => {
+      this.dragging = false;
+    } 
+    dropArea.ondrop = (evt) => {
+      this.setFileUpload(evt.dataTransfer.files[0])
+      evt.preventDefault();
+    };
+
+  }
 };
 </script>

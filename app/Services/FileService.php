@@ -10,9 +10,9 @@ use Image;
 class FileService
 {
 
-    public function uploadFile(Request $request)
+    public function uploadFile($file)
     {
-        $file_upload = $request->file('fileUpload');
+        $file_upload = $file;
         $suffix = Str::random(7);
         $full_name = $file_upload->getClientOriginalName();
         $file_name = pathinfo($full_name, PATHINFO_FILENAME);
@@ -32,7 +32,7 @@ class FileService
             Storage::put($dir_thumbnail . $thumbnail_name, $thumbnail);
         }     
 
-        return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail];
+        return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail, 'file_name' => $file_name];
     }
 
     public function dupplicateFile($dir,  $link)
