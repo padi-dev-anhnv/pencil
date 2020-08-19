@@ -50,7 +50,7 @@ class FileController extends Controller
         $validatedData = $request->validate([
             'fileUpload' => 'required|file|mimes:'. join(",", $extAllow)
         ]);
-        $file_uploaded = $this->fileService->uploadFile($request);
+        $file_uploaded = $this->fileService->uploadFile($request->file('fileUpload'));
         return $file_uploaded;
     }
 /*

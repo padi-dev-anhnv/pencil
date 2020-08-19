@@ -9,15 +9,20 @@ use App\Procedure;
 use App\Product;
 use App\File;
 use App\Services\FileService;
+use App\Repository\FileRepository;
 use Illuminate\Database\Eloquent\Builder;
 
 class GuideRepository
 {
     protected $guide;
+    protected $fileService;  
+    protected $fileRepo;  
 
-    public function __construct(Guide $guide)
+    public function __construct(Guide $guide, FileService $fileService, FileRepository $fileRepository)
     {
         $this->guide = $guide;
+        $this->fileService = $fileService;
+        $this->fileRepo = $fileRepository;
     }
 
     public function listSuppliers()
@@ -91,11 +96,11 @@ class GuideRepository
                     // change product structure with new file id
                     $products[$pindex]['files'][$findex]['id'] = $newFile->id;
 
-                    $fileService = new FileService;
-                    $fileService->dupplicateFile(File::$fileDir, $newFile->link);
+                    // $fileService = new FileService;
+                    $this->fileService->dupplicateFile(File::$fileDir, $newFile->link);
                     $fileThumbnail = File::hasThumbnail($newFile->link) ;
                     if(isset($fileThumbnail['thumbnail']))
-                        $fileService->dupplicateFile(File::$fileThumbnail, $fileThumbnail['thumbnail']);
+                        $this->fileService->dupplicateFile(File::$fileThumbnail, $fileThumbnail['thumbnail']);
                     
                 }
             }
@@ -122,14 +127,17 @@ class GuideRepository
         }
     }
 
-    public function create($request)
+    public function create($requests)
     {
-        
+        $request = json_decode($requests['data'], true);
+
+        // $this->fileService->uploadFile($requests['filesUpload']);
+        // dd($requests);
         $request['guide']['user_id'] = auth()->user()->id;
         if(auth()->user()->office)
             $request['guide']['office_id'] = auth()->user()->office->id;
         $request['guide']['products'] = $request['products'];
-
+// dd($request['guide']);
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];
         $packagingRequest = $request['packaging'];
@@ -152,6 +160,12 @@ class GuideRepository
             $products = $dupplicate_product['products'];
             $map_file_id = $dupplicate_product['map'];
             $this->updateProduct($guide->id, $products);
+        }
+        // handle upload files
+        foreach($requests['filesUpload'] as $key => $file)
+        {
+            $file_uploaded = $this->fileService->uploadFile($file);
+            // $this->fileRepo->create($file);
         }
         
         

@@ -64917,7 +64917,7 @@ var productToGuide = function productToGuide(products, files) {
 
 var createGuide = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
-    var products, guideInfo, newGuide;
+    var products, guideInfo, newGuide, formData, filesUpload, pos, i, j, file;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -64951,23 +64951,40 @@ var createGuide = /*#__PURE__*/function () {
             }
 
             state.loading = true;
-            _context3.next = 9;
-            return axios.post('/guide', newGuide).then( /*#__PURE__*/function () {
+            formData = new FormData(); // append fileUpload
+
+            filesUpload = [];
+            pos = 0;
+
+            for (i = 0; i < state.products.length; i++) {
+              for (j = 0; j < state.products[i].inscription.files.length; j++) {
+                file = state.products[i].inscription.files[j];
+
+                if (file.fileUpload) {
+                  filesUpload.push(file.fileUpload);
+                  formData.append('filesUpload[' + pos + ']', file.fileUpload);
+                  file.uploading = pos;
+                  pos++;
+                }
+              }
+            } // formData.append('filesUpload', filesUpload);
+
+
+            formData.append('data', JSON.stringify(newGuide));
+            _context3.next = 14;
+            return axios.post('/guide', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }).then( /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
                 return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
                       case 0:
-                        if (!(result.data.success == true)) {
-                          _context2.next = 4;
-                          break;
-                        }
+                        console.log(result);
 
-                        if (result.data.map.length > 0 && state.doDupplicate == true) mapFileId(result.data.map);
-                        _context2.next = 4;
-                        return uploadMulti(result.data.id);
-
-                      case 4:
+                      case 1:
                       case "end":
                         return _context2.stop();
                     }
@@ -64980,10 +64997,20 @@ var createGuide = /*#__PURE__*/function () {
               };
             }());
 
-          case 9:
+          case 14:
+            /*
+            await axios.post('/guide', newGuide).then(async result => {
+                if(result.data.success == true){
+                    if(result.data.map.length > 0 && state.doDupplicate == true)
+                        mapFileId(result.data.map);
+                    await uploadMulti(result.data.id);
+                }
+                    
+            });
+            */
             state.loading = false;
 
-          case 10:
+          case 15:
           case "end":
             return _context3.stop();
         }

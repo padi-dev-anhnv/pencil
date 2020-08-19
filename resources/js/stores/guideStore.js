@@ -148,6 +148,35 @@ export const createGuide = async (id) => {
     
     state.loading = true;
 
+    const formData = new FormData()
+
+    // append fileUpload
+    let filesUpload = [];
+    let pos = 0 ; 
+    for(let i = 0; i < state.products.length; i ++ )
+    {
+        for(let j = 0; j < state.products[i].inscription.files.length  ; j ++ )
+        {
+            let file = state.products[i].inscription.files[j];
+            if(file.fileUpload){ 
+                filesUpload.push(file.fileUpload); 
+                formData.append('filesUpload[' + pos + ']', file.fileUpload)
+                file.uploading = pos;
+                pos++;
+            }
+        }
+    }
+    // formData.append('filesUpload', filesUpload);
+    formData.append('data', JSON.stringify(newGuide));
+
+    await axios.post('/guide', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+      }).then(async result => {
+        console.log(result)
+    })
+    /*
     await axios.post('/guide', newGuide).then(async result => {
         if(result.data.success == true){
             if(result.data.map.length > 0 && state.doDupplicate == true)
@@ -156,7 +185,7 @@ export const createGuide = async (id) => {
         }
             
     });
-    
+    */
     state.loading = false;
 
 };

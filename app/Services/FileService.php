@@ -10,9 +10,9 @@ use Image;
 class FileService
 {
 
-    public function uploadFile(Request $request)
+    public function uploadFile($file)
     {
-        $file_upload = $request->file('fileUpload');
+        $file_upload = $file;
         $suffix = Str::random(7);
         $full_name = $file_upload->getClientOriginalName();
         $file_name = pathinfo($full_name, PATHINFO_FILENAME);
