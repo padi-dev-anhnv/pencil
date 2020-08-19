@@ -181,4 +181,15 @@ class Guide extends Model
         if(empty($keyword)) return false ;
         $query->whereLike($this->keywordSearch, $keyword);
     }
+
+    public static function boot ()
+    {
+        parent::boot();
+        self::deleting(function ($guide) {
+           $guide->delivery()->delete();
+           $guide->packaging()->delete();
+           $guide->procedure()->delete();
+           $guide->files()->delete();
+        });
+    }
 }

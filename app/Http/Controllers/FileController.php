@@ -32,7 +32,7 @@ class FileController extends Controller
     public function create(UploadFile $request)
     {
         // upload file
-        if(empty($request->link)){
+        if(empty($request->id)){
             $file_upload = $this->upload($request);
             foreach($file_upload as $key => $file)
             {

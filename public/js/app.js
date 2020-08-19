@@ -2100,11 +2100,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     uploadFile: function uploadFile() {
       this.$refs.file.click();
     },
-    onFileChange: function onFileChange(e) {
-      var file = e.target.files[0];
-      this.file.fileUpload = file;
+    setFileUpload: function setFileUpload(file) {
+      var fileTemp = file;
+      var fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
+      var thumbnail = '';
+      if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
       var fileName = file.name.split('.').slice(0, -1).join('.');
       this.file.name = fileName;
+      this.file.fileUpload = fileTemp;
+      this.file.link = 'file';
+      this.file.thumbnail = thumbnail;
+    },
+    onFileChange: function onFileChange(e) {
+      this.setFileUpload(e.target.files[0]);
     },
     updateFile: function updateFile() {
       var _arguments = arguments,
@@ -2150,6 +2158,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.file.link.length != 0) return false;
       return true;
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    var dropArea = document.getElementById('drop-area');
+
+    dropArea.ondragover = dropArea.ondragenter = function (evt) {
+      _this2.dragging = true;
+      evt.preventDefault();
+    };
+
+    dropArea.ondragleave = function () {
+      _this2.dragging = false;
+    };
+
+    dropArea.ondrop = function (evt) {
+      _this2.setFileUpload(evt.dataTransfer.files[0]);
+
+      evt.preventDefault();
+    };
   }
 });
 
@@ -42770,51 +42798,57 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "flexb" }, [
-                _c("div", { staticClass: "fileimg" }, [
-                  _vm.showUpload
-                    ? _c("div", { staticClass: "selectfile" }, [
-                        _c("div", { staticClass: "dropfile" }, [
+                _c(
+                  "div",
+                  { staticClass: "fileimg", attrs: { id: "drop-area" } },
+                  [
+                    _vm.showUpload
+                      ? _c("div", { staticClass: "selectfile" }, [
+                          _c("div", { staticClass: "dropfile" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "mainbtn ulbtn",
+                                on: { click: _vm.uploadFile }
+                              },
+                              [_vm._v("ファイルを選択してください")]
+                            ),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                "ファイルをドロップしてアップロードできます"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              ref: "file",
+                              staticStyle: { display: "none" },
+                              attrs: { type: "file", name: "fileUpload" },
+                              on: { change: _vm.onFileChange }
+                            })
+                          ])
+                        ])
+                      : _c("div", { staticClass: "uploadimg" }, [
+                          _c("img", {
+                            attrs: {
+                              src: _vm.file.thumbnail,
+                              width: "1740",
+                              height: "1445",
+                              alt: ""
+                            }
+                          }),
+                          _vm._v(" "),
                           _c(
                             "button",
                             {
-                              staticClass: "mainbtn ulbtn",
-                              on: { click: _vm.uploadFile }
+                              staticClass: "deletebtn",
+                              on: { click: _vm.deleteAttach }
                             },
-                            [_vm._v("ファイルを選択してください")]
-                          ),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v("ファイルをドロップしてアップロードできます")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            ref: "file",
-                            staticStyle: { display: "none" },
-                            attrs: { type: "file", name: "fileUpload" },
-                            on: { change: _vm.onFileChange }
-                          })
+                            [_c("span", [_vm._v("削除")])]
+                          )
                         ])
-                      ])
-                    : _c("div", { staticClass: "uploadimg" }, [
-                        _c("img", {
-                          attrs: {
-                            src: _vm.file.thumbnail,
-                            width: "1740",
-                            height: "1445",
-                            alt: ""
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "deletebtn",
-                            on: { click: _vm.deleteAttach }
-                          },
-                          [_c("span", [_vm._v("削除")])]
-                        )
-                      ])
-                ]),
+                  ]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "filetxt" }, [
                   _c("ul", { staticClass: "form-list" }, [
@@ -64917,20 +64951,12 @@ var productToGuide = function productToGuide(products, files) {
 
 var createGuide = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
-    var products, guideInfo, newGuide, formData, filesUpload, pos, i, j, file;
+    var products, guideInfo, newGuide, formData;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             //    await uploadMulti();
-
-            /*
-                let products = [];
-                state.products.forEach(product => {
-                    delete product.inscription.font_size_enable;
-                    products.push({...product.info, ...product.inscription})
-                }) ;
-                */
             products = mergeProduct();
             guideInfo = _objectSpread({}, state.guide);
             guideInfo.price = _objectSpread({}, state.price);
@@ -64947,31 +64973,12 @@ var createGuide = /*#__PURE__*/function () {
             newGuide.id = id;
 
             if (state.doDupplicate == true) {
-              newGuide = removeIdDupplicate(newGuide); //    newGuide.fileNotClone = state.fileNotClone;
+              newGuide = removeIdDupplicate(newGuide);
             }
 
             state.loading = true;
-            formData = new FormData(); // append fileUpload
-
-            filesUpload = [];
-            pos = 0;
-
-            for (i = 0; i < state.products.length; i++) {
-              for (j = 0; j < state.products[i].inscription.files.length; j++) {
-                file = state.products[i].inscription.files[j];
-
-                if (file.fileUpload) {
-                  filesUpload.push(file.fileUpload);
-                  formData.append('filesUpload[' + pos + ']', file.fileUpload);
-                  file.uploading = pos;
-                  pos++;
-                }
-              }
-            } // formData.append('filesUpload', filesUpload);
-
-
-            formData.append('data', JSON.stringify(newGuide));
-            _context3.next = 14;
+            formData = prepareFormData(newGuide);
+            _context3.next = 10;
             return axios.post('/guide', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
@@ -64982,7 +64989,7 @@ var createGuide = /*#__PURE__*/function () {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
                       case 0:
-                        console.log(result);
+                        if (result.data.map_upload.length > 0) updateUploadFileId(result.data.map_upload);
 
                       case 1:
                       case "end":
@@ -64997,7 +65004,7 @@ var createGuide = /*#__PURE__*/function () {
               };
             }());
 
-          case 14:
+          case 10:
             /*
             await axios.post('/guide', newGuide).then(async result => {
                 if(result.data.success == true){
@@ -65010,7 +65017,7 @@ var createGuide = /*#__PURE__*/function () {
             */
             state.loading = false;
 
-          case 15:
+          case 11:
           case "end":
             return _context3.stop();
         }
@@ -65022,6 +65029,41 @@ var createGuide = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
+
+var updateUploadFileId = function updateUploadFileId(mapId) {
+  state.products.forEach(function (product) {
+    product.inscription.files.forEach(function (file) {
+      if (typeof file.uploading !== 'undefined') {
+        file.id = mapId[file.uploading];
+        delete file.uploading;
+        delete file.fileUpload;
+      }
+    });
+  });
+};
+
+var prepareFormData = function prepareFormData(newGuide) {
+  var formData = new FormData(); // append fileUpload
+
+  var filesUpload = [];
+  var pos = 0;
+
+  for (var i = 0; i < state.products.length; i++) {
+    for (var j = 0; j < state.products[i].inscription.files.length; j++) {
+      var file = state.products[i].inscription.files[j];
+
+      if (file.fileUpload) {
+        filesUpload.push(file.fileUpload);
+        formData.append('filesUpload[' + pos + ']', file.fileUpload);
+        file.uploading = pos;
+        pos++;
+      }
+    }
+  }
+
+  formData.append('data', JSON.stringify(newGuide));
+  return formData;
+};
 
 var mapFileId = function mapFileId(mapId) {
   state.products.forEach(function (product) {
@@ -65041,7 +65083,8 @@ var removeIdDupplicate = function removeIdDupplicate(newGuide) {
   newGuide.packaging.id = 0;
   newGuide.procedure.id = 0;
   return newGuide;
-};
+}; //not use
+
 
 var uploadMulti = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id) {

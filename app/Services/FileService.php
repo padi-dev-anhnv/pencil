@@ -32,7 +32,7 @@ class FileService
             Storage::put($dir_thumbnail . $thumbnail_name, $thumbnail);
         }     
 
-        return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail];
+        return ['link' => $new_name, 'type' => $extension, 'file_thumbnail' => $file_thumbnail, 'file_name' => $file_name];
     }
 
     public function dupplicateFile($dir,  $link)

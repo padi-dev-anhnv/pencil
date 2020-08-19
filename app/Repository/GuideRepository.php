@@ -55,6 +55,80 @@ class GuideRepository
         ];
     }
 
+    public function create($requests)
+    {
+        $request = json_decode($requests['data'], true);
+
+        $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
+        $request['guide']['user_id'] = $author_office['user_id'];
+        if($author_office['office_id'])
+            $request['guide']['office_id'] = $author_office['office_id'];
+        // $request['guide']['user_id'] = auth()->user()->id;
+        /*
+        if(auth()->user()->office)
+            $request['guide']['office_id'] = auth()->user()->office->id;
+            */
+        // $request['guide']['products'] = $request['products'];
+        
+        $products = $request['products'];
+        $guideRequest = $request['guide'];
+        $deliveryRequest = $request['delivery'];
+        $packagingRequest = $request['packaging'];
+        $procedureRequest = $request['procedure'];
+        $originalFiles = $request['originalFiles'];
+        $guideRequest = $this->setNullGuide($guideRequest);
+        $packagingRequest = $this->setNullPackaging($packagingRequest);
+
+        $guide = $this->guide::updateOrCreate(['id' => $guideRequest['id']], $guideRequest);
+        $guide->delivery()->updateOrCreate(['id' => $deliveryRequest['id']], $deliveryRequest);
+        $guide->packaging()->updateOrCreate(['id' => $packagingRequest['id']], $packagingRequest);
+        $guide->procedure()->updateOrCreate(['id' => $procedureRequest['id']], $procedureRequest);
+
+        // handle file attach product guide
+        if($request['doDupplicate'] == true){
+            $products = $this->dupplicateGuideFile($products, $guide->id);
+            // $dupplicate_product = $this->dupplicateGuideFile($products, $guide->id);
+            // $products = $dupplicate_product['products'];
+            // $map_file_id = $dupplicate_product['map'];
+            // $this->updateProduct($guide->id, $products);
+        }
+        else{
+            $used_file = $this->setGuideFile($products, $guide->id);
+            $this->deleteDetachedFile($originalFiles, $used_file);            
+        }
+        // handle upload files
+        $fileUpload = isset($requests['filesUpload']) ? $requests['filesUpload'] : [] ;
+        $map_upload = $this->uploadFileGuide($fileUpload, $guide->id);
+        $products = $this->mapFileGuide($products, $map_upload);
+        $guide->products = $products; 
+        $guide->save();
+        
+        
+        return ['success' => true, 'id' => $guide->id , 'map_upload' => $map_upload];
+    }
+
+    public function setAuthorOffice($guide, $doDupplicate)
+    {
+        $result = [];
+        if(auth()->user()->role->type == 'admin' && isset($guide['user_id']) && $doDupplicate != true){
+            $result['user_id'] = $guide['user_id'];
+            $result['office_id'] = $guide['office_id'];
+        }            
+        else{
+            $result['user_id'] = auth()->user()->id;
+            $result['office_id'] = null;
+            if(auth()->user()->office)
+                $result['office_id'] = auth()->user()->office->id;
+        }
+                  
+        return $result;
+    }
+
+    public function setOffice($user_id)
+    {
+
+    }
+
     public function setGuideFile($products, $guide_id)
     {
         $array_file = [];
@@ -65,11 +139,6 @@ class GuideRepository
                 if(isset($file['id']))
                 {
                     $array_file[] = $file['id'];
-                    /*
-                    $file_guide = File::find($file['id']);
-                    $file_guide->guide_id = $guide_id;
-                    $file_guide->save();
-                    */
                 }
             }
         }
@@ -105,9 +174,11 @@ class GuideRepository
                 }
             }
         }
-        return [ 'map' => $mapFileId, 'products' =>  $products] ; 
+        // return [ 'map' => $mapFileId, 'products' =>  $products] ; 
+        return $products;
     } 
 
+    /*
     public function updateProduct($id, $products)
     {
         
@@ -115,6 +186,7 @@ class GuideRepository
         $guide->products = $products;
         $guide->save();
     }
+    */
 
     public function deleteDetachedFile($originalFiles, $used_file)
     {
@@ -127,107 +199,63 @@ class GuideRepository
         }
     }
 
-    public function create($requests)
+    public function uploadFileGuide($files, $guide_id)
     {
-        $request = json_decode($requests['data'], true);
-
-        // $this->fileService->uploadFile($requests['filesUpload']);
-        // dd($requests);
-        $request['guide']['user_id'] = auth()->user()->id;
-        if(auth()->user()->office)
-            $request['guide']['office_id'] = auth()->user()->office->id;
-        $request['guide']['products'] = $request['products'];
-// dd($request['guide']);
-        $guideRequest = $request['guide'];
-        $deliveryRequest = $request['delivery'];
-        $packagingRequest = $request['packaging'];
-        $procedureRequest = $request['procedure'];
-        $originalFiles = $request['originalFiles'];
-
-        $guide = $this->guide::updateOrCreate(['id' => $guideRequest['id']], $guideRequest);
-        $guide->delivery()->updateOrCreate(['id' => $deliveryRequest['id']], $deliveryRequest);
-        $guide->packaging()->updateOrCreate(['id' => $packagingRequest['id']], $packagingRequest);
-        $guide->procedure()->updateOrCreate(['id' => $procedureRequest['id']], $procedureRequest);
-
-        $map_file_id = [];
-        // handle file attach product guide
-        if($request['doDupplicate'] == false){
-            $used_file = $this->setGuideFile($request['products'], $guide->id);
-            $this->deleteDetachedFile($originalFiles, $used_file);
-        }
-        else{
-            $dupplicate_product = $this->dupplicateGuideFile($request['products'], $guide->id);
-            $products = $dupplicate_product['products'];
-            $map_file_id = $dupplicate_product['map'];
-            $this->updateProduct($guide->id, $products);
-        }
-        // handle upload files
-        foreach($requests['filesUpload'] as $key => $file)
-        {
-            $file_uploaded = $this->fileService->uploadFile($file);
-            // $this->fileRepo->create($file);
-        }
-        
-        
-        
-        return ['success' => true, 'id' => $guide->id , 'map' => $map_file_id];
-        // Delivery::updateOrCreate(['id' => $request['delivery']['id']], $request['delivery']);
-        dd($request);
-        // for dupplicate
-        /*
-        if(isset($request['guide']['clone_id'])){
-            $array_request = ['guide', 'delivery', 'packaging', 'procedure'];
-            foreach($array_request as $req)
+        $map_upload = [];
+        if(!empty($files)){
+            foreach($files as $key => $file)
             {
-                unset($request[$req]['id']);
+                $file_uploaded = $this->fileService->uploadFile($file);
+                $file_info = [
+                    'name'  => $file_uploaded['file_name'],
+                    'type' =>  $file_uploaded['type'],
+                    'link' => $file_uploaded['link'],
+                    'guide_id' => $guide_id,
+                    'material' => 'guide',
+                    'id' => 0
+                ];
+                $new_file =  $this->fileRepo->create($file_info);
+                $map_upload[$key] = $new_file->id;
             }
-            $products = $request['products'];
-            foreach($products as $key => $product)
-            {
-                unset($request['products'][$key]['id']);
-            }            
         }
-
-        $guideRequest = $request['guide'];
-        $deliveryRequest = $request['delivery'];
-        $packagingRequest = $request['packaging'];
-        $procedureRequest = $request['procedure'];
-        $productsRequest = $request['products'];
-        
-        $delivery = new Delivery($deliveryRequest);
-        $packaging = new Packaging($packagingRequest);
-        $procedure = new Procedure($procedureRequest);
-
-
-        $product_array = [];
-        foreach($productsRequest as $product)
-        {
-            $new_product = new Product($product);
-            $product_array[] = $new_product;
-        }
-        
-        $guide = $this->guide::create($guideRequest);        
-        $guide->delivery()->save($delivery);
-        $guide->packaging()->save($packaging);
-        $guide->procedure()->save($procedure);
-
-        foreach($product_array as $index => $product)
-        {
-            $new_product = $guide->products()->save($product);            
-            $array_file = [];                  
-            foreach($productsRequest[$index]['files'] as $file)
-            {
-                if(count($file) > 0){
-                    $file = File::find($file['id']);
-                    $new_product->files()->save($file);
-                }
-                    
-            }            
-        }
-        return $guide;
-        */
+        return $map_upload;
     }
 
+    public function mapFileGuide($products, $map_upload){
+        foreach($products as $indexPro =>  $product)
+        {
+            foreach($product['files'] as $indexFile =>$file)
+            {
+                $updatedFile = [];
+                if(isset($file['id']))
+                    $updatedFile['id'] =  $file['id'];
+                else{
+                    if(isset($file['uploading']))
+                        $updatedFile['id'] = $map_upload[$file['uploading']];
+                }
+                $products[$indexPro]['files'][$indexFile] = $updatedFile; 
+            }
+        }
+        return $products;
+    }
+
+    
+
+    public function setNullGuide($guide)
+    {
+        $guide['last_date'] = $guide['last_date'] ? $guide['last_date'] : null;
+        $guide['shipping_date'] = $guide['shipping_date'] ? $guide['shipping_date'] : null;
+        $guide['received_date'] = $guide['received_date'] ? $guide['received_date'] : null;
+        return $guide;
+    }
+    public function setNullPackaging($guide)
+    {
+        $guide['number_of_page'] = $guide['number_of_page'] ? $guide['number_of_page'] : null;
+        return $guide;
+    }
+    
+
+    /*
     public function edit($request)
     {        
         $guide = $this->guide::find($request['id']);
@@ -262,7 +290,7 @@ class GuideRepository
 
         }
     }
-
+*/
     
     public function search($request)
     {
@@ -314,6 +342,7 @@ class GuideRepository
             return false;
     }
 
+    /*
     public function clone($id)
     {
         $guide = $this->guide::with('delivery', 'packaging', 'procedure', 'products')->findOrFail($id);
@@ -334,6 +363,7 @@ class GuideRepository
             $new_product->save();
         }
     }
+    */
 }
 
 
