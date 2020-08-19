@@ -1,6 +1,6 @@
 <template>
   <!-- <li class="flexb"> -->
-    <div >
+    <div :id="'drop-area' + index + ''+ i" :class="{ 'area-dragging' : dragging }">
       <input
         style="display:none"
         type="file"
@@ -15,7 +15,7 @@
           <span>削除</span>
         </button>
       </div>
-      <div class="selectfile" :id="'drop-area' + index + ''+ i" v-else>
+      <div class="selectfile" v-else>
         <label class="mainbtn ulbtn" @click="uploadFile(index,i)">ファイルを選択してください</label>
       </div>
     </div>
@@ -27,6 +27,11 @@ import guideStore from "../../../stores/guideStore";
 import constFileExt from "../../../stores/constFileExt";
 export default {
   props : ['index', 'i'],
+  data(){
+    return {
+      dragging : false
+    }
+  },
   computed : {
     inscription(){
       return guideStore.products[this.index].inscription
@@ -69,23 +74,23 @@ export default {
   },
   mounted(){
     let dropArea = document.getElementById('drop-area' + this.index + '' + this.i)
-    dropArea.ondragover = dropArea.ondragenter = function(evt) {
+    dropArea.ondragover = dropArea.ondragenter = (evt) => {
+      this.dragging = true;
       evt.preventDefault();
     };
+    dropArea.ondragleave = () => {
+      this.dragging = false;
+    } 
     dropArea.ondrop = (evt) => {
       this.setFileUpload(evt.dataTransfer.files[0], this.index, this.i)
-      /*
-      fileInput.files = evt.dataTransfer.files;
-
-      // If you want to use some of the dropped files
-      const dT = new DataTransfer();
-      dT.items.add(evt.dataTransfer.files[0]);
-      dT.items.add(evt.dataTransfer.files[3]);
-      fileInput.files = dT.files;
-*/
       evt.preventDefault();
     };
 
   }
 };
 </script>
+<style scoped>
+  .area-dragging .selectfile, .area-dragging .uploadimg{
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+  }
+</style>
