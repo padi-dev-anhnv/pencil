@@ -3,6 +3,7 @@
 /public/storage
 /public/files
 /public/thumbnail
+/storage/app/public/
 /storage/*.key
 /vendor
 .env
