@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Axios from "axios";
-// import https from 'https';
+// import puppeteer from "puppeteer";
+// const puppeteer = require('puppeteer')
 import guide from './variables/guide'
 import delivery from './variables/delivery'
 import packaging from './variables/packaging'

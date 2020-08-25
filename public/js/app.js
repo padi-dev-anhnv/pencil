@@ -3622,14 +3622,14 @@ __webpack_require__.r(__webpack_exports__);
       return false;
     },
     receiver: function receiver() {
-      if (!this.guide.delivery) return 'tt';
+      if (!this.guide.delivery) return '';
       return this.guide.delivery.receiver;
     },
     chk: function chk() {
       var _this = this;
 
       //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
-      if (!this.guide.delivery) return 'tt';
+      if (!this.guide.delivery) return '';
       if (this.guide.delivery.office_chk == 1) return this.guide.delivery.receiver;
       var officeChk = _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk.find(function (chk) {
         return chk.eng == _this.guide.delivery.office_chk;
@@ -3716,6 +3716,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
 /* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
+//
 //
 //
 //
@@ -45505,7 +45506,31 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "guide/" + _vm.guide.key_code + "/show/has-price",
+              target: "_blank"
+            }
+          },
+          [_vm._v("PDF(料金有）")]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "guide/" + _vm.guide.key_code + "/show/no-price",
+              target: "_blank"
+            }
+          },
+          [_vm._v("PDF(料金無）")]
+        )
+      ]),
       _vm._v(" "),
       _vm.editable == 1
         ? _c("li", [
@@ -45571,20 +45596,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金有）")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("PDF(料金無）")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45983,14 +45995,20 @@ var render = function() {
                     }
                   }
                 },
-                _vm._l(_vm.listCity, function(city, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: city.name } },
-                    [_vm._v(_vm._s(city.name))]
-                  )
-                }),
-                0
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("選択してください")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.listCity, function(city, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: city.name } },
+                      [_vm._v(_vm._s(city.name))]
+                    )
+                  })
+                ],
+                2
               )
             ])
           ]),
@@ -46985,10 +47003,7 @@ var render = function() {
             }
           ],
           staticClass: "h3",
-          attrs: {
-            placeholder: "梱包説明を入力してください。",
-            maxlength: "84"
-          },
+          attrs: { placeholder: "梱包説明を入力してください。" },
           domProps: { value: _vm.packaging.description },
           on: {
             input: function($event) {
@@ -48248,9 +48263,7 @@ var render = function() {
           ],
           staticClass: "h5",
           attrs: {
-            placeholder:
-              "上に記入できない包装領域・注意事項を記入してください ",
-            maxlength: "244"
+            placeholder: "上に記入できない包装領域・注意事項を記入してください "
           },
           domProps: { value: _vm.procedure.note },
           on: {
@@ -64818,7 +64831,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
- // import https from 'https';
+ // import puppeteer from "puppeteer";
+// const puppeteer = require('puppeteer')
 
 
 

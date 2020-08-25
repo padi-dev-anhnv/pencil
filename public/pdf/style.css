@@ -1,0 +1,597 @@
+@charset "UTF-8";
+/* CSS Document */
+/* 動きをずらす */
+@font-face {
+  font-family: "Yu Gothic M";
+  src: local("Yu Gothic Medium"); }
+@font-face {
+  font-family: "Yu Gothic M";
+  src: local("Yu Gothic Bold");
+  font-weight: bold; }
+* {
+  margin: 0;
+  padding: 0; }
+
+/* =======================================================================================================================
+　　　　　　　　　全体
+======================================================================================================================= */
+body {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: '游ゴシック', 'Yu Gothic', '游ゴシック体', 'YuGothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+  font-size: 1.5vw;
+  font-weight: 500;
+  line-height: 1.6em;
+  letter-spacing: 0;
+  background: #fff;
+  color: #000;
+  /*
+  overflow: hidden; 
+  */
+  }
+.body-a4{
+  
+  width: 100vw;
+  height: 141.4vw;
+}
+/* =======================================================================================================================
+　　　　　　　　　レイアウト
+======================================================================================================================= */
+#header {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 2.5% 0.6em 2.5%; }
+
+#main {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1.66em 2.5%; }
+
+/* 画像 */
+img {
+  vertical-align: bottom; }
+
+/* 見出し */
+.page_ttl {
+  font-size: 1.33em;
+  font-weight: 700;
+  line-height: 1em; }
+
+.ctt_ttl {
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1em;
+  padding-bottom: 0.3em; }
+  .ctt_ttl::before {
+    content: "●";
+    color: #e5002c; }
+
+/* 注意書き */
+.note {
+  color: #e5002c; }
+  .note::before {
+    content: "※"; }
+
+/* 金額 */
+.yen::after {
+  content: "円"; }
+
+/* No. */
+.numb::before {
+  content: "No."; }
+
+/* 掛け率 */
+.percent::before {
+  content: "掛け率"; }
+.percent::after {
+  content: "％"; }
+
+/* ------------------ ブロック ---------------------------------- */
+.sec {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 1.66em; }
+  .sec .content {
+    margin-bottom: 1em; }
+    .sec .content:last-child {
+      margin-bottom: 0; }
+
+/* 枠線ボックス */
+.bbox {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: #000 solid 0.2em;
+  padding: 0.5em 0.8em;
+  overflow: hidden; }
+  .bbox.red {
+    border: #e5002c solid 0.1em; }
+
+/* 横並び */
+.flex {
+  width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.flexs {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: stretch;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch; }
+
+.flexbs {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: justify;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-align: stretch;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch; }
+
+.fbox2 {
+  width: 48.68421%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* ------------------ リスト ---------------------------------- */
+/* 情報ヘッダー内リスト */
+#info_header ul {
+  list-style: none inside; }
+  #info_header ul li {
+    display: inline;
+    padding-right: 1em; }
+
+/* 表 */
+ul.table {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  list-style: none inside;
+  border: #000 solid 0.2em; }
+  ul.table.thin {
+    border: #000 solid 0.1em; }
+  ul.table li.tr {
+    width: 100%;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: #000 solid 0.1em;
+    font-size: 1em; }
+    ul.table li.tr:last-child {
+      border-bottom: none; }
+    ul.table li.tr ul.thtd {
+      width: 100%;
+      position: relative;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      list-style: none inside;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -ms-flex-align: stretch;
+      -webkit-box-align: stretch;
+      -webkit-align-items: stretch;
+      align-items: stretch; }
+      ul.table li.tr ul.thtd .th,
+      ul.table li.tr ul.thtd .td {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: relative;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border-right: #000 solid 0.1em;
+        overflow: hidden;
+        height: 2em;
+        line-height: 2em;
+        padding: 0 1.66em; }
+        ul.table li.tr ul.thtd .th:last-child,
+        ul.table li.tr ul.thtd .td:last-child {
+          border-right: none; }
+        ul.table li.tr ul.thtd .th strong,
+        ul.table li.tr ul.thtd .td strong {
+          font-size: 1em;
+          font-weight: 700; }
+      ul.table li.tr ul.thtd .th {
+        font-weight: 500;
+        text-align: center; }
+      ul.table li.tr ul.thtd .td {
+        font-weight: 700; }
+  ul.table.td_center li.tr ul.thtd .th, ul.table.td_center li.tr ul.thtd .td {
+    text-align: center;
+    padding: 0 0.5em; }
+  ul.table.td_md li.tr ul.thtd .th, ul.table.td_md li.tr ul.thtd .td {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 0 0.8em; }
+    ul.table.td_md li.tr ul.thtd .th p, ul.table.td_md li.tr ul.thtd .td p {
+      line-height: 1.5em;
+      text-align: left; }
+  ul.table.bold {
+    border-width: 0.3em; }
+    ul.table.bold li.tr {
+      border-bottom-width: 0.2em; }
+      ul.table.bold li.tr ul.thtd .th,
+      ul.table.bold li.tr ul.thtd .td {
+        font-size: 1.2em;
+        font-weight: 700;
+        line-height: 2.5em;
+        height: 2.5em;
+        border-right-width: 0.167em; }
+        ul.table.bold li.tr ul.thtd .th.yen,
+        ul.table.bold li.tr ul.thtd .td.yen {
+          text-align: right; }
+
+/* 連結型表 */
+.tablebox {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: #000 solid 0.2em; }
+  .tablebox .flexs {
+    border-bottom: #000 solid 0.1em; }
+    .tablebox .flexs:last-child {
+      border-bottom: 0; }
+    .tablebox .flexs .caption {
+      font-size: 1em;
+      font-weight: 500;
+      border-right: #000 solid 0.2em;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex-align: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -ms-flex-pack: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center; }
+      .tablebox .flexs .caption.subtotal {
+        font-weight: 700; }
+    .tablebox .flexs .table {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -moz-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      border: none; }
+      .tablebox .flexs .table li.tr ul.thtd .th,
+      .tablebox .flexs .table li.tr ul.thtd .td {
+        padding: 0 0.5em; }
+        .tablebox .flexs .table li.tr ul.thtd .th.yen,
+        .tablebox .flexs .table li.tr ul.thtd .td.yen {
+          text-align: right; }
+
+/* 線の太さ */
+.b_bottom {
+  border-bottom-width: 0.2em !important; }
+
+.b_right {
+  border-right-width: 0.2em !important; }
+
+/* =======================================================================================================================
+　　　　　　　　　ヘッダー
+======================================================================================================================= */
+#header {
+  border-bottom: #e5002c solid 0.33em;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: justify;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+  -moz-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end; }
+  #header h1.logo {
+    width: 12.67em;
+    font-size: 1em;
+    padding-top: 1.66em;
+    line-height: 0; }
+    #header h1.logo img {
+      width: 100%;
+      height: auto; }
+
+/* =======================================================================================================================
+　　　　　　　　　1/3
+======================================================================================================================= */
+#pdf1 #main {
+  padding-top: 1em; }
+#pdf1 .sec {
+  padding-bottom: 1em; }
+
+/* -------------- 情報 -------------------------------------------- */
+#info #info_header {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  #info #info_header .order_info li:nth-child(1)::after, #info #info_header .order_info li:nth-child(3)::after {
+    content: "\A";
+    white-space: pre; }
+  #info #info_header .charge_info {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: auto;
+    text-align: right; }
+    #info #info_header .charge_info li {
+      padding-right: 0;
+      padding-left: 1em; }
+#info ul.table1 li.tr ul.thtd li:nth-child(1), #info ul.table1 li.tr ul.thtd li:nth-child(5), #info ul.table1 li.tr ul.thtd li:nth-child(6) {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none; }
+#info ul.table1 li.tr ul.thtd li:nth-child(1) {
+  width: 8em; }
+#info ul.table1 li.tr ul.thtd li:nth-child(5), #info ul.table1 li.tr ul.thtd li:nth-child(6) {
+  width: 9em; }
+#info ul.table2 li.tr ul.thtd li:nth-child(1), #info ul.table2 li.tr ul.thtd li:nth-child(3) {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 10em; }
+#info ul.table2 li.tr ul.thtd li:nth-child(2) {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 11em; }
+
+/* -------------- 箱 -------------------------------------------- */
+#box {
+  width: 71.58%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  #box .imgbox {
+    width: 3em;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    #box .imgbox img {
+      width: 100%;
+      height: auto; }
+  #box .txtbox {
+    width: 91%;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-line-pack: justify;
+    -webkit-align-content: space-between;
+    align-content: space-between; }
+    #box .txtbox .flexbs {
+      width: 100%;
+      position: relative;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+      #box .txtbox .flexbs .box_info {
+        width: 48%; }
+        #box .txtbox .flexbs .box_info ul.table li.tr ul.thtd .th,
+        #box .txtbox .flexbs .box_info ul.table li.tr ul.thtd .td {
+          height: 1.66em;
+          line-height: 1.66em; }
+        #box .txtbox .flexbs .box_info ul.table li.tr ul.thtd .th {
+          -webkit-box-flex: 0;
+          -webkit-flex: none;
+          -moz-box-flex: 0;
+          -ms-flex: none;
+          flex: none;
+          width: 7em; }
+      #box .txtbox .flexbs .bbox {
+        width: 49.6%;
+        line-height: 1.2em;
+        padding: 0.8em 0.8em;
+        font-weight: 700; }
+
+/* -------------- 梱包説明 -------------------------------------------- */
+#pack_dscrp {
+  width: 25.79%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  #pack_dscrp .bbox {
+    height: 11em; }
+
+/* -------------- 包装資材印刷要領 -------------------------------------------- */
+#packing_material {
+  width: 27%; }
+  #packing_material ul.table li.tr ul.thtd .th {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -moz-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 9em; }
+
+/* -------------- 作業要領 -------------------------------------------- */
+#point {
+  width: 71%; }
+  #point ul.table.material1 li.tr ul.thtd li:nth-child(2) {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -moz-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 8em; }
+  #point ul.table.material2 li.tr ul.thtd .th {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -moz-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 9em; }
+
+/* -------------- 商品一覧 -------------------------------------------- */
+#product_list ul.table li.tr ul.thtd li:nth-child(1), #product_list ul.table li.tr ul.thtd li:nth-child(3), #product_list ul.table li.tr ul.thtd li:nth-child(4), #product_list ul.table li.tr ul.thtd li:nth-child(5), #product_list ul.table li.tr ul.thtd li:nth-child(6) {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none; }
+#product_list ul.table li.tr ul.thtd li:nth-child(1) {
+  width: 4em; }
+#product_list ul.table li.tr ul.thtd li:nth-child(3) {
+  width: 11em; }
+#product_list ul.table li.tr ul.thtd li:nth-child(4) {
+  width: 8em; }
+#product_list ul.table li.tr ul.thtd li:nth-child(5) {
+  width: 6em; }
+#product_list ul.table li.tr ul.thtd li:nth-child(6) {
+  width: 7em; }
+
+/* =======================================================================================================================
+　　　　　　　　　2/3
+======================================================================================================================= */
+#pdf2 #imglist {
+  width: 100%;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 0.8em;
+  margin-top: -1em; }
+  #pdf2 #imglist .illi {
+    padding: 0.5em;
+    border-width: 0.25em;
+    margin-top: 1em; }
+    #pdf2 #imglist .illi .product_name {
+      font-size: 1em;
+      font-weight: 700;
+      line-height: 1.5em;
+      padding-bottom: 0.5em; }
+    #pdf2 #imglist .illi .imgview {
+      width: 100%;
+      position: relative;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      height: 13em;
+      margin-bottom: 0.5em;
+      text-align: center; }
+      #pdf2 #imglist .illi .imgview img {
+        height: 12em;
+        width: auto; }
+    #pdf2 #imglist .illi .flexbs .red {
+      width: 63%;
+      border-width: 0.125em;
+      line-height: 1.4em; }
+      #pdf2 #imglist .illi .flexbs .red span {
+        font-weight: 700;
+        color: #e5002c;
+        padding-right: 0.25em; }
+    #pdf2 #imglist .illi .flexbs .point_list {
+      width: 35%; }
+      #pdf2 #imglist .illi .flexbs .point_list .ctt_ttl {
+        font-size: 1em; }
+
+/* =======================================================================================================================
+　　　　　　　　　3/3
+======================================================================================================================= */
+#pdf3 .tablebox .flexs .caption {
+  width: 9.3em; }
+#pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n), #pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n+2), #pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n+3) {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none; }
+#pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n+2) {
+  width: 7.5em; }
+#pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n+3) {
+  width: 4em; }
+#pdf3 .tablebox .flexs .table li.tr ul.thtd li:nth-child(4n) {
+  width: 8.5em; }
+#pdf3 .tablebox .flexs:first-child .table li.tr:first-child ul.thtd li.th {
+  width: 50%; }
+
+/* -------------- 総合計 -------------------------------------------- */
+#total ul.table li.tr ul.thtd .th {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -moz-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 7.75em; }
+
+/*# sourceMappingURL=style.css.map */

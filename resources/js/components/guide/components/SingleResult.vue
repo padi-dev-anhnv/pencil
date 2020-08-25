@@ -24,9 +24,9 @@
                 </template>
             </li>
             <li>
-                <a href="#">PDF(料金有）</a>
+                <a :href="'guide/'+guide.key_code+'/show/has-price'" target="_blank">PDF(料金有）</a>
                 <br />
-                <a href="#">PDF(料金無）</a>
+                <a :href="'guide/'+guide.key_code+'/show/no-price'" target="_blank">PDF(料金無）</a>
             </li>
             <li v-if="editable == 1">
                 <button title="編集"
@@ -82,13 +82,13 @@ export default {
         },
         receiver(){
             if(!this.guide.delivery)
-                return 'tt';
+                return '';
             return this.guide.delivery.receiver;
         },
         chk(){
             //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
             if(!this.guide.delivery)
-                return 'tt';
+                return '';
             if(this.guide.delivery.office_chk == 1)
                 return this.guide.delivery.receiver;
             let officeChk = constVar.chk.find(chk => chk.eng == this.guide.delivery.office_chk)

@@ -1,0 +1,29 @@
+<svg id="box.svg" xmlns="http://www.w3.org/2000/svg" width="92" height="385" viewBox="0 0 92 385">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: none;
+        stroke-width: 3px;
+      }
+
+      .cls-1 {
+        stroke: #000;
+      }
+
+      .cls-2 {
+        fill: #e5002c;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke: #e5002c;
+      }
+    </style>
+  </defs>
+  <rect id="box3" class="cls-1" x="1.5" y="1.5" width="89" height="382"/>
+  <path id="box2" class="cls-2" d="M53,868.25h82.9v12.969H53V868.25Z" transform="translate(-48.5 -699.5)"/>
+  <path id="box1" class="cls-3" d="M108.948,711.791H125.13V736.61H108.948V711.791Z" transform="translate(-48.5 -699.5)"/>
+</svg>

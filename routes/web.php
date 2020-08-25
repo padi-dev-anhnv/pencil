@@ -56,4 +56,7 @@ Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], fun
     Route::post('/delete', 'GuideController@delete');
     Route::post('/clone', 'GuideController@clone');
     Route::get('/find-customer', 'CustomerController@findCustomer');
+    Route::get('/{id}/show/{price}', 'GuideController@showPdf')->name('guide.show');
+    
 });
+Route::get('/{id}/show-html/{price}', 'GuideController@showPdfHtml')->name('guide.html');

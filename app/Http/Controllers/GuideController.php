@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repository\GuideRepository;
-use App\Http\Requests\CreateGuide;
+// use App\Http\Requests\CreateGuide;
 
 class GuideController extends Controller
 {
@@ -77,5 +77,21 @@ class GuideController extends Controller
     {
         $this->guideRepo->clone($request->id);
         return response()->json(['success' => true]);
+    }
+
+    public function showPdfHtml(Request $request)
+    {
+        $guide = $this->guideRepo->get($request->id, 'key_code');
+        return view('pages.guide.html', ['guide' => $guide, 'price' => $request->price]);
+    }
+
+    public function showPdf(Request $request)
+    {
+        $pdf = $this->guideRepo->showPdf($request->id, $request->price);
+        
+		return response()->make($pdf, 200, [
+			'Content-Type' => 'application/pdf',
+			'Content-Disposition' => 'inline; filename="guide.pdf"'
+		]);
     }
 }

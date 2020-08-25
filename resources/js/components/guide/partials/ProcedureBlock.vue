@@ -239,7 +239,7 @@
         <textarea
           v-model="procedure.note"
           placeholder="上に記入できない包装領域・注意事項を記入してください "
-          maxlength="244"
+          
           class="h5"
         ></textarea>
       </div>

@@ -100,7 +100,7 @@
     <li class="sec">
       <h2 class="formctttl">梱包説明</h2>
       <div class="formctbox">
-        <textarea  v-model="packaging.description" placeholder="梱包説明を入力してください。" maxlength="84" class="h3"></textarea>
+        <textarea  v-model="packaging.description" placeholder="梱包説明を入力してください。"  class="h3"></textarea>
       </div>
     </li>
     

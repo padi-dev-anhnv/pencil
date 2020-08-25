@@ -11,6 +11,8 @@ use App\File;
 use App\Services\FileService;
 use App\Repository\FileRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Str;
 
 class GuideRepository
 {
@@ -30,9 +32,13 @@ class GuideRepository
         return Supplier::all();
     }
 
-    public function get($id)
+    public function get($id, $type = 'id')
     {
-        $guide = Guide::findOrFail($id)->makeHidden(['first_product']);
+        if($type == 'id')
+            $guide = Guide::findOrFail($id)->makeHidden(['first_product']);
+        else
+            $guide = Guide::where($type, $id)->firstOrFail()->makeHidden(['first_product']);
+
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();
@@ -40,7 +46,7 @@ class GuideRepository
         $dupplicate = $guide->dupplicate()->select('created_at', 'id', 'number')->first();
         $creator = $guide->creator()->select('name', 'id')->first();
         $office = $guide->office()->select('name', 'id')->first();
-        // $products = $guide->products()->get();
+        $supplier = $guide->supplier()->select('name', 'id')->first();
         $creator['office'] = $office;
 
         return [
@@ -50,6 +56,7 @@ class GuideRepository
             'procedure' => $procedure,
             'products' => $guide->products,
             'creator' => $creator,
+            'supplier' => $supplier,
             'dupplicate' => $dupplicate,
             'files'     => $files
         ];
@@ -61,6 +68,7 @@ class GuideRepository
 
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
         $request['guide']['user_id'] = $author_office['user_id'];
+        $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
         if($author_office['office_id'])
             $request['guide']['office_id'] = $author_office['office_id'];
         // $request['guide']['user_id'] = auth()->user()->id;
@@ -254,43 +262,6 @@ class GuideRepository
         return $guide;
     }
     
-
-    /*
-    public function edit($request)
-    {        
-        $guide = $this->guide::find($request['id']);
-        if(auth()->user()->id != $guide['user_id'] && auth()->user()->role->type != 'admin')
-            return false;
-        $guideRequest = $request['guide'];
-        $deliveryRequest = $request['delivery'];
-        $packagingRequest = $request['packaging'];
-        $procedureRequest = $request['procedure'];
-        $productsRequest = $request['products'];
-        $guideRequest['user_id'] = auth()->user()->id;
-        $guide->update($guideRequest);
-        // dd($guideRequest);
-        $guide->delivery()->update($deliveryRequest);
-        $guide->packaging()->update($packagingRequest);
-        $procedure = Procedure::where('guide_id',$request['id'])->first();
-        $procedure->fill($procedureRequest);
-        $guide->procedure()->save($procedure);
-
-        foreach($productsRequest as $product)
-        {
-            $array_file = [];
-            $guide_product = $guide->products()->updateOrCreate(['id' =>$product['id']],$product);
-            foreach($product['files'] as $file)
-            {
-                if(count($file) > 0){
-                    $file = File::find($file['id']);
-                    $guide_product->files()->save($file);
-                }
-            }  
-        //    $guide_product->files()->sync($array_file);
-
-        }
-    }
-*/
     
     public function search($request)
     {
@@ -334,36 +305,27 @@ class GuideRepository
             $has_per = true;
         if($this->is_author($guide->user_id))
             $has_per = true;
-        if($has_per){
+        if($has_per){            
+            $files = $guide->files;
+            foreach($files as $file){
+                $file->delete();
+            }
             $guide->delete();
+            
             return true;
         }            
         else
             return false;
     }
 
-    /*
-    public function clone($id)
+    public function showPdf($id, $price)
     {
-        $guide = $this->guide::with('delivery', 'packaging', 'procedure', 'products')->findOrFail($id);
-        $new_guide = $guide->replicate();
-        // $new_guide->clone_id = $id;
-        $new_guide->save();
-        $array_info = ['delivery', 'packaging', 'procedure'] ; 
-        foreach($array_info as $info){
-            $new_info = $guide->$info->replicate();
-            $new_info->guide_id = $new_guide->id;
-            $new_info->save();
-        }        
-
-        foreach($guide->products as $product)
-        {
-            $new_product = $product->replicate();
-            $new_product->guide_id = $new_guide->id;
-            $new_product->save();
-        }
+        // $guide = Guide::select('key_code')->findOrFail($id);
+        $route = route('guide.html', ['id' => $id, 'price' => $price]);
+        $pdf = Browsershot::url($route)
+        ->format('A4')->pdf();
+        return $pdf;
     }
-    */
 }
 
 

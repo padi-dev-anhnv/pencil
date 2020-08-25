@@ -47,6 +47,7 @@
                         <label class="before"
                             ><span class="labeltxt">都道府県</span
                             ><select v-model="delivery.prefecture">
+                                <option value="">選択してください</option>
                                 <option v-for="(city,index) in listCity" :key="index" :value="city.name">{{city.name}}</option>
                             </select></label
                         >
