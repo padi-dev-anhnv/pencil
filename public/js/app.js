@@ -5321,6 +5321,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5342,7 +5343,11 @@ __webpack_require__.r(__webpack_exports__);
         headers: {
           "Content-Type": "multipart/form-data"
         }
-      }).then(function (result) {});
+      }).then(function (result) {
+        alert("Customer CSV is uploaded");
+      })["catch"](function (err) {
+        alert("Error");
+      });
     }
   }
 });
@@ -5471,6 +5476,8 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("/user/delete", {
           id: this.deleteId
         }).then(function (result) {
+          _this2.deleteId = 0;
+
           _this2.loadUser();
         });
       }
@@ -49733,7 +49740,7 @@ var render = function() {
       _c("input", {
         ref: "file",
         staticStyle: { display: "none" },
-        attrs: { type: "file", name: "fileUpload" },
+        attrs: { accept: ".csv", type: "file", name: "fileUpload" },
         on: { change: _vm.onFileChange }
       }),
       _vm._v(" "),
@@ -64892,33 +64899,7 @@ var getGuideInfo = /*#__PURE__*/function () {
                 materialArray[index] = mat;
               });
               state.procedure.materialArray = materialArray;
-              productToGuide(result.data.data.products, result.data.data.files); // array products
-
-              /*
-              result.data.data.products.forEach(prod => {
-                  let initProduct = JSON.parse(JSON.stringify(product));
-                  // put info part
-                  for(let key in initProduct.info){
-                     initProduct.info[key] = prod[key];
-                  }
-                  // put inscription part
-                  for(let key in initProduct.inscription){
-                      initProduct.inscription[key] = prod[key] ? prod[key] : '';
-                  }
-                  
-                  // put product part
-                  initProduct.inscription.files.forEach((file, index) => {
-                      if(file.id){
-                          let fileGuide = result.data.data.files.find(fi => fi.id == file.id);
-                          initProduct.inscription.files[index] = {...fileGuide}
-                          
-                      }
-                  })
-                  
-                  initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
-                  state.products.push(initProduct)
-              })
-              */
+              productToGuide(result.data.data.products, result.data.data.files);
             });
 
           case 2:
@@ -64970,6 +64951,14 @@ var createGuide = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            if (!(state.loading == true)) {
+              _context3.next = 2;
+              break;
+            }
+
+            return _context3.abrupt("return", false);
+
+          case 2:
             //    await uploadMulti();
             products = mergeProduct();
             guideInfo = _objectSpread({}, state.guide);
@@ -64992,7 +64981,7 @@ var createGuide = /*#__PURE__*/function () {
 
             state.loading = true;
             formData = prepareFormData(newGuide);
-            _context3.next = 10;
+            _context3.next = 12;
             return axios.post('/guide', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
@@ -65004,8 +64993,9 @@ var createGuide = /*#__PURE__*/function () {
                     switch (_context2.prev = _context2.next) {
                       case 0:
                         if (result.data.map_upload.length > 0) updateUploadFileId(result.data.map_upload);
+                        window.location.href = "/guide";
 
-                      case 1:
+                      case 2:
                       case "end":
                         return _context2.stop();
                     }
@@ -65016,22 +65006,14 @@ var createGuide = /*#__PURE__*/function () {
               return function (_x3) {
                 return _ref3.apply(this, arguments);
               };
-            }());
-
-          case 10:
-            /*
-            await axios.post('/guide', newGuide).then(async result => {
-                if(result.data.success == true){
-                    if(result.data.map.length > 0 && state.doDupplicate == true)
-                        mapFileId(result.data.map);
-                    await uploadMulti(result.data.id);
-                }
-                    
+            }())["catch"](function (err) {
+              alert('Error');
             });
-            */
+
+          case 12:
             state.loading = false;
 
-          case 11:
+          case 13:
           case "end":
             return _context3.stop();
         }

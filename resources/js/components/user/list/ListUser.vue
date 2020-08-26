@@ -94,7 +94,7 @@ export default {
         loadUser() {
             axios("/user/get-list", { params: { page: this.page } }).then(
                 result => {
-                    this.users = result.data.data;
+                   this.users = result.data.data;
                 }
             );
         },
@@ -106,6 +106,7 @@ export default {
                 axios
                     .post("/user/delete", { id: this.deleteId })
                     .then(result => {
+                        this.deleteId = 0;
                         this.loadUser();
                     });
             }

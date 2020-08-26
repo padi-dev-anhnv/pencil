@@ -323,6 +323,7 @@ class GuideRepository
         // $guide = Guide::select('key_code')->findOrFail($id);
         $route = route('guide.html', ['id' => $id, 'price' => $price]);
         $pdf = Browsershot::url($route)
+        ->noSandbox()
         ->format('A4')->pdf();
         return $pdf;
     }

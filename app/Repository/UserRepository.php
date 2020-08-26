@@ -31,9 +31,12 @@ class UserRepository
 
     public function delete($id)
     {
+        if($id == auth()->user()->id)
+            return false;
         $user = User::find($id);
         $user->status = false ; 
         $user->save();
+        return true;
     }
 
     public function show($id)

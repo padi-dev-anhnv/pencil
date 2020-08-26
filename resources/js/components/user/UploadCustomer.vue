@@ -7,6 +7,7 @@
 		</div>
 		<ul class="btn2box">
             <input
+                        accept=".csv"
                       style="display:none"
                       type="file"
                       name="fileUpload"
@@ -42,7 +43,9 @@ export default {
                 "Content-Type": "multipart/form-data"
             }
         }).then(result => {
-                
+                alert("Customer CSV is uploaded")
+            }).catch(err =>{
+                alert("Error")
             })
         }
     }

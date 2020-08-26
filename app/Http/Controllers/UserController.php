@@ -50,8 +50,8 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {        
-        $this->userService->delete($request->id);
-        return response()->json([ 'status' => "ok"]);
+        $result = $this->userService->delete($request->id);
+        return response()->json([ 'success' => $result]);
     }
 
     public function getRoles()

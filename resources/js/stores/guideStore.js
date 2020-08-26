@@ -59,34 +59,6 @@ export const getGuideInfo = async (id) => {
         state.procedure.materialArray =  materialArray;
 
         productToGuide(result.data.data.products, result.data.data.files);
-        // array products
-        /*
-        result.data.data.products.forEach(prod => {
-            let initProduct = JSON.parse(JSON.stringify(product));
-            // put info part
-            for(let key in initProduct.info){
-               initProduct.info[key] = prod[key];
-            }
-            // put inscription part
-            for(let key in initProduct.inscription){
-                initProduct.inscription[key] = prod[key] ? prod[key] : '';
-            }
-            
-            // put product part
-            initProduct.inscription.files.forEach((file, index) => {
-                if(file.id){
-                    let fileGuide = result.data.data.files.find(fi => fi.id == file.id);
-                    initProduct.inscription.files[index] = {...fileGuide}
-                    
-                }
-            })
-            
-            initProduct.inscription.font_size_enable = initProduct.inscription.font_size ? 1 : 0
-            state.products.push(initProduct)
-        })
-        */
-
-            
     })
 }
 
@@ -118,8 +90,9 @@ let productToGuide = (products, files) => {
     })
 }
 
-export const createGuide = async (id) => {
-    
+export const createGuide = async (id) => {    
+    if(state.loading == true)
+        return false;
 //    await uploadMulti();
     let products = mergeProduct();  
     let guideInfo = {...state.guide};
@@ -148,17 +121,10 @@ export const createGuide = async (id) => {
       }).then(async result => {
         if(result.data.map_upload.length > 0)
             updateUploadFileId(result.data.map_upload)
+        window.location.href = "/guide";
+    }).catch(err => {
+        alert('Error')
     })
-    /*
-    await axios.post('/guide', newGuide).then(async result => {
-        if(result.data.success == true){
-            if(result.data.map.length > 0 && state.doDupplicate == true)
-                mapFileId(result.data.map);
-            await uploadMulti(result.data.id);
-        }
-            
-    });
-    */
     state.loading = false;
 };
 
