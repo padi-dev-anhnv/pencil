@@ -45518,7 +45518,7 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: "guide/" + _vm.guide.key_code + "/show/has-price",
+              href: "/guide/" + _vm.guide.key_code + "/show/has-price",
               target: "_blank"
             }
           },
@@ -45531,7 +45531,7 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: "guide/" + _vm.guide.key_code + "/show/no-price",
+              href: "/guide/" + _vm.guide.key_code + "/show/no-price",
               target: "_blank"
             }
           },

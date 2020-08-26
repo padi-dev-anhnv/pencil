@@ -66,18 +66,11 @@ class GuideRepository
     {
         $request = json_decode($requests['data'], true);
 
+        $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
         $request['guide']['user_id'] = $author_office['user_id'];
-        $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
-        if($author_office['office_id'])
-            $request['guide']['office_id'] = $author_office['office_id'];
-        // $request['guide']['user_id'] = auth()->user()->id;
-        /*
-        if(auth()->user()->office)
-            $request['guide']['office_id'] = auth()->user()->office->id;
-            */
-        // $request['guide']['products'] = $request['products'];
-        
+        // if($author_office['office_id'])
+        $request['guide']['office_id'] = $author_office['office_id'];
         $products = $request['products'];
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];
@@ -94,6 +87,8 @@ class GuideRepository
 
         // handle file attach product guide
         if($request['doDupplicate'] == true){
+            $guide->key_code = Str::random(10);
+
             $products = $this->dupplicateGuideFile($products, $guide->id);
             // $dupplicate_product = $this->dupplicateGuideFile($products, $guide->id);
             // $products = $dupplicate_product['products'];
