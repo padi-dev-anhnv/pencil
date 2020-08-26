@@ -22,7 +22,7 @@ $received_date = $guide->received_date ? date('Y/m/d', strtotime($guide->receive
 			  <li>前回指図書No:{{ $guide->last_numb}}</li>
 		  </ul>
 		  <ul class="charge_info">
-			  <li>営業所：{{ $creator->office->name}}</li>
+			  <li>営業所：{{ isset($creator->office) ? $creator->office->name : "" }}</li>
 			  <li>担当者：{{ $creator->name}}</li>
 		  </ul>
 		</header>
@@ -39,7 +39,7 @@ $received_date = $guide->received_date ? date('Y/m/d', strtotime($guide->receive
 		  </li>
 		  <li class="tr">
 			  <ul class="thtd">
-				  <li class="td">{{ $guide->store_code}}</li>
+				  <li class="td">{{ $guide->store_code }}</li>
 				  <li class="td">{{ $supplier->name }}</li>
 				  <li class="td">{{ $guide->customer_name}}</li>
 				  <li class="td">{{ $guide->curator }}</li>

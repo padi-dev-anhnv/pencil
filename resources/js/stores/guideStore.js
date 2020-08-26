@@ -121,7 +121,8 @@ export const createGuide = async (id) => {
       }).then(async result => {
         if(result.data.map_upload.length > 0)
             updateUploadFileId(result.data.map_upload)
-        window.location.href = "/guide";
+        if(state.action != "edit")
+            window.location.href = "/guide";
     }).catch(err => {
         alert('Error')
     })

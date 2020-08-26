@@ -128,7 +128,7 @@ export default {
       else
         thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt
       let fileName = file.name.split('.').slice(0, -1).join('.')
-      this.file.name = fileName;
+      this.file.name = this.file.name ? this.file.name :  fileName;
       this.file.fileUpload = fileTemp;
       this.file.link = 'file';
       this.file.thumbnail = thumbnail;

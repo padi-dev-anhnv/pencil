@@ -2106,7 +2106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var thumbnail = '';
       if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
       var fileName = file.name.split('.').slice(0, -1).join('.');
-      this.file.name = fileName;
+      this.file.name = this.file.name ? this.file.name : fileName;
       this.file.fileUpload = fileTemp;
       this.file.link = 'file';
       this.file.thumbnail = thumbnail;
@@ -64993,7 +64993,7 @@ var createGuide = /*#__PURE__*/function () {
                     switch (_context2.prev = _context2.next) {
                       case 0:
                         if (result.data.map_upload.length > 0) updateUploadFileId(result.data.map_upload);
-                        window.location.href = "/guide";
+                        if (state.action != "edit") window.location.href = "/guide";
 
                       case 2:
                       case "end":
