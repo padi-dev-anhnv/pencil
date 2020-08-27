@@ -133,7 +133,7 @@ export default {
         },
         guideOffice(){
             if(['new', 'dupplicate'].includes(guideStore.action))
-                return guideStore.creator.office;
+                return guideStore.creator.office.name;
             else 
                 return guideStore.guide.office;
         },
@@ -145,6 +145,7 @@ export default {
         }
     },
     created(){
+        console.log(guideStore.action)
         getWorkers();
     }
 };
