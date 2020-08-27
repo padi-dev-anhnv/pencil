@@ -3981,14 +3981,13 @@ __webpack_require__.r(__webpack_exports__);
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].dupplicate;
     },
     guideOffice: function guideOffice() {
-      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
+      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office ? _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name : "";else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
     },
     guideAuthor: function guideAuthor() {
       if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
     }
   },
   created: function created() {
-    console.log(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action);
     Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["getWorkers"])();
   }
 });
