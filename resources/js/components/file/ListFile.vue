@@ -41,7 +41,7 @@
                                 <select v-model="search.office.value">
                                     <option value="">選択してください</option>
                                     <option
-                                        :value="office.id"
+                                        :value="office.name"
                                         v-for="office in listOffice"
                                         :key="office.id"
                                         >{{ office.name }}</option

@@ -33,6 +33,7 @@ class CustomerController extends Controller
 
     public function uploadCustomer(Request $request)
     {
+        Customer::truncate();
         $customerArr = $this->csvToArray($request->file('file')->getRealPath());
         foreach ($customerArr->chunk(500) as $chunk)
         {

@@ -8,11 +8,11 @@
         <header class="popup_header delete_hd">
           <div class="ph_inner">
             <h3 class="popup_ttl">削除</h3>
-            <p class="popup_dscrpt">春日市東中学校ボールペン完成版</p>
+            <p class="popup_dscrpt">{{ fileName }}</p>
           </div>
         </header>
         <div class="popup_ctt">
-          <form>
+          <form v-if="canDelete">
             <p class="popup_txt">本当に削除してもいいですか？</p>
             <ul class="btn_box btn2box">
               <li>
@@ -22,6 +22,9 @@
                 <label for="popup_editfile" class="mainbtn mainbtn2 subbtn">いいえ</label>
               </li>
             </ul>
+          </form>
+          <form v-else>
+            <p class="popup_txt">指図書に連携していますので、削除できません！</p>
           </form>
         </div>
       </article>
@@ -36,6 +39,14 @@ export default {
         doDelete(){
             doDelete();
         }
+    },
+    computed : {
+      fileName(){
+        return fileStore.file.name;
+      },
+      canDelete(){
+        return fileStore.file.guideId == 0;
+      }
     }
 };
 </script>

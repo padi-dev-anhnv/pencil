@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('office')->nullable();
             $table->string('name')->nullable();
             $table->string('link');
             $table->text('description')->nullable();

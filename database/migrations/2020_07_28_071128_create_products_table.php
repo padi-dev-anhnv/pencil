@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('guide_id');
@@ -35,6 +36,7 @@ class CreateProductsTable extends Migration
             $table->string('pattern_text')->nullable();
             $table->timestamps();
         });
+        */
     }
 
     /**

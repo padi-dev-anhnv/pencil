@@ -12,7 +12,7 @@ class File extends Model
     public static $fileDir = '/public/files/';
     public static $fileThumbnail = '/public/thumbnail/';
 
-    protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type', 'guide_id'];    
+    protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type', 'guide_id', 'office'];    
 
     protected $appends = ['thumbnail'];
     
@@ -26,7 +26,7 @@ class File extends Model
         if(!$link)
             return false;
         $info = pathinfo($link);
-        $ext = $info['extension'];
+        $ext = isset($info['extension']) ? $info['extension'] : '';
         $arrayExt = self::$extPic ;
         $thumbnail = []; 
         if(in_array($ext, $arrayExt))
@@ -57,12 +57,12 @@ class File extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+/*
     public function product()
     {
        return $this->belongsTo(Product::class)->select('id', 'guide_id');
     }
-
+*/
     public function guide()
     {
        return $this->belongsTo(Guide::class)->select('id', 'number');
@@ -96,7 +96,7 @@ class File extends Model
     public function scopeOffice($query, $office_id)
     {
         return $query->whereHas('user.office', function($queryb)  use ($office_id){
-            $queryb->where('id', $office_id);
+            $queryb->where('office', $office_id);
         });
     }
 

@@ -18,7 +18,10 @@ class UserRepository
         if(!empty($payload['office'])){
             $office = Office::firstOrCreate(['name' => $payload['office']]);
             $payload['office_id'] = $office->id;
-        }        
+        }
+        else{
+            $payload['office_id'] = null;
+        }
        
         User::updateOrCreate(['id' => $payload['id']],$payload);
     }

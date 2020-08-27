@@ -140,8 +140,9 @@ export default {
       if (newFile == false) fileStore.actionNew = 0;
       let result = createFile().then((result) => {
         if(newFile == true)
-          this.$emit('reset-search');
-        this.$refs.closeModal.click();
+          this.$emit('reset-search');        
+        if(result)
+          this.$refs.closeModal.click();
       });
     },
     setDeleteId(){

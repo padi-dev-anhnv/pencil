@@ -32,13 +32,13 @@ class FileController extends Controller
     public function create(UploadFile $request)
     {
         // upload file
-        if(empty($request->id)){
+        if(empty($request->id) || $request->fileUpload){
             $file_upload = $this->upload($request);
             foreach($file_upload as $key => $file)
             {
                 $request->request->set($key,$file);
             }
-        }        
+        }
         $file = $this->fileRepo->create($request->all());
         return response()->json($file);
     }

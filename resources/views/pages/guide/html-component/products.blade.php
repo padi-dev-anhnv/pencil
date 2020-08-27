@@ -23,6 +23,7 @@
 			$final_insc_work = $product['work'];
 			$final_insc_typeface = $product['typeface'];
 			$final_font_size = $product['font_size'] == "0" ? "一任" : $product['font_size'];
+			$final_printing_color = implode(" ", $product['printing_color']);
 			$final_photo = "pdf/images/pen_temp-0".$product['pattern_type'].".svg";
 			@endphp
 			@if($product['name'])
@@ -104,7 +105,7 @@
 							<li class="tr">
 								<ul class="thtd">
 									<li class="th">印刷色</li>
-									<li class="td"></li>
+									<li class="td">{{ $final_printing_color }} </li>
 								</ul>
 							</li>
 						</ul>

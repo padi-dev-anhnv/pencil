@@ -33,7 +33,7 @@
                 </label>
                 <select v-model="search.office.value">
                   <option value>選択してください</option>
-                  <option v-for="office in search.offices" :value="office.id" :key="office.id">{{ office.name }}</option>
+                  <option v-for="office in search.offices" :value="office.name" :key="office.id">{{ office.name }}</option>
                 </select>
               </li>
               <li>

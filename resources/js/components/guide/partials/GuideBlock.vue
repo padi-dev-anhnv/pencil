@@ -46,9 +46,9 @@
         <li class="sec">
             <h3 class="formctttl">営業所名</h3>
             <div class="formctbox">
-                <input v-if="creator.office" type="text" name="" v-model="creator.office.name"  disabled class="w15" />
-                <input v-else type="text" name="" disabled class="w15" />
-                <!-- <input type="text" name="" v-model="guide.office" class="w15" /> -->
+                <!-- <input v-if="creator.office" type="text" name="" v-model="creator.office.name"  disabled class="w15" />
+                <input v-else type="text" name="" disabled class="w15" /> -->
+                <input type="text" name="" v-model="guideOffice" class="w15" disabled />
             </div>
         </li>
         <li class="sec">
@@ -130,6 +130,18 @@ export default {
         },
         dupplicate(){
             return guideStore.dupplicate
+        },
+        guideOffice(){
+            if(['new', 'dupplicate'].includes(guideStore.action))
+                return guideStore.creator.office;
+            else 
+                return guideStore.guide.office;
+        },
+        guideAuthor(){
+            if(['new', 'dupplicate'].includes(guideStore.action))
+                return guideStore.creator.name;
+            else 
+                return guideStore.guide.creator.name;
         }
     },
     created(){

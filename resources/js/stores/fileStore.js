@@ -12,7 +12,6 @@ const state = Vue.observable({
     file: {
         office: "",
         user: "",
-        // number: "",
         name: "",
         link: "",
         thumbnail: "",
@@ -22,7 +21,8 @@ const state = Vue.observable({
         material: "office",
         id: 0 , 
         guideNumber : "",
-        fileUpload : null
+        guideId : 0,
+        fileUpload : ""
     },
     listFiles : [],
     actionNew: 0,
@@ -38,9 +38,10 @@ export const openEditModal = id => {
     setDefaultFile();
     axios("/file/" + id + "/show").then(result => {
         for (var key in state.file) {
-            state.file[key] = result.data[key];
+            state.file[key] = result.data[key] ? result.data[key] : "" ;
         }
         state.file.guideNumber = result.data.guide.number;
+        state.file.guideId = result.data.guide.id;
     });
 };
 
@@ -154,7 +155,10 @@ export const createFile = async () =>{
             }
             
             return result;
-        });
+        }).catch(err => {
+            alert(err.response.data.message)
+        })
+        ;
 
 }
 

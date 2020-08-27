@@ -70,7 +70,8 @@ class GuideRepository
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
         $request['guide']['user_id'] = $author_office['user_id'];
         // if($author_office['office_id'])
-        $request['guide']['office_id'] = $author_office['office_id'];
+        // $request['guide']['office_id'] = $author_office['office_id'];
+        $request['guide']['office'] = $author_office['office'];
         $products = $request['products'];
         $guideRequest = $request['guide'];
         $deliveryRequest = $request['delivery'];
@@ -115,13 +116,13 @@ class GuideRepository
         $result = [];
         if(auth()->user()->role->type == 'admin' && isset($guide['user_id']) && $doDupplicate != true){
             $result['user_id'] = $guide['user_id'];
-            $result['office_id'] = $guide['office_id'];
+            $result['office'] = $guide['office'];
         }            
         else{
             $result['user_id'] = auth()->user()->id;
-            $result['office_id'] = null;
+            $result['office'] = null;
             if(auth()->user()->office)
-                $result['office_id'] = auth()->user()->office->id;
+                $result['office'] = auth()->user()->office->name;
         }
                   
         return $result;
@@ -272,7 +273,7 @@ class GuideRepository
         }
         $sortArray = json_decode($request['sort'], true);
         $query->sortArray($sortArray);
-        $guides = $query->with('delivery', 'supplier', 'office')->paginate($request['ppp']);
+        $guides = $query->with('delivery', 'supplier')->paginate($request['ppp']);
         return $guides;
     }
 

@@ -1952,11 +1952,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     doDelete: function doDelete() {
       Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["doDelete"])();
+    }
+  },
+  computed: {
+    fileName: function fileName() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].file.name;
+    },
+    canDelete: function canDelete() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].file.guideId == 0;
     }
   }
 });
@@ -2128,8 +2139,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (newFile == false) _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].actionNew = 0;
                 result = Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["createFile"])().then(function (result) {
                   if (newFile == true) _this.$emit('reset-search');
-
-                  _this.$refs.closeModal.click();
+                  if (result) _this.$refs.closeModal.click();
                 });
 
               case 3:
@@ -3605,7 +3615,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3970,6 +3979,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     dupplicate: function dupplicate() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].dupplicate;
+    },
+    guideOffice: function guideOffice() {
+      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
+    },
+    guideAuthor: function guideAuthor() {
+      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
     }
   },
   created: function created() {
@@ -42497,30 +42512,44 @@ var render = function() {
             [_vm._v("×")]
           ),
           _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "popup_ctt" }, [
-            _c("form", [
-              _c("p", { staticClass: "popup_txt" }, [
-                _vm._v("本当に削除してもいいですか？")
-              ]),
+          _c("header", { staticClass: "popup_header delete_hd" }, [
+            _c("div", { staticClass: "ph_inner" }, [
+              _c("h3", { staticClass: "popup_ttl" }, [_vm._v("削除")]),
               _vm._v(" "),
-              _c("ul", { staticClass: "btn_box btn2box" }, [
-                _c("li", [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "mainbtn",
-                      attrs: { for: "popup_cancel" },
-                      on: { click: _vm.doDelete }
-                    },
-                    [_vm._v("はい")]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(1)
+              _c("p", { staticClass: "popup_dscrpt" }, [
+                _vm._v(_vm._s(_vm.fileName))
               ])
             ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "popup_ctt" }, [
+            _vm.canDelete
+              ? _c("form", [
+                  _c("p", { staticClass: "popup_txt" }, [
+                    _vm._v("本当に削除してもいいですか？")
+                  ]),
+                  _vm._v(" "),
+                  _c("ul", { staticClass: "btn_box btn2box" }, [
+                    _c("li", [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "mainbtn",
+                          attrs: { for: "popup_cancel" },
+                          on: { click: _vm.doDelete }
+                        },
+                        [_vm._v("はい")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                ])
+              : _c("form", [
+                  _c("p", { staticClass: "popup_txt" }, [
+                    _vm._v("指図書に連携していますので、削除できません！")
+                  ])
+                ])
           ])
         ])
       ])
@@ -42528,20 +42557,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "popup_header delete_hd" }, [
-      _c("div", { staticClass: "ph_inner" }, [
-        _c("h3", { staticClass: "popup_ttl" }, [_vm._v("削除")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "popup_dscrpt" }, [
-          _vm._v("春日市東中学校ボールペン完成版")
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -43163,7 +43178,7 @@ var render = function() {
                       _vm._l(_vm.listOffice, function(office) {
                         return _c(
                           "option",
-                          { key: office.id, domProps: { value: office.id } },
+                          { key: office.id, domProps: { value: office.name } },
                           [_vm._v(_vm._s(office.name))]
                         )
                       })
@@ -44678,7 +44693,7 @@ var render = function() {
                       _vm._l(_vm.search.offices, function(office) {
                         return _c(
                           "option",
-                          { key: office.id, domProps: { value: office.id } },
+                          { key: office.id, domProps: { value: office.name } },
                           [_vm._v(_vm._s(office.name))]
                         )
                       })
@@ -45467,9 +45482,7 @@ var render = function() {
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.title))]),
       _vm._v(" "),
-      _vm.guide.office
-        ? _c("li", [_vm._v(_vm._s(_vm.guide.office.name))])
-        : _c("li"),
+      _c("li", [_vm._v(_vm._s(_vm.guide.office))]),
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.creator.name))]),
       _vm._v(" "),
@@ -46339,32 +46352,27 @@ var render = function() {
       _c("h3", { staticClass: "formctttl" }, [_vm._v("営業所名")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
-        _vm.creator.office
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.creator.office.name,
-                  expression: "creator.office.name"
-                }
-              ],
-              staticClass: "w15",
-              attrs: { type: "text", name: "", disabled: "" },
-              domProps: { value: _vm.creator.office.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.creator.office, "name", $event.target.value)
-                }
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.guideOffice,
+              expression: "guideOffice"
+            }
+          ],
+          staticClass: "w15",
+          attrs: { type: "text", name: "", disabled: "" },
+          domProps: { value: _vm.guideOffice },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            })
-          : _c("input", {
-              staticClass: "w15",
-              attrs: { type: "text", name: "", disabled: "" }
-            })
+              _vm.guideOffice = $event.target.value
+            }
+          }
+        })
       ])
     ]),
     _vm._v(" "),
@@ -64564,7 +64572,6 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   file: {
     office: "",
     user: "",
-    // number: "",
     name: "",
     link: "",
     thumbnail: "",
@@ -64574,7 +64581,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
     material: "office",
     id: 0,
     guideNumber: "",
-    fileUpload: null
+    guideId: 0,
+    fileUpload: ""
   },
   listFiles: [],
   actionNew: 0,
@@ -64588,10 +64596,11 @@ var openEditModal = function openEditModal(id) {
   setDefaultFile();
   axios("/file/" + id + "/show").then(function (result) {
     for (var key in state.file) {
-      state.file[key] = result.data[key];
+      state.file[key] = result.data[key] ? result.data[key] : "";
     }
 
     state.file.guideNumber = result.data.guide.number;
+    state.file.guideId = result.data.guide.id;
   });
 };
 var openAddModal = function openAddModal(user) {
@@ -64722,6 +64731,8 @@ var createFile = /*#__PURE__*/function () {
               }
 
               return result;
+            })["catch"](function (err) {
+              alert(err.response.data.message);
             }));
 
           case 3:
@@ -64879,7 +64890,6 @@ var getGuideInfo = /*#__PURE__*/function () {
           case 0:
             _context.next = 2;
             return axios.get('/guide/' + id + '/get-guide').then(function (result) {
-              console.log(result);
               state.guide = result.data.data.guide;
               state.delivery = result.data.data.delivery;
               state.packaging = result.data.data.packaging;
@@ -64914,6 +64924,13 @@ var getGuideInfo = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+/*
+let setAuthorOffice = () => {
+    if(state.action == 'new' || state.action == 'dupplicate'){
+        
+    }
+}
+*/
 
 var productToGuide = function productToGuide(products, files) {
   products.forEach(function (prod) {

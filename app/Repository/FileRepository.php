@@ -31,14 +31,19 @@ class FileRepository
     public function show($id)
     {
         $file = $this->file::with('user.office', 'guide')->findOrFail($id);
-        $file->office = !empty($file->user->office) ? $file->user->office->name : '';
+        // $file->office = !empty($file->user->office) ? $file->user->office->name : '';
         $file_user = $file->user->name;
         unset($file->user);
+        if($file->guide){
+            $file->number_guide = $file->guide->number;
+        }
+        /*
         if($file->product){
             $file->number_guide = $file->guide->number;
             unset($file->product);
         }
-            
+            */
+            // dd($file);
         $file->user = $file_user;
         return response()->json($file);
     }
@@ -52,8 +57,12 @@ class FileRepository
                 return ['success' => false];
         }      
         */
-        if(empty($request['id']))
-            $request['user_id'] = auth()->user()->id;            
+
+        if(empty($request['id'])){
+            $request['user_id'] = auth()->user()->id;  
+            $request['office'] = auth()->user()->office ? auth()->user()->office->name : '' ;
+        }
+                      
         $file = $this->file::updateOrCreate(['id' =>$request['id']],$request);
         return $file;
     }

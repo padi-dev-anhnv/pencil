@@ -39,7 +39,6 @@ const state = Vue.observable({
 
 export const getGuideInfo = async (id) => {
     await axios.get('/guide/' + id + '/get-guide').then(result => {
-        console.log(result)
         state.guide = result.data.data.guide;
         state.delivery = result.data.data.delivery;
         state.packaging = result.data.data.packaging;
@@ -61,6 +60,13 @@ export const getGuideInfo = async (id) => {
         productToGuide(result.data.data.products, result.data.data.files);
     })
 }
+/*
+let setAuthorOffice = () => {
+    if(state.action == 'new' || state.action == 'dupplicate'){
+        
+    }
+}
+*/
 
 let productToGuide = (products, files) => {
     products.forEach(prod => {
