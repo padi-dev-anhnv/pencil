@@ -44986,7 +44986,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _c("span", [_vm._v("発注日")])
+                    _c("span", [_vm._v("作成日時")])
                   ]),
                   _vm._v(" "),
                   _c("label", { staticClass: "dateset" }, [
@@ -45639,7 +45639,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("form", [
-    _c("label", [_vm._v("発注日")]),
+    _c("label", [_vm._v("作成日時")]),
     _vm._v(" "),
     _c(
       "select",

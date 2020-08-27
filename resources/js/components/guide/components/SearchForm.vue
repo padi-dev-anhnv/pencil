@@ -87,7 +87,7 @@
                   >
                     <polyline class="cls-1" points="3.08 10.81 21.13 27.73 46.74 3.25" />
                   </svg>
-                  <span>発注日</span>
+                  <span>作成日時</span>
                 </label>
                 <label class="dateset">
                   <input type="date"  v-model="search.orderDate.from" />

@@ -1,6 +1,6 @@
 <template>
   <form>
-    <label>発注日</label>
+    <label>作成日時</label>
     <select v-model="sort.orderDate">
       <option value="">選択してください</option>
       <option value="desc">新しい順</option>
