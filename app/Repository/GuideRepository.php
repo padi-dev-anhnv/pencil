@@ -34,11 +34,12 @@ class GuideRepository
 
     public function get($id, $type = 'id')
     {
+            
         if($type == 'id')
             $guide = Guide::findOrFail($id)->makeHidden(['first_product']);
         else
             $guide = Guide::where($type, $id)->firstOrFail()->makeHidden(['first_product']);
-
+        
         $delivery = $guide->delivery()->first();
         $packaging = $guide->packaging()->first();
         $procedure = $guide->procedure()->first();

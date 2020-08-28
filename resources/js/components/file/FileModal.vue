@@ -16,7 +16,8 @@
             <h3 class="popup_ttl">編集・ダウンロード</h3>
           </div>
         </header>
-        <div class="popup_ctt">
+         <div v-if="opening" style="text-align : center; padding : 15px 0px"><div class="lds-dual-ring black small"></div>  </div>
+        <div v-else class="popup_ctt">
           <div class="popup_cttinner">
             <ul class="form-list">
               <li class="fli">
@@ -63,6 +64,7 @@
                       name="fileUpload"
                       ref="file"
                       @change="onFileChange"
+                      :accept="fileExt"
                     />
                   </div>
                 </div>
@@ -91,14 +93,20 @@
               </div>
             </div>
             <ul class="btn_box" v-if="actionNew">
-              <label class="mainbtn" @click="updateFile(true)" style="width: 20em">保存</label>
+              <span v-if="updating" class="lds-dual-ring"></span>
+              <label v-else class="mainbtn" @click="updateFile(true)" style="width: 20em">保存</label>
             </ul>
             <ul class="btn_box btn3box" v-else>
               <li>
                 <a class="mainbtn dlbtn" :href="'file/' + this.file.id + '/download'">ファイルダウンロード</a>
               </li>
               <li>
-                <label class="mainbtn mainbtn2" @click="updateFile">編集して保存</label>
+                <span v-if="updating" class="lds-dual-ring"></span>
+                <label v-else class="mainbtn mainbtn2" @click="updateFile">
+                  
+                  <span>編集して保存</span>
+                  
+                  </label>
               </li>
               <li>
                 <label for="popup_deletefile" class="mainbtn subbtn" @click="setDeleteId">削除</label>
@@ -113,7 +121,7 @@
 
 <script>
 import fileStore, { setSelectedId, createFile, setDeleteId, deleteAttach } from "../../stores/fileStore";
-
+import constFileExt from "../../stores/constFileExt";
 export default {
   methods: {
     uploadFile() {
@@ -163,6 +171,16 @@ export default {
       if (this.file.link.length != 0) return false;
       return true;
     },
+    updating(){
+      return fileStore.updating;
+    },
+    opening(){
+      return fileStore.opening;
+    },
+    fileExt(){
+      let ext = constFileExt.map(fileExt => "." + fileExt);
+      return ext.join(",")
+    }
   },
   mounted(){
     let dropArea = document.getElementById('drop-area')
@@ -174,7 +192,10 @@ export default {
       this.dragging = false;
     } 
     dropArea.ondrop = (evt) => {
-      this.setFileUpload(evt.dataTransfer.files[0])
+      let fileName = evt.dataTransfer.files[0].name;
+      let fileExtension = fileName.replace(/^.*\./, '');
+      if(constFileExt.includes(fileExtension))
+        this.setFileUpload(evt.dataTransfer.files[0])
       evt.preventDefault();
     };
 

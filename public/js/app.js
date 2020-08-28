@@ -1920,7 +1920,16 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
 //
 //
 //
@@ -1959,15 +1968,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     doDelete: function doDelete() {
-      Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["doDelete"])();
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["doDelete"])();
+
+              case 2:
+                _this.$refs.closeModal.click();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   },
   computed: {
     fileName: function fileName() {
-      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].file.name;
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].file.name;
     },
     canDelete: function canDelete() {
-      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].file.guideId == 0;
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].file.guideId == 0;
+    },
+    deleting: function deleting() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].deleting;
     }
   }
 });
@@ -1986,6 +2017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../stores/constFileExt */ "./resources/js/stores/constFileExt.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2105,6 +2137,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
@@ -2167,6 +2208,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     showUpload: function showUpload() {
       if (this.file.link.length != 0) return false;
       return true;
+    },
+    updating: function updating() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].updating;
+    },
+    opening: function opening() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].opening;
+    },
+    fileExt: function fileExt() {
+      var ext = _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].map(function (fileExt) {
+        return "." + fileExt;
+      });
+      return ext.join(",");
     }
   },
   mounted: function mounted() {
@@ -2184,8 +2237,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
 
     dropArea.ondrop = function (evt) {
-      _this2.setFileUpload(evt.dataTransfer.files[0]);
-
+      var fileName = evt.dataTransfer.files[0].name;
+      var fileExtension = fileName.replace(/^.*\./, '');
+      if (_stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].includes(fileExtension)) _this2.setFileUpload(evt.dataTransfer.files[0]);
       evt.preventDefault();
     };
   }
@@ -2203,6 +2257,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+//
 //
 //
 //
@@ -2586,6 +2641,9 @@ __webpack_require__.r(__webpack_exports__);
         _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].currentPage = 1;
         this.doSearchFile();
       }
+    },
+    searching: function searching() {
+      return _stores_fileStore__WEBPACK_IMPORTED_MODULE_0__["default"].searching;
     }
   },
   methods: {
@@ -2745,6 +2803,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id', 'action', 'creator', 'clone_id', 'user'],
@@ -2758,6 +2819,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     editBtn: function editBtn() {
       if (this.action == 'edit' && this.user.id != this.creatorGuide.id && this.user.role.type != 'admin') return false;
       return true;
+    },
+    loading: function loading() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].loading;
     }
   },
   methods: {
@@ -2921,8 +2985,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
 
     dropArea.ondrop = function (evt) {
-      _this2.setFileUpload(evt.dataTransfer.files[0], _this2.index, _this2.i);
-
+      var fileName = evt.dataTransfer.files[0].name;
+      var fileExtension = fileName.replace(/^.*\./, '');
+      if (_stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].includes(fileExtension)) _this2.setFileUpload(evt.dataTransfer.files[0], _this2.index, _this2.i);
       evt.preventDefault();
     };
   }
@@ -3005,10 +3070,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["editable"],
   computed: {
+    loading: function loading() {
+      return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].loading;
+    },
     guides: function guides() {
       return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guides;
     },
@@ -3723,8 +3793,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
+/* harmony import */ var _stores_constVar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constVar */ "./resources/js/stores/constVar.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -3818,20 +3900,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      chk: _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk
+      chk: _stores_constVar__WEBPACK_IMPORTED_MODULE_2__["default"].chk,
+      loadingDest: false,
+      loadingPostal: false
     };
   },
   computed: {
     delivery: function delivery() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].delivery;
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].delivery;
     },
     listCity: function listCity() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].city;
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].city;
     }
   },
   methods: {
     findCustomer: function findCustomer(type, code) {
-      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["findCustomer"])(type, code);
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (type == 'destination_code') _this.loadingDest = true;
+                if (type == 'postal_code') _this.loadingPostal = true;
+                _context.next = 4;
+                return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["findCustomer"])(type, code);
+
+              case 4:
+                _this.loadingDest = _this.loadingPostal = false;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -5461,24 +5566,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: [],
       deleteId: 0,
-      page: 1
+      page: 1,
+      loading: false
     };
   },
   methods: {
     loadUser: function loadUser() {
       var _this = this;
 
+      this.loading = true;
       axios("/user/get-list", {
         params: {
           page: this.page
         }
       }).then(function (result) {
+        _this.loading = false;
         _this.users = result.data.data;
+      })["catch"](function (err) {
+        _this.loading = false;
       });
     },
     confirmDelete: function confirmDelete(user) {
@@ -42508,7 +42621,11 @@ var render = function() {
         _c("article", { staticClass: "popup_box" }, [
           _c(
             "label",
-            { staticClass: "popup_closebtn", attrs: { for: "popup_cancel" } },
+            {
+              ref: "closeModal",
+              staticClass: "popup_closebtn",
+              attrs: { for: "popup_cancel" }
+            },
             [_vm._v("×")]
           ),
           _vm._v(" "),
@@ -42531,15 +42648,17 @@ var render = function() {
                   _vm._v(" "),
                   _c("ul", { staticClass: "btn_box btn2box" }, [
                     _c("li", [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mainbtn",
-                          attrs: { for: "popup_cancel" },
-                          on: { click: _vm.doDelete }
-                        },
-                        [_vm._v("はい")]
-                      )
+                      _vm.deleting
+                        ? _c("span", { staticClass: "lds-dual-ring" })
+                        : _c(
+                            "label",
+                            {
+                              staticClass: "mainbtn",
+                              attrs: { for: "popup_cancel" },
+                              on: { click: _vm.doDelete }
+                            },
+                            [_vm._v("はい")]
+                          )
                     ]),
                     _vm._v(" "),
                     _vm._m(0)
@@ -42621,387 +42740,413 @@ var render = function() {
               ])
             : _c("header", { staticClass: "popup_header" }, [_vm._m(1)]),
           _vm._v(" "),
-          _c("div", { staticClass: "popup_ctt" }, [
-            _c("div", { staticClass: "popup_cttinner" }, [
-              _c("ul", { staticClass: "form-list" }, [
-                _c("li", { staticClass: "fli" }, [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("氏名")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.file.user,
-                          expression: "file.user"
-                        }
-                      ],
-                      staticClass: "w20",
-                      attrs: { type: "text", name: "", disabled: "" },
-                      domProps: { value: _vm.file.user },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.file, "user", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [_vm._v("営業所")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.file.office,
-                          expression: "file.office"
-                        }
-                      ],
-                      staticClass: "w20",
-                      attrs: { type: "text", name: "", disabled: "" },
-                      domProps: { value: _vm.file.office },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.file, "office", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.file.material == "guide",
-                          expression: "file.material == 'guide'"
-                        }
-                      ]
-                    },
-                    [_vm._v("指図書No." + _vm._s(_vm.file.guideNumber))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "fli" }, [
-                  _c("label", { staticClass: "before" }, [
-                    _c("span", { staticClass: "labeltxt" }, [
-                      _vm._v("ファイル名（タイトル名）")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.file.name,
-                          expression: "file.name"
-                        }
-                      ],
-                      staticClass: "w30",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.file.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.file, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.file.material != "guide",
-                          expression: "file.material != 'guide'"
-                        }
-                      ],
-                      staticClass: "after radioset"
-                    },
-                    [
-                      _c("span", { staticClass: "radioarea" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.file.material,
-                              expression: "file.material"
-                            }
-                          ],
-                          attrs: {
-                            type: "radio",
-                            name: "doctypen",
-                            value: "office"
-                          },
-                          domProps: {
-                            checked: _vm._q(_vm.file.material, "office")
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.file, "material", "office")
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "labeltxt" }, [
-                        _vm._v("本社資料")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.file.material != "guide",
-                          expression: "file.material != 'guide'"
-                        }
-                      ],
-                      staticClass: "after radioset"
-                    },
-                    [
-                      _c("span", { staticClass: "radioarea" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.file.material,
-                              expression: "file.material"
-                            }
-                          ],
-                          attrs: {
-                            type: "radio",
-                            name: "doctypen",
-                            value: "other"
-                          },
-                          domProps: {
-                            checked: _vm._q(_vm.file.material, "other")
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.file, "material", "other")
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "labeltxt" }, [
-                        _vm._v("その他資料")
-                      ])
-                    ]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "flexb" }, [
-                _c(
-                  "div",
-                  { staticClass: "fileimg", attrs: { id: "drop-area" } },
-                  [
-                    _vm.showUpload
-                      ? _c("div", { staticClass: "selectfile" }, [
-                          _c("div", { staticClass: "dropfile" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "mainbtn ulbtn",
-                                on: { click: _vm.uploadFile }
-                              },
-                              [_vm._v("ファイルを選択してください")]
-                            ),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "ファイルをドロップしてアップロードできます"
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              ref: "file",
-                              staticStyle: { display: "none" },
-                              attrs: { type: "file", name: "fileUpload" },
-                              on: { change: _vm.onFileChange }
-                            })
-                          ])
-                        ])
-                      : _c("div", { staticClass: "uploadimg" }, [
-                          _c("img", {
-                            attrs: {
-                              src: _vm.file.thumbnail,
-                              width: "1740",
-                              height: "1445",
-                              alt: ""
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "deletebtn",
-                              on: { click: _vm.deleteAttach }
-                            },
-                            [_c("span", [_vm._v("削除")])]
-                          )
-                        ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "filetxt" }, [
+          _vm.opening
+            ? _c(
+                "div",
+                {
+                  staticStyle: { "text-align": "center", padding: "15px 0px" }
+                },
+                [_c("div", { staticClass: "lds-dual-ring black small" })]
+              )
+            : _c("div", { staticClass: "popup_ctt" }, [
+                _c("div", { staticClass: "popup_cttinner" }, [
                   _c("ul", { staticClass: "form-list" }, [
                     _c("li", { staticClass: "fli" }, [
-                      _vm._v(
-                        "\n                  ファイル説明文\n                  "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.file.description,
-                            expression: "file.description"
-                          }
-                        ],
-                        staticClass: "h3",
-                        domProps: { value: _vm.file.description },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c("label", { staticClass: "before" }, [
+                        _c("span", { staticClass: "labeltxt" }, [
+                          _vm._v("氏名")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.file.user,
+                              expression: "file.user"
                             }
-                            _vm.$set(
-                              _vm.file,
-                              "description",
-                              $event.target.value
-                            )
+                          ],
+                          staticClass: "w20",
+                          attrs: { type: "text", name: "", disabled: "" },
+                          domProps: { value: _vm.file.user },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.file, "user", $event.target.value)
+                            }
                           }
-                        }
-                      })
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "before" }, [
+                        _c("span", { staticClass: "labeltxt" }, [
+                          _vm._v("営業所")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.file.office,
+                              expression: "file.office"
+                            }
+                          ],
+                          staticClass: "w20",
+                          attrs: { type: "text", name: "", disabled: "" },
+                          domProps: { value: _vm.file.office },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.file, "office", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.file.material == "guide",
+                              expression: "file.material == 'guide'"
+                            }
+                          ]
+                        },
+                        [_vm._v("指図書No." + _vm._s(_vm.file.guideNumber))]
+                      )
                     ]),
                     _vm._v(" "),
                     _c("li", { staticClass: "fli" }, [
-                      _vm._v(
-                        "\n                  タグ付け\n                  "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.file.tags,
-                            expression: "file.tags"
-                          }
-                        ],
-                        staticClass: "h3",
-                        domProps: { value: _vm.file.tags },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c("label", { staticClass: "before" }, [
+                        _c("span", { staticClass: "labeltxt" }, [
+                          _vm._v("ファイル名（タイトル名）")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.file.name,
+                              expression: "file.name"
                             }
-                            _vm.$set(_vm.file, "tags", $event.target.value)
+                          ],
+                          staticClass: "w30",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.file.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.file, "name", $event.target.value)
+                            }
                           }
-                        }
-                      })
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.file.material != "guide",
+                              expression: "file.material != 'guide'"
+                            }
+                          ],
+                          staticClass: "after radioset"
+                        },
+                        [
+                          _c("span", { staticClass: "radioarea" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.file.material,
+                                  expression: "file.material"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "doctypen",
+                                value: "office"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.file.material, "office")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(
+                                    _vm.file,
+                                    "material",
+                                    "office"
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "labeltxt" }, [
+                            _vm._v("本社資料")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.file.material != "guide",
+                              expression: "file.material != 'guide'"
+                            }
+                          ],
+                          staticClass: "after radioset"
+                        },
+                        [
+                          _c("span", { staticClass: "radioarea" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.file.material,
+                                  expression: "file.material"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "doctypen",
+                                value: "other"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.file.material, "other")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.file, "material", "other")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "labeltxt" }, [
+                            _vm._v("その他資料")
+                          ])
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      ref: "closeModal",
-                      staticClass: "mainbtn",
-                      staticStyle: { display: "none" },
-                      attrs: { for: "popup_cancel" }
-                    },
-                    [_vm._v("保存")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _vm.actionNew
-                ? _c("ul", { staticClass: "btn_box" }, [
+                  _c("div", { staticClass: "flexb" }, [
                     _c(
-                      "label",
-                      {
-                        staticClass: "mainbtn",
-                        staticStyle: { width: "20em" },
-                        on: {
-                          click: function($event) {
-                            return _vm.updateFile(true)
-                          }
-                        }
-                      },
-                      [_vm._v("保存")]
-                    )
-                  ])
-                : _c("ul", { staticClass: "btn_box btn3box" }, [
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "mainbtn dlbtn",
-                          attrs: { href: "file/" + this.file.id + "/download" }
-                        },
-                        [_vm._v("ファイルダウンロード")]
-                      )
-                    ]),
+                      "div",
+                      { staticClass: "fileimg", attrs: { id: "drop-area" } },
+                      [
+                        _vm.showUpload
+                          ? _c("div", { staticClass: "selectfile" }, [
+                              _c("div", { staticClass: "dropfile" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "mainbtn ulbtn",
+                                    on: { click: _vm.uploadFile }
+                                  },
+                                  [_vm._v("ファイルを選択してください")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "ファイルをドロップしてアップロードできます"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  ref: "file",
+                                  staticStyle: { display: "none" },
+                                  attrs: {
+                                    type: "file",
+                                    name: "fileUpload",
+                                    accept: _vm.fileExt
+                                  },
+                                  on: { change: _vm.onFileChange }
+                                })
+                              ])
+                            ])
+                          : _c("div", { staticClass: "uploadimg" }, [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.file.thumbnail,
+                                  width: "1740",
+                                  height: "1445",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "deletebtn",
+                                  on: { click: _vm.deleteAttach }
+                                },
+                                [_c("span", [_vm._v("削除")])]
+                              )
+                            ])
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("li", [
+                    _c("div", { staticClass: "filetxt" }, [
+                      _c("ul", { staticClass: "form-list" }, [
+                        _c("li", { staticClass: "fli" }, [
+                          _vm._v(
+                            "\n                  ファイル説明文\n                  "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.file.description,
+                                expression: "file.description"
+                              }
+                            ],
+                            staticClass: "h3",
+                            domProps: { value: _vm.file.description },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.file,
+                                  "description",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "fli" }, [
+                          _vm._v(
+                            "\n                  タグ付け\n                  "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.file.tags,
+                                expression: "file.tags"
+                              }
+                            ],
+                            staticClass: "h3",
+                            domProps: { value: _vm.file.tags },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.file, "tags", $event.target.value)
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
-                          staticClass: "mainbtn mainbtn2",
-                          on: { click: _vm.updateFile }
+                          ref: "closeModal",
+                          staticClass: "mainbtn",
+                          staticStyle: { display: "none" },
+                          attrs: { for: "popup_cancel" }
                         },
-                        [_vm._v("編集して保存")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mainbtn subbtn",
-                          attrs: { for: "popup_deletefile" },
-                          on: { click: _vm.setDeleteId }
-                        },
-                        [_vm._v("削除")]
+                        [_vm._v("保存")]
                       )
                     ])
-                  ])
-            ])
-          ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.actionNew
+                    ? _c("ul", { staticClass: "btn_box" }, [
+                        _vm.updating
+                          ? _c("span", { staticClass: "lds-dual-ring" })
+                          : _c(
+                              "label",
+                              {
+                                staticClass: "mainbtn",
+                                staticStyle: { width: "20em" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.updateFile(true)
+                                  }
+                                }
+                              },
+                              [_vm._v("保存")]
+                            )
+                      ])
+                    : _c("ul", { staticClass: "btn_box btn3box" }, [
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "mainbtn dlbtn",
+                              attrs: {
+                                href: "file/" + this.file.id + "/download"
+                              }
+                            },
+                            [_vm._v("ファイルダウンロード")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _vm.updating
+                            ? _c("span", { staticClass: "lds-dual-ring" })
+                            : _c(
+                                "label",
+                                {
+                                  staticClass: "mainbtn mainbtn2",
+                                  on: { click: _vm.updateFile }
+                                },
+                                [_c("span", [_vm._v("編集して保存")])]
+                              )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "mainbtn subbtn",
+                              attrs: { for: "popup_deletefile" },
+                              on: { click: _vm.setDeleteId }
+                            },
+                            [_vm._v("削除")]
+                          )
+                        ])
+                      ])
+                ])
+              ])
         ])
       ])
     ]
@@ -43855,53 +44000,61 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "sec", attrs: { id: "file-list" } }, [
-          _c(
-            "ul",
-            { staticClass: "flex" },
-            _vm._l(_vm.files, function(file) {
-              return _c("li", { key: file.id }, [
-                _c("div", { staticClass: "upld_date" }, [
-                  _vm._v(_vm._s(file.created_at))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "thumb", attrs: { for: "popup_imgdtl" } },
-                  [
+          _vm.searching
+            ? _c(
+                "div",
+                {
+                  staticStyle: { "text-align": "center", padding: "15px 0px" }
+                },
+                [_c("div", { staticClass: "lds-dual-ring" })]
+              )
+            : _c(
+                "ul",
+                { staticClass: "flex" },
+                _vm._l(_vm.files, function(file) {
+                  return _c("li", { key: file.id }, [
+                    _c("div", { staticClass: "upld_date" }, [
+                      _vm._v(_vm._s(file.created_at))
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "label",
-                      {
-                        staticClass: "imgbox",
-                        attrs: { for: "popup_editfile" },
-                        on: {
-                          click: function($event) {
-                            return _vm.openEditModal(file.id)
-                          }
-                        }
-                      },
+                      "div",
+                      { staticClass: "thumb", attrs: { for: "popup_imgdtl" } },
                       [
-                        _c("img", {
-                          attrs: {
-                            src: file.thumbnail,
-                            width: "500",
-                            height: "829",
-                            alt: "イメージ"
-                          }
-                        })
+                        _c(
+                          "label",
+                          {
+                            staticClass: "imgbox",
+                            attrs: { for: "popup_editfile" },
+                            on: {
+                              click: function($event) {
+                                return _vm.openEditModal(file.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: file.thumbnail,
+                                width: "500",
+                                height: "829",
+                                alt: "イメージ"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(0, true)
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(0, true)
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "file_ttl" }, [
-                  _vm._v(_vm._s(file.name))
-                ])
-              ])
-            }),
-            0
-          )
+                    _c("div", { staticClass: "file_ttl" }, [
+                      _vm._v(_vm._s(file.name))
+                    ])
+                  ])
+                }),
+                0
+              )
         ])
       ]),
       _vm._v(" "),
@@ -44013,19 +44166,21 @@ var render = function() {
           },
           [
             _c("footer", { staticClass: "list-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "mainbtn",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.createGuide($event)
-                    }
-                  }
-                },
-                [_vm._v("保存")]
-              )
+              _vm.loading
+                ? _c("span", { staticClass: "lds-dual-ring loader-light" })
+                : _c(
+                    "button",
+                    {
+                      staticClass: "mainbtn",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.createGuide($event)
+                        }
+                      }
+                    },
+                    [_c("span", [_vm._v("保存")])]
+                  )
             ])
           ]
         )
@@ -44247,16 +44402,24 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm._l(_vm.guides, function(guide) {
-            return _c("single-result", {
-              key: guide.id,
-              attrs: {
-                "data-id": guide.id,
-                guide: guide,
-                editable: _vm.editable
-              }
-            })
-          })
+          _vm.loading
+            ? _c(
+                "div",
+                {
+                  staticStyle: { "text-align": "center", padding: "15px 0px" }
+                },
+                [_c("div", { staticClass: "lds-dual-ring black small" })]
+              )
+            : _vm._l(_vm.guides, function(guide) {
+                return _c("single-result", {
+                  key: guide.id,
+                  attrs: {
+                    "data-id": guide.id,
+                    guide: guide,
+                    editable: _vm.editable
+                  }
+                })
+              })
         ],
         2
       )
@@ -45926,6 +46089,25 @@ var render = function() {
                     "\n                                送り先コードから自動入力\n                            "
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.loadingDest,
+                      expression: "loadingDest"
+                    }
+                  ]
+                },
+                [
+                  _c("span", {
+                    staticClass: "lds-dual-ring loader-dark loader-sm"
+                  })
+                ]
               )
             ])
           ]),
@@ -45973,6 +46155,25 @@ var render = function() {
                   _vm._v(
                     "\n                                郵便番号から自動入力\n                            "
                   )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.loadingPostal,
+                      expression: "loadingPostal"
+                    }
+                  ]
+                },
+                [
+                  _c("span", {
+                    staticClass: "lds-dual-ring loader-dark loader-sm"
+                  })
                 ]
               )
             ]),
@@ -49815,62 +50016,64 @@ var render = function() {
     _c("ul", { staticClass: "listtable" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "li",
-        _vm._l(_vm.users, function(user) {
-          return _c("ul", { key: user.username }, [
-            _c("li", [_vm._v(_vm._s(user.name))]),
-            _vm._v(" "),
-            _c("li", [_vm._v(_vm._s(user.role.name))]),
-            _vm._v(" "),
-            _c("li", [_vm._v(_vm._s(user.username))]),
-            _vm._v(" "),
-            _c(
-              "li",
-              [
-                user.office
-                  ? [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(user.office.name) +
-                          "\n                    "
-                      )
-                    ]
-                  : _vm._e()
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "button",
-                {
-                  staticClass: "editbtn",
-                  attrs: {
-                    onclick: "location.href='/user/" + user.id + "/edit'"
-                  }
-                },
-                [_c("span", [_vm._v("編集")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "deletebtn",
-                  attrs: { for: "popup_delete" },
-                  on: {
-                    click: function($event) {
-                      return _vm.confirmDelete(user)
-                    }
-                  }
-                },
-                [_c("span", [_vm._v("削除")])]
-              )
-            ])
-          ])
-        }),
-        0
-      )
+      _vm.loading
+        ? _c("li", [_vm._m(1)])
+        : _c(
+            "li",
+            _vm._l(_vm.users, function(user) {
+              return _c("ul", { key: user.username }, [
+                _c("li", [_vm._v(_vm._s(user.name))]),
+                _vm._v(" "),
+                _c("li", [_vm._v(_vm._s(user.role.name))]),
+                _vm._v(" "),
+                _c("li", [_vm._v(_vm._s(user.username))]),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    user.office
+                      ? [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(user.office.name) +
+                              "\n                    "
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "editbtn",
+                      attrs: {
+                        onclick: "location.href='/user/" + user.id + "/edit'"
+                      }
+                    },
+                    [_c("span", [_vm._v("編集")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "deletebtn",
+                      attrs: { for: "popup_delete" },
+                      on: {
+                        click: function($event) {
+                          return _vm.confirmDelete(user)
+                        }
+                      }
+                    },
+                    [_c("span", [_vm._v("削除")])]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "popup_wrap", attrs: { id: "pwrap_delete" } }, [
@@ -49918,7 +50121,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ])
             ])
           ])
@@ -49945,6 +50148,16 @@ var staticRenderFns = [
         _c("li", [_vm._v("操作")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticStyle: { "text-align": "center", padding: "15px 0px" } },
+      [_c("div", { staticClass: "lds-dual-ring" })]
+    )
   },
   function() {
     var _vm = this
@@ -64588,19 +64801,26 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   actionNew: 0,
   totalPage: 0,
   currentPage: 1,
-  ppp: 10
+  ppp: 10,
+  searching: false,
+  updating: false,
+  deleting: false,
+  opening: false
 });
 var openEditModal = function openEditModal(id) {
   state.actionNew = 0;
   state.selectedId = id;
   setDefaultFile();
+  state.opening = true;
   axios("/file/" + id + "/show").then(function (result) {
+    state.opening = false;
+
     for (var key in state.file) {
       state.file[key] = result.data[key] ? result.data[key] : "";
     }
 
-    state.file.guideNumber = result.data.guide.number;
-    state.file.guideId = result.data.guide.id;
+    state.file.guideNumber = result.data.guide ? result.data.guide.number : null;
+    state.file.guideId = result.data.guide ? result.data.guide.id : 0;
   });
 };
 var openAddModal = function openAddModal(user) {
@@ -64623,12 +64843,14 @@ export const setSelectedId = id => {
 */
 
 var doSearch = function doSearch(searchFilter) {
+  state.searching = true;
   searchFilter.page = state.currentPage;
   searchFilter.sort = state.sort;
   searchFilter.ppp = state.ppp;
   axios("/file/search", {
     params: searchFilter
   }).then(function (result) {
+    state.searching = false;
     state.listFiles = result.data.data;
     state.totalPage = result.data.total ? result.data.last_page : 0;
   });
@@ -64710,6 +64932,15 @@ var createFile = /*#__PURE__*/function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            if (!(state.updating == true)) {
+              _context2.next = 2;
+              break;
+            }
+
+            return _context2.abrupt("return", false);
+
+          case 2:
+            state.updating = true;
             formData = new FormData();
 
             for (key in state.file) {
@@ -64721,6 +64952,8 @@ var createFile = /*#__PURE__*/function () {
                 "Content-Type": "multipart/form-data"
               }
             }).then(function (result) {
+              state.updating = false;
+
               if (state.actionNew == 1) {
                 state.listFiles.unshift(result.data);
               } else {
@@ -64732,10 +64965,11 @@ var createFile = /*#__PURE__*/function () {
 
               return result;
             })["catch"](function (err) {
+              state.updating = false;
               alert(err.response.data.message);
             }));
 
-          case 3:
+          case 6:
           case "end":
             return _context2.stop();
         }
@@ -64784,18 +65018,49 @@ var createFileProduct = /*#__PURE__*/function () {
 var setDeleteId = function setDeleteId() {
   state.deleteId = state.selectedId;
 };
-var doDelete = function doDelete() {
-  axios.post('/file/delete', {
-    id: state.deleteId
-  }).then(function (result) {
-    if (result.data.success == true) {
-      var findex = state.listFiles.findIndex(function (file) {
-        return file.id == state.deleteId;
-      });
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](state.listFiles, findex);
-    }
-  });
-};
+var doDelete = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            if (!(state.deleting == true)) {
+              _context4.next = 2;
+              break;
+            }
+
+            return _context4.abrupt("return", false);
+
+          case 2:
+            state.deleting = true;
+            _context4.next = 5;
+            return axios.post('/file/delete', {
+              id: state.deleteId
+            }).then(function (result) {
+              state.deleting = false;
+
+              if (result.data.success == true) {
+                var findex = state.listFiles.findIndex(function (file) {
+                  return file.id == state.deleteId;
+                });
+                vue__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](state.listFiles, findex);
+              }
+            })["catch"](function (err) {
+              state.deleting = false;
+            });
+
+          case 5:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function doDelete() {
+    return _ref4.apply(this, arguments);
+  };
+}();
 var deleteAttach = function deleteAttach() {
   state.file.link = "";
 };
@@ -64910,6 +65175,8 @@ var getGuideInfo = /*#__PURE__*/function () {
               });
               state.procedure.materialArray = materialArray;
               productToGuide(result.data.data.products, result.data.data.files);
+            })["catch"](function (err) {
+              if (err.response.status == 404) window.location.href = "/guide";
             });
 
           case 2:
@@ -65311,23 +65578,44 @@ var countSubTotalState = function countSubTotalState(eleNumb, ele, typePrice, ty
 var countByEle = countByEleState;
 var countSubTotal = countSubTotalState; // const function 
 
-var findCustomer = function findCustomer() {
-  var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'destination_code';
-  var code = arguments.length > 1 ? arguments[1] : undefined;
-  axios.get('/guide/find-customer', {
-    params: {
-      type: type,
-      code: code
-    }
-  }).then(function (result) {
-    if (result.data.success == false) {} else {
-      var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
-      arrAddress.forEach(function (key) {
-        state.delivery[key] = result.data[key];
-      });
-    }
-  });
-};
+var findCustomer = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+    var type,
+        code,
+        _args8 = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            type = _args8.length > 0 && _args8[0] !== undefined ? _args8[0] : 'destination_code';
+            code = _args8.length > 1 ? _args8[1] : undefined;
+            _context8.next = 4;
+            return axios.get('/guide/find-customer', {
+              params: {
+                type: type,
+                code: code
+              }
+            }).then(function (result) {
+              if (result.data.success == false) {} else {
+                var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
+                arrAddress.forEach(function (key) {
+                  state.delivery[key] = result.data[key];
+                });
+              }
+            });
+
+          case 4:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function findCustomer() {
+    return _ref6.apply(this, arguments);
+  };
+}();
 /* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
@@ -65409,7 +65697,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_0___default.a.observable({
     number: 0
   },
   user: {},
-  disabledSearchWorker: false
+  disabledSearchWorker: false,
+  loading: false
 });
 var getOffices = function getOffices() {
   axios('/guide/offices').then(function (result) {
@@ -65456,10 +65745,11 @@ var doSearch = function doSearch() {
 };
 
 var postSearch = function postSearch(searchs) {
+  state.loading = true;
   axios('/guide/search', {
     params: searchs
   }).then(function (result) {
-    console.log(result.data);
+    state.loading = false;
     state.guides = result.data.data;
     state.totalPage = result.data.total ? result.data.last_page : 0;
   });

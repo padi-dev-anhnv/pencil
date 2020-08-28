@@ -82,7 +82,10 @@ export default {
       this.dragging = false;
     } 
     dropArea.ondrop = (evt) => {
-      this.setFileUpload(evt.dataTransfer.files[0], this.index, this.i)
+      let fileName = evt.dataTransfer.files[0].name;
+      let fileExtension = fileName.replace(/^.*\./, '');
+      if(constFileExt.includes(fileExtension))
+        this.setFileUpload(evt.dataTransfer.files[0], this.index, this.i)
       evt.preventDefault();
     };
 

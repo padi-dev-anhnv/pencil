@@ -50,7 +50,9 @@
                         <li>操作</li>
                     </ul>
                 </li>
-                <single-result v-for="guide in guides"
+                <div v-if="loading" style="text-align : center; padding : 15px 0px"><div class="lds-dual-ring black small"></div>  </div>
+                             
+                <single-result v-else v-for="guide in guides"
                         :key="guide.id"
                         :data-id="guide.id"
                         :guide="guide"
@@ -72,6 +74,9 @@ import listGuideStore, {
 export default {
     props: ["editable"],
     computed: {
+        loading(){
+            return listGuideStore.loading
+        },
         guides() {
             return listGuideStore.guides;
         },

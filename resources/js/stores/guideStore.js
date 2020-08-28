@@ -58,6 +58,9 @@ export const getGuideInfo = async (id) => {
         state.procedure.materialArray =  materialArray;
 
         productToGuide(result.data.data.products, result.data.data.files);
+    }).catch( err => {
+        if(err.response.status == 404)
+            window.location.href = "/guide";
     })
 }
 /*
@@ -316,8 +319,8 @@ export const countSubTotal = countSubTotalState;
 
 // const function 
 
-export const findCustomer = (type = 'destination_code', code ) => {
-    axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
+export const findCustomer = async (type = 'destination_code', code ) => {
+    await axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
         if(result.data.success == false){
             
         }

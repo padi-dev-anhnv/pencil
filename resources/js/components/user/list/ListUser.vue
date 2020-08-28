@@ -10,7 +10,10 @@
                     <li>操作</li>
                 </ul>
             </li>
-            <li>
+            <li v-if="loading">
+                <div style="text-align : center; padding : 15px 0px"><div class="lds-dual-ring"></div>  </div>
+            </li>
+            <li v-else>
                 <ul v-for="user in users" :key="user.username">
                     <li>{{ user.name }}</li>
                     <li>{{ user.role.name }}</li>
@@ -87,16 +90,19 @@ export default {
         return {
             users: [],
             deleteId: 0,
-            page: 1
+            page: 1,
+            loading : false
         };
     },
     methods: {
         loadUser() {
-            axios("/user/get-list", { params: { page: this.page } }).then(
-                result => {
-                   this.users = result.data.data;
-                }
-            );
+            this.loading = true;
+            axios("/user/get-list", { params: { page: this.page } }).then(result => {
+                this.loading = false;
+                this.users = result.data.data;
+            }).catch(err => {
+                this.loading = false;
+            });
         },
         confirmDelete(user) {
             this.deleteId = user.id;

@@ -4,7 +4,7 @@
     <div class="overlay">
       <label for="popup_cancel" class="popup_closearea"></label>
       <article class="popup_box">
-        <label for="popup_cancel" class="popup_closebtn">×</label>
+        <label for="popup_cancel" class="popup_closebtn" ref="closeModal">×</label>
         <header class="popup_header delete_hd">
           <div class="ph_inner">
             <h3 class="popup_ttl">削除</h3>
@@ -16,7 +16,8 @@
             <p class="popup_txt">本当に削除してもいいですか？</p>
             <ul class="btn_box btn2box">
               <li>
-                <label for="popup_cancel" @click="doDelete" class="mainbtn">はい</label>
+                <span v-if="deleting" class="lds-dual-ring"></span>
+                <label v-else for="popup_cancel" @click="doDelete" class="mainbtn">はい</label>
               </li>
               <li>
                 <label for="popup_editfile" class="mainbtn mainbtn2 subbtn">いいえ</label>
@@ -36,8 +37,9 @@
 import fileStore, { doDelete } from "../../stores/fileStore";
 export default {
     methods:{
-        doDelete(){
-            doDelete();
+        async doDelete(){
+            await doDelete();
+            this.$refs.closeModal.click();
         }
     },
     computed : {
@@ -46,6 +48,9 @@ export default {
       },
       canDelete(){
         return fileStore.file.guideId == 0;
+      },
+      deleting(){
+        return fileStore.deleting;
       }
     }
 };

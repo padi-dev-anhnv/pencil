@@ -28,7 +28,9 @@
                         ><span class="before"
                             ><button class="mainbtn minibtn subbtn" @click.prevent="findCustomer('destination_code', delivery.destination_code)">
                                 送り先コードから自動入力
-                            </button></span
+                            </button>
+                            <span v-show="loadingDest"><span class="lds-dual-ring loader-dark loader-sm" ></span></span>
+                            </span
                         >
                     </li>
                     <li>
@@ -38,7 +40,9 @@
                         ><span class="before after"
                             ><button class="mainbtn minibtn subbtn"  @click.prevent="findCustomer('postal_code', delivery.postal_code)">
                                 郵便番号から自動入力
-                            </button></span
+                            </button>
+                            <span v-show="loadingPostal"><span class="lds-dual-ring loader-dark loader-sm" ></span></span>
+                            </span
                         ><span class="note"
                             >ハイフン（－）なしで入力してください</span
                         >
@@ -92,7 +96,9 @@ import constVar from "../../../stores/constVar";
 export default {
     data() {
         return {
-            chk : constVar.chk
+            chk : constVar.chk,
+            loadingDest : false,
+            loadingPostal : false
         };
 	},
 	computed:{
@@ -104,8 +110,13 @@ export default {
         }
     }, 
     methods : {
-        findCustomer(type, code){
-            findCustomer(type, code)
+        async findCustomer(type, code){
+            if(type == 'destination_code')
+                this.loadingDest = true;
+            if(type == 'postal_code')
+                this.loadingPostal = true;
+            await findCustomer(type, code)
+            this.loadingDest = this.loadingPostal = false;
         }
     }
 };

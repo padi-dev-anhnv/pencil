@@ -2170,3 +2170,46 @@ ul.ullist {
   -ms-flex-pack: end;
   justify-content: flex-end; }
   
+
+  .loader-sm{
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .loader-sm:after {
+    width: 16px !important;
+    height: 16px !important;
+    border-width: 3px !important;
+    border-style: solid !important;
+  }
+
+  .loader-dark:after{
+    border-color: #3e3e3e transparent #3e3e3e transparent !important;
+  }
+  .loader-white:after{
+    border-color: #fff transparent #fff transparent !important;
+  }  
+  .lds-dual-ring {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 6px solid #e5002c;
+    border-color: #e5002c transparent #e5002c transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  

@@ -268,7 +268,8 @@
             </header>
             <div id="file-list" class="sec">
                 <!-- リストここから -->
-                <ul class="flex">
+                 <div v-if="searching" style="text-align : center; padding : 15px 0px"><div class="lds-dual-ring"></div>  </div>
+                <ul class="flex" v-else>
                     <li v-for="file in files" :key="file.id">
                         <div class="upld_date">{{ file.created_at }}</div>
                         <div for="popup_imgdtl" class="thumb">
@@ -379,6 +380,9 @@ export default {
                 fileStore.currentPage = 1;
                 this.doSearchFile();
             }
+        },
+        searching(){
+            return fileStore.searching
         }
     },
     methods: {

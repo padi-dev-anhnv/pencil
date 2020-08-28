@@ -29,6 +29,10 @@ const state = Vue.observable({
     totalPage : 0,
     currentPage : 1,
     ppp : 10,
+    searching : false,
+    updating : false,
+    deleting : false,
+    opening : false
 });
 
 
@@ -36,12 +40,14 @@ export const openEditModal = id => {
     state.actionNew = 0; 
     state.selectedId = id;
     setDefaultFile();
+    state.opening = true;
     axios("/file/" + id + "/show").then(result => {
+        state.opening = false;
         for (var key in state.file) {
             state.file[key] = result.data[key] ? result.data[key] : "" ;
         }
-        state.file.guideNumber = result.data.guide.number;
-        state.file.guideId = result.data.guide.id;
+        state.file.guideNumber = result.data.guide ? result.data.guide.number : null ;
+        state.file.guideId = result.data.guide ? result.data.guide.id : 0 ;
     });
 };
 
@@ -66,10 +72,12 @@ export const setSelectedId = id => {
 };
 */
 export const doSearch = (searchFilter) =>{
+    state.searching = true;
     searchFilter.page = state.currentPage ; 
     searchFilter.sort = state.sort ; 
     searchFilter.ppp = state.ppp  
     axios("/file/search", { params: searchFilter }).then(result => {
+        state.searching = false;
         state.listFiles = result.data.data;
         state.totalPage = result.data.total ? result.data.last_page : 0
     });
@@ -134,7 +142,9 @@ export const getPpp = () => {
 }
 
 export const createFile = async () =>{
-
+    if(state.updating == true)
+        return false;
+    state.updating = true;
     let formData = new FormData();
     for(let key in state.file){
         formData.append(key, state.file[key]);
@@ -146,6 +156,7 @@ export const createFile = async () =>{
             }
         })
         .then(result => {
+            state.updating = false;
             if(state.actionNew == 1){
                 state.listFiles.unshift(result.data)
             }                
@@ -156,6 +167,7 @@ export const createFile = async () =>{
             
             return result;
         }).catch(err => {
+            state.updating = false;
             alert(err.response.data.message)
         })
         ;
@@ -179,13 +191,19 @@ export const setDeleteId = () => {
     state.deleteId = state.selectedId;
 }
 
-export const doDelete = () => {
-    axios.post('/file/delete', { id : state.deleteId}).then(result => {
+export const doDelete = async() => {
+    if(state.deleting == true)
+        return false;
+    state.deleting = true;
+    await axios.post('/file/delete', { id : state.deleteId}).then(result => {
+        state.deleting = false;
         if(result.data.success == true){
             let findex = state.listFiles.findIndex(file => file.id == state.deleteId);            
             Vue.delete(state.listFiles, findex)
         }
 
+    }).catch(err => {
+        state.deleting = false
     })
 }
 

@@ -30,7 +30,8 @@ const state = Vue.observable({
         number : 0
     },
     user : {},
-    disabledSearchWorker : false
+    disabledSearchWorker : false,
+    loading : false,
    
 });
 
@@ -85,8 +86,9 @@ export const doSearch = () => {
 
 }
 const postSearch = (searchs) =>{
+    state.loading = true;
     axios('/guide/search', { params: searchs }).then(result => {
-        console.log(result.data)
+        state.loading = false;
         state.guides = result.data.data;
         state.totalPage = result.data.total ? result.data.last_page : 0
     })

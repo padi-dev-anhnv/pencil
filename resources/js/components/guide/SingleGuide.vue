@@ -10,7 +10,10 @@
             <!-- <file-modal /> -->
             <footer class="list-footer" v-show="editBtn">
 				<footer class="list-footer">
-					<button class="mainbtn" @click.prevent="createGuide">保存</button>
+                    <span class="lds-dual-ring loader-light" v-if="loading"></span>
+					<button class="mainbtn" @click.prevent="createGuide" v-else>
+                        <span>保存</span>
+                    </button>
 				</footer>
 			</footer>
         </form>
@@ -36,6 +39,9 @@ export default {
                 return false;
             return true;
                 
+        },
+        loading(){
+            return guideStore.loading
         }
     },
     methods:{
