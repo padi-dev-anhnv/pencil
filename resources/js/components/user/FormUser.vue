@@ -124,6 +124,13 @@ export default {
                 if (result.data.status == "ok" && this.edit == 0) {
                     location.href = "/user";
                 }
+                else{
+                    for(let error in result.data)
+                    {
+                        alert(result.data[error])
+                    }
+                    
+                }
             });
         }
     },

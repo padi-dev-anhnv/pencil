@@ -33,6 +33,7 @@ const state = Vue.observable({
     ],
     originalFiles : [],
     price,
+    showPrice : true,
     doDupplicate : false,
     fileNotClone : []
 });
@@ -44,7 +45,11 @@ export const getGuideInfo = async (id) => {
         state.packaging = result.data.data.packaging;
         state.procedure = result.data.data.procedure;
         state.creator = result.data.data.creator;
-        state.price = result.data.data.guide.price;
+        if(result.data.data.guide.price == false)
+            state.showPrice = false;
+        else            
+            state.price = result.data.data.guide.price;
+            
         // state.originalFiles = {...result.data.data.files }
         state.originalFiles = result.data.data.files.map(file => {
             return { id : file.id }
@@ -128,12 +133,18 @@ export const createGuide = async (id) => {
             'Content-Type': 'multipart/form-data'
         }
       }).then(async result => {
-        if(result.data.map_upload.length > 0)
+          if(result.data.success == true){
+            if(result.data.map_upload.length > 0)
             updateUploadFileId(result.data.map_upload)
-        if(state.action != "edit")
-            window.location.href = "/guide";
+        // if(state.action == "edit" || state.action == "new")
+                window.location.href = "/guide";
+          }
+          else{
+              alert(result.data.message)
+          }
+        
     }).catch(err => {
-        alert('Error')
+        alert(err)
     })
     state.loading = false;
 };
@@ -322,10 +333,13 @@ export const countSubTotal = countSubTotalState;
 export const findCustomer = async (type = 'destination_code', code ) => {
     await axios.get('/guide/find-customer', {params: { type, code }}).then(result => {
         if(result.data.success == false){
-            
+            alert(result.data.message);
+            state.delivery.prefecture = '';
+            state.delivery.city = '';
+            state.delivery.address = '';
         }
         else{
-            let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code']
+            let arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
             arrAddress.forEach( key => {
                 state.delivery[key] = result.data[key]
             })

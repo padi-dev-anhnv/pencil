@@ -1,5 +1,5 @@
 <template>
-  <div class="price_list sec">
+  <div v-show="showPrice" class="price_list sec">
     <h3 class="sec_ttl">銘入料金 (単位：円)</h3>
     <ul class="edit-list">
       <li class="sec" v-for="(ele1, index) in price.element1" :key="index">
@@ -102,6 +102,9 @@ export default {
     };
   },
   computed: {
+    showPrice(){
+      return guideStore.showPrice;
+    },
     price() {
       return guideStore.price;
     },
@@ -176,5 +179,8 @@ export default {
     },
     
   },
+  mounted(){
+    console.log(this.price)
+  }
 };
 </script>

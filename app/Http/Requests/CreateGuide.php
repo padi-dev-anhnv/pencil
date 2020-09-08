@@ -30,7 +30,7 @@ class CreateGuide extends FormRequest
             'guide.office' => 'required',
             'guide.number' => 'required',
             */
-            'guide.supplier_id' => 'required|numeric|gt:0',
+            // 'guide.supplier_id' => 'required|numeric|gt:0',
             /*
             'guide.store_code' => 'required',
             'guide.customer_name' => 'required',

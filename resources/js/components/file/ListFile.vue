@@ -285,9 +285,9 @@
                                     alt="イメージ"
                                 />
                             </label>
-                            <div class="file_type">
+                            <!-- <div class="file_type">
                                 <img src="/images/file_pdf.svg" alt="PDF" />
-                            </div>
+                            </div> -->
                         </div>
                         <div class="file_ttl">{{ file.name }}</div>
                     </li>

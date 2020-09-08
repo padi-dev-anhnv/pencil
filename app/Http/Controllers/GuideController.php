@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use Illuminate\Http\Request;
 use App\Repository\GuideRepository;
-// use App\Http\Requests\CreateGuide;
+use App\Guide;
+use App\Http\Requests\CreateGuide;
 
 class GuideController extends Controller
 {
@@ -12,6 +14,11 @@ class GuideController extends Controller
     public function __construct(GuideRepository $guideRepo)
     {
         $this->guideRepo = $guideRepo;
+    }
+
+    public function canView($id)
+    {
+        
     }
 
     public function homepage()
@@ -27,7 +34,10 @@ class GuideController extends Controller
     public function edit(Request $request)
     {
         $id = $request->id;
-        return view('index', ['id' => $id]);
+        $guide = Guide::findOrFail($id);
+        if(!$request->user()->can('view', $guide))
+            return redirect()->route('guide');
+        return view('pages.guide.edit', ['id' => $id]);
     }
 
     public function listSuppliers()
@@ -87,6 +97,9 @@ class GuideController extends Controller
 
     public function showPdf(Request $request)
     {
+        if (Gate::denies('author-guide') && $request->price == 'has-price') {
+            return redirect()->intended('/');
+        }
         $pdf = $this->guideRepo->showPdf($request->id, $request->price);
         
 		return response()->make($pdf, 200, [

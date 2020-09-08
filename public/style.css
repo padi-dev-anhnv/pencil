@@ -2149,6 +2149,9 @@ ul.ullist {
 /*# sourceMappingURL=style.css.map */
 
 /* custom CSS */
+.btn-center{
+  margin:  0 auto;
+}
 .pagenation li{
   margin: 0px 2px;
 }

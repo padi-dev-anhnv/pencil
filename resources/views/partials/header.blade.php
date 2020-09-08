@@ -23,7 +23,7 @@
 			@php
 					$current_group = request()->route()->getName();
 					$nav = [
-						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧'] ,
+						'guide' => [ 'link' => route('guide') , 'name' => '指図書一覧',  'perm' => App\Guide::class ] ,
 						'file' =>  [ 'link' => route('file') , 'name' => 'ファイルマネージャー', 'perm' => App\File::class ] ,
 						'user' =>  [ 'link' => route('user') , 'name' => 'アカウント管理', 'perm' => App\User::class ]	
 					];

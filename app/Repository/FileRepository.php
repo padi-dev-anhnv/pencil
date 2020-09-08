@@ -37,26 +37,24 @@ class FileRepository
         if($file->guide){
             $file->number_guide = $file->guide->number;
         }
-        /*
-        if($file->product){
-            $file->number_guide = $file->guide->number;
-            unset($file->product);
-        }
-            */
-            // dd($file);
         $file->user = $file_user;
+        $user = auth()->user();
+        $file->canEdit = false;
+        if ($user->can('delete', $file)) {
+            $file->canEdit = true;
+        }
+
+
         return response()->json($file);
     }
 
     public function create($request)
     {
-        /*
         if($request['id']){
-            $file = $this->file::find($request->id);
-            if($request->user()->cannot('delete', $file))
+            $file = $this->file::find($request['id']);
+            if(auth()->user()->cannot('delete', $file))
                 return ['success' => false];
-        }      
-        */
+        }   
 
         if(empty($request['id'])){
             $request['user_id'] = auth()->user()->id;  
@@ -69,17 +67,17 @@ class FileRepository
 
     public function delete($request)
     {
-        /*
+        
         $file = $this->file::find($request->id);
         if($request->user()->can('delete', $file)){
             $file->delete();
             return ['success' => true];
-        }
-            
-        return ['success' => false];
-        */
+        }            
+        return ['success' => false , 'message' => config('errors.can_not_delete_file')];
+        /*
         $this->file->destroy($request->id);
         return ['success' => true];
+        */
     }
 }
 

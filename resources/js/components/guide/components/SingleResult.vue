@@ -2,7 +2,7 @@
     <li :class="{ done : done}">
         <ul>
             <li>{{ guide.created_at }}</li>
-            <li>{{ guide.supplier.name }}</li>
+            <li>{{ guide.supplier ? guide.supplier.name : "" }}</li>
             <li>{{ guide.number }}</li>
             <li>{{ guide.customer_name }}</li>
             <li>{{ guide.title }}</li>
@@ -22,10 +22,13 @@
                     {{ guide.first_product[0].name }}
                 </template>
             </li>
-            <li>
-                <a :href="'/guide/'+guide.key_code+'/show/has-price'" target="_blank">PDF(料金有）</a>
+            <li v-if="user.role.type == 'worker'">
+                <a :href="'/guide/'+guide.id+'/show/no-price'" target="_blank">PDF</a>
+            </li>
+            <li v-else>
+                <a :href="'/guide/'+guide.id+'/show/has-price'" target="_blank">PDF(料金有）</a>
                 <br />
-                <a :href="'/guide/'+guide.key_code+'/show/no-price'" target="_blank">PDF(料金無）</a>
+                <a :href="'/guide/'+guide.id+'/show/no-price'" target="_blank">PDF(料金無）</a>
             </li>
             <li v-if="editable == 1">
                 <button title="編集"

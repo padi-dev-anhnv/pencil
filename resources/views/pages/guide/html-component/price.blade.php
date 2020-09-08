@@ -8,10 +8,10 @@
 	
 	<main id="main">
         @php 
-            function format_price($numb)
+            function format_price($numb, $show_zero = false)
             {
 				$val = number_format(intval($numb));
-                return $val == 0 ? "" : $val ;
+                return $val == 0 ?  ($show_zero ? 0 : "") : $val ;
             }
         @endphp
 		<div id="price" class="sec">
@@ -174,21 +174,21 @@
 				<li class="tr">
 					<ul class="thtd">
 						<li class="th">総合計</li>
-						<li class="td yen">{{ format_price($price['totalPrice']['finalPrice']) }}</li>
-						<li class="td yen">{{ format_price($price['totalPrice']['finalWholesale']) }}</li>
+						<li class="td yen">{{ format_price($price['totalPrice']['finalPrice'], true) }}</li>
+						<li class="td yen">{{ format_price($price['totalPrice']['finalWholesale'], true) }}</li>
 					</ul>
 				</li>
 				<li class="tr">
 					<ul class="thtd">
 						<li class="th">差益</li>
-						<li class="td yen">{{ format_price($price['totalPrice']['finalMargin']) }}</li>
+						<li class="td yen">{{ format_price($price['totalPrice']['finalMargin'], true) }}</li>
 					</ul>
 				</li>
 				<li class="tr">
 					<ul class="thtd">
 						<li class="th">特値適用</li>
 						<li class="td numb">{{ $price['specialValue']['number'] }}</li>
-						<li class="td percent">{{ $price['specialValue']['rate'] }}0</li>
+						<li class="td percent">{{ $price['specialValue']['rate'] }}</li>
 					</ul>
 				</li>
 			</ul>

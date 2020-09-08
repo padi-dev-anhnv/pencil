@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateUser;
@@ -30,6 +31,9 @@ class UserController extends Controller
         $credentials['status'] = 1;
 
         if (Auth::attempt($credentials,true)) {
+            if (Gate::denies('author-guide')) {
+                return redirect()->intended('/file');
+            }
             return redirect()->intended('/');
         }
         return redirect()->back();

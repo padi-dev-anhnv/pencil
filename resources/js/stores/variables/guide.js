@@ -4,7 +4,7 @@ export default {
     title: '',
     // office: '',
     number: '',
-    supplier_id: 0,
+    supplier_id: null,
     store_code: '',
     last_exist : 0,
     last_date : '',

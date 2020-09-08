@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use Gate;
 use App\Guide;
 use App\Supplier;
 use App\Delivery;
@@ -50,6 +51,15 @@ class GuideRepository
         $supplier = $guide->supplier()->select('name', 'id')->first();
         $creator['office'] = $office;
 
+        // hide price if current user is worker
+        // if(Gate::denies('author-guide'))
+        $user = auth()->user();
+        if( $user ){
+            if($user->role->type == 'worker')
+                $guide->price = false;
+        }
+            
+
         return [
             'guide' => $guide,
             'delivery' => $delivery,
@@ -66,6 +76,9 @@ class GuideRepository
     public function create($requests)
     {
         $request = json_decode($requests['data'], true);
+        // check 
+        if(empty($request['guide']['number']))
+            return ['success' => false, 'message' => config('errors.number_required')];
 
         $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
@@ -317,8 +330,9 @@ class GuideRepository
 
     public function showPdf($id, $price)
     {
-        // $guide = Guide::select('key_code')->findOrFail($id);
-        $route = route('guide.html', ['id' => $id, 'price' => $price]);
+        $guide = Guide::select('key_code')->findOrFail($id);
+        // $route = route('guide.html', ['id' => $id, 'price' => $price]);
+        $route = route('guide.html', ['id' => $guide->key_code, 'price' => $price]);
         $pdf = Browsershot::url($route)
         ->noSandbox()
         ->format('A4')->pdf();

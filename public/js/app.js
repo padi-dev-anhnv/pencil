@@ -2199,6 +2199,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
+    editable: function editable() {
+      if (this.actionNew == 1 || this.file.canEdit) return true;
+      return false;
+    },
     file: function file() {
       return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].file;
     },
@@ -3685,6 +3689,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4343,6 +4350,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {
+    showPrice: function showPrice() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].showPrice;
+    },
     price: function price() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].price;
     },
@@ -4414,6 +4424,9 @@ __webpack_require__.r(__webpack_exports__);
       if (!isNaN(tempPrice)) return parseInt(tempPrice);
       return 0;
     }
+  },
+  mounted: function mounted() {
+    console.log(this.price);
   }
 });
 
@@ -5399,6 +5412,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/user", this.user).then(function (result) {
         if (result.data.status == "ok" && _this3.edit == 0) {
           location.href = "/user";
+        } else {
+          for (var error in result.data) {
+            alert(result.data[error]);
+          }
         }
       });
     }
@@ -42840,7 +42857,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "w30",
-                          attrs: { type: "text" },
+                          attrs: { type: "text", disabled: !_vm.editable },
                           domProps: { value: _vm.file.name },
                           on: {
                             input: function($event) {
@@ -42880,7 +42897,8 @@ var render = function() {
                               attrs: {
                                 type: "radio",
                                 name: "doctypen",
-                                value: "office"
+                                value: "office",
+                                disabled: !_vm.editable
                               },
                               domProps: {
                                 checked: _vm._q(_vm.file.material, "office")
@@ -42932,7 +42950,8 @@ var render = function() {
                               attrs: {
                                 type: "radio",
                                 name: "doctypen",
-                                value: "other"
+                                value: "other",
+                                disabled: !_vm.editable
                               },
                               domProps: {
                                 checked: _vm._q(_vm.file.material, "other")
@@ -43003,6 +43022,14 @@ var render = function() {
                               _c(
                                 "button",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.editable,
+                                      expression: "editable"
+                                    }
+                                  ],
                                   staticClass: "deletebtn",
                                   on: { click: _vm.deleteAttach }
                                 },
@@ -43030,6 +43057,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "h3",
+                            attrs: { disabled: !_vm.editable },
                             domProps: { value: _vm.file.description },
                             on: {
                               input: function($event) {
@@ -43062,6 +43090,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "h3",
+                            attrs: { disabled: !_vm.editable },
                             domProps: { value: _vm.file.tags },
                             on: {
                               input: function($event) {
@@ -43107,7 +43136,7 @@ var render = function() {
                             )
                       ])
                     : _c("ul", { staticClass: "btn_box btn3box" }, [
-                        _c("li", [
+                        _c("li", { class: { "btn-center": !_vm.editable } }, [
                           _c(
                             "a",
                             {
@@ -43120,30 +43149,56 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("li", [
-                          _vm.updating
-                            ? _c("span", { staticClass: "lds-dual-ring" })
-                            : _c(
-                                "label",
-                                {
-                                  staticClass: "mainbtn mainbtn2",
-                                  on: { click: _vm.updateFile }
-                                },
-                                [_c("span", [_vm._v("編集して保存")])]
-                              )
-                        ]),
+                        _c(
+                          "li",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editable,
+                                expression: "editable"
+                              }
+                            ]
+                          },
+                          [
+                            _vm.updating
+                              ? _c("span", { staticClass: "lds-dual-ring" })
+                              : _c(
+                                  "label",
+                                  {
+                                    staticClass: "mainbtn mainbtn2",
+                                    on: { click: _vm.updateFile }
+                                  },
+                                  [_c("span", [_vm._v("編集して保存")])]
+                                )
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("li", [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "mainbtn subbtn",
-                              attrs: { for: "popup_deletefile" },
-                              on: { click: _vm.setDeleteId }
-                            },
-                            [_vm._v("削除")]
-                          )
-                        ])
+                        _c(
+                          "li",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editable,
+                                expression: "editable"
+                              }
+                            ]
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "mainbtn subbtn",
+                                attrs: { for: "popup_deletefile" },
+                                on: { click: _vm.setDeleteId }
+                              },
+                              [_vm._v("削除")]
+                            )
+                          ]
+                        )
                       ])
                 ])
               ])
@@ -44042,9 +44097,7 @@ var render = function() {
                               }
                             })
                           ]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(0, true)
+                        )
                       ]
                     ),
                     _vm._v(" "),
@@ -44070,16 +44123,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "file_type" }, [
-      _c("img", { attrs: { src: "/images/file_pdf.svg", alt: "PDF" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45637,7 +45681,9 @@ var render = function() {
     _c("ul", [
       _c("li", [_vm._v(_vm._s(_vm.guide.created_at))]),
       _vm._v(" "),
-      _c("li", [_vm._v(_vm._s(_vm.guide.supplier.name))]),
+      _c("li", [
+        _vm._v(_vm._s(_vm.guide.supplier ? _vm.guide.supplier.name : ""))
+      ]),
       _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.number))]),
       _vm._v(" "),
@@ -45689,31 +45735,44 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "/guide/" + _vm.guide.key_code + "/show/has-price",
-              target: "_blank"
-            }
-          },
-          [_vm._v("PDF(料金有）")]
-        ),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "/guide/" + _vm.guide.key_code + "/show/no-price",
-              target: "_blank"
-            }
-          },
-          [_vm._v("PDF(料金無）")]
-        )
-      ]),
+      _vm.user.role.type == "worker"
+        ? _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  href: "/guide/" + _vm.guide.id + "/show/no-price",
+                  target: "_blank"
+                }
+              },
+              [_vm._v("PDF")]
+            )
+          ])
+        : _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  href: "/guide/" + _vm.guide.id + "/show/has-price",
+                  target: "_blank"
+                }
+              },
+              [_vm._v("PDF(料金有）")]
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: {
+                  href: "/guide/" + _vm.guide.id + "/show/no-price",
+                  target: "_blank"
+                }
+              },
+              [_vm._v("PDF(料金無）")]
+            )
+          ]),
       _vm._v(" "),
       _vm.editable == 1
         ? _c("li", [
@@ -46666,7 +46725,7 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { value: "0" } }, [
+            _c("option", { attrs: { value: "null" } }, [
               _vm._v("選択してください")
             ]),
             _vm._v(" "),
@@ -47256,240 +47315,262 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "price_list sec" }, [
-    _c("h3", { staticClass: "sec_ttl" }, [_vm._v("銘入料金 (単位：円)")]),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "edit-list" },
-      [
-        _vm._l(_vm.price.element1, function(ele1, index) {
-          return _c("li", { key: index, staticClass: "sec" }, [
-            _c("h4", { staticClass: "formctttl" }, [_vm._v(_vm._s(ele1.name))]),
-            _vm._v(" "),
-            _c("div", { staticClass: "formctbox" }, [
-              _c(
-                "ul",
-                [
-                  _c("price-price", {
-                    attrs: {
-                      ind: index,
-                      element: "element1",
-                      typePrice: "price",
-                      typeName: "原価"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("price-price", {
-                    attrs: {
-                      ind: index,
-                      element: "element1",
-                      typePrice: "wholesale",
-                      typeName: "仕切価格"
-                    }
-                  })
-                ],
-                1
-              )
-            ])
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", { staticClass: "sec" }, [
-          _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "formctbox" }, [
-            _c("ul", [
-              _c("li", [
-                _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
-                _vm._v(
-                  "\n            単価\n            " +
-                    _vm._s(_vm.subTotalEle1.subPrice) +
-                    "円 / 数\n            " +
-                    _vm._s(_vm.subTotalEle1.subQty) +
-                    " / 計\n            " +
-                    _vm._s(_vm.subTotalEle1.subTotal) +
-                    "円\n          "
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("span", { staticClass: "sub_ttl" }, [_vm._v("仕切価格：")]),
-                _vm._v(
-                  "\n            単価\n            " +
-                    _vm._s(_vm.subWholesaleEle1.subPrice) +
-                    "円 / 数\n            " +
-                    _vm._s(_vm.subWholesaleEle1.subQty) +
-                    " / 計\n            " +
-                    _vm._s(_vm.subWholesaleEle1.subTotal) +
-                    "円\n          "
-                )
-              ])
-            ])
-          ])
-        ])
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.showPrice,
+          expression: "showPrice"
+        }
       ],
-      2
-    ),
-    _vm._v(" "),
-    _c("h3", { staticClass: "sec_ttl" }, [_vm._v("手作業")]),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "edit-list" },
-      [
-        _vm._l(_vm.price.element2, function(ele2, index) {
-          return _c("li", { key: index, staticClass: "sec" }, [
-            _c("h4", { staticClass: "formctttl" }, [_vm._v(_vm._s(ele2.name))]),
-            _vm._v(" "),
-            _c("div", { staticClass: "formctbox" }, [
-              _c(
-                "ul",
-                [
-                  _c("price-price", {
-                    attrs: {
-                      ind: index,
-                      element: "element2",
-                      typePrice: "price",
-                      typeName: "原価"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("price-price", {
-                    attrs: {
-                      ind: index,
-                      element: "element2",
-                      typePrice: "wholesale",
-                      typeName: "仕切価格"
-                    }
-                  })
-                ],
-                1
-              )
-            ])
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", { staticClass: "sec" }, [
-          _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "formctbox" }, [
-            _c("ul", [
-              _c("li", [
-                _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
-                _vm._v(
-                  "単価 " +
-                    _vm._s(_vm.subTotalEle2.subPrice) +
-                    "円 / 数\n            " +
-                    _vm._s(_vm.subTotalEle2.subQty) +
-                    " / 計 " +
-                    _vm._s(_vm.subTotalEle2.subTotal) +
-                    "円\n          "
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("span", { staticClass: "sub_ttl" }, [_vm._v("仕切価格：")]),
-                _vm._v(
-                  "単価\n            " +
-                    _vm._s(_vm.subWholesaleEle2.subPrice) +
-                    "円 / 数 " +
-                    _vm._s(_vm.subWholesaleEle2.subQty) +
-                    " / 計 " +
-                    _vm._s(_vm.subWholesaleEle2.subTotal) +
-                    "円\n          "
-                )
-              ])
-            ])
-          ])
-        ])
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("p", { staticClass: "sec total" }, [
-      _vm._v("\n    〈総合計〉 原価：\n    "),
-      _c("strong", [_vm._v(_vm._s(_vm.finalPrice) + "円")]),
-      _vm._v(" / 仕切価格：\n    "),
-      _c("strong", [_vm._v(_vm._s(_vm.finalWholesale) + "円")]),
+      staticClass: "price_list sec"
+    },
+    [
+      _c("h3", { staticClass: "sec_ttl" }, [_vm._v("銘入料金 (単位：円)")]),
       _vm._v(" "),
-      _c("br"),
-      _vm._v("〈差益〉\n    "),
-      _c("strong", [_vm._v(_vm._s(_vm.finalMargin) + "円")])
-    ]),
-    _vm._v(" "),
-    _c("ul", { staticClass: "edit-list" }, [
-      _c("li", { staticClass: "sec" }, [
-        _c("h4", { staticClass: "formctttl" }, [_vm._v("特値適用")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "formctbox" }, [
-          _c("ul", [
-            _c("li", [
-              _c("label", { staticClass: "before" }, [
-                _c("span", { staticClass: "labeltxt" }, [_vm._v("No.")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.price.specialValue.number,
-                      expression: "price.specialValue.number"
-                    }
-                  ],
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.price.specialValue.number },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.price.specialValue,
-                        "number",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
+      _c(
+        "ul",
+        { staticClass: "edit-list" },
+        [
+          _vm._l(_vm.price.element1, function(ele1, index) {
+            return _c("li", { key: index, staticClass: "sec" }, [
+              _c("h4", { staticClass: "formctttl" }, [
+                _vm._v(_vm._s(ele1.name))
               ]),
               _vm._v(" "),
-              _c("label", { staticClass: "before after" }, [
-                _c("span", { staticClass: "labeltxt" }, [_vm._v("掛け率")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.price.specialValue.rate,
-                      expression: "price.specialValue.rate"
-                    }
-                  ],
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.price.specialValue.rate },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _c("div", { staticClass: "formctbox" }, [
+                _c(
+                  "ul",
+                  [
+                    _c("price-price", {
+                      attrs: {
+                        ind: index,
+                        element: "element1",
+                        typePrice: "price",
+                        typeName: "原価"
                       }
-                      _vm.$set(
-                        _vm.price.specialValue,
-                        "rate",
-                        $event.target.value
-                      )
-                    }
-                  }
-                }),
+                    }),
+                    _vm._v(" "),
+                    _c("price-price", {
+                      attrs: {
+                        ind: index,
+                        element: "element1",
+                        typePrice: "wholesale",
+                        typeName: "仕切価格"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _c("li", { staticClass: "sec" }, [
+            _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "formctbox" }, [
+              _c("ul", [
+                _c("li", [
+                  _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
+                  _vm._v(
+                    "\n            単価\n            " +
+                      _vm._s(_vm.subTotalEle1.subPrice) +
+                      "円 / 数\n            " +
+                      _vm._s(_vm.subTotalEle1.subQty) +
+                      " / 計\n            " +
+                      _vm._s(_vm.subTotalEle1.subTotal) +
+                      "円\n          "
+                  )
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "labeltxt" }, [_vm._v("％")])
+                _c("li", [
+                  _c("span", { staticClass: "sub_ttl" }, [
+                    _vm._v("仕切価格：")
+                  ]),
+                  _vm._v(
+                    "\n            単価\n            " +
+                      _vm._s(_vm.subWholesaleEle1.subPrice) +
+                      "円 / 数\n            " +
+                      _vm._s(_vm.subWholesaleEle1.subQty) +
+                      " / 計\n            " +
+                      _vm._s(_vm.subWholesaleEle1.subTotal) +
+                      "円\n          "
+                  )
+                ])
+              ])
+            ])
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("h3", { staticClass: "sec_ttl" }, [_vm._v("手作業")]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        { staticClass: "edit-list" },
+        [
+          _vm._l(_vm.price.element2, function(ele2, index) {
+            return _c("li", { key: index, staticClass: "sec" }, [
+              _c("h4", { staticClass: "formctttl" }, [
+                _vm._v(_vm._s(ele2.name))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "formctbox" }, [
+                _c(
+                  "ul",
+                  [
+                    _c("price-price", {
+                      attrs: {
+                        ind: index,
+                        element: "element2",
+                        typePrice: "price",
+                        typeName: "原価"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("price-price", {
+                      attrs: {
+                        ind: index,
+                        element: "element2",
+                        typePrice: "wholesale",
+                        typeName: "仕切価格"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _c("li", { staticClass: "sec" }, [
+            _c("h4", { staticClass: "formctttl" }, [_vm._v("小計")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "formctbox" }, [
+              _c("ul", [
+                _c("li", [
+                  _c("span", { staticClass: "sub_ttl" }, [_vm._v("原価：")]),
+                  _vm._v(
+                    "単価 " +
+                      _vm._s(_vm.subTotalEle2.subPrice) +
+                      "円 / 数\n            " +
+                      _vm._s(_vm.subTotalEle2.subQty) +
+                      " / 計 " +
+                      _vm._s(_vm.subTotalEle2.subTotal) +
+                      "円\n          "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("span", { staticClass: "sub_ttl" }, [
+                    _vm._v("仕切価格：")
+                  ]),
+                  _vm._v(
+                    "単価\n            " +
+                      _vm._s(_vm.subWholesaleEle2.subPrice) +
+                      "円 / 数 " +
+                      _vm._s(_vm.subWholesaleEle2.subQty) +
+                      " / 計 " +
+                      _vm._s(_vm.subWholesaleEle2.subTotal) +
+                      "円\n          "
+                  )
+                ])
+              ])
+            ])
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("p", { staticClass: "sec total" }, [
+        _vm._v("\n    〈総合計〉 原価：\n    "),
+        _c("strong", [_vm._v(_vm._s(_vm.finalPrice) + "円")]),
+        _vm._v(" / 仕切価格：\n    "),
+        _c("strong", [_vm._v(_vm._s(_vm.finalWholesale) + "円")]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v("〈差益〉\n    "),
+        _c("strong", [_vm._v(_vm._s(_vm.finalMargin) + "円")])
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "edit-list" }, [
+        _c("li", { staticClass: "sec" }, [
+          _c("h4", { staticClass: "formctttl" }, [_vm._v("特値適用")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "formctbox" }, [
+            _c("ul", [
+              _c("li", [
+                _c("label", { staticClass: "before" }, [
+                  _c("span", { staticClass: "labeltxt" }, [_vm._v("No.")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.price.specialValue.number,
+                        expression: "price.specialValue.number"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.price.specialValue.number },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.price.specialValue,
+                          "number",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("label", { staticClass: "before after" }, [
+                  _c("span", { staticClass: "labeltxt" }, [_vm._v("掛け率")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.price.specialValue.rate,
+                        expression: "price.specialValue.rate"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.price.specialValue.rate },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.price.specialValue,
+                          "rate",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "labeltxt" }, [_vm._v("％")])
+                ])
               ])
             ])
           ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -64421,7 +64502,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var constFileExt = ['jpg', 'png', 'jpeg', 'gif', 'ai', 'psd', 'pdf', 'xlsx', 'docx', 'pptx', 'xls', 'doc', 'ppt'];
+var constFileExt = ['jpg', 'png', 'jpeg', 'gif', 'ai', 'psd', 'pdf', 'xlsx', 'docx', 'pptx', 'xls', 'doc', 'ppt', 'eps'];
 /* harmony default export */ __webpack_exports__["default"] = (constFileExt);
 
 /***/ }),
@@ -64795,7 +64876,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
     id: 0,
     guideNumber: "",
     guideId: 0,
-    fileUpload: ""
+    fileUpload: "",
+    canEdit: false
   },
   listFiles: [],
   actionNew: 0,
@@ -65044,6 +65126,8 @@ var doDelete = /*#__PURE__*/function () {
                   return file.id == state.deleteId;
                 });
                 vue__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](state.listFiles, findex);
+              } else {
+                alert(result.data.message);
               }
             })["catch"](function (err) {
               state.deleting = false;
@@ -65144,6 +65228,7 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   products: [],
   originalFiles: [],
   price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"],
+  showPrice: true,
   doDupplicate: false,
   fileNotClone: []
 });
@@ -65160,7 +65245,7 @@ var getGuideInfo = /*#__PURE__*/function () {
               state.packaging = result.data.data.packaging;
               state.procedure = result.data.data.procedure;
               state.creator = result.data.data.creator;
-              state.price = result.data.data.guide.price; // state.originalFiles = {...result.data.data.files }
+              if (result.data.data.guide.price == false) state.showPrice = false;else state.price = result.data.data.guide.price; // state.originalFiles = {...result.data.data.files }
 
               state.originalFiles = result.data.data.files.map(function (file) {
                 return {
@@ -65276,10 +65361,15 @@ var createGuide = /*#__PURE__*/function () {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
                       case 0:
-                        if (result.data.map_upload.length > 0) updateUploadFileId(result.data.map_upload);
-                        if (state.action != "edit") window.location.href = "/guide";
+                        if (result.data.success == true) {
+                          if (result.data.map_upload.length > 0) updateUploadFileId(result.data.map_upload); // if(state.action == "edit" || state.action == "new")
 
-                      case 2:
+                          window.location.href = "/guide";
+                        } else {
+                          alert(result.data.message);
+                        }
+
+                      case 1:
                       case "end":
                         return _context2.stop();
                     }
@@ -65291,7 +65381,7 @@ var createGuide = /*#__PURE__*/function () {
                 return _ref3.apply(this, arguments);
               };
             }())["catch"](function (err) {
-              alert('Error');
+              alert(err);
             });
 
           case 12:
@@ -65596,7 +65686,12 @@ var findCustomer = /*#__PURE__*/function () {
                 code: code
               }
             }).then(function (result) {
-              if (result.data.success == false) {} else {
+              if (result.data.success == false) {
+                alert(result.data.message);
+                state.delivery.prefecture = '';
+                state.delivery.city = '';
+                state.delivery.address = '';
+              } else {
                 var arrAddress = ['address', 'building', 'city', 'fax', 'phone', 'prefecture', 'destination_code', 'postal_code'];
                 arrAddress.forEach(function (key) {
                   state.delivery[key] = result.data[key];
@@ -65847,7 +65942,7 @@ __webpack_require__.r(__webpack_exports__);
   title: '',
   // office: '',
   number: '',
-  supplier_id: 0,
+  supplier_id: null,
   store_code: '',
   last_exist: 0,
   last_date: '',

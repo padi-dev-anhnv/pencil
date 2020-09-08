@@ -22,7 +22,8 @@ const state = Vue.observable({
         id: 0 , 
         guideNumber : "",
         guideId : 0,
-        fileUpload : ""
+        fileUpload : "",
+        canEdit : false
     },
     listFiles : [],
     actionNew: 0,
@@ -200,6 +201,9 @@ export const doDelete = async() => {
         if(result.data.success == true){
             let findex = state.listFiles.findIndex(file => file.id == state.deleteId);            
             Vue.delete(state.listFiles, findex)
+        }
+        else{
+            alert(result.data.message)
         }
 
     }).catch(err => {

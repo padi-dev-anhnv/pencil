@@ -27,8 +27,8 @@ Route::group(['prefix' => 'user', 'middleware' =>['can:list,\App\User', 'active_
     Route::post('/delete', 'UserController@delete');
     Route::get('/roles', 'UserController@getRoles');
     Route::post('/upload-customer-csv', 'CustomerController@uploadCustomer');
-
 });
+
 Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_user'] ], function(){
     Route::view('/', 'pages.file.index')->name('file');    
     Route::post('/', 'FileController@create');
@@ -41,11 +41,11 @@ Route::group(['prefix' => 'file', 'middleware' =>['can:list,\App\File', 'active_
     Route::get('/user-per-file', 'UserController@listUserPerFile');
 });
 
-Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], function(){
+Route::group(['prefix' => 'guide', 'middleware' =>['can:list,\App\Guide', 'active_user'] ], function(){
     Route::get('/', 'GuideController@index')->name('guide');
     Route::post('/', 'GuideController@create');
     Route::post('/update-product', 'GuideController@updateProduct');
-    Route::view('/{id}/edit', 'pages.guide.edit')->name('guide.edit');
+    Route::get('/{id}/edit', 'GuideController@edit')->name('guide.edit');
     Route::view('/{id}/dupplicate', 'pages.guide.dupplicate')->middleware('can:create,\App\Guide')->name('guide.dupplicate');
     Route::get('/{id}/get-guide', 'GuideController@getGuide');
     Route::view('/create', 'pages.guide.new')->middleware('can:create,\App\Guide')->name('guide.create'); 
@@ -60,3 +60,46 @@ Route::group(['prefix' => 'guide', 'middleware' =>['auth', 'active_user'] ], fun
     
 });
 Route::get('/{id}/show-html/{price}', 'GuideController@showPdfHtml')->name('guide.html');
+
+Route::get('/csv', function(){
+    $path = base_path("resources/pending-database/*.csv"); 
+    
+    //run 2 loops at a time 
+    foreach (array_slice(glob($path),0,2) as $filePath) {
+        $file = fopen($filePath,"r");
+        $importData_arr = array();
+        $i = 0;
+        while (($filedata = fgetcsv($file, 5000, ",")) !== FALSE) {
+            $num = count($filedata );
+            for ($c=0; $c < $num; $c++) {
+                $importData_arr[$i][] = $filedata [$c];
+            }
+            $i++;
+
+        }
+        
+
+        $chunks = array_chunk($importData_arr, 5000);
+        foreach($chunks as $rows){
+            foreach($rows as $row){
+                App\Guide::insert([
+                    'numb' => isset($row[1]) ? $row[1] : '',
+                    'title' => isset($row[3]) ? $row[3] : ''
+                ]);
+            }
+        }
+       
+        /*
+        //read the data into an array
+        $data = array_map('str_getcsv', file($file));
+
+        //loop over the data
+        foreach($data as $row) {
+
+        }
+
+        //delete the file
+        unlink($file);
+        */
+    }
+});

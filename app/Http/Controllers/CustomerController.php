@@ -56,8 +56,9 @@ class CustomerController extends Controller
                     $add = $json['data'];
                     $result = [
                         'prefecture' => $add['pref'],
-                        'city' => $add['city'],
-                        'address' => $add['address'],
+                        'city' => $add['address'],
+                        'address' => '',
+                        // 'address' => $add['address'],
                         'postal_code' => $code
                     ];
                 }
@@ -69,7 +70,7 @@ class CustomerController extends Controller
         if($result)
             return response()->json($result);
         else
-            return response()->json(['success' => false]);
+            return response()->json(['success' => false, 'message' => config('errors.zip_code_not_found')]);
         
     }
 }
