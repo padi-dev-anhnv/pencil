@@ -34,9 +34,9 @@
           </ul>
         </div>
         <div class="btnbox_righttop" v-show="total > 1">
-          <button class="deletebtn" @click.prevent="removeProduct(index)">
+          <span class="deletebtn" @click.prevent="removeProduct(index)">
             <span>削除</span>
-          </button>
+          </span>
         </div>
       </li>
 </template>

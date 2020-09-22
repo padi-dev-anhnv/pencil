@@ -16,6 +16,7 @@ class Guide extends Model
         'received_at'  => 'date:Y/m/d',
         'price'         => 'array',
         'products'         => 'array',
+        // 'old_creator'   => 'array'
     ];
 
     protected $appends = ['first_product','creator'];
@@ -49,7 +50,12 @@ class Guide extends Model
 
     public function getCreatorAttribute($val)
     {
-        return $this->creator()->select('name')->first();
+        // return $this->creator()->select('name')->first();
+        if($this->old_creator)
+            $creator = ['id' => 9999, 'name' => $this->old_creator];
+        else
+            $creator = $this->creator()->select('name', 'id')->first()->toArray();
+        return $creator;
     }
 
     // Relationship
@@ -94,8 +100,7 @@ class Guide extends Model
     {
         return $this->hasMany(File::class);
     }
-
-    
+   
 
     public static function boot ()
     {

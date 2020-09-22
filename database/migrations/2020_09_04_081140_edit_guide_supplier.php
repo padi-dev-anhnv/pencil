@@ -15,7 +15,7 @@ class EditGuideSupplier extends Migration
     {
         //
         Schema::table('guides', function (Blueprint $table) {
-            $table->unsignedInteger('supplier_id')->nullable()->change();
+        //    $table->unsignedInteger('supplier_id')->nullable()->change();
         });
     }
 

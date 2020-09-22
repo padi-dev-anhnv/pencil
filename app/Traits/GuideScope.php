@@ -15,7 +15,12 @@ trait GuideScope
 
     public function scopeCreator($query, $keyword)
     {
+        /*
         return $query->whereHas('creator', function($queryb)  use ($keyword){
+            $queryb->where('name', 'LIKE','%'.$keyword.'%');
+        });
+        */
+        return $query->where('old_creator', $keyword)->orWhereHas('creator', function($queryb)  use ($keyword){
             $queryb->where('name', 'LIKE','%'.$keyword.'%');
         });
     }

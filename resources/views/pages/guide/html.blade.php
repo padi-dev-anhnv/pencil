@@ -10,7 +10,8 @@
 	@php
 		$total_product = count($guide['products']);
 		$total_page_product =  intval(ceil($total_product / 6));
-		$total_page =2 + $total_page_product;
+		$plug_page = request()->price == 'no-price' ? 1 : 2;
+		$total_page = $plug_page + $total_page_product;
 		$info_array = ['no' => $guide['guide']->number, 'total_page' => $total_page];
 	@endphp
 	@include('pages.guide.html-component.guide', array_merge($info_array, ['guide' => $guide['guide'], 'creator' => $guide['creator'], 'supplier' => $guide['supplier']]))

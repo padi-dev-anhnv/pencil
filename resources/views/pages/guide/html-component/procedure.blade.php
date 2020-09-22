@@ -3,12 +3,24 @@
 		$procedure_bagging = Config::get('const.procedure_bagging');
 		$procedure_gimmick = Config::get('const.procedure_gimmick');
 
-		$final_work = $procedure->work == "0" ? "無" : $procedure_work[$procedure->work];
-		$final_bagging = $procedure->bagging == "0" ? "無" : $procedure->bagging_content .  $procedure_bagging[$procedure->bagging];
-		$final_gimmick = $procedure->gimmick == "0" ? "無" : $procedure_gimmick[$procedure->gimmick];
-		$final_box = $procedure->box == "0" ? "無" :  str_repeat("●", intval($procedure->box_content)) ;
-		$final_packaging = $procedure->packaging == "0" ? "無" :  "有" ;
-		$final_advance_shipment = $procedure->advance_shipment == "0" ? "不可" :  "可" ;
+		
+	// 	new method avoid empty value
+		$final_work = isset($procedure->work) ?  ( $procedure->work != '0' ? ( isset($procedure_work[$procedure->work]) ? $procedure_work[$procedure->work] : '有') : '無'   ) : "";
+		$final_bagging_numb = !empty($procedure->bagging_content) ? $procedure->bagging_content :  '';
+		$final_bagging_text = isset($procedure->bagging) ?  ( $procedure->bagging != '0' ? ( isset($procedure_bagging[$procedure->bagging]) ? $procedure_bagging[$procedure->bagging] : '有') : '無'   ) : "";
+		$final_bagging = $final_bagging_numb . ' ' . $final_bagging_text ; 
+		$final_box = '';
+		$final_packaging = isset($procedure->packaging) ? ( $procedure->packaging == 1 ? '有' : '無' ) : "";
+		$final_gimmick = isset($procedure->gimmick) ?  ( $procedure->gimmick != '0' ? ( isset($procedure_gimmick[$procedure->gimmick]) ? $procedure_gimmick[$procedure->gimmick] : '有') : '無'   ) : "";
+		$final_advance_shipment = isset($procedure->advance_shipment) ? ( $procedure->advance_shipment == 1 ? '有' : '無' ) : "";
+
+	//	$final_work = $procedure->work == "0" ? "無" : $procedure_work[$procedure->work];
+	//	$final_bagging = $procedure->bagging == "0" ? "無" : $procedure->bagging_content .  $procedure_bagging[$procedure->bagging];
+	//	$final_gimmick = $procedure->gimmick == "0" ? "無" : $procedure_gimmick[$procedure->gimmick];
+	//	$final_box = $procedure->box == "0" ? "無" :  str_repeat("●", intval($procedure->box_content)) ;
+	//	$final_packaging = $procedure->packaging == "0" ? "無" :  "有" ;
+	//	$final_advance_shipment = $procedure->advance_shipment == "0" ? "不可" :  "可" ;	
+
 		@endphp
 		<div id="point">
 			<h3 class="ctt_ttl">作業要領</h3>

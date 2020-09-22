@@ -8,10 +8,13 @@ $address .= $delivery->address;
 $address .= $delivery->building;
 
 $receive_chk = '';
+/*
 if($delivery->office_chk == 1)
 	$receive_chk = $delivery->receiver;
 else
 	$receive_chk = $chk[$delivery->office_chk-1]['jap'];
+*/
+$receive_chk = $chk[$delivery->office_chk-1]['jap'];
 @endphp
 		<ul class="table2 table thin content">
 		  <li class="tr">
@@ -34,7 +37,7 @@ else
 			  <ul class="thtd">
 				  <li class="th">FAX</li>
 				  <li class="td">{{ $delivery->fax}}</li>
-				  <li class="th">帳合い先CHK</li>
+				  <li class="th">配送区分</li>
 				  <li class="td">{{ $receive_chk }}</li>
 			  </ul>
 		  </li>

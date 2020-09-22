@@ -89,6 +89,12 @@ class GuideController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function changeExport(Request $request)
+    {        
+        $this->guideRepo->changeExport($request->id);
+        return response()->json(['success' => true]);
+    }
+
     public function showPdfHtml(Request $request)
     {
         $guide = $this->guideRepo->get($request->id, 'key_code');

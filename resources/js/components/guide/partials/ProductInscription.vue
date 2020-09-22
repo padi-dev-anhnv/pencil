@@ -107,23 +107,27 @@
             <li>
               <label class="before">
                 <span class="labeltxt">銘入方式</span>
-                <select  v-model='inscription.method'>                  
+                <select  v-model='inscription.method' v-if="isMigrated" disabled>                  
                   <option value="">選択してください</option>
                   <option v-for="(method,index) in listInscrMethod" :key='index' :value="method.eng">{{method.jap}}</option>
+                </select>
+                <select  v-model='inscription.method' v-else>                  
+                  <option value="">選択してください</option>
+                  <option v-for="(method,index) in listInscrMethodTwo" :key='index' :value="method.eng">{{method.jap}}</option>
                 </select>
               </label>
               <label class="before">
                 <span class="labeltxt">銘入作業</span>
                 <select v-model='inscription.work'>                  
                   <option value="">選択してください</option>
-                  <option v-for="(method,index) in listInscrWork" :key='index' :value="method.eng">{{method.jap}}</option>
+                  <option v-for="(work,index) in listInscrWork" :key='index' :value="work.eng">{{work.jap}}</option>
                 </select>
               </label>
               <label class="before">
                 <span class="labeltxt">銘入書体</span>
                 <select v-model='inscription.typeface'>                  
                   <option value="">選択してください</option>
-                  <option v-for="(method,index) in listInscrTypeFace" :key='index' :value="method.eng">{{method.jap}}</option>
+                  <option v-for="(typeface,index) in listInscrTypeFace" :key='index' :value="typeface.eng">{{typeface.jap}}</option>
                 </select>
               </label>
             </li>
@@ -213,6 +217,12 @@ export default {
     },
     index(){
       return this.indexv - 1;
+    }, 
+    isMigrated(){
+      return guideStore.isMigrated;
+    },
+    listInscrMethodTwo(){
+      return this.listInscrMethod.slice(6, this.listInscrMethod.length);
     }
   },
   methods : {

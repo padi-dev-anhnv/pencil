@@ -7,21 +7,23 @@
 <div id="pdf2">
 	<main id="main">
 		@php
-		$body_inscription = Config::get('const.body_inscription');
-		$direction = Config::get('const.direction');
-		$proofreading = Config::get('const.proofreading');
+		$const = Config::get('const');
+	//	dd($const);
+	//	$body_inscription = Config::get('const.body_inscription');
+	//	$direction = Config::get('const.direction');
+	//	$proofreading = Config::get('const.proofreading');
 		@endphp
 		<ul id="imglist" class="flexbs">
 
 			@for($i = $from ; $i <  $to; $i++)
 			@php
 			$product = $products[$i];
-			$final_body = $product['body'] == "0" ? "無" : $body_inscription[$product['body']];
-			$final_direction = $direction[$product['direction']];
-			$final_proofreading = $proofreading[$product['proofreading']];
-			$final_insc_method = $product['method'];
-			$final_insc_work = $product['work'];
-			$final_insc_typeface = $product['typeface'];
+			$final_body = $product['body'] ? (  $product['body'] == "0" ? "無" : $const['body_inscription'][$product['body']] ) : "";
+			$final_direction =  $product['direction'] ?  $const['direction'][$product['direction']] : '';
+			$final_proofreading = $product['proofreading'] ?  $const['proofreading'][$product['proofreading']] : '';
+			$final_insc_method = $product['method'] ?  $const['insc_method'][ intval($product['method']) - 1] : '';
+			$final_insc_work = $product['work'] ?  $const['insc_work'][ intval($product['work']) - 1] : '';
+			$final_insc_typeface = $product['typeface'] ?  $const['insc_typeface1'][ intval($product['typeface']) - 1] : '';
 			$final_font_size = $product['font_size'] == "0" ? "一任" : $product['font_size'];
 			$final_printing_color = implode(" ", $product['printing_color']);
 			$final_photo = "pdf/images/pen_temp-0".$product['pattern_type'].".svg";
@@ -81,7 +83,7 @@
 							<li class="tr">
 								<ul class="thtd">
 									<li class="th">銘入方式</li>
-									<li class="td">{{ $final_insc_method}}</li>
+									<li class="td">{{ $final_insc_method }}</li>
 								</ul>
 							</li>
 							<li class="tr">

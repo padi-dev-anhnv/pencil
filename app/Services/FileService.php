@@ -42,7 +42,8 @@ class FileService
         $file_name = pathinfo($full_name, PATHINFO_FILENAME);
         $extension = pathinfo($full_name, PATHINFO_EXTENSION);
         $new_name = $file_name . '-' . $suffix . '.' . $extension;
-        Storage::copy($dir.$link, $dir.$new_name);
+        if(Storage::exists($dir.$link))
+            Storage::copy($dir.$link, $dir.$new_name);
     }
 
     public function download($file_id)

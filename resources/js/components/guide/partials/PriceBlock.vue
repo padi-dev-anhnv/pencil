@@ -180,7 +180,7 @@ export default {
     
   },
   mounted(){
-    console.log(this.price)
+    // console.log(this.price)
   }
 };
 </script>

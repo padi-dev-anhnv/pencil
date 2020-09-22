@@ -276,16 +276,20 @@ export default {
     },
     workExist: {
       get: function () {
+        if(this.procedure.work == null)
+          return null;        
         if (this.procedure.work != 0) return 1;
         else return 0;
       },
       set: function (val) {
         if (val == 0) this.procedure.work = 0;
-        else this.procedure.work = "noStdReturn";
+        else this.procedure.work = 1;
       },
     },
     baggingExist: {
       get: function () {
+        if(this.procedure.bagging == null)
+          return null;  
         if (this.procedure.bagging != 0) return 1;
         else return 0;
       },
@@ -294,7 +298,7 @@ export default {
           this.procedure.bagging = 0;
           this.procedure.bagging_content = "";
         } else {
-          this.procedure.bagging = "stapler";
+          this.procedure.bagging = "";
         }
       },
     },
@@ -311,12 +315,14 @@ export default {
     },
     gimmickExist: {
       get: function () {
+        if(this.procedure.gimmick == null)
+          return null;  
         if (this.procedure.gimmick != 0) return 1;
         else return 0;
       },
       set: function (val) {
         if (val == 0) this.procedure.gimmick = 0;
-        else this.procedure.gimmick = "inside";
+        else this.procedure.gimmick = "";
       },
     },
   },

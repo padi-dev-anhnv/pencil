@@ -46,7 +46,6 @@ class GuideRepository
         $procedure = $guide->procedure()->first();
         $files = $guide->files()->get();
         $dupplicate = $guide->dupplicate()->select('created_at', 'id', 'number')->first();
-        $creator = $guide->creator()->select('name', 'id')->first();
         $office = $guide->office()->select('name', 'id')->first();
         $supplier = $guide->supplier()->select('name', 'id')->first();
         $creator['office'] = $office;
@@ -77,8 +76,8 @@ class GuideRepository
     {
         $request = json_decode($requests['data'], true);
         // check 
-        if(empty($request['guide']['number']))
-            return ['success' => false, 'message' => config('errors.number_required')];
+        if(empty(trim($request['guide']['title'])))
+            return ['success' => false, 'message' => config('errors.title_required')];
 
         $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);
@@ -103,12 +102,8 @@ class GuideRepository
         // handle file attach product guide
         if($request['doDupplicate'] == true){
             $guide->key_code = Str::random(10);
-
+            $guide->old_creator = null;
             $products = $this->dupplicateGuideFile($products, $guide->id);
-            // $dupplicate_product = $this->dupplicateGuideFile($products, $guide->id);
-            // $products = $dupplicate_product['products'];
-            // $map_file_id = $dupplicate_product['map'];
-            // $this->updateProduct($guide->id, $products);
         }
         else{
             $used_file = $this->setGuideFile($products, $guide->id);
@@ -217,6 +212,16 @@ class GuideRepository
         }
     }
 
+    public function changeExport($guide_id)
+    {
+        $guide = $this->guide::findOrFail($guide_id);
+        if (Gate::denies('update', $guide)) {
+            return false;
+        }
+        $guide->export = !$guide->export;
+        $guide->save();
+    }
+
     public function uploadFileGuide($files, $guide_id)
     {
         $map_upload = [];
@@ -310,6 +315,16 @@ class GuideRepository
     public function delete($id)
     {
         $guide = $this->guide::findOrFail($id);
+        if (Gate::denies('update', $guide)) {
+            return false;
+        }
+        $files = $guide->files;
+        foreach($files as $file){
+            $file->delete();
+        }
+        $guide->delete();            
+        return true;
+        /*
         $has_per = false;
         if($this->is_admin())
             $has_per = true;
@@ -326,6 +341,7 @@ class GuideRepository
         }            
         else
             return false;
+            */
     }
 
     public function showPdf($id, $price)

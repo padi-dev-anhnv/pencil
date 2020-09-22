@@ -21,8 +21,8 @@
 					<ul class="table">
 						<li class="tr">
 							<ul class="thtd">
-								<li class="th b_right"><strong>原価</strong></li>
-								<li class="th"><strong>仕切価格</strong></li>
+								<li class="th b_right"><strong>仕切価格</strong></li>
+								<li class="th"><strong>原価</strong></li>
 							</ul>
 						</li>
 						<li class="tr">
@@ -93,8 +93,8 @@
 					<ul class="table">
 						<li class="tr">
 							<ul class="thtd">
-								<li class="th b_right"><strong>原価</strong></li>
-								<li class="th"><strong>仕切価格</strong></li>
+								<li class="th b_right"><strong>仕切価格</strong></li>
+								<li class="th"><strong>原価</strong></li>
 							</ul>
 						</li>
 						<li class="tr">

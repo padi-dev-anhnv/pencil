@@ -2814,7 +2814,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id', 'action', 'creator', 'clone_id', 'user'],
   data: function data() {
-    return {};
+    return {
+      groupInput: null,
+      pressShift: false
+    };
   },
   computed: {
     creatorGuide: function creatorGuide() {
@@ -2831,31 +2834,94 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     createGuide: function createGuide() {
       Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["createGuide"])(this.id);
+    },
+    indexInClass: function indexInClass(node) {
+      var className = node.className;
+      var num = 0;
+
+      for (var i = 0; i < this.groupInput.length; i++) {
+        if (this.groupInput[i] === node) {
+          return num + 1;
+        }
+
+        num++;
+      }
+
+      return -1;
+    },
+    pushClass: function pushClass() {
+      var allInput = document.querySelectorAll("input[type=text], select, input[type=date], textarea");
+
+      for (var i = 0; i < allInput.length; i++) {
+        if (!allInput[i].disabled) {
+          var currentClass = allInput[i].className;
+          allInput[i].className = currentClass + ' guide-input';
+        }
+      }
+
+      ;
+    },
+    addKeyListener: function addKeyListener() {
+      var _this = this;
+
+      window.addEventListener('keydown', function (e) {
+        if (e.key == 'Shift') {
+          _this.pressShift = true;
+        }
+      });
+      window.addEventListener('keyup', function (e) {
+        if (e.key == 'Shift') {
+          _this.pressShift = false;
+        }
+      });
+      window.addEventListener('keydown', function (e) {
+        if (e.key == 'Enter') {
+          var currentTagName = e.target.tagName;
+
+          if (['INPUT', 'SELECT', 'TEXTAREA'].includes(currentTagName)) {
+            if (currentTagName == 'TEXTAREA' && _this.pressShift == true) return false;
+
+            var nextInput = _this.groupInput[_this.indexInClass(e.target)];
+
+            nextInput.focus();
+          }
+        }
+      });
     }
   },
-  created: function created() {
-    var _this = this;
+  mounted: function mounted() {
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setAction"])(_this.action);
+              Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setAction"])(_this2.action);
 
-              if (!['edit', 'dupplicate'].includes(_this.action)) {
+              if (!['edit', 'dupplicate'].includes(_this2.action)) {
                 _context.next = 4;
                 break;
               }
 
               _context.next = 4;
-              return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["getGuideInfo"])(_this.id);
+              return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["getGuideInfo"])(_this2.id);
 
             case 4:
-              if (['new', 'dupplicate'].includes(_this.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCreator"])(_this.creator);
-              if (['dupplicate'].includes(_this.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCloneId"])(_this.clone_id);
+              if (['new', 'dupplicate'].includes(_this2.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCreator"])(_this2.creator);
 
-            case 6:
+              if (['dupplicate'].includes(_this2.action)) {
+                Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCloneId"])(_this2.clone_id);
+                Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setDateNo"])();
+              }
+
+              _this2.pushClass();
+
+              _this2.groupInput = document.getElementsByClassName('guide-input');
+
+              _this2.addKeyListener();
+
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -3009,6 +3075,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../stores/listGuideStore */ "./resources/js/stores/listGuideStore.js");
+//
 //
 //
 //
@@ -3692,47 +3759,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['guide', 'editable'],
+  props: ["guide", "editable"],
+  data: function data() {
+    return {
+      deliveried: false
+    };
+  },
   computed: {
     user: function user() {
       return _stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["default"].user;
     },
     canEdit: function canEdit() {
-      if (this.guide.user_id == this.user.id || this.user.role.type == 'admin') {
+      if (this.guide.user_id == this.user.id || this.user.role.type == "admin") {
         return true;
       }
 
       return false;
     },
     receiver: function receiver() {
-      if (!this.guide.delivery) return '';
+      if (!this.guide.delivery) return "";
       return this.guide.delivery.receiver;
     },
     chk: function chk() {
       var _this = this;
 
       //return this.guide.delivery.office_chk == 1 ? this.guide.delivery.receiver : this.guide.delivery.office_chk;
-      if (!this.guide.delivery) return '';
-      if (this.guide.delivery.office_chk == 1) return this.guide.delivery.receiver;
+
+      /*
+      if (!this.guide.delivery) return "";
+      if (this.guide.delivery.office_chk == 1)
+        return this.guide.delivery.receiver;
+        */
       var officeChk = _stores_constVar__WEBPACK_IMPORTED_MODULE_1__["default"].chk.find(function (chk) {
         return chk.eng == _this.guide.delivery.office_chk;
       });
       return officeChk.jap;
     },
     done: function done() {
+      /*
       if (this.guide.received_date == null) return false;
-      var received_date = new Date(this.guide.received_date);
+      let received_date = new Date(this.guide.received_date);
       if (received_date < new Date()) return true;
       return false;
+      */
+      return this.guide["export"];
     }
   },
   methods: {
     setDelete: function setDelete(id) {
       Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setDelete"])(id);
+    },
+    changeExport: function changeExport(id) {
+      if (!this.canEdit) return false;
+      this.deliveried = !this.deliveried;
+      Object(_stores_listGuideStore__WEBPACK_IMPORTED_MODULE_0__["setExport"])(id);
     }
+  },
+  mounted: function mounted() {
+    this.deliveried = this.guide["export"];
   }
 });
 
@@ -4073,9 +4172,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props : ['creator'],
+  props: ['action'],
   data: function data() {
     return {};
   },
@@ -4093,10 +4200,10 @@ __webpack_require__.r(__webpack_exports__);
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].dupplicate;
     },
     guideOffice: function guideOffice() {
-      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office ? _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name : "";else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
+      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office ? _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name : "";else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
     },
     guideAuthor: function guideAuthor() {
-      if (['new', 'dupplicate'].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
+      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
     }
   },
   created: function created() {
@@ -4425,8 +4532,7 @@ __webpack_require__.r(__webpack_exports__);
       return 0;
     }
   },
-  mounted: function mounted() {
-    console.log(this.price);
+  mounted: function mounted() {// console.log(this.price)
   }
 });
 
@@ -4828,14 +4934,16 @@ var procedureOption = {
     },
     workExist: {
       get: function get() {
+        if (this.procedure.work == null) return null;
         if (this.procedure.work != 0) return 1;else return 0;
       },
       set: function set(val) {
-        if (val == 0) this.procedure.work = 0;else this.procedure.work = "noStdReturn";
+        if (val == 0) this.procedure.work = 0;else this.procedure.work = 1;
       }
     },
     baggingExist: {
       get: function get() {
+        if (this.procedure.bagging == null) return null;
         if (this.procedure.bagging != 0) return 1;else return 0;
       },
       set: function set(val) {
@@ -4843,7 +4951,7 @@ var procedureOption = {
           this.procedure.bagging = 0;
           this.procedure.bagging_content = "";
         } else {
-          this.procedure.bagging = "stapler";
+          this.procedure.bagging = "";
         }
       }
     },
@@ -4859,10 +4967,11 @@ var procedureOption = {
     },
     gimmickExist: {
       get: function get() {
+        if (this.procedure.gimmick == null) return null;
         if (this.procedure.gimmick != 0) return 1;else return 0;
       },
       set: function set(val) {
-        if (val == 0) this.procedure.gimmick = 0;else this.procedure.gimmick = "inside";
+        if (val == 0) this.procedure.gimmick = 0;else this.procedure.gimmick = "";
       }
     }
   },
@@ -5219,6 +5328,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -5250,6 +5363,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     index: function index() {
       return this.indexv - 1;
+    },
+    isMigrated: function isMigrated() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].isMigrated;
+    },
+    listInscrMethodTwo: function listInscrMethodTwo() {
+      return this.listInscrMethod.slice(6, this.listInscrMethod.length);
     }
   },
   methods: {
@@ -5586,13 +5705,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: [],
       deleteId: 0,
       page: 1,
-      loading: false
+      loading: false,
+      totalPage: 0,
+      currentPage: 1,
+      ppp: 10
     };
   },
   methods: {
@@ -5600,13 +5748,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.loading = true;
+      var searchFilter = {};
+      searchFilter.page = this.currentPage;
+      searchFilter.ppp = this.ppp;
       axios("/user/get-list", {
-        params: {
-          page: this.page
-        }
+        params: searchFilter
       }).then(function (result) {
         _this.loading = false;
         _this.users = result.data.data;
+        _this.totalPage = result.data.total ? result.data.last_page : 0;
       })["catch"](function (err) {
         _this.loading = false;
       });
@@ -5626,6 +5776,19 @@ __webpack_require__.r(__webpack_exports__);
           _this2.loadUser();
         });
       }
+    },
+    changePpp: function changePpp() {
+      localStorage.setItem("ppp-user", this.ppp);
+      this.currentPage = 1;
+      this.loadUser();
+    },
+    loadPpp: function loadPpp() {
+      if (localStorage.getItem("ppp-user")) {
+        this.ppp = localStorage.getItem("ppp-user");
+      } else {
+        localStorage.setItem("ppp-user", 10);
+        this.ppp = 10;
+      }
     }
   },
   computed: {
@@ -5638,6 +5801,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    this.loadPpp();
     this.loadUser();
   }
 });
@@ -44183,7 +44347,7 @@ var render = function() {
     _c(
       "form",
       [
-        _c("guide-block"),
+        _c("guide-block", { attrs: { action: _vm.action } }),
         _vm._v(" "),
         _c("delivery-block"),
         _vm._v(" "),
@@ -44213,7 +44377,7 @@ var render = function() {
               _vm.loading
                 ? _c("span", { staticClass: "lds-dual-ring loader-light" })
                 : _c(
-                    "button",
+                    "span",
                     {
                       staticClass: "mainbtn",
                       on: {
@@ -44444,7 +44608,41 @@ var render = function() {
         "ul",
         { staticClass: "listtable" },
         [
-          _vm._m(0),
+          _c("li", [
+            _c("ul", [
+              _vm.editable == 1 ? _c("li", [_vm._v("出荷")]) : _vm._e(),
+              _vm._v(" "),
+              _c("li", [_vm._v("作成日時")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("業者")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("指図書番号")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("得意先")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("件名")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("営業所名")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("担当者")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("送り先コード")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("送り先名")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("納入先")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("出荷予定日")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("納品日")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("商品名")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("指図書ダウンロード")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("操作")])
+            ])
+          ]),
           _vm._v(" "),
           _vm.loading
             ? _c(
@@ -44470,46 +44668,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("ul", [
-        _c("li", [_vm._v("作成日時")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("業者")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("指図書番号")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("得意先")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("件名")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("営業所名")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("担当者")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("送り先コード")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("送り先名")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("納入先")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("出荷予定日")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("納品日")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("商品名")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("指図書ダウンロード")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("操作")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45677,8 +45836,44 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { class: { done: _vm.done } }, [
+  return _c("li", { class: { done: _vm.deliveried } }, [
     _c("ul", [
+      _vm.editable == 1
+        ? _c("li", [
+            _c("div", { staticClass: "onoffswitch" }, [
+              _c("input", {
+                staticClass: "onoffswitch-checkbox",
+                attrs: {
+                  type: "checkbox",
+                  name: "onoffswitch",
+                  id: "status" + _vm.guide.id
+                },
+                domProps: { checked: _vm.guide.export }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  class: [
+                    _vm.canEdit ? "onoffswitch-label" : "onoffswitch-label-beta"
+                  ],
+                  attrs: { for: "status" + _vm.guide.id },
+                  on: {
+                    click: function($event) {
+                      return _vm.changeExport(_vm.guide.id)
+                    }
+                  }
+                },
+                [
+                  _c("span", { staticClass: "onoffswitch-inner" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "onoffswitch-switch" })
+                ]
+              )
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("li", [_vm._v(_vm._s(_vm.guide.created_at))]),
       _vm._v(" "),
       _c("li", [
@@ -45699,13 +45894,7 @@ var render = function() {
         "li",
         [
           _vm.guide.delivery
-            ? [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.guide.delivery.destination_code) +
-                    "\n            "
-                )
-              ]
+            ? [_vm._v(_vm._s(_vm.guide.delivery.destination_code))]
             : _vm._e()
         ],
         2
@@ -45723,13 +45912,7 @@ var render = function() {
         "li",
         [
           _vm.guide.first_product
-            ? [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.guide.first_product[0].name) +
-                    "\n            "
-                )
-              ]
+            ? [_vm._v(_vm._s(_vm.guide.first_product[0].name))]
             : _vm._e()
         ],
         2
@@ -46020,38 +46203,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("ul", { staticClass: "edit-list" }, [
     _c("li", { staticClass: "sec" }, [
-      _c("h3", { staticClass: "formctttl" }, [_vm._v("送付先名")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "formctbox" }, [
-        _c("label", { staticClass: "before" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.delivery.receiver,
-                expression: "delivery.receiver"
-              }
-            ],
-            staticClass: "w50",
-            attrs: { type: "text" },
-            domProps: { value: _vm.delivery.receiver },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.delivery, "receiver", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _c("span", [_vm._v("様")])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("li", { staticClass: "sec" }, [
-      _c("h3", { staticClass: "formctttl" }, [_vm._v("帳合い先CHK")]),
+      _c("h3", { staticClass: "formctttl" }, [_vm._v("配送区分")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
         _c(
@@ -46096,6 +46248,37 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("li", { staticClass: "sec" }, [
+      _c("h3", { staticClass: "formctttl" }, [_vm._v("送付先名")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "formctbox" }, [
+        _c("label", { staticClass: "before" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.delivery.receiver,
+                expression: "delivery.receiver"
+              }
+            ],
+            staticClass: "w50",
+            attrs: { type: "text" },
+            domProps: { value: _vm.delivery.receiver },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.delivery, "receiver", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _c("span", [_vm._v("様")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("li", { staticClass: "sec" }, [
       _c("h3", { staticClass: "formctttl" }, [_vm._v("住所")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
@@ -46130,7 +46313,7 @@ var render = function() {
             ]),
             _c("span", { staticClass: "before" }, [
               _c(
-                "button",
+                "span",
                 {
                   staticClass: "mainbtn minibtn subbtn",
                   on: {
@@ -46197,7 +46380,7 @@ var render = function() {
             ]),
             _c("span", { staticClass: "before after" }, [
               _c(
-                "button",
+                "span",
                 {
                   staticClass: "mainbtn minibtn subbtn",
                   on: {
@@ -46451,6 +46634,50 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("ul", { staticClass: "edit-list" }, [
+    _vm.action != "new"
+      ? _c("li", { staticClass: "sec" }, [
+          _c("h3", { staticClass: "formctttl" }, [_vm._v("ステータス")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "formctbox" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.guide.export,
+                    expression: "guide.export"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.guide,
+                      "export",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "0" } }, [_vm._v("納品前")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "1" } }, [_vm._v("納品済")])
+              ]
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("li", { staticClass: "sec" }, [
       _c("h3", { staticClass: "formctttl" }, [_vm._v("作成日時")]),
       _vm._v(" "),
@@ -46645,19 +46872,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.creator.name,
-              expression: "creator.name"
+              value: _vm.guideAuthor,
+              expression: "guideAuthor"
             }
           ],
           staticClass: "w15",
           attrs: { type: "text", name: "", disabled: "" },
-          domProps: { value: _vm.creator.name },
+          domProps: { value: _vm.guideAuthor },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.creator, "name", $event.target.value)
+              _vm.guideAuthor = $event.target.value
             }
           }
         })
@@ -46773,27 +47000,31 @@ var render = function() {
       _c("h3", { staticClass: "formctttl" }, [_vm._v("得意先名")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.guide.customer_name,
-              expression: "guide.customer_name"
-            }
-          ],
-          staticClass: "w50",
-          attrs: { type: "text", name: "" },
-          domProps: { value: _vm.guide.customer_name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("label", { staticClass: "before" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.guide.customer_name,
+                expression: "guide.customer_name"
               }
-              _vm.$set(_vm.guide, "customer_name", $event.target.value)
+            ],
+            staticClass: "w50",
+            attrs: { type: "text", name: "" },
+            domProps: { value: _vm.guide.customer_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.guide, "customer_name", $event.target.value)
+              }
             }
-          }
-        })
+          })
+        ]),
+        _vm._v(" "),
+        _c("span", [_vm._v("様")])
       ])
     ]),
     _vm._v(" "),
@@ -46801,27 +47032,31 @@ var render = function() {
       _c("h3", { staticClass: "formctttl" }, [_vm._v("ご担当者様")]),
       _vm._v(" "),
       _c("div", { staticClass: "formctbox" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.guide.curator,
-              expression: "guide.curator"
-            }
-          ],
-          staticClass: "w15",
-          attrs: { type: "text", name: "" },
-          domProps: { value: _vm.guide.curator },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("label", { staticClass: "before" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.guide.curator,
+                expression: "guide.curator"
               }
-              _vm.$set(_vm.guide, "curator", $event.target.value)
+            ],
+            staticClass: "w15",
+            attrs: { type: "text", name: "" },
+            domProps: { value: _vm.guide.curator },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.guide, "curator", $event.target.value)
+              }
             }
-          }
-        })
+          })
+        ]),
+        _vm._v(" "),
+        _c("span", [_vm._v("様")])
       ])
     ]),
     _vm._v(" "),
@@ -48715,7 +48950,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "button",
+            "span",
             {
               staticClass: "mainbtn addbtn",
               on: {
@@ -48949,7 +49184,7 @@ var render = function() {
       },
       [
         _c(
-          "button",
+          "span",
           {
             staticClass: "deletebtn",
             on: {
@@ -49368,52 +49603,100 @@ var render = function() {
             _c("label", { staticClass: "before" }, [
               _c("span", { staticClass: "labeltxt" }, [_vm._v("銘入方式")]),
               _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
+              _vm.isMigrated
+                ? _c(
+                    "select",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.inscription.method,
-                      expression: "inscription.method"
-                    }
-                  ],
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.inscription,
-                        "method",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("選択してください")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.listInscrMethod, function(method, index) {
-                    return _c(
-                      "option",
-                      { key: index, domProps: { value: method.eng } },
-                      [_vm._v(_vm._s(method.jap))]
-                    )
-                  })
-                ],
-                2
-              )
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inscription.method,
+                          expression: "inscription.method"
+                        }
+                      ],
+                      attrs: { disabled: "" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.inscription,
+                            "method",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("選択してください")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listInscrMethod, function(method, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: method.eng } },
+                          [_vm._v(_vm._s(method.jap))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inscription.method,
+                          expression: "inscription.method"
+                        }
+                      ],
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.inscription,
+                            "method",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("選択してください")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listInscrMethodTwo, function(method, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: method.eng } },
+                          [_vm._v(_vm._s(method.jap))]
+                        )
+                      })
+                    ],
+                    2
+                  )
             ]),
             _vm._v(" "),
             _c("label", { staticClass: "before" }, [
@@ -49455,11 +49738,11 @@ var render = function() {
                     _vm._v("選択してください")
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.listInscrWork, function(method, index) {
+                  _vm._l(_vm.listInscrWork, function(work, index) {
                     return _c(
                       "option",
-                      { key: index, domProps: { value: method.eng } },
-                      [_vm._v(_vm._s(method.jap))]
+                      { key: index, domProps: { value: work.eng } },
+                      [_vm._v(_vm._s(work.jap))]
                     )
                   })
                 ],
@@ -49506,11 +49789,11 @@ var render = function() {
                     _vm._v("選択してください")
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.listInscrTypeFace, function(method, index) {
+                  _vm._l(_vm.listInscrTypeFace, function(typeface, index) {
                     return _c(
                       "option",
-                      { key: index, domProps: { value: method.eng } },
-                      [_vm._v(_vm._s(method.jap))]
+                      { key: index, domProps: { value: typeface.eng } },
+                      [_vm._v(_vm._s(typeface.jap))]
                     )
                   })
                 ],
@@ -50094,6 +50377,100 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("header", { staticClass: "sec-header edit-header" }, [
+      _c("nav", { staticClass: "pagenav flexend" }, [
+        _c(
+          "ul",
+          { staticClass: "pagenation" },
+          [
+            _c(
+              "paginate",
+              {
+                attrs: {
+                  "page-count": _vm.totalPage,
+                  "prev-text": "",
+                  "next-text": "",
+                  "click-handler": _vm.loadUser,
+                  "container-class": "className"
+                },
+                model: {
+                  value: _vm.currentPage,
+                  callback: function($$v) {
+                    _vm.currentPage = $$v
+                  },
+                  expression: "currentPage"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  { attrs: { slot: "prevContent" }, slot: "prevContent" },
+                  [_vm._v("Changed previous button")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { attrs: { slot: "nextContent" }, slot: "nextContent" },
+                  [_vm._v("Changed next button")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    attrs: { slot: "breakViewContent" },
+                    slot: "breakViewContent"
+                  },
+                  [_vm._v("･･･")]
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.ppp,
+                expression: "ppp"
+              }
+            ],
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.ppp = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                _vm.changePpp
+              ]
+            }
+          },
+          [
+            _c("option", { attrs: { value: "100" } }, [_vm._v("100件表示")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "50" } }, [_vm._v("50件表示")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "30" } }, [_vm._v("30件表示")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "10" } }, [_vm._v("10件表示")])
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("ul", { staticClass: "listtable" }, [
       _vm._m(0),
       _vm._v(" "),
@@ -64751,66 +65128,81 @@ var constVar = {
   }],
   noProductName: "品名未入力",
   insc_method: [{
-    'eng': 'インクジェット',
+    'eng': '1',
     'jap': 'インクジェット'
   }, {
-    'eng': 'ドット',
+    'eng': '2',
     'jap': 'ドット'
   }, {
-    'eng': 'シルク',
+    'eng': '3',
     'jap': 'シルク'
   }, {
-    'eng': 'パッド',
+    'eng': '4',
     'jap': 'パッド'
   }, {
-    'eng': 'レーザー',
+    'eng': '5',
     'jap': 'レーザー'
   }, {
-    'eng': '他：低温焼付け印刷',
+    'eng': '6',
     'jap': '他：低温焼付け印刷'
+  }, {
+    'eng': '7',
+    'jap': 'インクジェット'
+  }, {
+    'eng': '8',
+    'jap': 'パッド'
+  }, {
+    'eng': '9',
+    'jap': 'レーザー'
+  }, {
+    'eng': '10',
+    'jap': 'グラボ、'
+  }, {
+    'eng': '11',
+    'jap': 'その他、'
   }],
   insc_work: [{
-    'eng': 'パック出し',
+    'eng': '1',
     'jap': 'パック出し'
   }, {
-    'eng': 'シール剥し',
+    'eng': '2',
     'jap': 'シール剥し'
   }, {
-    'eng': 'キャップ回し',
+    'eng': '3',
     'jap': 'キャップ回し'
   }, {
-    'eng': '値札タグ外し',
+    'eng': '4',
     'jap': '値札タグ外し'
   }, {
-    'eng': 'その他',
+    'eng': '5',
     'jap': 'その他'
   }],
   insc_typeface: [{
-    'eng': '一任',
+    'eng': '1',
     'jap': '一任'
   }, {
-    'eng': '指定書体',
+    'eng': '2',
     'jap': '指定書体'
   }, {
-    'eng': '明朝',
+    'eng': '3',
     'jap': '明朝'
   }, {
-    'eng': '角ゴシック',
+    'eng': '4',
     'jap': '角ゴシック'
   }, {
-    'eng': '丸ゴシック',
+    'eng': '5',
     'jap': '丸ゴシック'
   }, {
-    'eng': '筆記体',
+    'eng': '6',
     'jap': '筆記体'
   }, {
-    'eng': '行書体',
+    'eng': '7',
     'jap': '行書体'
   }, {
-    'eng': '楷書',
+    'eng': '8',
     'jap': '楷書'
   }, {
-    'eng': '他：書き起こし',
+    'eng': '9',
     'jap': '他：書き起こし'
   }]
 };
@@ -65156,7 +65548,7 @@ var deleteAttach = function deleteAttach() {
 /*!*******************************************!*\
   !*** ./resources/js/stores/guideStore.js ***!
   \*******************************************/
-/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, default */
+/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, setDateNo, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65166,6 +65558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCreator", function() { return setCreator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAction", function() { return setAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCloneId", function() { return setCloneId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDateNo", function() { return setDateNo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWorkers", function() { return getWorkers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProduct", function() { return addProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeProduct", function() { return removeProduct; });
@@ -65230,7 +65623,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   price: _variables_price__WEBPACK_IMPORTED_MODULE_8__["default"],
   showPrice: true,
   doDupplicate: false,
-  fileNotClone: []
+  fileNotClone: [],
+  isMigrated: false
 });
 var getGuideInfo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
@@ -65245,7 +65639,8 @@ var getGuideInfo = /*#__PURE__*/function () {
               state.packaging = result.data.data.packaging;
               state.procedure = result.data.data.procedure;
               state.creator = result.data.data.creator;
-              if (result.data.data.guide.price == false) state.showPrice = false;else state.price = result.data.data.guide.price; // state.originalFiles = {...result.data.data.files }
+              if (result.data.data.guide.price == false) state.showPrice = false;else state.price = result.data.data.guide.price;
+              state.isMigrated = state.guide.old_creator ? true : false; // state.originalFiles = {...result.data.data.files }
 
               state.originalFiles = result.data.data.files.map(function (file) {
                 return {
@@ -65276,13 +65671,6 @@ var getGuideInfo = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-/*
-let setAuthorOffice = () => {
-    if(state.action == 'new' || state.action == 'dupplicate'){
-        
-    }
-}
-*/
 
 var productToGuide = function productToGuide(products, files) {
   products.forEach(function (prod) {
@@ -65629,6 +66017,10 @@ var setCloneId = function setCloneId(id) {
   }
   */
 };
+var setDateNo = function setDateNo() {
+  state.guide.created_at = new Date().toLocaleDateString("fr-CA");
+  state.guide.number = '';
+};
 var getWorkers = function getWorkers() {
   axios('/guide/workers').then(function (result) {
     state.suppliers = result.data;
@@ -65719,7 +66111,7 @@ var findCustomer = /*#__PURE__*/function () {
 /*!***********************************************!*\
   !*** ./resources/js/stores/listGuideStore.js ***!
   \***********************************************/
-/*! exports provided: getOffices, getWorkers, getPpp, doSearch, setDelete, doDelete, cloneGuide, setSearchWorker, setCurrentUser, default */
+/*! exports provided: getOffices, getWorkers, getPpp, doSearch, setDelete, setExport, doDelete, cloneGuide, setSearchWorker, setCurrentUser, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65729,6 +66121,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPpp", function() { return getPpp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doSearch", function() { return doSearch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDelete", function() { return setDelete; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setExport", function() { return setExport; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doDelete", function() { return doDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cloneGuide", function() { return cloneGuide; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSearchWorker", function() { return setSearchWorker; });
@@ -65857,6 +66250,11 @@ var setDelete = function setDelete(id) {
   });
   state.deleteGuide.number = guide.number;
 };
+var setExport = function setExport(id) {
+  axios.post('/guide/change-export', {
+    id: id
+  }).then(function (result) {});
+};
 var doDelete = function doDelete() {
   axios.post('/guide/delete', {
     id: state.deleteGuide.id
@@ -65950,7 +66348,8 @@ __webpack_require__.r(__webpack_exports__);
   customer_name: '',
   curator: '',
   shipping_date: '',
-  received_date: ''
+  received_date: '',
+  "export": 0
 });
 /*
 export default {

@@ -71,13 +71,13 @@
 				<li class="tr">
 					<ul class="thtd">
 						<li class="th">包装材印刷</li>
-						<li class="td">{{ $packaging->printing == 1 ? '有' : '無'}}</li>
+						<li class="td">{{ isset($packaging->printing) ? ( $packaging->printing == 1 ? '有' : '無' ) : ""}}</li>
 					</ul>
 				</li>
 				<li class="tr">
 					<ul class="thtd">
 						<li class="th">校正</li>
-						<li class="td">{{ $packaging->proofreading == 1 ? '有' : '無'}}</li>
+						<li class="td">{{ isset($packaging->proofreading) ? ( $packaging->proofreading == 1 ? '有' : '無' ) : ""}}</li>
 					</ul>
 				</li>
 			</ul>

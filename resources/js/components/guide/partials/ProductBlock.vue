@@ -6,7 +6,7 @@
           銘入合計数量：
           <strong>{{ totalProduct }}P</strong>
         </span>
-        <button @click.prevent="addProduct" class="mainbtn addbtn">追加</button>
+        <span @click.prevent="addProduct" class="mainbtn addbtn">追加</span>
       </li>
       
       <product-info v-for="index in totalProduct" :key="index + '-info'" :indexv="index" :total="totalProduct" />

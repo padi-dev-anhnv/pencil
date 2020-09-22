@@ -26,6 +26,7 @@ class CreateFilesTable extends Migration
             $table->unsignedInteger('guide_id')->nullable();
             $table->foreign('guide_id')->references('id')->on('guides')->onDelete('cascade');
             $table->string('type')->nullable();
+            $table->string('old_creator')->nullable();
             $table->timestamps();
         });
     }

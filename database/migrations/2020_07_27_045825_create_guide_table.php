@@ -20,7 +20,7 @@ class CreateGuideTable extends Migration
             // $table->unsignedInteger('office_id')->nullable();
             // $table->foreign('office_id')->references('id')->on('offices');
             $table->string('number')->nullable();
-            $table->unsignedInteger('supplier_id');
+            $table->unsignedInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')->references('id')->on('users');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
@@ -33,6 +33,8 @@ class CreateGuideTable extends Migration
             $table->text('price')->nullable();
             $table->text('products')->nullable();
             $table->string('key_code')->nullable();
+            $table->boolean('export')->nullable()->default(false);
+            $table->string('old_creator')->nullable();
             $table->date('shipping_date')->nullable(); 
             $table->date('received_date')->nullable(); 
             // $table->unsignedInteger('clone_id')->nullable();

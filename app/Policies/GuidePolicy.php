@@ -26,6 +26,16 @@ class GuidePolicy
         return true;
     }
 
+    public function update(User $user, Guide $guide)
+    {
+        $canUpdate = false;
+        if($user->role->type == "admin")
+            $canUpdate = true;
+        if($user->id == $guide->user_id)
+            $canUpdate= true;
+        return $canUpdate;
+    }
+
     public function create(User $user)
     {
         $array_allow =  ['admin','instruction_manager'];

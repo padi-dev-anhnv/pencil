@@ -28,7 +28,7 @@ class UserRepository
 
     public function list($request)
     {
-        $users = User::notBanned()->orderBy('id', 'desc')->with('role','office')->paginate(10);
+        $users = User::notBanned()->orderBy('id', 'desc')->with('role','office')->paginate($request['ppp']);
         return $users;
     }
 

@@ -100,6 +100,13 @@ export const setDelete = (id) => {
     state.deleteGuide.number = guide.number;
 }
 
+
+export const setExport = (id) => {
+    axios.post('/guide/change-export', { id: id }).then(result => {
+        
+    })
+}
+
 export const doDelete = () =>{
     axios.post('/guide/delete', { id: state.deleteGuide.id }).then(result => {
         if(result.data.success == true){

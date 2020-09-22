@@ -35,8 +35,10 @@ const state = Vue.observable({
     price,
     showPrice : true,
     doDupplicate : false,
-    fileNotClone : []
+    fileNotClone : [],
+    isMigrated : false
 });
+
 
 export const getGuideInfo = async (id) => {
     await axios.get('/guide/' + id + '/get-guide').then(result => {
@@ -49,7 +51,7 @@ export const getGuideInfo = async (id) => {
             state.showPrice = false;
         else            
             state.price = result.data.data.guide.price;
-            
+        state.isMigrated =  state.guide.old_creator ? true : false ;
         // state.originalFiles = {...result.data.data.files }
         state.originalFiles = result.data.data.files.map(file => {
             return { id : file.id }
@@ -68,13 +70,6 @@ export const getGuideInfo = async (id) => {
             window.location.href = "/guide";
     })
 }
-/*
-let setAuthorOffice = () => {
-    if(state.action == 'new' || state.action == 'dupplicate'){
-        
-    }
-}
-*/
 
 let productToGuide = (products, files) => {
     products.forEach(prod => {
@@ -281,6 +276,12 @@ export const setCloneId = (id) => {
         number : state.guide.number
     }
     */
+}
+
+
+export const setDateNo = () => {
+    state.guide.created_at = (new Date ()).toLocaleDateString ("fr-CA");
+    state.guide.number = '';
 }
 
 export const getWorkers = () => {

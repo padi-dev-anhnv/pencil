@@ -33,6 +33,7 @@
             <ul class="listtable">
                 <li>
                     <ul>
+                        <li v-if="editable == 1">出荷</li>
                         <li>作成日時</li>
                         <li>業者</li>
                         <li>指図書番号</li>

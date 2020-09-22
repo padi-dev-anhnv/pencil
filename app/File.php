@@ -57,12 +57,7 @@ class File extends Model
     {
         return $this->belongsTo(User::class);
     }
-/*
-    public function product()
-    {
-       return $this->belongsTo(Product::class)->select('id', 'guide_id');
-    }
-*/
+
     public function guide()
     {
        return $this->belongsTo(Guide::class)->select('id', 'number');
@@ -102,13 +97,15 @@ class File extends Model
 
     public function scopeKeyword($query, $key)
     {
-        // return $query->whereRaw('MATCH (description, tags, name, link) AGAINST (?)' , array($key));
         return $query->where('name','LIKE','%'.$key.'%')
         ->orWhere('link','LIKE','%'.$key.'%')
         ->orWhere('description','LIKE','%'.$key.'%')
         ->orWhere('tags','LIKE','%'.$key.'%')
         ->orWhereHas('user', function($query) use ($key) {
             $query->where('name','LIKE','%'.$key.'%');
+        })
+        ->orWhereHas('guide', function($query) use ($key) {
+            $query->where('number',$key);
         })
         ->orWhereHas('user.office', function($query) use ($key) {
             $query->where('name','LIKE','%'.$key.'%');

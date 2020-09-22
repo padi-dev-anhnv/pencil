@@ -1,5 +1,31 @@
 <template>
     <div>
+        <header class="sec-header edit-header">
+                <nav class="pagenav flexend">
+                    <ul class="pagenation">
+                        <paginate
+                            v-model="currentPage"
+                            :page-count="totalPage"
+                            :prev-text="''"
+                            :next-text="''"
+                            :click-handler="loadUser"
+                            :container-class="'className'"
+                        >
+                            <span slot="prevContent"
+                                >Changed previous button</span
+                            >
+                            <span slot="nextContent">Changed next button</span>
+                            <span slot="breakViewContent">･･･</span>
+                        </paginate>
+                    </ul>
+                    <select v-model="ppp" @change="changePpp">
+                        <option value="100">100件表示</option>
+                        <option value="50">50件表示</option>
+                        <option value="30">30件表示</option>
+                        <option value="10">10件表示</option>
+                    </select>
+                </nav>
+            </header>
         <ul class="listtable">
             <li>
                 <ul>
@@ -91,15 +117,23 @@ export default {
             users: [],
             deleteId: 0,
             page: 1,
-            loading : false
+            loading : false,
+            totalPage : 0, 
+            currentPage : 1, 
+            ppp : 10
+
         };
     },
     methods: {
         loadUser() {
             this.loading = true;
-            axios("/user/get-list", { params: { page: this.page } }).then(result => {
+            let searchFilter = {}
+            searchFilter.page = this.currentPage ; 
+            searchFilter.ppp = this.ppp  ;
+            axios("/user/get-list", { params: searchFilter }).then(result => {
                 this.loading = false;
                 this.users = result.data.data;
+                this.totalPage = result.data.total ? result.data.last_page : 0
             }).catch(err => {
                 this.loading = false;
             });
@@ -116,6 +150,20 @@ export default {
                         this.loadUser();
                     });
             }
+        },
+        changePpp(){
+            localStorage.setItem("ppp-user", this.ppp);
+            this.currentPage = 1;
+            this.loadUser();
+        },
+        loadPpp(){
+            if(localStorage.getItem("ppp-user")){
+                this.ppp = localStorage.getItem("ppp-user");
+            }        
+            else{
+                localStorage.setItem("ppp-user", 10)
+                this.ppp = 10
+            }
         }
     },
     computed: {
@@ -123,9 +171,11 @@ export default {
             if (this.deleteId != 0)
                 return this.users.find(user => user.id == this.deleteId).name;
             else return "";
-        }
+        },
+        
     },
     created() {
+        this.loadPpp();
         this.loadUser();
     }
 };

@@ -13,6 +13,7 @@ export default {
     curator : '',
      shipping_date : '',
      received_date : '',
+    export : 0
 }
 /*
 export default {
