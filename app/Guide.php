@@ -53,8 +53,12 @@ class Guide extends Model
         // return $this->creator()->select('name')->first();
         if($this->old_creator)
             $creator = ['id' => 9999, 'name' => $this->old_creator];
-        else
-            $creator = $this->creator()->select('name', 'id')->first()->toArray();
+        else{
+            $creator = $this->creator()->select('name', 'id')->first();
+            if($creator)
+                $creator = $creator->toArray();
+        }
+            
         return $creator;
     }
 
