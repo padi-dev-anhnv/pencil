@@ -9,8 +9,9 @@
             class="onoffswitch-checkbox"
             :id="'status' + guide.id"
             :checked="guide.export"
+            :disabled="!canEdit"
           />
-          <label :class="[canEdit ? 'onoffswitch-label' : 'onoffswitch-label-beta']"  :for="'status' + guide.id" @click="changeExport(guide.id)">
+          <label class="onoffswitch-label"  :for="'status' + guide.id" @click="changeExport(guide.id)">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
           </label>

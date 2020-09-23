@@ -3771,6 +3771,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45846,7 +45847,8 @@ var render = function() {
                 attrs: {
                   type: "checkbox",
                   name: "onoffswitch",
-                  id: "status" + _vm.guide.id
+                  id: "status" + _vm.guide.id,
+                  disabled: !_vm.canEdit
                 },
                 domProps: { checked: _vm.guide.export }
               }),
@@ -45854,9 +45856,7 @@ var render = function() {
               _c(
                 "label",
                 {
-                  class: [
-                    _vm.canEdit ? "onoffswitch-label" : "onoffswitch-label-beta"
-                  ],
+                  staticClass: "onoffswitch-label",
                   attrs: { for: "status" + _vm.guide.id },
                   on: {
                     click: function($event) {
