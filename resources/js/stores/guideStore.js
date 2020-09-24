@@ -36,7 +36,9 @@ const state = Vue.observable({
     showPrice : true,
     doDupplicate : false,
     fileNotClone : [],
-    isMigrated : false
+    isMigrated : false,
+    currentProductIndex : 0,
+    currentFileIndex : 0
 });
 
 
@@ -138,8 +140,20 @@ export const createGuide = async (id) => {
               alert(result.data.message)
           }
         
-    }).catch(err => {
-        alert(err)
+    }).catch(error => {
+        if (error.response) {
+            let errors = error.response.data.errors;
+            let errMsg = `下記の項目は最大の文字数を超えたのでご確認お願いします。`;
+            for(let err in errors){
+                errMsg += `
+${errors[err][0]}`
+            }
+            alert(errMsg)
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
     })
     state.loading = false;
 };
@@ -348,5 +362,24 @@ export const findCustomer = async (type = 'destination_code', code ) => {
         
     })
 }
+
+export const setDeleteFile = (index, i) => {
+    state.currentProductIndex = index ; 
+    state.currentFileIndex = i;
+}
+
+export const deleteFileTemp = (index, i) => {
+    let pIndex = index ? index :  state.currentProductIndex;
+    let fIndex = i ? i :  state.currentFileIndex;
+    
+    console.log('pIndex', pIndex)
+    // if(pIndex && fIndex)
+        Vue.set(state.products[pIndex].inscription.files, fIndex, {})
+}
+
+export const setFileUpload = (index, i, holderFile) => {
+    Vue.set(state.products[index].inscription.files, i, holderFile)
+}
+
 
 export default state;

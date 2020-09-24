@@ -1923,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../stores/guideStore */ "./resources/js/stores/guideStore.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1965,7 +1966,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['page'],
   methods: {
     doDelete: function doDelete() {
       var _this = this;
@@ -1975,13 +1978,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!(_this.page == "guide")) {
+                  _context.next = 4;
+                  break;
+                }
+
+                Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_2__["deleteFileTemp"])();
+                _context.next = 7;
+                break;
+
+              case 4:
+                _context.next = 6;
                 return Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["doDelete"])();
 
-              case 2:
+              case 6:
                 _this.$refs.closeModal.click();
 
-              case 3:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -1995,6 +2008,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].file.name;
     },
     canDelete: function canDelete() {
+      if (this.page == "guide") return true;
       return _stores_fileStore__WEBPACK_IMPORTED_MODULE_1__["default"].file.guideId == 0;
     },
     deleting: function deleting() {
@@ -2810,6 +2824,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id', 'action', 'creator', 'clone_id', 'user'],
@@ -2945,7 +3038,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../stores/guideStore */ "./resources/js/stores/guideStore.js");
-/* harmony import */ var _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/constFileExt */ "./resources/js/stores/constFileExt.js");
+/* harmony import */ var _stores_fileStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../stores/fileStore */ "./resources/js/stores/fileStore.js");
+/* harmony import */ var _stores_constFileExt__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../stores/constFileExt */ "./resources/js/stores/constFileExt.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2976,10 +3070,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['index', 'i'],
+  props: ["index", "i"],
   data: function data() {
     return {
       dragging: false
@@ -2993,7 +3107,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].products[this.index].inscription.files[this.i];
     },
     fileExt: function fileExt() {
-      var ext = _stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].map(function (fileExt) {
+      var ext = _stores_constFileExt__WEBPACK_IMPORTED_MODULE_3__["default"].map(function (fileExt) {
         return "." + fileExt;
       });
       return ext.join(",");
@@ -3001,20 +3115,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     uploadFile: function uploadFile(index, i) {
-      var fileName = 'file' + index + i;
+      var fileName = "file" + index + i;
       this.$refs[fileName].click(); // this.$refs[fileName].click();
     },
     setFileUpload: function setFileUpload(file, index, i) {
       var fileTemp = file;
       var fileExt = fileTemp.name.slice((fileTemp.name.lastIndexOf(".") - 1 >>> 0) + 2);
-      var thumbnail = '';
-      if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = 'https://via.placeholder.com/1740x1445?text=' + fileExt;
+      var thumbnail = "";
+      if (["jpg", "jpeg", "gif", "png"].includes(fileExt)) thumbnail = URL.createObjectURL(fileTemp);else thumbnail = "https://via.placeholder.com/1740x1445?text=" + fileExt;
       var holderFile = {
         fileUpload: fileTemp,
-        link: 'file',
+        link: "file",
         thumbnail: thumbnail
       };
-      Vue.set(this.inscription.files, i, holderFile);
+
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setFileUpload"])(index, i, holderFile); // Vue.set(this.inscription.files, i, holderFile)
+
     },
     onFileChange: function onFileChange(e, index, i) {
       var _this = this;
@@ -3037,13 +3153,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     deleteFile: function deleteFile(index, i) {
-      Vue.set(this.inscription.files, i, {});
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["deleteFileTemp"])(index, i);
+      return false; // Vue.set(this.inscription.files, i, {})
+    },
+    openEditModal: function openEditModal(id, index, i) {
+      Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setDeleteFile"])(index, i);
+
+      Object(_stores_fileStore__WEBPACK_IMPORTED_MODULE_2__["openEditModal"])(id);
     }
   },
   mounted: function mounted() {
     var _this2 = this;
 
-    var dropArea = document.getElementById('drop-area' + this.index + '' + this.i);
+    var dropArea = document.getElementById("drop-area" + this.index + "" + this.i);
 
     dropArea.ondragover = dropArea.ondragenter = function (evt) {
       _this2.dragging = true;
@@ -3056,8 +3178,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     dropArea.ondrop = function (evt) {
       var fileName = evt.dataTransfer.files[0].name;
-      var fileExtension = fileName.replace(/^.*\./, '');
-      if (_stores_constFileExt__WEBPACK_IMPORTED_MODULE_2__["default"].includes(fileExtension)) _this2.setFileUpload(evt.dataTransfer.files[0], _this2.index, _this2.i);
+      var fileExtension = fileName.replace(/^.*\./, "");
+      if (_stores_constFileExt__WEBPACK_IMPORTED_MODULE_3__["default"].includes(fileExtension)) _this2.setFileUpload(evt.dataTransfer.files[0], _this2.index, _this2.i);
       evt.preventDefault();
     };
   }
@@ -4204,7 +4326,10 @@ __webpack_require__.r(__webpack_exports__);
       if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office ? _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name : "";else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
     },
     guideAuthor: function guideAuthor() {
-      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
+      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else {
+        if (_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
+        return "";
+      }
     }
   },
   created: function created() {
@@ -10251,7 +10376,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.area-dragging .selectfile[data-v-33b821c5], .area-dragging .uploadimg[data-v-33b821c5]{\n  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;\n}\n", ""]);
+exports.push([module.i, "\n.area-dragging .selectfile[data-v-33b821c5],\r\n.area-dragging .uploadimg[data-v-33b821c5] {\r\n    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),\r\n        0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -43307,7 +43432,7 @@ var render = function() {
                             {
                               staticClass: "mainbtn dlbtn",
                               attrs: {
-                                href: "file/" + this.file.id + "/download"
+                                href: "/file/" + this.file.id + "/download"
                               }
                             },
                             [_vm._v("ファイルダウンロード")]
@@ -44278,7 +44403,7 @@ var render = function() {
       _vm._v(" "),
       _c("file-modal", { on: { "reset-search": _vm.resetFilter } }),
       _vm._v(" "),
-      _c("file-delete"),
+      _c("file-delete", { attrs: { page: "file" } }),
       _vm._v(" "),
       _c("input", {
         staticClass: "cancel",
@@ -44344,59 +44469,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "edit-form" }, [
-    _c(
-      "form",
-      [
-        _c("guide-block", { attrs: { action: _vm.action } }),
-        _vm._v(" "),
-        _c("delivery-block"),
-        _vm._v(" "),
-        _c("packaging-block"),
-        _vm._v(" "),
-        _c("procedure-block"),
-        _vm._v(" "),
-        _c("product-block", { attrs: { action: _vm.action } }),
-        _vm._v(" "),
-        _c("price-block"),
-        _vm._v(" "),
-        _c(
-          "footer",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.editBtn,
-                expression: "editBtn"
-              }
-            ],
-            staticClass: "list-footer"
-          },
-          [
-            _c("footer", { staticClass: "list-footer" }, [
-              _vm.loading
-                ? _c("span", { staticClass: "lds-dual-ring loader-light" })
-                : _c(
-                    "span",
-                    {
-                      staticClass: "mainbtn",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.createGuide($event)
+  return _c(
+    "div",
+    { staticClass: "edit-form" },
+    [
+      _c(
+        "form",
+        [
+          _c("guide-block", { attrs: { action: _vm.action } }),
+          _vm._v(" "),
+          _c("delivery-block"),
+          _vm._v(" "),
+          _c("packaging-block"),
+          _vm._v(" "),
+          _c("procedure-block"),
+          _vm._v(" "),
+          _c("product-block", { attrs: { action: _vm.action } }),
+          _vm._v(" "),
+          _c("price-block"),
+          _vm._v(" "),
+          _c(
+            "footer",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.editBtn,
+                  expression: "editBtn"
+                }
+              ],
+              staticClass: "list-footer"
+            },
+            [
+              _c("footer", { staticClass: "list-footer" }, [
+                _vm.loading
+                  ? _c("span", { staticClass: "lds-dual-ring loader-light" })
+                  : _c(
+                      "span",
+                      {
+                        staticClass: "mainbtn",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.createGuide($event)
+                          }
                         }
-                      }
-                    },
-                    [_c("span", [_vm._v("保存")])]
-                  )
-            ])
-          ]
-        )
-      ],
-      1
-    )
-  ])
+                      },
+                      [_c("span", [_vm._v("保存")])]
+                    )
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("file-modal"),
+      _vm._v(" "),
+      _c("file-delete", { attrs: { page: "guide" } }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "cancel",
+        attrs: { id: "popup_cancel", name: "editfile", type: "radio" }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -44439,31 +44578,51 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm.file.link
-        ? _c("div", { staticClass: "uploadimg" }, [
-            _vm.file.thumbnail
-              ? _c("img", {
-                  attrs: {
-                    src: _vm.file.thumbnail,
-                    width: "566",
-                    height: "573"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "deletebtn",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.deleteFile(_vm.index, _vm.i)
-                  }
+        ? _c(
+            "label",
+            {
+              staticClass: "uploadimg",
+              attrs: { for: _vm.file.id ? "popup_editfile" : "" },
+              on: {
+                click: function($event) {
+                  return _vm.openEditModal(_vm.file.id, _vm.index, _vm.i)
                 }
-              },
-              [_c("span", [_vm._v("削除")])]
-            )
-          ])
+              }
+            },
+            [
+              _vm.file.thumbnail
+                ? _c("img", {
+                    attrs: {
+                      src: _vm.file.thumbnail,
+                      width: "566",
+                      height: "573"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.file.id,
+                      expression: "!file.id"
+                    }
+                  ],
+                  staticClass: "deletebtn",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteFile(_vm.index, _vm.i)
+                    }
+                  }
+                },
+                [_c("span", [_vm._v("削除")])]
+              )
+            ]
+          )
         : _c("div", { staticClass: "selectfile" }, [
             _c(
               "label",
@@ -65282,6 +65441,7 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   opening: false
 });
 var openEditModal = function openEditModal(id) {
+  if (!id) return false;
   state.actionNew = 0;
   state.selectedId = id;
   setDefaultFile();
@@ -65548,7 +65708,7 @@ var deleteAttach = function deleteAttach() {
 /*!*******************************************!*\
   !*** ./resources/js/stores/guideStore.js ***!
   \*******************************************/
-/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, setDateNo, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, default */
+/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, setDateNo, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, setDeleteFile, deleteFileTemp, setFileUpload, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65565,6 +65725,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "countByEle", function() { return countByEle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "countSubTotal", function() { return countSubTotal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findCustomer", function() { return findCustomer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDeleteFile", function() { return setDeleteFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFileTemp", function() { return deleteFileTemp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setFileUpload", function() { return setFileUpload; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -65624,7 +65787,9 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   showPrice: true,
   doDupplicate: false,
   fileNotClone: [],
-  isMigrated: false
+  isMigrated: false,
+  currentProductIndex: 0,
+  currentFileIndex: 0
 });
 var getGuideInfo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
@@ -65768,8 +65933,21 @@ var createGuide = /*#__PURE__*/function () {
               return function (_x3) {
                 return _ref3.apply(this, arguments);
               };
-            }())["catch"](function (err) {
-              alert(err);
+            }())["catch"](function (error) {
+              if (error.response) {
+                var errors = error.response.data.errors;
+                var errMsg = "\u4E0B\u8A18\u306E\u9805\u76EE\u306F\u6700\u5927\u306E\u6587\u5B57\u6570\u3092\u8D85\u3048\u305F\u306E\u3067\u3054\u78BA\u8A8D\u304A\u9858\u3044\u3057\u307E\u3059\u3002";
+
+                for (var err in errors) {
+                  errMsg += "\n".concat(errors[err][0]);
+                }
+
+                alert(errMsg);
+              } else if (error.request) {
+                console.log(error.request);
+              } else {
+                console.log('Error', error.message);
+              }
             });
 
           case 12:
@@ -66103,6 +66281,20 @@ var findCustomer = /*#__PURE__*/function () {
     return _ref6.apply(this, arguments);
   };
 }();
+var setDeleteFile = function setDeleteFile(index, i) {
+  state.currentProductIndex = index;
+  state.currentFileIndex = i;
+};
+var deleteFileTemp = function deleteFileTemp(index, i) {
+  var pIndex = index ? index : state.currentProductIndex;
+  var fIndex = i ? i : state.currentFileIndex;
+  console.log('pIndex', pIndex); // if(pIndex && fIndex)
+
+  vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(state.products[pIndex].inscription.files, fIndex, {});
+};
+var setFileUpload = function setFileUpload(index, i, holderFile) {
+  vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(state.products[index].inscription.files, i, holderFile);
+};
 /* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),

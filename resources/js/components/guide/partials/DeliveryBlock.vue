@@ -13,7 +13,7 @@
             <h3 class="formctttl">送付先名</h3>
             <div class="formctbox">
                 <label class="before"
-                    ><input type="text" v-model="delivery.receiver"  class="w50"/></label
+                    ><input type="text" v-model="delivery.receiver"  class="w50" /></label
                 ><span>様</span>
             </div>
         </li>
@@ -24,7 +24,7 @@
                     <li>
                         <label class="before"
                             ><span class="labeltxt">送り先コード</span
-                            ><input  v-model="delivery.destination_code" type="text" name="" value=""/></label
+                            ><input  v-model="delivery.destination_code" type="text" name="" value=""  /></label
                         ><span class="before"
                             ><span class="mainbtn minibtn subbtn" @click.prevent="findCustomer('destination_code', delivery.destination_code)">
                                 送り先コードから自動入力
@@ -66,10 +66,10 @@
 								</label
                         ><label class="before after"
                             ><span class="labeltxt">番地</span
-                            ><input type="text" name=""   v-model="delivery.address" /></label
+                            ><input type="text" name="" v-model="delivery.address" /></label
                         ><label class="before after"
                             ><span class="labeltxt">ビル名</span
-                            ><input type="text" name=""   v-model="delivery.building" class="w30"
+                            ><input type="text" name="" v-model="delivery.building" class="w30"
                         /></label>
                     </li>
                 </ul>
@@ -78,13 +78,13 @@
         <li class="sec">
             <h3 class="formctttl">電話番号</h3>
             <div class="formctbox">
-                <input type="text" name=""  v-model="delivery.phone" class="w30" />
+                <input type="text" name=""  v-model="delivery.phone" class="w30"  />
             </div>
         </li>
         <li class="sec">
             <h3 class="formctttl">FAX</h3>
             <div class="formctbox">
-                <input type="text" name="" v-model="delivery.fax" class="w30" />
+                <input type="text" name="" v-model="delivery.fax" class="w30"  />
             </div>
         </li>
     </ul>

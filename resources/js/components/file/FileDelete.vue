@@ -35,11 +35,18 @@
 
 <script>
 import fileStore, { doDelete } from "../../stores/fileStore";
+import { deleteFileTemp } from "../../stores/guideStore";
 export default {
+    props : ['page'],
     methods:{
         async doDelete(){
+          if(this.page == "guide")
+            deleteFileTemp()
+          else{
             await doDelete();
             this.$refs.closeModal.click();
+          }
+            
         }
     },
     computed : {
@@ -47,10 +54,11 @@ export default {
         return fileStore.file.name;
       },
       canDelete(){
+        if(this.page == "guide") return true;
         return fileStore.file.guideId == 0;
       },
-      deleting(){
-        return fileStore.deleting;
+      deleting(){        
+          return fileStore.deleting;
       }
     }
 };

@@ -41,7 +41,7 @@
           <li>
             <label class="before">
               <span class="labeltxt">包装材品名</span>
-              <input type="text"   v-model="packaging.material"  class="w30" />
+              <input type="text"  v-model="packaging.material"  class="w30" />
             </label>
           </li>
           <li>

@@ -38,6 +38,8 @@ const state = Vue.observable({
 
 
 export const openEditModal = id => {
+    if(!id)
+        return false;
     state.actionNew = 0; 
     state.selectedId = id;
     setDefaultFile();
@@ -214,5 +216,7 @@ export const doDelete = async() => {
 export const deleteAttach = () => {
     state.file.link = "";
 }
+
+
 
 export default state;

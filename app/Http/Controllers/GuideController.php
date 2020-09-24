@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repository\GuideRepository;
 use App\Guide;
 use App\Http\Requests\CreateGuide;
-
+use Illuminate\Support\Facades\Validator;
 class GuideController extends Controller
 {
 
@@ -47,6 +47,24 @@ class GuideController extends Controller
     
     public function create(Request $request)
     {
+        // dd(json_decode($request->data, false));
+        /*
+        $request->data = json_decode($request->data, true);
+        $maxArray = [
+            'guide.title' => '業者'
+        ];
+        $messages = [];
+        foreach($maxArray as $key => $value)
+        {
+            $messages[$key . '.max'] =  $value . ' 最大の文字数: :max';
+        }
+        $validator = Validator::make($request->data, [
+            'guide.title' => 'max:5',
+        ], $messages);
+        $validated = $validator->validate();
+
+        dd("no");
+        */
         $guideResult =  $this->guideRepo->create($request->all());
         /*
         $id = intval($request->id);

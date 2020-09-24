@@ -98,7 +98,7 @@
             </ul>
             <ul class="btn_box btn3box" v-else>
               <li :class="{ 'btn-center': !editable}">
-                <a class="mainbtn dlbtn" :href="'file/' + this.file.id + '/download'">ファイルダウンロード</a>
+                <a class="mainbtn dlbtn" :href="'/file/' + this.file.id + '/download'">ファイルダウンロード</a>
               </li>
               <li v-show="editable">
                 <span v-if="updating" class="lds-dual-ring"></span>

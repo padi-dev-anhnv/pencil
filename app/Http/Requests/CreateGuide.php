@@ -24,8 +24,9 @@ class CreateGuide extends FormRequest
     public function rules()
     {
         $guideValidate = [
-            /*
+            
             'guide.title' => 'required',
+            /*
             'guide.created_at' => 'required',
             'guide.office' => 'required',
             'guide.number' => 'required',
@@ -65,7 +66,7 @@ class CreateGuide extends FormRequest
             'packaging.bottom_text'=> 'required',
         ];
 
-        $procedureValidate = [
+    $reValidate = [
             'procedure.work'=> 'required',
             'procedure.bagging'=> 'required',
             'procedure.box'=> 'required',
@@ -91,5 +92,35 @@ class CreateGuide extends FormRequest
         //    $procedureValidate,
         //    $productValidate
         );
+    }
+
+    protected function prepareForValidation()
+    {
+
+
+        $this->sanitizeInput();
+
+        return parent::getValidatorInstance();
+    }
+
+    private function sanitizeInput()
+    {
+
+
+        $data = $this->all();
+        // var_dump(json_decode($data['data'], false));
+        return json_decode($data['data'], true);
+    //    $this->data = json_decode($this->data, true);
+        // dd($this->all());
+        /*
+        $data = $this->all();
+        return json_decode($data, true);
+        dd($data);
+
+        // overwrite the newsletter field value to match boolean validation
+        $data['newsletter'] = ($data['newsletter'] == 'true' || $data['newsletter'] == '1' || $data['newsletter'] == true) ? true : false;
+
+        return $data;
+        */
     }
 }

@@ -14,6 +14,7 @@ use App\Repository\FileRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class GuideRepository
 {
@@ -72,12 +73,126 @@ class GuideRepository
         ];
     }
 
+    public function getMessageProduct($msg)
+    {
+        for($i = 0; $i < 11; $i++)
+        {
+            $msg['products.'.$i.'.name'] = '〈枝番'.($i + 1).'〉の品名';
+            $msg['products.'.$i.'.color'] = '〈枝番'.($i + 1).'〉の色';
+            $msg['products.'.$i.'.qty'] = '〈枝番'.($i + 1).'〉の銘入数量';
+            $msg['products.'.$i.'.unit'] = '〈枝番'.($i + 1).'〉の単位';
+            $msg['products.'.$i.'.pattern_text.*'] = '〈枝番'.($i + 1).'〉の枝番';
+        }
+        return $msg;
+    }
+
+    public function getMessage()
+    {
+        $maxArray = [
+            'guide.title' => '業者',
+            'guide.number' => '指図書No.',
+            'guide.store_code' => '店コード',
+            'guide.customer_name' => '得意先名',
+            'guide.curator' => 'ご担当者様',
+
+            'delivery.receiver' => '送付先名',
+            'delivery.destination_code' => '送り先コード',
+            'delivery.postal_code' => '送付先名',
+            'delivery.phone' => '電話番号',
+            'delivery.fax' => 'FAX',
+            'full_address' => '住所',
+
+            'packaging.top_font' => '天の書体',
+            'packaging.top_color' => '天の印刷色',
+            'packaging.bottom_font' => '地の書体',
+            'packaging.bottom_color' => '地の印刷色',
+            'packaging.top_text' => '天の文字原稿',
+            'packaging.bottom_text' => '地の文字原稿',
+            'packaging.description' => '梱包説明',
+            'packaging.material' => '包装材品名',
+            'packaging.number_of_page' => '枚数',
+
+            'procedure.material.*.name' => '包装材品名',
+            'procedure.material.*.numb' => '枚数',
+            'procedure.bagging_content' => '袋詰め',
+            'procedure.note' => '注意事項等',            
+            
+        ];
+
+        $maxArray = $this->getMessageProduct($maxArray);
+        $messages = [];
+        $messages['guide.title.required'] = config('errors.title_required');
+        foreach($maxArray as $key => $value)
+        {
+            $messages[$key . '.max'] =  $value . ' (最大の文字数: :max)';
+        }
+        return $messages;
+    }
+
+    public function getRule()
+    {
+        return [
+            'guide.title' => 'required|max:50',
+            'guide.number' => 'max:8',
+            'guide.store_code' => 'max:17',
+            'guide.customer_name' => 'max:9',
+            'guide.curator' => 'max:7',
+
+            'delivery.receiver' => 'max:28',
+            'delivery.destination_code' => 'max:14',
+            'delivery.postal_code' => 'max:28',
+            'delivery.phone' => 'max:12',
+            'delivery.fax' => 'max:12',
+            'full_address' => 'max:32',
+
+            'packaging.top_font' => 'max:11',
+            'packaging.top_color' => 'max:11',
+            'packaging.bottom_font' => 'max:11',
+            'packaging.bottom_color' => 'max:11',
+            'packaging.top_text' => 'max:54',
+            'packaging.bottom_text' => 'max:54',
+            'packaging.description' => 'max:84',
+            'packaging.material' => 'max:6',
+            'packaging.number_of_page' => 'max:13',
+
+            'procedure.material.*.name' => 'max:12',
+            'procedure.material.*.numb' => 'max:12',
+            'procedure.bagging_content' => 'max:6',
+            'procedure.note' => 'max:244',
+
+            'products.*.name' => 'max:25',
+            'products.*.color' => 'max:9',
+            'products.*.qty' => 'max:12',
+            'products.*.unit' => 'max:4',
+            'products.*.pattern_text.*' => 'max:83',
+        ];
+    }
+
+    public function getFullAddress($request)
+    {
+        $postal_code = "";
+        if($request['delivery']['postal_code'])
+            $postal_code = "〒000-0000　";
+        
+        return $postal_code . $request['delivery']['prefecture']
+        . $request['delivery']['city']
+        . $request['delivery']['address']
+        . $request['delivery']['building']
+        ;
+    }
+
     public function create($requests)
     {
         $request = json_decode($requests['data'], true);
-        // check 
-        if(empty(trim($request['guide']['title'])))
-            return ['success' => false, 'message' => config('errors.title_required')];
+
+        $messages = $this->getMessage();
+        $rule = $this->getRule();
+
+        //set validate address
+        $request["full_address"] = $this->getFullAddress($request);
+        $validator = Validator::make($request, $rule, $messages);
+        $validated = $validator->validate();
+        // check  
 
         $request['guide']['key_code'] =  empty($request['guide']['key_code']) ? Str::random(10) : $request['guide']['key_code'] ;
         $author_office = $this->setAuthorOffice($request['guide'], $request['doDupplicate']);

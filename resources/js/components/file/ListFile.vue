@@ -297,7 +297,7 @@
         </div>
 
         <file-modal @reset-search="resetFilter" />
-        <file-delete />
+        <file-delete page="file" />
 	
 		<!-- 削除確認 -->
 		

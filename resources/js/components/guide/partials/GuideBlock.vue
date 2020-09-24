@@ -43,7 +43,7 @@
     <li class="sec">
       <h3 class="formctttl">件名</h3>
       <div class="formctbox">
-        <input type="text" v-model="guide.title" name value class="w50" />
+        <input type="text" v-model="guide.title" name value class="w50"  />
       </div>
     </li>
     <li class="sec">
@@ -63,7 +63,7 @@
     <li class="sec">
       <h3 class="formctttl">指図書No.</h3>
       <div class="formctbox">
-        <input type="text" v-model="guide.number" value />
+        <input type="text" v-model="guide.number" value  />
       </div>
     </li>
     <li class="sec">
@@ -78,7 +78,7 @@
     <li class="sec">
       <h3 class="formctttl">店コード</h3>
       <div class="formctbox">
-        <input type="text" v-model="guide.store_code" />
+        <input type="text" v-model="guide.store_code"  />
       </div>
     </li>
 
@@ -95,7 +95,7 @@
       <h3 class="formctttl">ご担当者様</h3>
       <div class="formctbox">
         <label class="before">
-          <input type="text" name v-model="guide.curator" class="w15" />
+          <input type="text" name v-model="guide.curator" class="w15"  />
         </label>
         <span>様</span>
       </div>
@@ -147,7 +147,12 @@ export default {
     guideAuthor() {
       if (["new", "dupplicate"].includes(guideStore.action))
         return guideStore.creator.name;
-      else return guideStore.guide.creator.name;
+      else {
+        if(guideStore.guide.creator)
+          return guideStore.guide.creator.name;
+        return "";
+      }
+        
     },
   },
   created() {
