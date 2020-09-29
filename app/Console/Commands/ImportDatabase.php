@@ -326,7 +326,8 @@ class ImportDatabase extends Command
                 // echo $photo['link'];
                 $old_path = storage_path('app/public/old/'.$photo['link']);
                 echo "Copy file : " . $old_path . " \n";
-                if(file_exists($old_path)){
+                // if(file_exists($old_path)){
+                try{
                     $suffix = Str::random(7);
                     $fileArray = pathinfo($photo['link']);
                     if(empty($fileArray['extension']))
@@ -349,7 +350,7 @@ class ImportDatabase extends Command
                     $photoArray[] = ['id' => $id];
                     $this->file_guide[] = $id;                    
                 }
-                else{
+                catch (\Exception $e){
                     echo "File not found : " . $photo['link'] . " \n";
                     $photoArray[] = '';
                 }
