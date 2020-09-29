@@ -326,7 +326,7 @@ class ImportDatabase extends Command
                 // echo $photo['link'];
                 $old_path = storage_path('app/public/old/'.$photo['link']);
                 echo "Copy file : " . $old_path . " \n";
-                if(is_file($old_path)){
+                if(file_exists($old_path)){
                     $suffix = Str::random(7);
                     $fileArray = pathinfo($photo['link']);
                     if(empty($fileArray['extension']))
