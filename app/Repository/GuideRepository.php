@@ -57,8 +57,7 @@ class GuideRepository
         if( $user ){
             if($user->role->type == 'worker')
                 $guide->price = false;
-        }
-            
+        }            
 
         return [
             'guide' => $guide,
@@ -181,6 +180,15 @@ class GuideRepository
         ;
     }
 
+    public function checkCanEdit($id)
+    {
+        $guide = $this->guide::findOrFail($id);
+        if (Gate::denies('update', $guide)) {
+            return redirect('guide');
+        }
+
+    }
+
     public function create($requests)
     {
         $request = json_decode($requests['data'], true);
@@ -209,6 +217,9 @@ class GuideRepository
         $guideRequest = $this->setNullGuide($guideRequest);
         $packagingRequest = $this->setNullPackaging($packagingRequest);
 
+        if($guideRequest['id'])
+            $this->checkCanEdit($guideRequest['id']);
+
         $guide = $this->guide::updateOrCreate(['id' => $guideRequest['id']], $guideRequest);
         $guide->delivery()->updateOrCreate(['id' => $deliveryRequest['id']], $deliveryRequest);
         $guide->packaging()->updateOrCreate(['id' => $packagingRequest['id']], $packagingRequest);
@@ -231,7 +242,6 @@ class GuideRepository
         $guide->products = $products; 
         $guide->save();
         
-        
         return ['success' => true, 'id' => $guide->id , 'map_upload' => $map_upload];
     }
 
@@ -252,10 +262,6 @@ class GuideRepository
         return $result;
     }
 
-    public function setOffice($user_id)
-    {
-
-    }
 
     public function setGuideFile($products, $guide_id)
     {
@@ -288,6 +294,10 @@ class GuideRepository
                     $newFile = $file_guide->replicate();
                     $newFile->guide_id = $guide_id;
                     $newFile->user_id = auth()->user()->id;
+                    if(auth()->user()->office)
+                        $newFile->office = auth()->user()->office->name;
+                    else
+                        $newFile->office = '';
                     $newFile->save();
                     $mapFileId[$file_guide->id] = $newFile->id;
                     // change product structure with new file id
@@ -305,16 +315,6 @@ class GuideRepository
         // return [ 'map' => $mapFileId, 'products' =>  $products] ; 
         return $products;
     } 
-
-    /*
-    public function updateProduct($id, $products)
-    {
-        
-        $guide = $this->guide::find($id);
-        $guide->products = $products;
-        $guide->save();
-    }
-    */
 
     public function deleteDetachedFile($originalFiles, $used_file)
     {
@@ -439,24 +439,7 @@ class GuideRepository
         }
         $guide->delete();            
         return true;
-        /*
-        $has_per = false;
-        if($this->is_admin())
-            $has_per = true;
-        if($this->is_author($guide->user_id))
-            $has_per = true;
-        if($has_per){            
-            $files = $guide->files;
-            foreach($files as $file){
-                $file->delete();
-            }
-            $guide->delete();
-            
-            return true;
-        }            
-        else
-            return false;
-            */
+        
     }
 
     public function showPdf($id, $price)

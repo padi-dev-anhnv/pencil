@@ -14,12 +14,21 @@ class File extends Model
 
     protected $fillable = ['user_id', 'name', 'link', 'description', 'tags', 'material', 'type', 'guide_id', 'office'];    
 
-    protected $appends = ['thumbnail'];
+    protected $appends = ['thumbnail', 'creator'];
     
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
     ];
 
+    public function getCreatorAttribute($val)
+    {
+
+        if($this->guide && $this->guide->old_creator)
+            return  $this->guide->old_creator;
+        else 
+            return $this->user;
+        
+    }
 
     public static function hasThumbnail($link)
     {
@@ -60,7 +69,7 @@ class File extends Model
 
     public function guide()
     {
-       return $this->belongsTo(Guide::class)->select('id', 'number');
+       return $this->belongsTo(Guide::class)->select('id', 'number', 'supplier_id', 'old_creator');
     }
 
     public function scopeAuthor($query, $author_id)

@@ -49,6 +49,10 @@ class FileService
     public function download($file_id)
     {
         $file = File::findOrFail($file_id);
+        $user = auth()->user();
+        if (!$user->can('view', $file)) {
+            return redirect('guide');
+        }
         return Storage::download('public/files/' .$file->link);
     }
 }

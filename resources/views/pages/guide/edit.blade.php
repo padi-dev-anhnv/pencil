@@ -4,6 +4,6 @@
 @section('content')
 <div id="content">
 	<h2 class="page_ttl">銘入・印刷・包装指図書 </h2>    
-		<single-guide id="{{ request()->id }}" action="edit" :user="{{ auth()->user()->load('role') }}"></single-guide>
-    </div> 
+		<single-guide :current-user="{{ auth()->user()->load('office') }}" action="edit" id="{{ request()->id }}"></single-guide>
+</div> 
 @endsection

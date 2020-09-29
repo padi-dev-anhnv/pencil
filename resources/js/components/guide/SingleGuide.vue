@@ -83,7 +83,7 @@
 			</div>
 		</div> -->
 
-            <footer class="list-footer" v-show="editBtn">
+            <footer class="list-footer" v-show="canEdit">
 				<footer class="list-footer">
                     <span class="lds-dual-ring loader-light" v-if="loading"></span>
 					<span class="mainbtn" @click.prevent="createGuide" v-else>
@@ -101,9 +101,10 @@
 </template>
 
 <script>
-import guideStore, {createGuide, getGuideInfo, setCreator, setAction, setCloneId, setDateNo} from "../../stores/guideStore";
+import guideStore, {createGuide, getGuideInfo, setCreator, setAction, setCloneId, setDateNo, setCurrentUser , setCanEdit} from "../../stores/guideStore";
 export default {
-    props : ['id', 'action', 'creator', 'clone_id', 'user'],
+    // props : ['id', 'action', 'creator', 'clone_id', 'user'],
+    props : ['id', 'action', 'currentUser'],
     data(){
         return {
             groupInput : null,
@@ -114,17 +115,28 @@ export default {
         creatorGuide(){
             return guideStore.creator;
         }, 
+        canEdit(){
+            return guideStore.canEdit;
+        },
+        /*
         editBtn(){
-            if(this.action == 'edit' && this.user.id != this.creatorGuide.id && this.user.role.type != 'admin')
+            if(this.action == 'edit' && this.currentUser.id != this.creatorGuide.id && this.currentUser.role.type != 'admin')
                 return false;
             return true;
                 
         },
+        */
         loading(){
             return guideStore.loading
         }
     },
     methods:{
+        /*
+        setCurrentUser(){
+            console.log(this.currentUser)
+            setCurrentUser(this.currentUser);
+        },
+        */
         createGuide(){
             createGuide(this.id)
         },
@@ -176,10 +188,23 @@ export default {
                 }
 
             });
+        },
+        disabledInput(){
+            if(this.canEdit)
+                return false;
+            let arrayEle = ['input', 'select', 'textarea'];
+            arrayEle.forEach(element => {
+                let inputDisabled = document.getElementsByTagName(element);
+                Array.from(inputDisabled).forEach((ele) => {
+                    if(ele.id != 'popup_editfile' && ele.id != 'popup_cancel')
+                        ele.disabled = true;
+                })
+            })
         }
     },
     async mounted(){
         setAction(this.action);
+        setCurrentUser(this.currentUser);
         if(['edit', 'dupplicate'].includes(this.action))
             await getGuideInfo(this.id);
         if(['new', 'dupplicate'].includes(this.action))
@@ -188,10 +213,13 @@ export default {
             setCloneId(this.clone_id)
             setDateNo();
         }
+        
+        setCanEdit();
         this.pushClass();
         this.groupInput = document.getElementsByClassName('guide-input');
-        this.addKeyListener();      
-            
+        this.addKeyListener();
+        this.disabledInput();      
+        
     }
 }
 </script>

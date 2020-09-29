@@ -20,7 +20,7 @@
 							</li>
 						</ul>
 					</div>
-					<p class="bbox red">{{ $packaging->top_text}}</p>
+					<p class="bbox red">{!! nl2br(e($packaging->top_text)) !!}</p>
 				</div>
 				<div class="flexbs">
 					<div class="box_info">
@@ -40,14 +40,14 @@
 							</li>
 						</ul>
 					</div>
-					<p class="bbox red">{{ $packaging->bottom_text}}</p>
+					<p class="bbox red">{!! nl2br(e($packaging->bottom_text)) !!}</p>
 				</div>
 			</div>
 		</div>
 		
 		<div id="pack_dscrp">
 			<h3 class="ctt_ttl">梱包説明</h3>
-			<p class="bbox">{{ $packaging->description }}</p>
+			<p class="bbox">{!! nl2br(e($packaging->description)) !!}</p>
 		</div>
 	</div>
 	

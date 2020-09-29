@@ -4,7 +4,6 @@
 @section('content')
 <div id="content">
 	<h2 class="page_ttl">銘入・印刷・包装指図書</h2>
-	<!-- <create-guide :creator="{{ auth()->user() }}"  :id="{{ request()->id }}" action="dupplicate"></create-guide> -->
-	<single-guide :creator="{{ auth()->user()->load('office') }}" :id="{{ request()->id }}" action="dupplicate" clone_id="{{ request()->id }}"></single-guide>
+	<single-guide :current-user="{{ auth()->user()->load('office') }}" action="dupplicate" id="{{ request()->id }}"></single-guide>
 </div> 
 @endsection

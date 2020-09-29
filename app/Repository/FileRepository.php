@@ -31,20 +31,22 @@ class FileRepository
     public function show($id)
     {
         $file = $this->file::with('user.office', 'guide')->findOrFail($id);
-        // $file->office = !empty($file->user->office) ? $file->user->office->name : '';
+        // check permission view        
+        $user = auth()->user();
+        if (!$user->can('view', $file)) {
+            return redirect('guide');
+        }
+
         $file_user = $file->user->name;
         unset($file->user);
         if($file->guide){
             $file->number_guide = $file->guide->number;
         }
         $file->user = $file_user;
-        $user = auth()->user();
         $file->canEdit = false;
         if ($user->can('delete', $file)) {
             $file->canEdit = true;
         }
-
-
         return response()->json($file);
     }
 
@@ -74,10 +76,6 @@ class FileRepository
             return ['success' => true];
         }            
         return ['success' => false , 'message' => config('errors.can_not_delete_file')];
-        /*
-        $this->file->destroy($request->id);
-        return ['success' => true];
-        */
     }
 }
 

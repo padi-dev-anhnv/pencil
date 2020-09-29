@@ -10,6 +10,15 @@ class FilePolicy
 {
     use HandlesAuthorization;
     
+    public function view(User $user, File $file)
+    {
+        if($user->role->type != "worker")
+            return true;
+        if($file->guide->supplier_id == $user->id)
+            return true;
+        return false;
+    }
+
     public function list(User $user)
     {
         $array_allow =  ['admin', 'file_manager', 'instruction_manager'];

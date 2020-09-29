@@ -23,7 +23,8 @@ const state = Vue.observable({
         guideNumber : "",
         guideId : 0,
         fileUpload : "",
-        canEdit : false
+        canEdit : false,
+        creator : null
     },
     listFiles : [],
     actionNew: 0,
@@ -51,6 +52,7 @@ export const openEditModal = id => {
         }
         state.file.guideNumber = result.data.guide ? result.data.guide.number : null ;
         state.file.guideId = result.data.guide ? result.data.guide.id : 0 ;
+        state.file.user = state.file.creator;
     });
 };
 

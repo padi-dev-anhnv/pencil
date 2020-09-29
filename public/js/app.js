@@ -2905,7 +2905,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'action', 'creator', 'clone_id', 'user'],
+  // props : ['id', 'action', 'creator', 'clone_id', 'user'],
+  props: ['id', 'action', 'currentUser'],
   data: function data() {
     return {
       groupInput: null,
@@ -2916,15 +2917,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     creatorGuide: function creatorGuide() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].creator;
     },
-    editBtn: function editBtn() {
-      if (this.action == 'edit' && this.user.id != this.creatorGuide.id && this.user.role.type != 'admin') return false;
-      return true;
+    canEdit: function canEdit() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].canEdit;
     },
+
+    /*
+    editBtn(){
+        if(this.action == 'edit' && this.currentUser.id != this.creatorGuide.id && this.currentUser.role.type != 'admin')
+            return false;
+        return true;
+            
+    },
+    */
     loading: function loading() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].loading;
     }
   },
   methods: {
+    /*
+    setCurrentUser(){
+        console.log(this.currentUser)
+        setCurrentUser(this.currentUser);
+    },
+    */
     createGuide: function createGuide() {
       Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["createGuide"])(this.id);
     },
@@ -2980,6 +2995,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       });
+    },
+    disabledInput: function disabledInput() {
+      if (this.canEdit) return false;
+      var arrayEle = ['input', 'select', 'textarea'];
+      arrayEle.forEach(function (element) {
+        var inputDisabled = document.getElementsByTagName(element);
+        Array.from(inputDisabled).forEach(function (ele) {
+          if (ele.id != 'popup_editfile' && ele.id != 'popup_cancel') ele.disabled = true;
+        });
+      });
     }
   },
   mounted: function mounted() {
@@ -2991,16 +3016,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setAction"])(_this2.action);
+              Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCurrentUser"])(_this2.currentUser);
 
               if (!['edit', 'dupplicate'].includes(_this2.action)) {
-                _context.next = 4;
+                _context.next = 5;
                 break;
               }
 
-              _context.next = 4;
+              _context.next = 5;
               return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["getGuideInfo"])(_this2.id);
 
-            case 4:
+            case 5:
               if (['new', 'dupplicate'].includes(_this2.action)) Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCreator"])(_this2.creator);
 
               if (['dupplicate'].includes(_this2.action)) {
@@ -3008,13 +3034,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setDateNo"])();
               }
 
+              Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["setCanEdit"])();
+
               _this2.pushClass();
 
               _this2.groupInput = document.getElementsByClassName('guide-input');
 
               _this2.addKeyListener();
 
-            case 9:
+              _this2.disabledInput();
+
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -3111,6 +3141,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return "." + fileExt;
       });
       return ext.join(",");
+    },
+    canEdit: function canEdit() {
+      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_1__["default"].canEdit;
     }
   },
   methods: {
@@ -4310,27 +4343,45 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {
+    guideAuthor: function guideAuthor() {
+      return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["getGuideAuthor"])();
+    },
+    guideOffice: function guideOffice() {
+      return Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["getGuideOffice"])();
+    },
     guide: function guide() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide;
     },
     suppliers: function suppliers() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].suppliers;
     },
-    creator: function creator() {
-      return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator;
+
+    /*
+    creator() {
+      return guideStore.creator;
     },
+    */
     dupplicate: function dupplicate() {
       return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].dupplicate;
+    }
+    /*
+    guideOffice() {
+      if (["new", "dupplicate"].includes(guideStore.action))
+        return guideStore.creator.office ? guideStore.creator.office.name : "";
+      else return guideStore.guide.office;
     },
-    guideOffice: function guideOffice() {
-      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office ? _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.office.name : "";else return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.office;
-    },
-    guideAuthor: function guideAuthor() {
-      if (["new", "dupplicate"].includes(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].action)) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].creator.name;else {
-        if (_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator) return _stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["default"].guide.creator.name;
+    guideAuthor() {
+      if (["new", "dupplicate"].includes(guideStore.action))
+        return guideStore.creator.name;
+      else {
+        if(guideStore.guide.creator)
+          return guideStore.guide.creator.name;
         return "";
       }
-    }
+        
+    },
+    */
+
   },
   created: function created() {
     Object(_stores_guideStore__WEBPACK_IMPORTED_MODULE_0__["getWorkers"])();
@@ -44495,8 +44546,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.editBtn,
-                  expression: "editBtn"
+                  value: _vm.canEdit,
+                  expression: "canEdit"
                 }
               ],
               staticClass: "list-footer"
@@ -44627,6 +44678,14 @@ var render = function() {
             _c(
               "label",
               {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.canEdit,
+                    expression: "canEdit"
+                  }
+                ],
                 staticClass: "mainbtn ulbtn",
                 on: {
                   click: function($event) {
@@ -65428,7 +65487,8 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
     guideNumber: "",
     guideId: 0,
     fileUpload: "",
-    canEdit: false
+    canEdit: false,
+    creator: null
   },
   listFiles: [],
   actionNew: 0,
@@ -65455,6 +65515,7 @@ var openEditModal = function openEditModal(id) {
 
     state.file.guideNumber = result.data.guide ? result.data.guide.number : null;
     state.file.guideId = result.data.guide ? result.data.guide.id : 0;
+    state.file.user = state.file.creator;
   });
 };
 var openAddModal = function openAddModal(user) {
@@ -65708,13 +65769,17 @@ var deleteAttach = function deleteAttach() {
 /*!*******************************************!*\
   !*** ./resources/js/stores/guideStore.js ***!
   \*******************************************/
-/*! exports provided: getGuideInfo, createGuide, setCreator, setAction, setCloneId, setDateNo, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, setDeleteFile, deleteFileTemp, setFileUpload, default */
+/*! exports provided: getGuideInfo, createGuide, setCanEdit, setCurrentUser, getGuideAuthor, getGuideOffice, setCreator, setAction, setCloneId, setDateNo, getWorkers, addProduct, removeProduct, countByEle, countSubTotal, findCustomer, setDeleteFile, deleteFileTemp, setFileUpload, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGuideInfo", function() { return getGuideInfo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGuide", function() { return createGuide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCanEdit", function() { return setCanEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return setCurrentUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGuideAuthor", function() { return getGuideAuthor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGuideOffice", function() { return getGuideOffice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCreator", function() { return setCreator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAction", function() { return setAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCloneId", function() { return setCloneId; });
@@ -65768,9 +65833,12 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1___default.a.observable({
   loading: false,
   action: 'new',
   suppliers: [],
-  creator: {
-    office: {}
-  },
+  currentUser: {},
+  canEdit: false,
+  author: {},
+  // creator : {
+  //     office : {}
+  // },
   dupplicate: {
     exist: 0,
     created_at: '',
@@ -65892,7 +65960,8 @@ var createGuide = /*#__PURE__*/function () {
               procedure: _objectSpread({}, state.procedure),
               products: products,
               originalFiles: state.originalFiles,
-              doDupplicate: state.doDupplicate // price : {...state.price},
+              doDupplicate: state.doDupplicate // action : state.action
+              // price : {...state.price},
 
             };
             newGuide.id = id;
@@ -66175,6 +66244,23 @@ var mergeProduct = function mergeProduct() {
   return products;
 };
 
+var setCanEdit = function setCanEdit() {
+  if (state.action == 'new' || state.action == 'dupplicate') state.canEdit = true;else {
+    state.canEdit = state.currentUser.role.type == 'admin' || state.currentUser.id == state.guide.creator.id ? true : false;
+  }
+};
+var setCurrentUser = function setCurrentUser(user) {
+  state.currentUser = user;
+};
+var getGuideAuthor = function getGuideAuthor() {
+  if (["new", "dupplicate"].includes(state.action)) return state.currentUser.name;else {
+    if (state.guide.creator) return state.guide.creator.name;
+    return "";
+  }
+};
+var getGuideOffice = function getGuideOffice() {
+  if (["new", "dupplicate"].includes(state.action)) return state.currentUser.office ? state.currentUser.office.name : "";else return state.guide.office;
+};
 var setCreator = function setCreator(creator) {
   state.creator = creator;
 };
@@ -66198,6 +66284,7 @@ var setCloneId = function setCloneId(id) {
 var setDateNo = function setDateNo() {
   state.guide.created_at = new Date().toLocaleDateString("fr-CA");
   state.guide.number = '';
+  state.guide["export"] = 0;
 };
 var getWorkers = function getWorkers() {
   axios('/guide/workers').then(function (result) {

@@ -120,25 +120,34 @@
 </template>
 
 <script>
-import guideStore, { getWorkers } from "../../../stores/guideStore";
+import guideStore, { getWorkers, getGuideAuthor, getGuideOffice } from "../../../stores/guideStore";
 export default {
   props : ['action'],
   data() {
     return {};
   },
   computed: {
+    guideAuthor(){
+      return getGuideAuthor();
+    },
+    guideOffice(){
+      return getGuideOffice();
+    },
     guide() {
       return guideStore.guide;
     },
     suppliers() {
       return guideStore.suppliers;
     },
+    /*
     creator() {
       return guideStore.creator;
     },
+    */
     dupplicate() {
       return guideStore.dupplicate;
     },
+    /*
     guideOffice() {
       if (["new", "dupplicate"].includes(guideStore.action))
         return guideStore.creator.office ? guideStore.creator.office.name : "";
@@ -154,6 +163,7 @@ export default {
       }
         
     },
+    */
   },
   created() {
     getWorkers();

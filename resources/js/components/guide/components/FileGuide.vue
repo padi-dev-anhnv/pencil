@@ -33,7 +33,7 @@
             </button>
         </label>
         <div class="selectfile" v-else>
-            <label class="mainbtn ulbtn" @click="uploadFile(index, i)"
+            <label v-show="canEdit" class="mainbtn ulbtn" @click="uploadFile(index, i)"
                 >ファイルを選択してください</label
             >
         </div>
@@ -71,6 +71,9 @@ export default {
         fileExt() {
             let ext = constFileExt.map(fileExt => "." + fileExt);
             return ext.join(",");
+        },
+        canEdit(){
+            return guideStore.canEdit;
         }
     },
     methods: {

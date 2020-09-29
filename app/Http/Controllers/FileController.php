@@ -53,16 +53,6 @@ class FileController extends Controller
         $file_uploaded = $this->fileService->uploadFile($request->file('fileUpload'));
         return $file_uploaded;
     }
-/*
-    public function upload_multi(Request $request)
-    {
-        foreach($request->files as $file)
-        {
-            $file
-        }
-        
-    }
-*/
 
     public function download(Request $request)
     {

@@ -1,7 +1,7 @@
 @php 
 $chk = Config::get('const.chk');
 $address = '';
-$address .= $delivery->postal_code ."　";
+$address .= $delivery->postal_code ? "〒".$delivery->postal_code ."　" : "";
 $address .= $delivery->prefecture;
 $address .= $delivery->city;
 $address .= $delivery->address;

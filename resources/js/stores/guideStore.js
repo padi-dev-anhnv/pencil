@@ -15,9 +15,12 @@ const state = Vue.observable({
     loading : false,
     action : 'new',
     suppliers : [],
-    creator : {
-        office : {}
-    },
+    currentUser : {},
+    canEdit : false,
+    author : {},
+    // creator : {
+    //     office : {}
+    // },
     dupplicate : {
         exist : 0,
         created_at : '',
@@ -115,7 +118,8 @@ export const createGuide = async (id) => {
         procedure : {...state.procedure},
         products : products,
         originalFiles : state.originalFiles,
-        doDupplicate : state.doDupplicate
+        doDupplicate : state.doDupplicate,
+        // action : state.action
         // price : {...state.price},
     } ;
     newGuide.id = id;
@@ -268,8 +272,35 @@ let mergeProduct = () => {
     return products;
 }
 
-export const setCreator = (creator) => {
+export const setCanEdit = () => {
+    if(state.action == 'new' || state.action == 'dupplicate')
+        state.canEdit =  true;
+    else{
+        state.canEdit = state.currentUser.role.type == 'admin' || state.currentUser.id == state.guide.creator.id ? true : false;
+    }
+}
 
+export const setCurrentUser = (user) => {
+    state.currentUser = user;
+}
+
+export const getGuideAuthor = () => {
+    if (["new", "dupplicate"].includes(state.action))
+        return state.currentUser.name;
+    else {
+        if(state.guide.creator)
+            return state.guide.creator.name;
+        return "";
+    }
+}
+
+export const getGuideOffice = () => {
+    if (["new", "dupplicate"].includes(state.action))
+      return state.currentUser.office ? state.currentUser.office.name : "";
+    else return state.guide.office;
+}
+
+export const setCreator = (creator) => {
     state.creator = creator;
 }
 
@@ -292,10 +323,10 @@ export const setCloneId = (id) => {
     */
 }
 
-
 export const setDateNo = () => {
     state.guide.created_at = (new Date ()).toLocaleDateString ("fr-CA");
     state.guide.number = '';
+    state.guide.export  = 0;
 }
 
 export const getWorkers = () => {
