@@ -22,7 +22,7 @@ class ImportDatabase extends Command
      *
      * @var string
      */
-    protected $signature = 'import:database {--limit=}';
+    protected $signature = 'import:database {--limit=} {--from=} {--to=}';
 
     /**
      * The console command description.
@@ -56,7 +56,7 @@ class ImportDatabase extends Command
     public function __construct()
     {
         parent::__construct();
-        setlocale(LC_ALL,'en_US.UTF-8');
+        setlocale(LC_ALL, 'en_US.UTF-8');
         $this->path_address = base_path("resources/pending-database/address.csv");
     }
 
@@ -149,7 +149,7 @@ class ImportDatabase extends Command
         $delivery['office_chk'] = $chk;
         $zip_code = $delivery['postal_code'];
         if ($zip_code) {
-            if(!empty($address[$zip_code]))
+            if (!empty($address[$zip_code]))
                 $delivery['prefecture'] = $address[$zip_code][2] != 'NULL' ? $address[$zip_code][2] : null;
         }
         unset($delivery['municipality_old']);
@@ -159,8 +159,8 @@ class ImportDatabase extends Command
     public function parsePackaging($packaging, $guide_id)
     {
         $packaging['guide_id'] = $guide_id;
-        $packaging['printing'] = $packaging['printing'] ? ( $packaging['printing'] == '無' ? 0 : 1 ) : null;
-        $packaging['proofreading'] = $packaging['proofreading'] ? ( $packaging['proofreading'] == '無' ? 0 : 1 ) : null;;
+        $packaging['printing'] = $packaging['printing'] ? ($packaging['printing'] == '無' ? 0 : 1) : null;
+        $packaging['proofreading'] = $packaging['proofreading'] ? ($packaging['proofreading'] == '無' ? 0 : 1) : null;;
         $packaging['number_of_page'] = $packaging['number_of_page'] ?  $packaging['number_of_page']  :  null;
         $packaging['top_text'] = '';
         $packaging['bottom_text'] = '';
@@ -205,19 +205,19 @@ class ImportDatabase extends Command
             unset($procedure['sheet_num_2_' . $i . '_old']);
         }
         $procedure['material'] = json_encode($material);
-        $procedure['box'] = $procedure['box'] ? ( $procedure['box'] == '無' ? 0 : 1 ) : null;
-        $procedure['packaging'] = $procedure['packaging'] ? ( $procedure['packaging'] == '無' ? 0 : 1 ) : null;
-        $procedure['advance_shipment'] = $procedure['advance_shipment'] ? ( $procedure['advance_shipment'] == '無' ? 0 : 1 ) : null;        
-        $work  = $procedure['work'] ? ( $procedure['work'] == '無' ? 0 :  (in_array($procedure['work'], $const_proce['procedure_work']) ? array_search($procedure['work'], $const_proce['procedure_work']) : 1) ) : null;
-        $bagging  = $procedure['bagging'] ? ( $procedure['bagging'] == '無' ? 0 :  (in_array(trim($procedure['stop_date_old']), $const_proce['procedure_bagging']) ? array_search(trim($procedure['stop_date_old']), $const_proce['procedure_bagging']) : 1) ) : null;
+        $procedure['box'] = $procedure['box'] ? ($procedure['box'] == '無' ? 0 : 1) : null;
+        $procedure['packaging'] = $procedure['packaging'] ? ($procedure['packaging'] == '無' ? 0 : 1) : null;
+        $procedure['advance_shipment'] = $procedure['advance_shipment'] ? ($procedure['advance_shipment'] == '無' ? 0 : 1) : null;
+        $work  = $procedure['work'] ? ($procedure['work'] == '無' ? 0 : (in_array($procedure['work'], $const_proce['procedure_work']) ? array_search($procedure['work'], $const_proce['procedure_work']) : 1)) : null;
+        $bagging  = $procedure['bagging'] ? ($procedure['bagging'] == '無' ? 0 : (in_array(trim($procedure['stop_date_old']), $const_proce['procedure_bagging']) ? array_search(trim($procedure['stop_date_old']), $const_proce['procedure_bagging']) : 1)) : null;
 
-        if(trim($procedure['expands_over_date_old'] == 'のし掛のみ')){
+        if (trim($procedure['expands_over_date_old'] == 'のし掛のみ')) {
             $procedure['expands_over_date_old'] = 'のし掛けのみ';
         }
-        
-        $gimmick = $procedure['gimmick'] ? ( $procedure['gimmick'] == '無' ? 0 :  (in_array(trim($procedure['expands_over_date_old']), $const_proce['procedure_gimmick']) ? array_search(trim($procedure['expands_over_date_old']), $const_proce['procedure_gimmick']) : 1) ) : null;
-        
-           
+
+        $gimmick = $procedure['gimmick'] ? ($procedure['gimmick'] == '無' ? 0 : (in_array(trim($procedure['expands_over_date_old']), $const_proce['procedure_gimmick']) ? array_search(trim($procedure['expands_over_date_old']), $const_proce['procedure_gimmick']) : 1)) : null;
+
+
         $procedure['bagging_content'] = $procedure['bagging_content'] != 0 ? $procedure['bagging_content'] : '';
         $procedure['bagging'] = $bagging;
         $procedure['gimmick'] = $gimmick;
@@ -258,17 +258,17 @@ class ImportDatabase extends Command
         $inscription = [];
         $inscription['body'] = $product['inscription_date_old'] ?  ($product['inscription_date_old'] == '無' ? 0 :  array_search($product['inscription_date_old'], $body)) : '';
         $inscription['direction'] = $product['inscription_direction_old'] ? array_search($product['inscription_direction_old'], $const_proce['direction']) : '';
-        if($product['proofreading_old'] == '不　　要')
+        if ($product['proofreading_old'] == '不　　要')
             $product['proofreading_old'] = '不要';
-        if($product['inscription_font_old'] == '一　任')
-            $product['inscription_font_old'] = '一任' ;
-        if($product['inscription_font_old'] == '明　朝')
-            $product['inscription_font_old'] = '明朝' ;   
+        if ($product['inscription_font_old'] == '一　任')
+            $product['inscription_font_old'] = '一任';
+        if ($product['inscription_font_old'] == '明　朝')
+            $product['inscription_font_old'] = '明朝';
         $inscription['proofreading'] = $product['proofreading_old']  ? array_search($product['proofreading_old'], $const_proce['proofreading']) : '';
         $inscription['method'] =  $product['inscription_method_old'] ? array_search($product['inscription_method_old'], $const_proce['insc_method']) + 1 : '';
-        $inscription['work'] =  $product['inscription_work_old'] ? array_search($product['inscription_work_old'], $const_proce['insc_work'])+ 1 : '';
-        $inscription['typeface'] =  $product['inscription_font_old'] ? array_search($product['inscription_font_old'], $const_proce['insc_typeface1'])+ 1  : '';
-        $inscription['font_size'] = $product['font_size_old'] ? ( $product['font_size_old'] == '一　任' ? 0 : 1) : '';  
+        $inscription['work'] =  $product['inscription_work_old'] ? array_search($product['inscription_work_old'], $const_proce['insc_work']) + 1 : '';
+        $inscription['typeface'] =  $product['inscription_font_old'] ? array_search($product['inscription_font_old'], $const_proce['insc_typeface1']) + 1  : '';
+        $inscription['font_size'] = $product['font_size_old'] ? ($product['font_size_old'] == '一　任' ? 0 : 1) : '';
 
         $printing_color = [];
         for ($i = 1; $i < 4; $i++) {
@@ -289,16 +289,13 @@ class ImportDatabase extends Command
         $photos = [];
         $can_bonus = true;
         for ($i = 1; $i < 4; $i++) {
-            if (!empty($product['img_url_' . $i . '_old'])){
+            if (!empty($product['img_url_' . $i . '_old'])) {
                 $photos[] = [
                     'link' => $product['img_url_' . $i . '_old'],
                     'description' => $product['img_name_' . $i . '_old']
-                ]
-                ;
-            }
-                
-            else if ($can_bonus && !empty($product['img_name_old']))
-                $photos[] = [ 'link' => $product['img_name_old'] ] ;
+                ];
+            } else if ($can_bonus && !empty($product['img_name_old']))
+                $photos[] = ['link' => $product['img_name_old']];
             else
                 $photos[] = [];
         }
@@ -318,21 +315,27 @@ class ImportDatabase extends Command
             }
         }
 */
-        if(!$this->use_upload_file)
+        if (!$this->use_upload_file)
             return [];
         $photoArray = [];
-        foreach($photos as $photo){
-            if($photo && !empty(trim($photo['link']))){
+        foreach ($photos as $photo) {
+            if ($photo && !empty(trim($photo['link']))) {
                 // echo $photo['link'];
-                $old_path = storage_path('app/public/old/'.$photo['link']);
-                echo "Copy file : " . $old_path . " \n";
-                // if(file_exists($old_path)){
-                try{
+                $enName = mb_convert_encoding(trim($photo['link']), "EUC-JP", "UTF-8");
+                $old_path = storage_path('app/public/final/' . $enName);
+                //    echo "Copy file : " . $old_path . " \n"; 
+
+                //$fileNameJap = "app/public/via-web/39aaa1424-12-5北九州市防水工事業協同組合のし校正 (7).pdf"; 
+                //echo 'app/public/via-web/'.trim($photo['link']) == $fileNameJap;
+
+                if (file_exists($old_path)) {
+                    // try{
                     $suffix = Str::random(7);
                     $fileArray = pathinfo($photo['link']);
-                    if(empty($fileArray['extension']))
+                    if (empty($fileArray['extension']))
                         continue;
-                    $newFile = strtolower(trim($fileArray['filename'] . '-'.$suffix.'.'.$fileArray['extension']));
+                    $newFile = strtolower(trim($fileArray['filename'] . '-' . $suffix . '.' . $fileArray['extension']));
+                    /*
                     FileManager::copy($old_path, storage_path('app/public/files/'.$newFile));
                     $id = File::insertGetId(
                         [
@@ -347,18 +350,20 @@ class ImportDatabase extends Command
                             'created_at' => $this->created_at
                         ]
                     );
+                    */
                     $photoArray[] = ['id' => $id];
-                    $this->file_guide[] = $id;                    
-                }
-                catch (\Exception $e){
-                    echo "File not found : " . $photo['link'] . " \n";
+                    $this->file_guide[] = $id;
+                } else {
+                    //    echo "File not found : " . $photo['link'] . " \n";
                     $photoArray[] = '';
                 }
-                    
-            }
-            else
+
+                // catch (\Exception $e){
+
+                // }
+
+            } else
                 $photoArray[] = '';
-            
         }
         return $photoArray;
     }
@@ -371,7 +376,7 @@ class ImportDatabase extends Command
         $photos = $this->parseProductFile($product);
         $inscription['files'] = $photos;
         $this->file_guide = [];
-        
+
         foreach ($products as $key => $product) {
             $file = $this->parseProductUploadFile($photos);
             $inscription['files'] = $file;
@@ -397,14 +402,19 @@ class ImportDatabase extends Command
 
     public function handle()
     {
+
         $limit = $this->option('limit');
+        $from =  $this->option('from') ?  $this->option('from') : 0;
+        $to =  $this->option('to') ?  $this->option('to') : 99999;
         $start = now();
         $this->comment("Start migrating");
         // clear all database for guide
-        $this->clearOldData();
-        $this->generateOneAuthor();
+        if ($from == 0) {
+            $this->clearOldData();
+            $this->generateOneAuthor();
+        }
         // read file address db 
-        $address = [];        
+        $address = [];
         $address_res = fopen($this->path_address, "r");
         while (($filedata = fgetcsv($address_res, 5000, ",")) !== FALSE) {
             $num = count($filedata);
@@ -413,24 +423,70 @@ class ImportDatabase extends Command
             }
         }
         // read file db guide
-        $path_guide = base_path("resources/pending-database/guide.csv");
+        $path_guide = base_path("resources/pending-database/final1.csv");
         $baseStructure = config('oldstructure');
-        $const_proce = config('const');        
+        $const_proce = config('const');
 
         $newStructure = [];
-            $file = fopen($path_guide, "r");
-            $i = 0;
-            while (($filedata = fgetcsv($file, 5000, ",")) !== FALSE) {
+        $file = fopen($path_guide, "r");
+        $i = 0;
+        $done = 0;
+        while (($filedata = fgetcsv($file, 5000, ",")) !== FALSE) {
+            if ($i >= $from - 1 && $i < $to && $i > 0) {
                 $num = count($filedata);
                 for ($c = 0; $c < $num; $c++) {
+
                     $key = $baseStructure[$c]['new'] ? $baseStructure[$c]['new'] : $baseStructure[$c]['old'] . '_old';
                     $newStructure[$i][$baseStructure[$c]['table']][$key] = $filedata[$c];
+                    // $rows = $newStructure
+
                 }
-                $i++;
+
+                $row = $newStructure[$i];
+                unset($newStructure[$i]);
+
+
+
+                if ($done == 0) {
+                    $done++;
+                    continue;
+                }
+
+                try {
+                    $guide = $this->parseGuide($row['guide']);
+                    $products = $this->parseProduct($row['product'], $const_proce, $this->body);
+                    $guide['products'] =  json_encode($products);
+                    $newGuideId = Guide::insertGetId($guide);
+                    $delivery =  $this->parseDelivery($row['delivery'], $newGuideId, $address);
+                    $packaging =  $this->parsePackaging($row['packaging'], $newGuideId);
+                    $procedure =  $this->parseProcedure($row['procedure'], $newGuideId, $const_proce);
+                    Delivery::insert($delivery);
+                    Packaging::insert($packaging);
+                    Procedure::insert($procedure);
+                    foreach ($this->file_guide as $id) {
+                        $file_product = File::find($id);
+                        $file_product->guide_id = $newGuideId;
+                        $file_product->save();
+                    }
+                } catch (\Exception $e) {
+                    echo "error at " . $i . "\n";
+                }
+
+                $done++;
+                if ($done % 1000 == 0)
+                    echo "Migrated " . $done . " records \n";
+                if ($limit != null && $done > $limit)
+                    break;
             }
 
+            $i++;
+        }
+        //echo $i;
+        //die($i); 
+
+        /*
             $chunks = array_chunk($newStructure, 5000);
-            $done = 0;
+            
             foreach ($chunks as $rows) {
                 foreach ($rows as $row) {
                     if ($done == 0){
@@ -448,23 +504,25 @@ class ImportDatabase extends Command
                     Packaging::insert($packaging);
                     Procedure::insert($procedure);
                     foreach($this->file_guide as $id)
-                    {
+                    { 
                         $file_product = File::find($id);
                         $file_product->guide_id = $newGuideId;
                         $file_product->save();
-                    }
+                    } 
 
-                    $done++; 
+                    $done++;   
                     if($done % 1000 == 0)
                         echo "Migrated ". $done . " records \n";
                     if($limit != null && $done > $limit )
-                        break;
+                        break; 
                 }
-                
+                 
                 
             }
-            $this->info("Migrate database is completed");
-            $time = $start->diffInSeconds(now());
-            $this->comment("Processed in $time seconds");
+
+            */
+        $this->info("Migrate database is completed");
+        $time = $start->diffInSeconds(now());
+        $this->comment("Processed in $time seconds");
     }
 }
