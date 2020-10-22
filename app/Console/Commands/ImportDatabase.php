@@ -352,7 +352,7 @@ class ImportDatabase extends Command
                         ]
                     );
                     */
-                    $photoArray[] = ['id' => $id];
+                    // $photoArray[] = ['id' => $id];
                     $this->file_guide[] = $id;
                 } else {
                //        echo "File not found : " . $photo['link'] . " \n";
@@ -457,7 +457,6 @@ class ImportDatabase extends Command
                     $products = $this->parseProduct($row['product'], $const_proce, $this->body);
                     $guide['products'] =  json_encode($products);
                     $newGuideId = Guide::insertGetId($guide);
-                    /*
                     $delivery =  $this->parseDelivery($row['delivery'], $newGuideId, $address);
                     $packaging =  $this->parsePackaging($row['packaging'], $newGuideId);
                     $procedure =  $this->parseProcedure($row['procedure'], $newGuideId, $const_proce);
@@ -469,7 +468,6 @@ class ImportDatabase extends Command
                         $file_product->guide_id = $newGuideId;
                         $file_product->save();
                     }
-                    */
                 } catch (\Exception $e) {
                     echo "error at " . $i . "\n";
                     echo $e;
