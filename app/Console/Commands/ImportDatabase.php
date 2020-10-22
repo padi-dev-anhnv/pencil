@@ -410,10 +410,8 @@ class ImportDatabase extends Command
         $start = now();
         $this->comment("Start migrating");
         // clear all database for guide
-        if ($from == 0) {
             $this->clearOldData();
             $this->generateOneAuthor();
-        }
         // read file address db 
         $address = [];
         $address_res = fopen($this->path_address, "r");
@@ -464,11 +462,13 @@ class ImportDatabase extends Command
                     Delivery::insert($delivery);
                     Packaging::insert($packaging);
                     Procedure::insert($procedure);
+                    /*
                     foreach ($this->file_guide as $id) {
                         $file_product = File::find($id);
                         $file_product->guide_id = $newGuideId;
                         $file_product->save();
                     }
+                    */
                 } catch (\Exception $e) {
                     echo "error at " . $i . "\n";
                 }
