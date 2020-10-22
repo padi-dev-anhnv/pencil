@@ -321,7 +321,8 @@ class ImportDatabase extends Command
         foreach ($photos as $photo) {
             if ($photo && !empty(trim($photo['link']))) {
                 // echo $photo['link'];
-                $enName = mb_convert_encoding(trim($photo['link']), "EUC-JP", "UTF-8");
+                // $enName = mb_convert_encoding(trim($photo['link']), "EUC-JP", "UTF-8");
+                $enName = trim($photo['link']);
                 $old_path = storage_path('app/public/final/' . $enName);
                 //    echo "Copy file : " . $old_path . " \n"; 
 
