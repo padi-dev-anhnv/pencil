@@ -336,7 +336,7 @@ class ImportDatabase extends Command
                     if (empty($fileArray['extension']))
                         continue;
                     $newFile = strtolower(trim($fileArray['filename'] . '-' . $suffix . '.' . $fileArray['extension']));
-                    /*
+                    
                     FileManager::copy($old_path, storage_path('app/public/files/'.$newFile));
                     $id = File::insertGetId(
                         [
@@ -351,7 +351,7 @@ class ImportDatabase extends Command
                             'created_at' => $this->created_at
                         ]
                     );
-                    */
+                    
                     // $photoArray[] = ['id' => $id];
                     $this->file_guide[] = $id;
                 } else {
