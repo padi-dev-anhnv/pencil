@@ -456,13 +456,14 @@ class ImportDatabase extends Command
                     $products = $this->parseProduct($row['product'], $const_proce, $this->body);
                     $guide['products'] =  json_encode($products);
                     $newGuideId = Guide::insertGetId($guide);
+                    
+                    /*
                     $delivery =  $this->parseDelivery($row['delivery'], $newGuideId, $address);
                     $packaging =  $this->parsePackaging($row['packaging'], $newGuideId);
                     $procedure =  $this->parseProcedure($row['procedure'], $newGuideId, $const_proce);
                     Delivery::insert($delivery);
                     Packaging::insert($packaging);
                     Procedure::insert($procedure);
-                    /*
                     foreach ($this->file_guide as $id) {
                         $file_product = File::find($id);
                         $file_product->guide_id = $newGuideId;
