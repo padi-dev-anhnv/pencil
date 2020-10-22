@@ -64,4 +64,8 @@ Route::group(['prefix' => 'guide', 'middleware' =>['can:list,\App\Guide', 'activ
     Route::get('/{id}/show/{price}', 'GuideController@showPdf')->name('guide.show');
     
 });
+
+Route::get('/check', function(){
+    return phpinfo();
+});
 Route::get('/{id}/show-html/{price}', 'GuideController@showPdfHtml')->name('guide.html');
