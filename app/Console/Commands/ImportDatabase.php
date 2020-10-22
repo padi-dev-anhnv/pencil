@@ -355,7 +355,7 @@ class ImportDatabase extends Command
                     // $photoArray[] = ['id' => $id];
                     $this->file_guide[] = $id;
                 } else {
-               //        echo "File not found : " . $photo['link'] . " \n";
+                      echo "File not found : " . $photo['link'] . " \n";
                     $photoArray[] = '';
                 }
 
