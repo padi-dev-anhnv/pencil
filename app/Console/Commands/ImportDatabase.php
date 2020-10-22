@@ -453,11 +453,11 @@ class ImportDatabase extends Command
 
                 try {
                     $guide = $this->parseGuide($row['guide']);
+                    /*
                     $products = $this->parseProduct($row['product'], $const_proce, $this->body);
                     $guide['products'] =  json_encode($products);
                     $newGuideId = Guide::insertGetId($guide);
                     
-                    /*
                     $delivery =  $this->parseDelivery($row['delivery'], $newGuideId, $address);
                     $packaging =  $this->parsePackaging($row['packaging'], $newGuideId);
                     $procedure =  $this->parseProcedure($row['procedure'], $newGuideId, $const_proce);
@@ -472,6 +472,8 @@ class ImportDatabase extends Command
                     */
                 } catch (\Exception $e) {
                     echo "error at " . $i . "\n";
+                    echo $e;
+                    die();
                 }
 
                 $done++;
