@@ -315,7 +315,6 @@ class ImportDatabase extends Command
             }
         }
 */
-return [];
         if (!$this->use_upload_file)
             return [];
         $photoArray = [];
