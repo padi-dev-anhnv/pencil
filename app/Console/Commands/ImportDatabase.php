@@ -315,6 +315,7 @@ class ImportDatabase extends Command
             }
         }
 */
+return [];
         if (!$this->use_upload_file)
             return [];
         $photoArray = [];
@@ -352,7 +353,7 @@ class ImportDatabase extends Command
                         ]
                     );
                     
-                    // $photoArray[] = ['id' => $id];
+                    $photoArray[] = ['id' => $id];
                     $this->file_guide[] = $id;
                 } else {
                       echo "File not found : " . $photo['link'] . " \n";

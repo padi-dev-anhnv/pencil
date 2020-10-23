@@ -36,12 +36,14 @@ class Guide extends Model
         $this->attributes['created_at'] = empty($val) ? now() :  $val ;  
             
     }
-
-    public function getCreatedAtAttribute($val)
+/*
+    public function getCreatedAtAttribute()
     {
-        return Carbon::parse($val)->format('Y-m-d');
+        if(empty($this->created_at))
+            return null;
+        return $this->created_at;
     }
-
+*/
     public function getFirstProductAttribute($val)
     {
         return $this->products;

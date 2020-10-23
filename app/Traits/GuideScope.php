@@ -86,9 +86,9 @@ trait GuideScope
         if(!empty($array['orderDate']))
             $query->orderBy('created_at', $array['orderDate']);
         if(!empty($array['shippingDate']))
-            $query->orderBy('created_at', $array['shippingDate']);
+            $query->orderBy('shipping_date', $array['shippingDate']);
         if(!empty($array['receivedDate']))
-            $query->orderBy('created_at', $array['receivedDate']);
+            $query->orderBy('received_date', $array['receivedDate']);
     }
 
     public function scopeKeyword($query, $keyword)
