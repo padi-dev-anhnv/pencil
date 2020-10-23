@@ -46,6 +46,7 @@ class CreateThumbnails extends Command
             $file_name = pathinfo(basename($filename), PATHINFO_FILENAME);
             $extension = pathinfo(basename($filename), PATHINFO_EXTENSION);
             $thumbnail_name = $file_name . '-thumbnail.'.$extension;
+            /*
             try{
                 Image::make(public_path('storage/files/'.basename($filename)) )->resize(800, null, function ($constraint) {
                     $constraint->aspectRatio();
@@ -54,10 +55,11 @@ class CreateThumbnails extends Command
             catch(NotReadableException $e){
                 $this->error("Can not read file ". $thumbnail_name);
             }
-            
+            */
             $i++;            
             if($i % 300 == 0)
                 echo "Create ". $i . " thumbnails \n";
         }
+        echo $i;
     }
 }
