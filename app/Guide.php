@@ -11,7 +11,7 @@ class Guide extends Model
     protected $guarded = ['id', 'clone_id', 'creator'];
     protected $hidden = ['key_code'];
     protected $casts = [
-        'created_at'  => 'date:Y/m/d',
+        'created_at'  => 'date:Y-m-d',
         'shipping_at'  => 'date:Y/m/d',
         'received_at'  => 'date:Y/m/d',
         'price'         => 'array',
