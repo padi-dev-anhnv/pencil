@@ -27,6 +27,9 @@
 			$final_font_size = $product['font_size'] == "0" ? "一任" : $product['font_size'];
 			$final_printing_color = implode(" ", $product['printing_color']);
 			$final_photo = "pdf/images/pen_temp-0".$product['pattern_type'].".svg";
+
+			$style_insc_typeface1 = mb_strwidth($final_insc_typeface) > 10 ? 'style="line-height:12px"' : '';
+			$style_insc_method = mb_strwidth($final_insc_method) > 10 ? 'style="line-height:12px"' : '';
 			@endphp
 			@if($product['name'])
 			<li class="illi bbox fbox2">
@@ -83,7 +86,7 @@
 							<li class="tr">
 								<ul class="thtd">
 									<li class="th">銘入方式</li>
-									<li class="td">{{ $final_insc_method }}</li>
+									<li class="td"  {!!$style_insc_method!!}>{{ $final_insc_method }}</li>
 								</ul>
 							</li>
 							<li class="tr">
@@ -95,7 +98,7 @@
 							<li class="tr">
 								<ul class="thtd">
 									<li class="th">銘入書体</li>
-									<li class="td">{{ $final_insc_typeface}}</li>
+									<li class="td" {!!$style_insc_typeface1!!}>{{ $final_insc_typeface}}</li>
 								</ul>
 							</li>
 							<li class="tr">
