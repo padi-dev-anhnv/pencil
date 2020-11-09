@@ -399,6 +399,8 @@ ul.table {
   -webkit-flex: none;
   -moz-box-flex: 0;
   -ms-flex: none;
+  padding: 0 10px;
+  text-align: center;
   flex: none;
   width: 11em; }
 
